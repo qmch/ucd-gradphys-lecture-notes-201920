@@ -1,5 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{mynotes}[2019/09/25 Lecture notes format class]
+
+\LoadClass[reqno]{amsart}
+
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[margin=1in]{geometry}
 \RequirePackage[usenames, dvipsnames]{xcolor}
