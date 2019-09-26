@@ -1,1 +1,93 @@
-Some filler text.
+Reading assignment: read Ch. 2 and 3 of the course text (Arfken/Weber). This is basic linear algebra and vector analysis.
+
+The purpose of this course is to learn formal aspects of quantum mechanics. We'll focus on doing analysis in Hilbert space. It's a remarkable fact about the natural world that most of our physical world is well-approximated by linear systems.
+
+In the simplest form, we may think of vectors as arrays of numbers,
+\begin{equation}
+    (v_1,v_2,\ldots).
+\end{equation}
+But we can also think of some real function $f(x):\RR\to \RR$ as a collection of numbers too, just by taking its values at arbitrarily close points.
+
+\begin{defn}
+    A \term{linear vector space} over a field $F$, denoted $L(F)$, is a set $\set{\ket{v}}$ with an addition operation $+$ such that
+    \begin{itemize}
+        \item for $\ket{v},\ket{u}\in L, \ket{u}+\ket{v}=\ket{w}\in L$ (closure)
+        \item for $c\in F$, $c\ket{v}\in L$ (scalar multiplication).
+    \end{itemize}
+\end{defn}
+These axioms directly imply that any linear combination of vectors in $L$ is also in the vector space:
+\begin{equation}
+    c_v \ket{v} +c_u \ket{u} \in L.
+\end{equation}
+
+This leads us naturally to the notion of \term{linear (in)dependence}. Suppose we take some vectors $\ket{v_k}\in L$ and make a linear combo,
+\begin{equation}
+    \sum_k c_k\ket{v_k}.
+\end{equation}
+\begin{defn}
+    A set of vectors $\set{\ket{v_k}}$ is \term{linearly dependent} if there exists some $\set{c_k}$ not all zero such that
+    \begin{equation}
+        \sum_k c_k\ket{v_k} =\ket{0},
+    \end{equation}
+    and such that $\ket{0}\notin \set{\ket{v_k}}$.
+\end{defn}
+We need this last condition because otherwise we could simply take the coefficient of the $\ket{0}$ vector to be 1 and then arrive at a trivial solution.
+\begin{defn}
+    If a set of vectors is not linearly dependent, it is \term{linearly independent}.
+\end{defn}
+
+The next question we might ask is as follows: what is the size of the biggest set of linearly independent vectors we can construct for a given vector space?
+\begin{defn}
+    The maximum number of linearly independent vectors associated to a given vector space is called the \term{dimension}.
+\end{defn}
+
+\begin{exm}
+    We may consider an infinitely differentiable ($C^\infty$) function. It has a Taylor expansion
+    \begin{equation}
+        f(x)=\sum \frac{f^{(n)}(0}{n!}x^n,
+    \end{equation}
+    which we may think of as an expansion in the basis $(1,x,x^2,\ldots)$.
+\end{exm}
+So this is a vector space with countably infinite dimension. But we can have uncountably infinite-dimensional spaces too, e.g. the space of Fourier-transformable functions in a basis $e^{ikx}, k\in \RR$. These factors are not just linearly independent; introducing an appropriate inner product, they are orthogonal.
+
+It follows that for a vector space $L_D$ of dimension $D$, any set with more than $D$ vectors must be linearly dependent, i.e. $\exists \bar c_v, \bar c_k$ not all zero such that
+\begin{equation}
+    \bar c_v \ket{v} + \sum_k \bar c_k \ket{v_k}=0.
+\end{equation}
+Moreover $\bar c_v\neq 0$ or else the original set $\ket{v_k}$ would be linearly dependent. Hence we can divide through, define $\hat c_k=\bar c_k/\bar c_v$, and write
+\begin{equation}
+    \ket{v} =\sum_k \hat c_k \ket{v_k}.
+\end{equation}
+That is, we have \emph{decomposed} a general vector $\ket{v}$ in terms of its components $\hat c_k$ with respect to a basis $\ket{v_k}$.
+
+We might now be interested in adding more structure to our vector space. Consider $L_D$ with $\ket{v},\ket{u}$. 
+\begin{defn}
+    We define an \emph{inner product} by
+    \begin{equation}
+        \braket{v}{u}:(\ket{v},\ket{u})\to F
+    \end{equation}
+    as a map from the input vectors to the field over which the vector space is defined, with the following properties:
+    \begin{itemize}
+        \item $\bra{u}\paren{\lambda\ket{v_1} +\mu\ket{v_2}} =\lambda \braket{u}{v_1} +\mu\braket{u}{v_2}$ (linearity)
+        \item $\braket{v}{u}=\braket{u}{v}^*$
+        \item $\braket{v}{v} \geq 0$, with equality only for the zero vector (positive semi-definite).
+    \end{itemize}
+\end{defn}
+
+If we choose a basis $\set{\ket{v_k}}$, then if our vectors $\ket{u},\ket{v}$ have some expansion in this basis then by linearity that
+\begin{equation}
+    \braket{u}{v}=\sum_k \hat c_k^v \braket{u}{v_k},
+\end{equation}
+and we can expand each of these inner products as
+\begin{equation}
+    \braket{u}{v_k} = \paren{\braket{v_k}{u}}^* = \sum_n c_n^u{}^* \braket{v_n}{v_k}.
+\end{equation}
+It follows that we can write a general inner product as
+\begin{equation}
+    \braket{u}{v} =\sum_{n,k}=c_k^v c_n^u{}^* \braket{v_n}{v_k}.
+\end{equation}
+Moreover if we could choose a nice basis which had a special property of \emph{orthogonality} or better yet \emph{orthonormality}, we could reduce this to a single sum
+\begin{equation}
+    \braket{u}{v} =\sum_k c_k^v c_k^*
+\end{equation}
+in terms of the components alone.

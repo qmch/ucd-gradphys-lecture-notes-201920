@@ -1,1 +1,172 @@
-Some filler text.
+The syllabus for this course is on Canvas.
+
+\subsection*{Massless spin 1 particles}
+What we're gonna start talking about is QFTs with massless spin 1 particles (i.e. photons). When we talk about particles, what we mean are states, i.e.
+\begin{equation}
+    \ket{p,s},
+\end{equation}
+labeled by a four-momentum $p$ and a spin state $s$. For massive spin 1 there are three spin states which can be distinguished by the helicity, i.e. the projection of the spin along the direction of the three-momentum, so our states can be labeled by $s=0,\pm 1$.
+
+In the massive case, we therefore have
+\begin{equation}
+    \ket{p,s}_{s=0,\pm 1} \mapsto^\Lambda \sum_{s'} D_{s's}^{(1)}(W(\Lambda, p)) \ket{\Lambda p,s'}
+\end{equation}
+where $W(\Lambda,p)$ indicates a representaiton of the $SO(3)$ symmetry.
+
+In the massless case, it's a little different. Instead we have
+\begin{equation}
+    \ket{p,s}_{s=\pm 1} \mapsto^\Lambda e^{-is \theta(W(\Lambda,p))}\ket{\Lambda p,s}.
+\end{equation}
+
+The key difference is that we lose a polarization state in going from massive to massless. $2\neq 3$. There is no rest frame for the photon, so we have to be careful in taking a massless limit or conversely turning on a mass.
+
+How do we set up a QFT? We will need some fields, obviously. We can set up a Fock space with some creation and annihilation operators, so that given a vacuum state, we can define
+\begin{equation}
+    \ket{p_1,s_1,\ldots, p_n,s_n}=a_{s_1}^\dagger(p_1),\ldots,a_{s_n}^\dagger (p_n) \ket{0}
+\end{equation}
+where the creation and annihilation operators have commutator
+\begin{equation}
+    [a_{s'}(p'),a_s^\dagger(p)]=\delta_{s's}(p'|p)=\delta_{s's} 2|\vec p| \cdot (2\pi)^3 \delta^3(\vec {p}'-\vec{p}).
+\end{equation}
+
+We could define a vector field, since we want a nontrivial transformation under Lorentz. Thus
+\begin{equation}
+    \hat A^\mu(x) = \int(dp)\sum_{s=\pm1} \hat a_s (p) \epsilon_s^\mu(p) e^{-ip\cdot x} + \text{h.c.}
+\end{equation}
+with $dp=\frac{d^3p}{(2\pi)^3} \frac{1}{2|\vec{p}|}$. That is, our vector field is an integral over $d^4p$ with creation and annihilation operators summed over spin spates, polarization vectors $\epsilon^\mu_s(p)$ attached, and the corresponding exponentials.
+
+Note that as a consequence of being massless, the field satisfies
+\begin{equation}
+    \Box A^\mu(x)=0,
+\end{equation}
+the massless Klein-Gordon equation. We can choose
+\begin{equation}
+    p_\mu \epsilon_s^\mu (p)=0 \iff \p_\mu \hat A^\mu(x)=0.
+\end{equation}
+That gets rid of one linear combination, but we still seem to have too many degrees of freedom. In fact, we will show that $A$ does not transform as an honest vector. That is, the equation
+\begin{equation}
+    \hat U(\Lambda)^\dagger \hat A^\mu(x) \hat U(\Lambda) = \Lambda^\mu{}_\nu A^\nu(\Lambda^{-1}x)
+\end{equation}
+cannot be satisfied. This is nontrivial to show, as the left side is an infinite-dim unitary rep of the Lorentz group, whereas the right side is a finite-dim non-unitary rep of Lorentz.
+
+However, what we notice is that the left side evaluates to
+\begin{equation}
+    \hat A^\mu(x) = \int(dp)\sum_{s=\pm 1} \underbrace{\hat U^\dagger \hat a_s (p) U}_{\sim e^{-is\theta}a_s} \epsilon_s^\mu(p) e^{-ip\cdot x} + \text{h.c. },
+\end{equation}
+and we know that the right side (by virtue of having Lorentz indices) must affect the polarization vector, i.e.
+\begin{equation}
+    \Lambda^\mu{}_\nu \epsilon^\nu(\Lambda^{1} p) \? e^{-is \theta(W(\Lambda,\Lambda^{-1}p))}\epsilon_s^\mu(p).
+\end{equation}
+
+For a general four-momentum we can certainly choose a frame where it takes the statndard form
+\begin{equation}
+    p^\mu \to n^\mu = (E,0,0,E),
+\end{equation}
+such that for rotations about the $x_3$ axis,
+\begin{equation}
+     (e^{-i\theta J_3})^\mu{}_\nu \epsilon^\nu_\pm(n) = e^{-i\theta}\epsilon_\pm^\mu(n).
+\end{equation}
+Here $J_3$ is the generator of rotations around the $x_3$ axis. Hence this becomes an eigenvalue equation, $J^3 \epsilon_\pm(n) = \pm \epsilon_\pm(n)$. We find that
+\begin{equation}
+    \epsilon_\pm^\mu(n) =\frac{1}{\sqrt{2}}(0,1,\pm i,0)+ \alpha_\pm n^\mu.
+\end{equation}
+There's an extra freedom in the $\alpha$s since $n^\mu$ is a zero eigenvector of $J_3$ and can therefore be added to $\epsilon_\pm(n)$ with impunity.
+
+Let us consider the action of the Little group, with the generators $J_3,T^1,T^2$ (transcribe later). Thus
+\begin{equation}
+    W(\theta,\beta_1,\beta_2)^\mu{}_\nu = \bkt{e^{-i(\theta J^3 + \beta_1 T^1+\beta_2 T^2)}}^\mu{}_\nu
+\end{equation}
+defines the Wigner rotation. These are the operators which leave the form of the standard four-momentum unchanged.
+
+Now
+\begin{equation}
+    \Lambda^\mu{}_\nu \epsilon_\pm^\nu(\Lambda^{-1}p) = e^{-is \theta} \epsilon_\pm^\mu(p)+ip^\mu f_s,
+\end{equation}
+where $\theta,f_s$ are some functions of $W(\Lambda,\Lambda^{-1}p)$. We see that we've picked up an extra piece, the $p^\mu$ term. Now $T^{1,2}\cdot n=0$, since this is the definition of being in the Little group. But on the polarization vector, we have instead
+\begin{equation}
+    T^{1,2} \cdot \epsilon(n) \propto n.
+\end{equation}
+Thus when we write down the unitary transformation of our field $A^\mu$, we have
+\begin{equation}
+     \hat U(\Lambda)^\dagger \hat A^\mu(x) \hat U(x) = \Lambda^\mu{}_\nu \hat A^\nu (\Lambda^{-1}x) +\p^\mu \hat \omega(x).
+\end{equation}
+There's some extra stuff here too,
+\begin{equation}
+    \hat \omega(x) = \int (dp) \sum_{s=\pm} \bkt{\hat a_s(p) \epsilon_s^\mu(p) e^{-ip\cdot x} f_s(W(\ldots))+\text{h.c.}},
+\end{equation}
+which is some terrible stuff we don't want to deal with.
+
+We recall (from Chapter 7) that there's a boost $L(p)$ such that
+\begin{equation}
+    \epsilon_\pm(p) = L(p) \cdot \epsilon_\pm(n),
+\end{equation}
+with $L(p)\cdot n = p$.
+
+For some standard $n=(E,0,0,E)$, we can can boost along the $3$-axis to turn $E\to p^0$ and then rotate $\vec{n}=(0,0,p^0)$ to point in the direction of $\vec p$. Thus
+\begin{equation}
+    \epsilon_\pm(n) =\frac{1}{\sqrt{2}}(0,1,\pm i,0),
+\end{equation}
+such that $\epsilon_\pm^0(p)=0$ gives
+\begin{equation}
+    \hat A^0(x)=0,
+\end{equation}
+which is clearly not Lorentz-invariant.
+
+However, while $A^\mu$ by itself is not good to work with, we can define
+\begin{equation}
+    \hat F_{\mu\nu}(x) \equiv \p_\mu \hat A_\nu(x) -\p_\nu \hat A_\mu(x),
+\end{equation}
+which defines an antisymmetric tensor observable. We might like to write down some sort of interacting Hamiltonian, which should have terms $O(A^3)$. For instance,
+\begin{equation}
+    F^{\mu\nu}F_{\nu\rho} F^\rho{}_\mu \in \cH_\text{int}.
+\end{equation}
+What we'll see is that $[A_\mu]=1$, which tells us that $[F^3]=6 >4$, i.e. in four spacetime dimensions this coupling is irrelevant. We know that light has nontrivial couplings to matter, so we'll have to figure out how this can be done.
+
+\subsection*{Gauge invariance}
+Gauge invariance comes into our theory through the ``Stuckelberg trick.'' Stuckelberg figured out how to go from a theory without gauge invariance to a theory with gauge invariance. We begin by declaring that a new field $\hat A^\mu$ has the property
+\begin{equation}
+    \hat U(\Lambda)^\dagger \hat A^\mu(x) \hat U(x) = \Lambda^\mu{}_\nu \hat A^\nu (\Lambda^{-1}x),
+\end{equation}
+i.e. transforms as an honest vector, given that
+\begin{equation}
+    A_\mu(x) \cong A_\mu(x) + \p_\mu \omega(x).
+\end{equation}
+That is, we say that adding $\p_\mu\omega(x)$ is a gauge redundancy, i.e. two fields differing only by a total derivative lead to the same physics.
+
+Now, for some $A_\mu$ our gauge transformations sweep out some gauge orbit which ends up foliating the space of $A_\mu$, and the configuration space is then the set of equivalence classes. This is known as the ``geometrical viewpoint.''
+
+Conversely, there is the gauge-fixed viewpoint in which we choose a representative $A_\mu(x)$ from each orbit.
+%picture
+
+Notice also that our field strength tensor is gauge-invariant. In the free theory, if we only want to build the equations of motion out of $F^{\mu\nu}$, basically all we can write down is
+\begin{equation}
+    \p_\mu F^{\mu\nu}=0.
+\end{equation}
+This is both $O(A_\mu)$ and quadratic in the derivatives, $O(\p^2)$. And thus we may choose a gauge such that
+\begin{gather}
+    \Box A =0\\
+    A^0 = 0\\
+    \div \vec{A}=0.
+\end{gather}
+This is \term{Coulomb gauge}.
+
+Let $A_\mu(x)$ be in a general gauge. Does there exist an $\omega$ with
+\begin{equation}
+    A'_\mu(x) =A_\mu(x)+\p_\mu\omega(x)
+\end{equation}
+such that
+\begin{equation}
+    0\? A'_0(x) = A_0(x)+\p_0 \omega(x,t)
+\end{equation}
+Sure, if we choose $\omega(\vec{x},t)=-\int^t dt' A_0(\vec{x},t')+f(\vec{x})$, where we can certainly add something that depends only on $\vec{x}$. Moreover we wish to impose
+\begin{equation}
+    0\? \div \vec{A}'(\vec{x},t)=\div\bkt{A(\vec{x},t) -\grad\paren{-\int_0^t dt' A_0(\vec{x},t')}-\grad f(\vec{x})}.
+\end{equation}
+In general this is not possible, since the first two terms here generically depend on time and the $\nabla^2 f(\vec{x})$ term does not depend on time. However, we can do it for one particular time, $t=0$, and set
+\begin{equation}
+    \div \vec{A}'(\vec{x},t=0)=0,
+\end{equation}
+such that the equations of motion guarantee
+\begin{equation}
+    \p_t(\div \vec{A})=0.
+\end{equation}
