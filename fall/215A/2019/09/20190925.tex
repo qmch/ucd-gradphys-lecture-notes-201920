@@ -1,1 +1,219 @@
-Some filler text.
+The aim of this course is to revisit quantum mechanics in more depth and more mathematical rigor. The official course text is Shankar's Principles of Quantum Mechanics, but the lecturer also recommends Weinberg's QM, Sakurai, and Leslie Valentine. To really understand the foundations of QM, Dirac's book is also useful.
+
+\subsection*{Origins of QM}
+One of the original motivations for QM was explaining the blackbody spectrum. The Rayleigh-Jones curve described the small-temperature limit, and Planck later added a correction, exponential damping at high $T$. Underlying Planck's model was some suggestion of quantized, discrete energies, and this theory was further developed with Schr\"odinger's wave mechanics.
+
+Today, there have been many precision tests of quantum mechanics confirming that QM is a good model of small-scale phenomena. We'll spend the rest of today discussing the mathematical formalism which makes QM possible.
+
+\subsection*{Mathematical background}
+Quantum mechanics is basically infinite-dimensional\footnote{Well, finite in spin systems and so on.} linear algebra. Why care about linear algebra? The key idea is this-- QM obeys a superposition principle. Our theory is linear.
+
+To build this theory, we need objects living in a vector space and some operators acting on those vectors. More precisely, we will deal with 
+\begin{itemize}
+    \item wavefunctions, i.e. states in a Hilbert space
+    \item \emph{calculables}, representing operator expectation values.%
+        \footnote{We won't get into the details of measurement or observation in this course.}
+\end{itemize}
+
+\begin{defn}
+    A \term{linear vector space} is a collection of elements called \term{vectors}, denoted by kets $\set{\ket{v_i}}$, on which two operations are defined: 
+    \begin{itemize}
+        \item Addition, $+\to \ket{v}+\ket{w}$,
+        \item and scalar multiplication, $\alpha \ket{v}, \alpha \in \CC.$
+    \end{itemize} 
+    These operations satisfy the following properties. For all $\ket{v_i},\ket{v_j}\in V$, $\alpha\in \CC$,
+    \begin{itemize}
+        \item $\ket{v_i}+\ket{v_j}\in V$
+        \item $\alpha\ket{v_i} \in V$.
+    \end{itemize}
+\end{defn}
+
+From these axioms, it follows that all linear combinations (superpositions) of vectors are allowed. That is, for $\ket{v_i},\ket{v_j}\in V, \alpha_i,\alpha_j\in \CC$,
+\begin{equation}
+    \alpha_i \ket{v_i} +\alpha_j \ket{v_j}\in V.
+\end{equation}
+
+From the axioms, we can also prove some useful properties:
+\begin{itemize}
+    \item $\exists \ket{0}\in V$ (additive identity) such that $\ket{v}+\ket{0}=\ket{v}$
+    \item For all $\ket{v}\in V$, $\exists \ket{-v} \in V$ (additive inverse) such that $\ket{v}+\ket{-v}=\ket{0}$.
+\end{itemize}
+We will often be sloppy with our notation and denote $\ket{0}\sim 0$, so that $\ket{v}-\ket{v}=0$, which is secretly the zero vector.
+
+It would be frustrating if our set of vectors was simply impossible to manage, i.e. if the vectors had no nontrivial relationships between each other.%
+    \footnote{Free fields are kind of like this.}
+Therefore, we will introduce the following definition.
+\begin{defn}
+    A set of vectors $\set{\ket{w_i}}$ comprises a \term{linearly independent set} if no nontrivial linear combination of them sums to zero, i.e. if
+    \begin{equation}
+        \sum_i \alpha_i \ket{w_i} =0 \implies \alpha_i = 0.
+    \end{equation}
+\end{defn}
+\begin{defn}
+    A set of vectors which is not linearly independent (there exists some combination $\alpha_i$ not all zero such that $\sum \alpha_i \ket{w_i}=0$) is called linearly dependent.
+\end{defn}
+
+Linear independence allows us to pick a special \emph{basis set}, which we denote $\set{\ket{e_n}}$ such that for \emph{any} $\ket{v}\in V$, there exists a decomposition
+\begin{equation}
+    \ket{v} =\sum \alpha_n \ket{e_n}.
+\end{equation}
+Let's illustrate this with some examples.
+
+\begin{exm}
+    The space $\RR^3$ is a (real) vector space, where vectors can be denoted
+    \begin{equation}
+        \vec{v}= x \hat e_x + y \hat e_y + z \hat e_z.
+    \end{equation}
+    Equivalently in ket notation we could write
+    \begin{equation}
+        \ket{v}= x \ket{e_x} + y \ket{e_y} + z \ket{e_z}.
+    \end{equation}
+    This generalizes in the obvious way to $\RR^n$.
+\end{exm}
+\begin{exm}
+    Consider a 1-qubit system, a quantum spin system with two states. A general state is written%
+        \footnote{Some people prefer $\ket{\uparrow}\ket{\downarrow}$ or $\ket{+},\ket{-}$.}
+    \begin{equation}
+        \alpha\ket{0} +\beta\ket{1},
+    \end{equation}
+    with $\alpha,\beta\in \CC$.
+    This is a complex vector space.
+\end{exm}
+\begin{exm}
+    We can define a \term{discretuum vector space} with a basis set $\ket{n},n=0,1,2,\ldots$. A general element is written
+    \begin{equation}
+        \sum_{n=0}^\infty \alpha_n \ket{n},
+    \end{equation}
+    with $\alpha_n\in \CC$. This is of course the space of states for the harmonic oscillator, or more generally any confining potential.
+\end{exm}
+\begin{exm}
+    Consider the space spanned by $2\times 2$ matrices, defined over $\CC$. In particular, take
+    \begin{equation}
+        \sigma_1 =\begin{pmatrix}
+            0 & 1\\
+            1 & 0
+        \end{pmatrix}
+        \sigma_2= \begin{pmatrix}
+            0 & -i\\
+            i & 0
+        \end{pmatrix}
+        \sigma_3= \begin{pmatrix}
+            1 & 0\\
+            0 & -1
+        \end{pmatrix}
+        1=\begin{pmatrix}
+            1 & 0\\
+            0 & 1
+        \end{pmatrix}.
+    \end{equation}
+\end{exm}
+\begin{exm}
+    We could have a continuum vector space which is the space of functions over some domain.%
+        \footnote{Strictly this is a countable vector space with continuum elements. For a vector space with uncountably infinite basis elements, consider plane waves and a Fourier decomposition.}
+    In particular, consider the Hermite polynomials $H_n(x)$, $x\in \RR$, the solutions to the harmonic oscillator. This is just a function representation of the solutions. Similarly the Bessel functions from electromagnetism and spherical harmonics from the spherical Laplacian form vector spaces.
+\end{exm}
+
+The rest of today's discussion centers on how to choose a useful basis.
+
+\begin{defn}
+    If a vector can be written as
+    \begin{equation}
+        \ket{v}=\sum_n \alpha_n \ket{e_n}
+    \end{equation}
+    with respect to a basis $\set{\ket{e_n}}$, we say that $\alpha_n$ are \emph{components} of $\ket{v}$ in the basis $\set{\ket{e_n}}$.
+\end{defn}
+In a different basis, the components will generally change, but the \emph{vector does not}.%
+    \footnote{This is a critical fact in general relativity, where vectors are defined in a tangent bundle.}
+
+\subsection*{Normed vector space}
+It's possible to do linear algebra without an inner product. But we're physicists, so we shall define one.
+\begin{defn}
+    An \term{inner product} is a function of two vectors, denoted in bra-ket notation as 
+    \begin{equation}
+        \paren{\ket{v},\ket{w}}=\braket{v}{w},
+    \end{equation}
+    and obeys the following properties:
+    \begin{itemize}
+        \item $\braket{v}{w}\in \CC$
+        \item $\braket{v}{w}=\braket{w}{v}^*$
+        \item $\braket{v}{\alpha_1 w_1 +\alpha_2 w_2} = \alpha\braket{v}{w_1} +\alpha_2 \braket{v}{w_2}$
+        \item $\braket{v}{v}\geq 0$ with $\braket{v}{v}=0\implies \ket{v}=0$.
+    \end{itemize}
+\end{defn}
+\begin{defn}
+    We can then define the \emph{norm} of a vector as
+    \begin{equation}
+        ||v||=\sqrt{\braket{v}{v}}.
+    \end{equation}
+\end{defn}
+\begin{ex}
+    Show that the inner product is antilinear in the first argument, i.e.
+    \begin{equation}
+        \braket{\alpha_1 v_1 +\alpha_2 v_2}{w} = \alpha_1^* \braket{v_1}{w} + \alpha_2^* \braket{v_2}{w}.
+    \end{equation}
+\end{ex}
+
+We have some properties of an inner product. The inner product must satisfy the \term{Schwarz inequality},
+\begin{equation}
+    |\braket{w}{v}|^2 \leq \braket{w}{w} \braket{v}{v}.
+\end{equation}
+Recall that in $\RR^3$, this is just the statement that $\braket{w}{v}=\vec{v} \cdot \vec{w} = |\vec{v}||\vec{w}|\cos\theta.$ We can prove it by considering the vector
+\begin{equation}
+    \ket{z} = \ket{v} - \frac{\braket{w}{v}}{||w||^2}\ket{w}
+\end{equation}
+and using the positivity of the norm of $\ket{z}$.
+
+It also satisfies the \term{triangle inequality},
+\begin{equation}
+    ||v+w||\leq ||v|| + ||w||.
+\end{equation}
+
+A basis $\set{\ket{e_n}}$ can be made orthonormal, i.e. such that 
+\begin{equation}
+    \braket{e_n}{e_m} = \delta_{nm}.
+\end{equation}
+This can always be done by the Gram-Schmidt algorithm.
+
+In an orthonormal basis, the inner product between two vectors is very easy to calculate. With $\ket{v}=\sum \alpha_n \ket{e_n}, \ket{w} =\sum \beta_n \ket{e_n},$ the inner product is given by
+\begin{equation}
+    \braket{v}{w}=\sum_n \alpha_n^* \beta_n.
+\end{equation}
+
+\subsection*{Dual vector space}
+We wish to use the norm to define a \term{dual vector space}. Strictly we don't need a norm to do this, but it provides a natural way to do so.
+\begin{defn}
+    Given a vector space $V$, we define the dual vector space $V^*$, whose elements are \emph{linear functionals} on $V$. That is, if $F_w \in V^*$, then
+    \begin{equation}
+        F_w:V\to \CC
+    \end{equation}
+    such that
+    \begin{equation}
+        F_w(\alpha_1 \ket{v_1} + \alpha_2 \ket{v_2}=\alpha_1 F_w (\ket{v_1}) +\alpha_2 F_ (\ket{v_2}).
+    \end{equation}
+\end{defn}
+
+Moreover, we claim that the dual vector space deserves its name; it is an honest vector space. This is pretty easy to check, i.e. that linear combinations of linear functionals are themselves linear functionals.
+
+For a ket vector $\ket{v}\in V$, we can associate a bra vector $\bra{v}\in V^*$. Given a basis $\set{\ket{e_n}}$ for $V$, we may define a dual basis $\set{\bra{e_m}}$ for $V^*$, defined such that
+\begin{equation}
+    \braket{e_m}{e_n}=\delta_{mn}.
+\end{equation}
+Note that this immediately implies that any ket vector has a corresponding bra vector in the natural way. That is, we may define an \term{adjoint operation} such that for
+\begin{equation}
+    \ket{v}=\sum_n \alpha_n \ket{e_n},
+\end{equation}
+there exists a corresponding bra vector
+\begin{equation}
+    \bra{v}=\sum_n \alpha_n^* \bra{e_n}.
+\end{equation}
+In this sense, the vector space $V$ and its dual vector space $V^*$ are isomorphic.
+
+We can also write the vectors in a funny way:
+\begin{equation}
+    \ket{v}=\sum_n \braket{e_n}{v}\ket{e_n}
+\end{equation}
+and similarly
+\begin{equation}
+    \bra{v} =\sum_m \braket{v}{e_m} \bra{e_m}.
+\end{equation}
+That is, the components of a vector are simply given by its projections onto the basis vectors.
