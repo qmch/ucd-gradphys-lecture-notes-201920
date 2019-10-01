@@ -1,0 +1,208 @@
+Now that we have defined vectors and vector spaces, let us define linear operators.
+\begin{defn}
+An \term{operator} is a map $\cO: V\to V$ such that
+\begin{equation}
+    \ket{v'}=\cO \ket{v}.
+\end{equation}
+Linear operators obey
+\begin{equation}
+    \cO(\alpha_1\ket{v_1}+\alpha_2 \ket{v_2})=\alpha_1 \cO \ket{v_1} +\alpha_2 \cO \ket{v_2}.
+\end{equation}
+\end{defn}
+
+Operators form an algebra, i.e. addition and multiplication are defined on operators such that
+\begin{gather}
+    (A+B)\ket{v}=A\ket{v} + B\ket{v}\\
+    (AB)\ket{v}= A(B\ket{V}).
+\end{gather}
+Addition is commutative, but multiplication is not-- generically,
+\begin{equation}
+    AB \neq BA.
+\end{equation}
+Multiplication is however asssociative,
+\begin{equation}
+    A(BC)=(AB)C.
+\end{equation}
+
+Linear operators can be thought of as generalizations of matrices. In particular they have \term{matrix elements} given by $\bra{v} \cO \ket{w}$ or in a basis,
+\begin{equation}
+    \bra{e_n} \cO \ket{e_m} = \cO_{nm}.
+\end{equation}
+
+If $\cO\ket{v}=\ket{w}$ and $\ket{v}=\sum v_n \ket{e_n},\ket{w} = \sum w_m \ket{e_m}$, then it follows 
+\begin{equation}\label{matrixelementinnerprod}
+    w_m = \sum_n \cO_{mn} v_n.
+\end{equation}
+\begin{ex}
+    Check Eq. \ref{matrixelementinnerprod} from the definition of the matrix element and inner product.
+\end{ex}
+Sometimes we conflate operators with their matrix elements, but the matrix elements are basis-dependent; the operator is not.
+
+\subsection*{Adjoint of an operator}
+Let us now define the adjoint of an operator. Normally we have
+\begin{equation}
+    \bra{v}\cO \ket{w} = \bra{v} \paren{\cO \ket{w}},
+\end{equation}
+but can we construct some operator that allows us to evaluate this as
+\begin{equation}
+    \paren{\bra{v}\cO}\ket{w}?
+\end{equation}
+\begin{defn}
+    If $\cO\ket{v}=\ket{w}$, let us define the adjoint $\cO^\dagger$ by
+    \begin{equation}
+        \bra{v} \cO^\dagger = \bra{w}.
+    \end{equation}
+\end{defn}
+From this definition, it follows that since $\braket{z}{v}=\braket{v}{z}^*,$ we have
+\begin{equation}
+    \bra{v}\cO^\dagger \ket{z}^* = \bra{z} \cO \ket{v}.
+\end{equation}
+In terms of matrix elements, we know this is just the conjugate transpose,
+\begin{equation}
+    (\cO^\dagger)_{mn}= O_{nm}^*.
+\end{equation}
+As a matrix, $O^\dagger=(O^*)^T.$
+
+Notice that the adjoint has the following properties:
+\begin{itemize}
+    \item $(\alpha \cO)^\dagger = \alpha^* \cO^\dagger$ for $\alpha\in \CC$
+    \item $(A+B)^\dagger = \alpha^\dagger + B^\dagger$
+    \item $(AB)^\dagger = B^\dagger A^\dagger$.
+\end{itemize}
+\begin{ex}
+    Check these properties from the definition of the adjoint.
+\end{ex}
+
+Some examples of operators include the following:
+\begin{itemize}
+    \item $\II$, the identity operator acting as $\II\ket{v}=\ket{v}$.
+    \item Over $\CC^2$ spanned by $\set{\ket{1},\ket{0}}$, the Pauli matrices and the identity element are linear operators. In particular they are complete, and obey the commutators
+    \begin{align}
+        [\sigma_i, \sigma_j] &= 2i\epsilon_{ijk}\sigma_k\\
+        [\sigma_i, \II] &= 0.
+    \end{align}
+\end{itemize}
+
+In finite dimension, operators are basically matrices. How do we generalize to the infinite-dimensional cases we often see in quantum mechanics? 
+\begin{exm}
+    Consider first the vector space of smooth functions $\set{f(x)}$ on $\RR$. We can define operators $x^m, m\in \ZZ_{\geq 0}$ which simply multiply these smooth functions,
+    \begin{equation}
+        x^m: f(x) \to x^n f(x).
+    \end{equation}
+\end{exm}
+\begin{exm}
+    The derivative also defines an operator on this vector space.
+    We might define 
+    \begin{equation}
+        x\P{}{x}:f(x)\to x f'(x)
+    \end{equation}
+    or similarly
+    \begin{equation}
+        \P{}{x} x : f\to \P{}{x}(xf(x))=xf'+f
+    \end{equation}
+    
+    Sometimes we will write
+    \begin{equation}
+        \P{}{x} x = x\P{}{x}+1,
+    \end{equation}
+    omitting the function $f$.
+\end{exm}
+
+\subsection*{Self-adjoint operators and computables}
+In a sentence, we can describe quantum mechanics as complex matrix linear algebra in infinite dimensions. But let us note that while QM in general is complex, the things we measure must be real. This leads us to introduce the notion of self-adjoint operators.
+\begin{defn}
+    A \term{self-adjoint operator} is an operator satisfying
+    \begin{equation}
+        \bra{w} \cO\ket{v} =\bra{v}\cO \ket{w}^*.
+    \end{equation}
+    In other words, $\cO=\cO^\dagger$, or in terms of matrix elements, $\cO_{nm}=\cO^*_{mn}$.
+\end{defn}
+For most cases, self-adjoint $\sim$ Hermitian.%
+    \footnote{See Homework 1 for an example of how this can fail in an infinite-dimensional vector space.}
+Self-adjoint operators are nice because their eigenvalues are \emph{real}, meaning that they correspond to observables in our theory.
+    
+We'll also use the following definition later, the trace.
+\begin{defn}
+    The \term{trace} of an operator is defined to be
+    \begin{equation}
+        \Tr(\cO)=\sum_n \bra{e_n}\cO \ket{e_n}.
+    \end{equation}
+\end{defn}
+We claim it is independent of basis, and in fact we will prove it on the first homework.
+
+\subsection*{Eigenspectrum}
+Just as in the finite-dimensional case, we can talk about the eigenvectors and eigenvalues of operators acting on infinite-dimensional spaces.
+\begin{defn}
+    The (nonzero) vector $\ket{w}$ is an eigenvector of the operator $\cO$ with eigenvalue $\alpha$ if
+    \begin{equation}
+        \cO\ket{w}=\alpha \ket{w}, \alpha \in \CC.
+    \end{equation}
+\end{defn}
+Hermitian operators have real eigenvalues, since
+\begin{equation}
+    \cO\ket{w} =\alpha\ket{w} \implies \bra{w} O^\dagger = \alpha^* \ket{w}.
+\end{equation}
+Sandwiching with $\bra{w}$ or $\ket{w}$ as appropriate, we see that
+\begin{equation}
+    \bra{w}\cO \ket{w}= \alpha||w||^2
+\end{equation}
+and
+\begin{equation}
+    \bra{w}\cO\ket{w} = \bra{w}\cO^\dagger \ket{w} = \alpha^* ||w||^2
+\end{equation}
+since $\cO=\cO^\dagger.$ Hence
+\begin{equation}
+    \alpha||w||^2 = \alpha^* ||w||^2 \implies \alpha = \alpha^*,
+\end{equation}
+provided that $\ket{w}$ is not the zero vector. Note that while the eigenvalues are real, the matrix elements need not be real. For instance, $\sigma_2$ has complex entries in the $\ket{0},\ket{1}$ basis but it is nevertheless Hermitian and has real eigenvalues.
+
+\begin{thm}
+    If $A$ is self-adjoint (Hermitian) then all eigenvalues are real. Eigenvectors corresponding to distinct (non-degenerate) eigenvalues are orthogonal.
+\end{thm}
+This theorem follows from a simpler lemma:
+\begin{lem}
+    If $\bra{v} A \ket{v}=\bra{v} A \ket{v}^*$ for all $\ket{v}$ then $A=A^\dagger.$
+\end{lem}
+That is, if every diagonal matrix element is real, then the matrix is Hermitian.
+\begin{proof}
+To prove this lemma, we need to show that the given condition implies
+\begin{equation}
+    \bra{v_2}A \ket{v_1}^*= \bra{v_1} A \ket{v_2}.
+\end{equation}
+Define 
+\begin{equation}
+    \ket{v}=\alpha_1 \ket{v_1} +\alpha_2 \ket{v_2}
+\end{equation}
+for some $\alpha_1,\alpha_2\in \CC$. Then
+\begin{equation}
+    \bra{v} A \ket{v} = |\alpha_1|^2 \bra{v_1} A \ket{v_1} + |\alpha_2|^2 \bra{v_2} A \ket{v_2} + \alpha_1 ^* \alpha_2 \bra{v_1} A \ket{v_2}  +\alpha_2^* \alpha_1 \bra{v_2} A \ket{v_1}.
+\end{equation}
+We can write $\bra{v}A \ket{v}^*$ as well, taking the complex conjugate of the previous expression. We know that
+\begin{equation}
+    \bra{v} A \ket{v}=\bra{v} A \ket{v}^*
+\end{equation}
+for all $\ket{v}$, so setting these equal we find that
+\begin{equation}
+    \alpha_1 ^* \alpha_2 \bra{v_1} A \ket{v_2}  +\alpha_2^* \alpha_1 \bra{v_2} A \ket{v_1} = \alpha_1 \alpha_2^* \bra{v_1} A \ket{v_2}^*  +\alpha_2 \alpha_1^* \bra{v_2} A \ket{v_1}^*.
+\end{equation}
+Let us evaluate for $\alpha_1=\alpha_2=1.$ This yields
+\begin{equation}
+    \bra{v_1}A \ket{v_2} + \bra{v_2} A\ket{v_1} = \bra{v_1} A \ket{v_2}^* + \bra{v_2} A \ket{v_1}^*.
+\end{equation}
+We can also make the choice $\alpha_1=1,\alpha_2=i$ so that
+\begin{equation}
+    i\bra{v_1}A \ket{v_2} -i\bra{v_2} A\ket{v_1} = -i\bra{v_1} A \ket{v_2}^* + i\bra{v_2} A \ket{v_1}^*.
+\end{equation}
+Dividing by $i$ and adding these equations yields
+\begin{equation}
+    \bra{v_2} A \ket{v_1}^* = \bra{v_1} A \ket{v_2} \implies A = A^\dagger.
+\end{equation}
+\end{proof}
+
+Some quick definitions:
+\begin{itemize}
+    \item An \term{anti-Hermitian} matrix is one obeying $A^\dagger=-A$.
+    \item A \term{unitary} matrix is one satisfying $UU^\dagger = \II$. It may be thought of as a complex rotation on vector space.%
+        \footnote{Strictly we have not excluded reflections but we'll discuss anti-linear operators later.}
+\end{itemize}
+    

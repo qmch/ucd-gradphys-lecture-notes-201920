@@ -1,0 +1,196 @@
+Last time, we wrote a general form for the dot (inner) product,
+\begin{equation}
+    \braket{u}{v} = \sum_{n,m} c_n^*{}^u c_m^v \braket{\phi_n}{\phi_m},
+\end{equation}
+where the $\ket{\phi}$s are basis vectors and $u,v$ have expansions
+\begin{equation}
+    \ket{u} = \sum_n c_n^u \ket{\phi_n}.
+\end{equation}
+This is some quadratic form (it depends only quadratically on the components). And indeed it would be very nice if we could define $\braket{\phi_N}{\phi_m}=\delta_{nm}$, so that our double-sum collapses to a single sum.
+
+\subsection*{Orthonormality}
+Let us suppose we start with a basis $\set{\ket{\phi_n}}$ for a vector space $L_D$. We shall show that we can construct a new basis $\set{\ket{\chi_n}}^D$ such that $\braket{\chi_m}{\chi_n}=\delta_{mn}$ has the desired property.
+
+WLOG let us number the basis vectors $\ket{\phi_1},\ket{\phi_2},\ldots$ and consider some inner products. The inner product
+\begin{equation}
+    \braket{\phi_1}{\phi_1}=N_1
+\end{equation}
+is some value $N_1$. If $N_1=1$ then we are done; otherwise, define
+\begin{equation}
+    \ket{\chi_1}\equiv \frac{1}{\sqrt{N_1}}\ket{\phi_1}
+\end{equation}
+so that
+\begin{equation}
+    \braket{\chi_1}{\chi_1} = \frac{\braket{\phi_1}{\phi_1}}{N_1}=1.
+\end{equation}
+Hence $\ket{\chi_1}$ is a unit vector.
+
+Consider the next vector $\ket{\phi_2}$. If
+\begin{equation}
+    \braket{\chi_1}{\phi_2}=0,
+\end{equation}
+then we can normalize and get
+\begin{equation}
+    \ket{\chi_2}=\frac{\ket{\phi_2}}{\sqrt{N_2}},
+\end{equation}
+where $N_2=\braket{\phi_2}{\phi_2}$. Otherwise, we first subtract off the projection of the first normalized vector,
+\begin{equation}
+    \ket{\hat\chi_2}=\ket{\phi_2}-\braket{\chi_1}{\phi_2} \ket{\chi_1},
+\end{equation}
+so that
+\begin{equation}
+    \braket{\chi_1}{\hat \chi_2} = \braket{\chi_1}{\phi_2} -\braket{\chi_1}{\phi_2} \underbrace{\braket{\chi_1}{\chi_1}}_{=1} = 0.
+\end{equation}
+Hence by our definition, $\ket{\chi_1}$ and $\ket{\hat\chi_2}$ are orthogonal and we can just normalize. Defining
+\begin{equation}
+    \hat N_2 = \braket{\hat \chi_2}{\hat \chi_2},
+\end{equation}
+we have
+\begin{equation}
+    \ket{\chi_2}=\frac{\ket{\hat \chi_2}}{\sqrt{\hat N_2}},
+\end{equation}
+which is a unit vector and normal to $\ket{\chi_1}$.
+
+We continue by induction, subtracting off projections and normalizing. This is the \term{Gram-Schmidt procedure}.\footnote{Note that the procedure is a little more subtle in the infinite-dimensional case.} Notice also that because $\braket{\phi_n}{\phi_m}=\braket{\phi_m}{\phi_n}^*$, we can consider values of $m,n$ to be entries in a Hermitian matrix. Recalling that $\braket{u}{u}\geq 0$, the norm is perfectly well-defined and indeed we can see that orthonormalization is equivalent to diagonalizing a Hermitian matrix.
+
+\subsection*{More inner products}
+On a function space, we can define an inner product
+\begin{equation}
+    \braket{f}{g}=\int_{-\infty}^\infty dx\, f^*(x) g(x).
+\end{equation}
+These inner products come with strings attached; our functions usually have to satisfy some integrability properties in order for the inner products to be well-defined. Often the functions we're interested in come from differential equations. Most of the ones we encounter in physics are second-order so these functions ought to be twice-differentiable.%
+    \footnote{This is a little too strong, actually. They can have finitely many discontinuities and this is still okay.}
+And we should also require that our functions are square-integrable so that the integral is well-defined.
+
+We can then define
+\begin{align}
+    \braket{u}{u} &= \sum_{n,m} c_n^* c_m \braket{\phi_n}{\phi_m}\nonumber\\
+        &= \sum_n |c_n|^2.
+\end{align}
+%David Politzer and dilemma of attribution
+And this is none other than the generalization of Pythagoras's theorem.
+%in the pre-kindergarten, how do you define a dot product?
+
+\subsection*{Schwarz inequality}
+From the axioms, we can prove the following inequality.
+\begin{equation}
+    |\braket{f}{g}|^2 \leq \braket{f}{f} \braket{g}{g}.
+\end{equation}
+We may define the linear combination
+\begin{equation}
+    \ket{f-\lambda g}
+\end{equation}
+and consider its norm (squared)
+\begin{equation}
+     \braket{f-\lambda g}{f-\lambda g} = \braket{f}{f} -\lambda^* \braket{g}{f} -\lambda \braket{f}{g} +\lambda \lambda^* \braket{g}{g}.
+\end{equation}
+This is obviously non-negative, given the axioms. We can extremize this by taking derivatives with respect to $\lambda,\lambda^*$ (which we may treat as linearly independent, since they are complex) and find that
+\begin{equation}
+    \lambda^* = \frac{\braket{g}{f}}{\braket{g}{g}}, \quad \lambda =\frac{\braket{f}{g}}{\braket{g}{g}}.
+\end{equation}
+A bit of manipulation yields the Schwarz inequality.
+
+Let us also note that we can in general translate between the ket notation and vector notation. For a ket vector $\ket{u}$ we can associate the bra (row) vector $\bra{u}=(c_1^*,c_2^* \ldots, c_D^*)$. Then the vector inner product is the same as old-fashioned row-column multiplication.
+
+\subsection*{Bessel inequality}
+Suppose we rewrite the vector $\ket{u}$ in a weird way, as
+\begin{equation}
+    \ket{u} = \sum_n{}' c_n^u \ket{\phi_n} + \ket{\Delta u},
+\end{equation}
+where we take some terms and separate them out (so the sum $\sum{}'$ omits some indices). We know that
+\begin{equation}
+    \ket{\Delta u} = u-\sum_n{}' c_n^8 \ket{\phi_n} \neq 0,
+\end{equation}
+so that
+\begin{align}
+     0 &< \braket{\Delta u}{\Delta u}\\
+        &= \braket{u-\sum{}' c_n^u \phi_n}{u-\sum{}' c_n^u \phi_n}\\
+        &= \braket{u}{u}-\sum{}'|c_n^u|^2.
+\end{align}
+Check the cross-terms with the definition of $u$ to get this final term. Rearranging, we get the Bessel inequality, which says that
+\begin{equation}
+    \braket{u}{u} > \sum{}' |c_n^u|^2,
+\end{equation}
+i.e. the norm of a vector is greater than the partial sums of the squares of the components.
+
+\subsection*{Linear operators}
+We are primarily interested in linear operators, i.e. linear maps from the vector space to itself obeying
+\begin{equation}
+    A(\lambda\ket{\phi}+\mu\ket{\chi}) = \lambda A\ket{\phi} +\mu A \ket{\chi}.
+\end{equation}
+We can define two operators to be equal if they have the same action on all vectors, i.e.
+\begin{equation}
+    A\ket{\phi}=B\ket{\phi}
+\end{equation}
+for all $\phi\in L$.
+
+In particular there's a nice way that we can rewrite the identity operator, as
+\begin{equation}
+    \mathbb{I}=\sum_n \ket{\phi_n}\bra{\phi_n}.
+\end{equation}
+Let's prove this: by definition, $\mathbb{I}\ket{u}=\ket{u}$. On the other side, we see that
+\begin{equation}
+     \sum_n \ket{\phi_n}\braket{u} = \sum_n c_n^u \ket{\phi_n} \equiv \ket{u}.
+\end{equation}
+Provided that $\set{\ket{\phi_n}}$ is a complete basis, this operator is indeed the identity.
+
+\subsection*{The delta function}
+The Dirac delta function is defined in such a way that
+\begin{equation}
+    \int_a^b f(t) \delta (x-t)dt = f(x),
+\end{equation}
+provided that $x$ is in the interval $(a,b)$. We could think of this as an inner product, however. We have a function and its shadow on the delta function picks out a value. The delta function isn't properly square-integrable, but we may consider it as having a good inner product with functions in our function space (as the limit of some sequence of square-integrable functions, if you like).
+
+Now we'll do something strange. Let us express the delta function in a function basis,
+\begin{equation}
+     \delta(x-t)=\sum_n c_n(t) \phi_n(x).
+\end{equation}
+The $t$ dependence must be in the coefficients since the functions themselves are just given. How do we find the coefficients? Just take the integral
+\begin{equation}
+    \int dx\,\phi_m^*(x) \delta(x-t) = \int dx\,\sum_n c_n(t) \phi_n(x) \phi_n^*.
+\end{equation}
+This is super easy to evaluate. On the RHS we have a Kronecker delta $\delta_{nm}$ by the orthonormality of the basis, and on the left side we have the evaluation of the basis vector $\phi_m^*$ at $t$, i.e.
+\begin{equation}
+    c_m(t)=\phi_m^*(t).
+\end{equation}
+Hence
+\begin{equation}
+    \delta(x-t)=\sum_n \phi_n^*(t) \phi_n(x).
+\end{equation}
+
+We can se that this had to be the case by substituting our expression for the delta function into an integral:
+\begin{align}
+    f(x) = \int dt\, \delta(x-t) f(t) &= \sum_n \phi_n(x) \int dt\, \phi_n^*(t) f(t)\\
+        &= \sum \braket{\phi_n}{f} \phi_n(x),
+\end{align}
+which is none other than the components of $f$ in the basis $\phi_n$.
+
+To make our discussion more concrete, let us consider analytic functions which have Taylor expansion
+\begin{equation}
+    f(x)=\sum \frac{f^{(n)}(0)}{n!} x^n,
+\end{equation}
+defined over the interval $[-1,1]$. Hence $\set{1,x,x^2,x^3,\ldots}$ form a complete basis set for arbitrarily differentiable functions. They are certainly not orthogonal in general, e.g. $\int_{-1}^1 dx\, 1\cdot x^2 \neq 0$. But we can make them orthonormal with Gram-Schmidt.
+
+Under this inner product, we have
+\begin{equation}
+    \int_{-1}^1 dx\, 1\cdot 1 = 2,
+\end{equation}
+so our first normalized vector is $1/\sqrt{2}$. We can check $x$:
+\begin{equation}
+    \int_{-1}^1 dx\, x\cdot x  =2/3,
+\end{equation}
+so the next normalized vector is $\sqrt{3/2}x.$ Continuing this way, we see that $x^2$ and $x$ are already orthogonal but
+\begin{equation}
+    \int_{-1}^1 dx\, \frac{1}{\sqrt{2}} x^2 = \frac{2}{3\sqrt{2}},
+\end{equation}
+so our first unit vector is not orthogonal to $x^2$. We can instead define
+\begin{equation}
+    \hat x^2 = x^2 -\sqrt{\frac{2}{3}}.%check this
+\end{equation}
+which is now orthogonal to the first unit vector $1/\sqrt{2}$ and to the second unit vector $\sqrt{3/2}x$. We can normalize $\hat x^2$ and determine the third unit vector in this set, which is $\frac{3x^2}{2}-1$ (we think).
+
+Let us remark that the most general operators that can be diagonalized are normal operators, i.e. those satisfying
+\begin{equation}
+    [A,A^\dagger]=0.
+\end{equation}
+Clearly, one set of operators that are not normal are the raising and lowering operators, whose commutator is $[a,a^\dagger]=1$.
