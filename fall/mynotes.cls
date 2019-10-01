@@ -53,7 +53,7 @@
 \fancyhf{}
 \fancyhead[RO,LE]{\small\thepage}
 \fancyhead[LO]{\small\slshape\nouppercase{\rightmark}}
-\fancyhead[RE]{\small\slshape Gauge/Gravity Duality Lecture Notes}
+%\fancyhead[RE]{\small\slshape Gauge/Gravity Duality Lecture Notes}
 \setlength{\headheight}{11.0pt}
 \pagestyle{fancy}
 
