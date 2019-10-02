@@ -1,0 +1,186 @@
+Today we'll continue discussing operators. We've discussed the identity operator,
+\begin{equation}
+    \II=\sum \ket{\phi_i}\bra{\phi_i},
+\end{equation}
+which maps any vector into itself. More generally, we can define an operator as follows:
+\begin{defn}
+    An \term{operator} is a map $A:\ket{\psi}\to \ket{\bar \psi}$ where $\ket{\psi},\ket{\bar{\psi}}\in L_D$ are in the same vector space $L_D$.%
+        \footnote{The math-inclined among us may talk about the space of inner automorphisms on the vector space.}
+    A \term{linear operator} is an operator obeying the linearity property
+    \begin{equation}
+        A(\mu\ket{\psi} + \nu \ket{\chi})=\mu A \ket{\psi}  + \nu A \ket{\chi}.
+    \end{equation}
+\end{defn}
+
+If we have a set of linear operators, we may define an addition operation on operators as
+\begin{equation}
+    (A+B)\ket{\psi} = A \ket{\psi} + B \ket{\psi}
+\end{equation}
+and scalar multiplication as
+\begin{equation}
+    (k A)\ket{\psi} = k(A\ket{\psi}).
+\end{equation}
+Hence we can take linear combinations of linear operators as
+\begin{equation}
+    kA  + l B,
+\end{equation}
+and under this definition we see that linear operators form a vector space.
+
+But there's another way to combine operators, namely by \emph{composition}. That is, given operators $A$ and $B$ we can define a new operator $AB$ defined by the composition
+\begin{equation}
+    AB\ket{\psi}=A(B\ket{\psi}).
+\end{equation}
+Composition must satisfy certain properties with respect to the other operations we've defined, namely distributivity with respect to addition:
+\begin{equation}
+    A(B+C)=AB+AC.
+\end{equation}
+Let us note that the product of operators (composition) is generally not commutative,
+\begin{equation}
+    AB\neq BA
+\end{equation}
+in general. We know this from matrix multiplication.
+
+Alternately, we could define a composition rule using a commutator (bracket),
+\begin{equation}
+    [A,B]=AB-BA.
+\end{equation}
+It's not to hard to check that this rule also satisfies distributivity over addition. If we wished, we could also prove (by crunching through the commutators) the Jacobi identity,
+\begin{equation}
+    [[A,B],C]+ [[B,C],A]+[[C,A],B]=0.
+\end{equation}
+This is related to the Bianchi identity in differential geometry.
+
+Under our standard composition rule, we can define \emph{inverses}. That is, if an operator $A$ acts as
+\begin{equation}
+    \ket{\psi'} = A \ket{\psi},
+\end{equation}
+then the inverse $A^{-1}$ (if it exists) is the operator such that
+\begin{equation}
+    A^{-1} \ket{\psi'}= \ket{0}.
+\end{equation}
+That is, $A^{-1} A \ket{\psi} = \ket{\psi}.$
+
+As we know, not every operator is invertible. Consider the operator which just sends some vector to zero (i.e. it has a null eigenvector). If
+\begin{equation}
+    A\ket{\psi}=0
+\end{equation}
+then the inverse is not well-defined: $A^{-1} \ket{0}=?$.%
+
+\begin{defn}
+    The adjoint $A^\dagger$ of an operator $A$ is defined by
+    \begin{equation}
+        \bra{\chi}A^\dagger \ket{\psi} = \bra{\psi} A \ket{\chi}^*.
+    \end{equation}
+\end{defn}
+\begin{defn}
+    If an operator is self-adjoint, $H^\dagger=H$, then we call it Hermitian.
+\end{defn}
+Notice that
+\begin{equation}
+    \bra{\psi}H \ket{\psi} = \bra{\psi} H^\dagger \ket{\psi} = \bra{\psi}H\ket{\psi}^*
+\end{equation}
+by the definition of the adjoint and hermiticity. Therefore the diagonal matrix elements of $H$ are \emph{real numbers}, i.e. their eigenvalues are real.
+
+We could have also taken an operator which was \emph{anti-Hermitian}, $H^\dagger = -H$, which implies that the diagonal elements are instead purely imaginary by the same argument.
+
+\begin{defn}
+    A \term{unitary} operator is an operator obeying the property
+    \begin{equation}
+        U^{-1}=U^\dagger.
+    \end{equation}
+\end{defn}
+
+It's clear that we can restrict to the real case, in which case Hermitian matrices become symmetric matrices and anti-Hermitian matrices become antisymmetric (sometimes called skew-symmetric). Our unitary matrices reduce to orthogonal matrices.
+
+\begin{exm}
+    Consider the Hilbert space of smooth square-integrable functions over the real line, $f\in L$. Our inner product is the integral
+    \begin{equation}
+        \int dx\, f^*(x) g(x).
+    \end{equation}
+    Define the operator $D=-\frac{d}{dx}$. What is the adjoint $D^\dagger$? We have
+    \begin{equation}
+        \int f^* (-\frac{d}{dx})g = f^* g|_a^b + \int (\frac{d}{dx} f^*) g.
+    \end{equation}
+    The boundary term vanishes based on the boundary conditions, i.e. given that $f,g$ vanish at infinity. Taking the complex conjugate to get the adjoint, what is left is
+    \begin{equation}
+        -\bkt{\int (\frac{d}{dx} f^*) g}^* = -\int g^* D f.
+    \end{equation}
+    So $D$ is not Hermitian but $iD$ is (it adds a minus sign to fix the sign in the integration by parts).
+    
+    Note also that when the integration region is finite, the boundary conditions become nontrivial. However, if $f$ and $g$ vanish at the boundary (e.g. $[-1,1]$) then we restore hermiticity.
+\end{exm}
+
+Recall we said that we could assign matrix elements to an operator with respect to some set of vectors,
+\begin{equation}
+    \bra{\chi}A  \ket{\psi}.
+\end{equation}
+In fact, it's a Sisyphean task to do this for all sets of vectors, but fortunately (thanks to linearity) it suffices to compute the matrix elements in some (complete) basis. With a basis $\ket{\psi_i}$ we can define
+\begin{equation}
+    \bra{\psi_n} A \ket{\psi_k} = A_{nk}.
+\end{equation}
+For recall that the identity can be written as $\II=\sum_k \ket{\psi_k}\bra{\psi_k}$, and suppose $\ket{\psi}$ has some decomposition in the basis
+\begin{equation}
+    \ket{\psi} = \sum_k \braket{\psi_k}{\psi} \ket{\psi_k}
+\end{equation}
+Then
+\begin{align*}
+    A \ket{\psi}&= \II \A \II \ket{\psi}\\
+        &= \sum_{k,n} \ket{\psi_k} \bra{\psi_k} A \ket{\psi_n} \braket{\psi_n}{\psi}.
+\end{align*}
+Thus we can recognize the components of $\ket{\psi}$ in our basis, which are given by $\braket{\psi_n}{\psi}=C_n$. Hence
+\begin{align*}
+    A\paren{\sum_k \braket{\psi_k} {\psi} \ket{\psi_k}} &= \sum_k \ket{\psi_k} \paren{\sum_n \bra{\psi_k} A \ket{\psi_n} \braket{\psi_n}{\psi}}\\
+        &=\sum_k \ket{\psi_k} \paren{\sum_n A_{kn} C_n}\\
+        &= \sum \ket{\psi_k} C_k^{\bar \psi}
+\end{align*}
+in terms of the components of some new vector $\ket{\bar \psi}$. That is, if we know the matrix elements of $A$ in some basis and we know the components of the vector in that basis, we can uniquely determine the components of its image under $A$ in the same basis.
+
+In the end, this is just abstract matrix multiplication. That is,
+\begin{equation}
+    C_n^{\bar \psi} = \sum_k  A_{nk} C_k^\psi.
+\end{equation}
+
+We can also write the operator $A$ in terms of its matrix elements:
+\begin{align*}
+    A &= \II A \II\\
+        &= \sum_{n,k} \ket{\psi_k} \bra{\psi_k} A \ket{\psi_n} \bra{\psi_n}\\
+        &=\sum_{n,k} A_{kn} \ket{\psi_k} \bra{\psi_n}.
+\end{align*}
+This also tells us immediately that the matrix elements of the identity in any orthonormal basis are as we could have guessed-- $\II_{nk}=\delta_{nk}$, the Kronecker delta.
+
+It also follows that the matrix elements of the adjoint of an operator obey
+\begin{equation}
+    (A^\dagger)_{nk} = A_{kn}^*.
+\end{equation}
+This gives us another statement of hermiticity-- equivalently, a hermitian operator is one whose matrix elements obey
+\begin{equation}
+    A_{kn}^* = A_{nk}.
+\end{equation}
+And thus
+\begin{equation}
+    A^\dagger = \sum_{k,n} A_{nk}^*\ket{\psi_k} \bra{\psi_n}.
+\end{equation}
+
+Let's check that for hermitian operators, the expectation value is non-negative,
+\begin{equation}
+    \bra{\psi}A \ket{\psi} \geq 0.
+\end{equation}
+Writing $A$ in terms of its matrix elements, we have
+\begin{align*}
+    \bra{\psi}A \ket{\psi} &= \sum_{n,k} \braket{\psi}{\psi_k} A_{kn} \braket{\psi_n}{\psi}\\
+        &= C_k^{* \psi} A_{kn} C^\psi_n.
+\end{align*}
+
+Suppose we have two orthonormal bases for the same space, $\set{\ket{\psi_k}},\set{\ket{\psi_k'}}$. It follows that the new basis has some decomposition in the old basis. That is, the set $\set{\ket{\psi_k},\ket{\psi_1'}}$ is linearly dependent and so
+\begin{equation}
+    \ket{\psi_n'} = \sum c_k^n{}' \ket{\psi_k},
+\end{equation}
+in terms of some coefficients $c_k^n{}'$. It's also true that we can go back,
+\begin{equation}
+    \ket{\psi_n} = \sum c_k^n \ket{\psi_k'}.
+\end{equation}
+Certainly we can write this decomposition as the action of an operator $U$:
+\begin{equation}
+    U\ket{\psi_n} = \sum c_k^n{}' \ket{\psi_k},
+\end{equation}
+and moreover $U$ must be invertible.
