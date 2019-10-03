@@ -1,0 +1,134 @@
+\subsection*{Spectral theorem}
+The spectral theorem roughly tells us that the eigenvectors of hermitian matrices will be guaranteed to form a good basis. Before we state the theorem formally, let us discuss the following. Given some Hermitian operator $\cZ$ with eigenspectrum
+\begin{equation}
+    \cZ\ket{z_n}=\zeta_n \ket{z_n}.
+\end{equation}
+Since we are guaranteed completeness%
+    \footnote{We haven't shown it yet but suppose there's a vector that cannot be expressed as an eigenvector. We can reason to a contradiction. Probably in Shankar?}
+it follows that
+\begin{equation}
+    \II\ket{v}=\ket{v} = \sum \ket{z_n} \braket{z_n}{v},
+\end{equation}
+so in fact reading this as an operator equation, since this is true for any $\ket{v}$,
+\begin{equation}\label{resofidentity}
+    \II = \sum_n \ket{z_n}\bra{z_n}.
+\end{equation}
+We call Eqn. \ref{resofidentity} the \term{resolution of the identity}, and this is true for any complete basis set.
+
+That is, given $\ket{v}\in V$ and $\bra{w}\in V^*$, there is another operation, the \term{outer product} (denoted $\otimes$), which is a map from $(V,V^*)\to V\otimes V^*$. That is, it allows us to take a column vector and a row vector and combine them to form an operator (a matrix). Thus
+\begin{equation}
+    \ket{v}\bra{w} \in V\otimes V^*
+\end{equation}
+is an operator such that
+\begin{equation}
+    \paren{\ket{v}\bra{w}}\ket{z} = \braket{w}{z} \ket{v}.
+\end{equation}
+
+In tensor notation, we could write these as contravariant and covariant vectors as $V^\mu,\omega_\nu$ such that the outer product $(V\omega)^\mu{}_\nu$ has the correct indices.
+
+We can also define the adjoint operation on operators in this notation,
+\begin{equation}
+    \paren{\ket{v}\bra{w}}^\dagger = \ket{w}\bra{v}.
+\end{equation}
+The adjoint operator may be thought of as a map $V\otimes V^* \to V^* \otimes V$.
+
+Consider now
+\begin{equation}
+    \cP_n \equiv \ket{z_n}\bra{z_n}
+\end{equation}
+the projection operator onto $\ket{z_n}$. Naturally, $\cP_n \cP_n=\cP_n$ since
+\begin{gather*}
+    \cP_n \ket{v} = \ket{z_n} \braket{z_n}{v}\\
+    \implies \cP_n^2 \ket{v} = \ket{z_n}\braket{z_n}{z_n}\braket{z_n}{v} = \cP_n \ket{v} \text{ if }\braket{z_n}{z_n}=1.
+\end{gather*}
+In this notation, we may equivalently write the identity as
+\begin{equation}
+    \II = \sum_n \cP_n.
+\end{equation}
+That is, the identity is the sum of all the projection operators. Moreover,
+\begin{equation}
+    \cZ = \sum_n \zeta_n \ket{z_n}\bra{z_n} = \sum_n \zeta_n \cP_n(\cZ),
+\end{equation}
+where the $\cP_n$ are projecting onto the eigenspectrum of $\cZ$.
+
+Since this is given, it becomes easy to define functions of operators $f(\cZ)$ in terms of their eigenspectrum. Namely,
+\begin{equation}
+    f(\cZ)=\sum_n f(\zeta_n) \cP_n(\cZ)
+\end{equation}
+Note that an operator cannot have a nontrivial kernel (that is, it cannot have a zero eigenvalue) or else our completeness assumption fails. In addition, some functions have a finite radius of convergence and so the power series is not guaranteed to converge if the eigenvalues are unbounded.%
+    \footnote{See Shankar 1.9.1.}
+
+Let us also note that we've been working as though these spaces were finite-dimensional, but there are sometimes complications when we go to infinite dimensions. To every self-adjoint operator we can associate a 1-parameter family of projection operators $\cP(\lambda)$, parametrized by some $\lambda\in \RR$ such that $\cP(\lambda)$ satisfies
+\begin{enumerate}
+    \item[(i)] $\lambda_1 <\lambda_2 \implies \cP(\lambda_1) \cP(\lambda_2) = \cP(\lambda_2) \cP(\lambda_1) = \cP(\lambda_1)$. (That is, we always project onto smaller $\lambda$.)
+    \item[(ii)] If $\epsilon>0$ then $\cP(\lambda+\epsilon)\ket{v} \to \cP(\lambda)\ket{v}$ as $\epsilon\to 0$. (In a sense this family varies continuously.)
+    \item[(iii)] $\cP(\lambda)\ket{v}\to 0$ as $\lambda \to -\infty$.
+    \item[(iv)] $\cP(\lambda)\ket{v}\to \ket{v}$ as $\lambda\to \infty$.
+    \item[(v)] $\int_{-\infty}^\infty \lambda d\cP(\lambda)=\cZ$.
+\end{enumerate}
+
+\subsection*{Discrete spectrum}
+Let's examine these assumptions in the discrete case.
+\begin{equation}
+    \cP(\lambda)= \sum_n \Theta(\lambda -\zeta_n) \cP_n (\cZ),
+\end{equation}
+where
+\begin{equation}
+    \Theta(x) = \begin{cases}
+        1 & x>0\\
+        0 & x\leq 0
+    \end{cases}
+\end{equation}
+is the Heaviside step function. In the degenerate case we can project onto the corresponding subspace.
+
+To put this in physics language, we can project onto energy eigenspaces. That is, $\lambda$ lets us take sums of the projection operators up to some energy eigenstate of our choice. As $\lambda\to -\infty$ we're looking at energies below the ground state, so there are no states to project on; as $\lambda \to + \infty$ we get all the energies and hence get back the original operator $\cZ$.
+
+\subsection*{Continuous spectrum}
+Let's consider a concrete example. For the position operator $X$, which we define as acting on a function $f(x)$ by
+\begin{equation}
+    Xf(x)=xf(x),
+\end{equation}
+we could try to solve the eigenvalue equation
+\begin{equation}
+    Xf(x) = \zeta f(x).
+\end{equation}
+We might be tempted to write the eigenfunctions as delta functions, $\delta(x-\zeta)$. But this would be a serious error, since the delta function is really a distribution in the space of linear functionals, and ought to live under integrals. That is,
+\begin{equation}
+    \int_{-\infty}^\infty dx \delta(x) f(x) =f(0)
+\end{equation}
+is the statement that the delta function should be thought of as only being meaningful when under an integral and paired with a function; it is more like a dual vector, since it takes a function and gives back a number.
+
+Note that from the delta function we can also write other derivative expressions like
+\begin{equation}
+    \delta'(x):f(x)\to \RR,
+\end{equation}
+another functional such that
+\begin{align*}
+    \delta'[f(x)]&=\int_{-\infty}^\infty dx \, \delta'(x) f(x)\\
+        &= -\int_{-\infty}^\infty dx\, \delta(x) f'(x) + (\text{boundary term}\to 0)\\
+        &= -f'(0).
+\end{align*}
+Given appropriate smoothness of $f(x)$, anyway.
+
+To generalize our one-parameter family of projection operators to the continuous case, we can write the projection operators for the position operator $X$ as
+\begin{equation}
+    \cP_X(\lambda) f(x) = \Theta(\lambda-x) f(x).
+\end{equation}
+That is, we may project onto $x$ up to $x=\lambda$. For notice that
+\begin{equation}
+    \bkt{\int_{-\infty}^\infty \lambda d\cP_X(\lambda)} f(x) = \int_{-\infty}^\infty \lambda \delta(\lambda -x) d\lambda \,f(x) = xf(x).
+\end{equation}
+Hence by (v) above we see that
+\begin{equation}
+    X=\int_{-\infty}^\infty \lambda d\cP_X(\lambda).
+\end{equation}
+
+\begin{thm}
+    If $\cA,\cB$ are mutually commuting, self-adjoint operators, each with a complete set of eigenvalues, then $\exists$ a complete orthonormal set of eigenvectors for both $\cA$ and $\cB$ simultaneously.
+\end{thm}
+
+Since we are guaranteed this, the name of the game is to find the maximal set of commuting operators.%
+    \footnote{Like we did with angular momentum, for instance, in finding $J^2$ and $J_z$.}
+If we find a complete set of commuting operators, then we can not only simultaneously diagonalize all of them, but any other operator that commutes with the given set also has the same eigenbasis. 
+
+In a sense, this is much like how we look for conserved quantities in classical mechanics to avoid solving second-order equations. We'll be particularly interested in operators that commute with the Hamiltonian, since energy eigenstates will coincide with eigenstates of those operators.
