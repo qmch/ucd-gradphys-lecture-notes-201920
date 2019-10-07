@@ -1,0 +1,151 @@
+When we choose coordinates, the name of the game is to exploit the \emph{symmetries} of the problem. That is, to find coordinates which respect the dynamical symmetries of the Hamiltonian. If we choose our coordinates well enough, the equations of motion become trivial to solve.
+
+Suppose we have two bases $\set{\ket{\psi_i}},\set{\ket{\psi_i'}}.$ Then we can certainly write
+\begin{equation}
+	U\ket{\psi_i} =  \ket{\psi_i'}=\sum_j C_{ij}^{\psi'} \ket{\psi_j}
+\end{equation}
+or equivalently
+\begin{equation}
+	\bar U \ket{\psi_j'}=\ket{\psi_j} = \sum_i C_{jk}^\psi \ket{\psi'_i}.
+\end{equation}
+That is, we can express an element of one basis in another basis. It is evident that the inverse exists, since it doesn't matter what we call the first and the second basis. So take the first equation and act on it with $U^{-1}$. Then
+\begin{equation}
+	\ket{\psi_i} = U^{-1} U \ket{\psi_i}  = U^{-1} \ket{\psi_i'} = \sum_j C_{ij}^{\psi'} U^{-1} \ket{\psi_j}.
+\end{equation}
+What are the matrix elements $\bra{\psi_k}U\ket{\psi_i}=\braket{\psi_k}{\psi_i'}$?
+\begin{equation}
+	\braket{\psi_k}{\psi_i'} = \sum_j C_{ij}^{\psi'}\braket{\psi_k}{\psi_j'},
+\end{equation}
+or equivalently
+\begin{equation}
+	\ket{\psi_i'} = \sum_j \ket{\psi_j} \braket{\psi_j}{\psi_i'}.
+\end{equation}
+Similarly
+\begin{equation}
+	\ket{\psi_j} = \sum_i \ket{\psi_i'} \braket{\psi_i' }{\psi_j}.
+\end{equation}
+Notice also that these coefficients are therefore clearly related by 
+\begin{equation}
+	\braket{\psi_i'}{\psi_j} = \braket{\psi_j}{\psi_i'}^*.
+\end{equation}•
+Consider now the inner product
+\begin{align*}
+	\delta_{kj} & = \braket{\psi_k }{\psi_j}\\
+		&= \sum_{i,l} \braket{\psi_l'}{\psi_k}^* \underbrace{\braket{\psi_l'}{\psi_i'}}_{\delta_{li}} \braket{\psi_i'}{\psi_j}\\
+		&= \sum_i \braket{\psi_i'}{\psi_k}^*\braket{\psi_i'}{\psi_j}\\
+		&= \sum_i \braket{\psi_k}{\psi_i'} \braket{\psi_i'}{\psi_j}.
+\end{align*}
+Define
+\begin{equation}
+	U_{ij}= \braket{\psi_i'}{\psi_j}.
+\end{equation}
+And similarly
+\begin{equation}
+	\bar U_{ki} = \braket{\psi_k}{\psi_i'} = U_{ik}^*.
+\end{equation}
+Hence
+\begin{equation}
+	\delta_{kj} =\sum_i U_{ki}' U_{ij},
+\end{equation}
+so since $(U^{-1})_{kj} = U_{jk}^*$, we see that transformations between two orthonormal bases are unitary, i.e. they satisfy
+\begin{equation}
+	U U^\dagger = \II.
+\end{equation}
+
+We could have seen this in a basis-free way by requiring that inner products do not depend on the choice of basis. Hence
+\begin{equation}
+	\braket{\chi'}{\psi'}=\bra{\chi}U^\dagger U \ket{\psi} = \braket{\chi}{\psi} = \bra{\chi} \II \ket{\psi},
+\end{equation}
+and hence it must be that $U^\dagger U = \II$ since they agree on \emph{any} vectors $\ket{\chi},\ket{\psi}$.
+
+We've concluded that changes of basis can be written as unitary transformations and moreover that inner products must be invariant under such transformations. What about operators? Consider
+\begin{equation}
+	A= \sum_{i,j} a_{ij} \ket{\psi_i}\bra{\psi_j}.
+\end{equation}
+Suppose we have a new vector $\ket{\phi}$ given by
+\begin{equation}
+ 	\ket{\phi} = \sum_i \ket{\psi_i}\braket{\psi_i}{\phi},
+\end{equation}
+and we act on it with a unitary $U$ to get some new $\ket{\phi'}$. Hence
+\begin{equation}
+	U\ket{\phi}=\sum_i U\ket{\psi_i}\braket{\psi_i}{\phi}.
+\end{equation}
+Let $U$ take us between bases, such that $\ket{\psi_i'}=U\ket{\psi_i}$ or equivalently
+\begin{equation}
+	U^\dagger \ket{\psi_i'} = \ket{\psi_i}.
+\end{equation}
+The easy way to see what happens to operators is to recognize that
+\begin{equation}
+	U\ket{\phi'}= UA \ket{\phi} = UA U^\dagger (U\ket{\phi}),
+\end{equation}
+so that
+\begin{equation}
+	A' = UAU^\dagger
+\end{equation}
+is the corresponding operator to $A$ in the new basis. Looking at the spectral decomposition,
+\begin{align}
+	A'= U A U^\dagger =& \sum U \ket{\psi_i} A_{ij} \bra{\psi_j}U^\dagger\\
+		&= \sum \ket{\psi_i'}A_{ij} \bra{\psi_j'},
+\end{align}
+so the matrix elements are left unchanged in the new basis. In fact, it must have been so, since
+\begin{equation}
+	\bra{\psi_i} A \ket{\psi_j} =\paren{\bra{\psi_i} U^\dagger} \paren{U A U^\dagger} \paren{U \ket{\psi_j}}.
+\end{equation}
+
+Let us now make a connection to quantum mechanics. If the Hamiltonian is time-independenct, recall that we can write the solution of
+\begin{equation}
+i\p_t \ket{\psi} = H\ket{\psi}
+\end{equation}
+as
+\begin{equation}
+	 \ket{\psi(t) } = e^{-itH}\ket{\psi(0)}.
+\end{equation}
+That is, we may think of time evolution as a complex rotation of the initial condition.%
+	\footnote{There is a book describing the structure of path integrals in quantum mechanics, by Feynman and Hibbs, related to the exponentiation formula for the Hamiltonian. There is also a text by Messiah which contains lots of good quantum mechanics.}
+	
+Consider now a set of vectors which are not orthonormal but are linearly independent, $\set{\ket{\chi_i}}$. By Gram-Schmidt we can therefore define $\set{\ket{\psi_\mu}}$ as the result of acting on $\ket{\psi_i}$ with an operator $T$ such that
+\begin{equation}
+	\ket{\psi_\mu} = \sum_{i=1}^\mu T_{\mu i} \ket{\chi_i}.
+\end{equation}
+In particular we may take $T_{\mu i}$ to be upper-triangular because we limit the sum to run only up to $\mu$.	
+
+Now observe that
+\begin{align*}
+	\delta_{\nu\mu} &= \braket{\psi_\nu}{\psi_\mu}\\
+		&= \sum_{ij} T_{\nu j}^* T_{\mu i} \braket{\chi_j}{\chi_i}\\
+		&= \sum_{ij} T_{\nu j}^* \braket{\chi_j}{\chi_i} T_{\mu i}\\
+		&= (T^\dagger S T)_{\nu\mu}.
+\end{align*}
+These final inner products are in general not $1$; they are like a metric, in that they relate the original basis vectors. We see that
+\begin{equation}
+	\II = T^\dagger S T.
+\end{equation}
+But notice that $T$ is invertible, and therefore so is $T^\dagger$. We find that
+\begin{equation}
+	(T^{\dagger})^{-1} T^{-1} = S,
+\end{equation}
+so the matrix $S$ relating the original vectors can be written in terms of the matrix $T$ which performs the orthonormalization process. In general, this allows us to perform a \emph{similarity transforamation} so that we can write some operator $A'=TAT^{-1}$ and
+\begin{equation}
+	A= (T^\dagger)^{-1} \bar A T^{-1},
+\end{equation}
+which says that an operator may be written as the product of an upper triangular matrix, a diagonal matrix, and a lower triangular matrix. This is a special case of the Jordan decomposition of an operator.
+
+Notice also that unitaries leave the trace and the determinant unchanged:
+\begin{equation}
+	\Tr(UAU^\dagger)=\Tr(AU^\dagger U) = \Tr(A),
+\end{equation}
+and determinants are unchanged since
+\begin{equation}
+	UU^\dagger = \II \implies 1 = \det \II = \det U \det U^\dagger = (\det U)(\det U)^*,
+\end{equation}
+so the determinant of $U$ is a phase $e^{i\delta}$ and
+\begin{equation}
+	\det(UAU^\dagger)=\det(A) \det(U^\dagger U) = \det A.
+\end{equation}
+This helps our intuition that unitary matrices are really complex generalizations of rotations (orthogonal matrices).
+
+It will often be our interest in quantum mechanics of solving the eigenvector and eigenvalue problem, i.e.
+\begin{equation}
+	A \ket{\phi} = \lambda \ket{\phi}.
+\end{equation}
+Thanks to the fundamental theorem of algebra, we are guaranteed at least one eigenvalue, some $\lambda$ satisfying the characteristic equation.
