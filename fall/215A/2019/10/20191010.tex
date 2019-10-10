@@ -1,0 +1,202 @@
+\subsection*{Quantum dynamics}
+In a quantum theory, time evolution is given by a unitary operator,
+\begin{equation}
+    \ket{\psi(t)}=U(t,t_0)\ket{\psi(t_0)}.
+\end{equation}
+Time evolution is determined by the Hamiltonian, a hermitian operator $\hat H = \hat H^\dagger$, such that
+\begin{equation}
+    e^{i\hat H}
+\end{equation}
+is unitary.%
+    \footnote{This is unitary because $(e^{i\hat H})^\dagger=e^{-i\hat H^\dagger}=e^{-i\hat H}=(e^{i\hat H})^{-1}.$ More generally it comes from the fact that Hermitian operators form a Lie algebra which generates unitary transformations. We can build finite transformations by exponentiating the appropriate infinitesimal transformation.}
+
+For infinitesimal time evolution, notice that
+\begin{equation}
+    U(t_0+dt,t_0)=\II +\frac{dU}{dt}|_{t=t_0} dt + O(dt^2).
+\end{equation}
+If we choose $U$ such that
+\begin{equation}
+    \frac{dU}{dt}=-\frac{i\hat H}{\hbar},
+\end{equation}
+then we can recover
+\begin{equation}\label{schrodingervector}
+    i\hbar \P{}{t}\ket{\psi(t)}=\hat H \ket{\psi(t)},
+\end{equation}
+the \term{Schr\"odinger equation} in vector notation.
+
+For the Hamiltonian
+\begin{equation}
+    \hat H = \frac{\hat p^2}{2m}+V(\hat x),
+\end{equation}
+we have
+\begin{equation}\label{schrodingerwithpsquared}
+    i\hbar \P{}{t}\ket{\psi(t)}= \bkt{\frac{\hat p^2}{2m}+V(\hat x)}\ket{\psi(t)}.
+\end{equation}
+We can switch to the position basis, writing
+\begin{equation}
+    \hat p = -i\hbar \P{}{x},
+\end{equation}
+from the canonical commutation relation $[\hat x,\hat p]=i\hbar$. If we then sandwich Eqn. \ref{schrodingerwithpsquared} with a $\bra{x}$, a position eigenstate, we get
+\begin{equation}
+    i\hbar \P{}{t} \psi(x,t) = -\frac{\hbar^2}{2m} \frac{\p^2}{\p x^2} \psi(x,t) + V(x) \psi(x,t),
+\end{equation}
+which is now the Schr\"odinger equation written in terms of the position space wavefunction.
+
+The Schr\"odinger equation describes the evolution of $\ket{\psi(t)}$, but we can equivalently use it to understand $U(t,t_0)$. Notice that
+\begin{equation}
+    \P{}{t}U(t,t_0) = -\frac{i}{\hbar} \hat H(\hat x,\hat p,t) U(t,t_0)
+\end{equation}
+with $U(t_0,t_0)=\II$. This follows from Eqn. \ref{schrodingervector} by substituting in $\ket{\psi(t)}=U(t,t_0)\ket{\psi(t_0)}$ and noting the derivative is with respect to $t$, leaving $\ket{\psi(t_0)}$ fixed. We can therefore write a formal solution for this equation. It looks almost like an exponential, except for the fact that the operators in the Hamiltonian may not commute at different times.%
+    \footnote{This leads to equal-time commutation relations in the appropriate picture of QM.}
+
+Hence we get the formal solution for $U$ (sometimes called Dyson's formula), written in terms of \emph{time ordering}:
+\begin{equation}
+    U(t,t_0)=\cT \exp \bkt{-\frac{i}{\hbar} \int_{t_0}^t dt'\, \hat H(\hat x,\hat p,t')}.
+\end{equation}
+Here, the curly $\cT$ indicates time ordering, i.e. we must write the operators based on the time at which they are evaluated. We won't discuss this too much for now, since a proper discussion of this would basically be tantamount to explaining the path integral.
+
+But the story becomes much simpler if the Hamiltonian is time-independent. In that case, our formal solution has no time ordering ambiguities, and we can immediately write down
+\begin{equation}
+    U(t,t_0)=\exp \bkt{-\frac{i}{\hbar}(t-t_0)\hat H(\hat x,\hat p)}.
+\end{equation}
+Moreover this makes it clear that energy eigenstates (i.e. eigenstates of the Hamiltonian) evolve in time by phases, $e^{-i E t/\hbar}$.
+
+\subsection*{Schr\"odinger and Heisenberg pictures}
+Until now, we have been working in the Schr\"odinger picture, where operators are left fixed, so that \emph{observables} carry no time dependence, and states are generically time-dependent. Thus expectation values are given by
+\begin{equation}
+    \bra{\psi(t)}\hat A \ket{\psi(t)},
+\end{equation}
+and all the time dependence is in our states' rotation in Hilbert space.
+
+But there is an alternate way to do calculations, the \term{Heisenberg picture.} In the Heisenberg picture, state vectors carry no time dependence but operators do.%
+    \footnote{If you like, we regroup all the time dependence into the operators.}
+For a Schrodinger picture state $\ket{\psi(t)}$, it is certainly true that
+\begin{equation}
+    \hat A \ket{\psi(t)} = \hat A U(t,t_0) \ket{\psi(t_0)},
+\end{equation}
+where $t_0$ is some fixed earlier time. Since $U$ is unitary we can also write this as
+\begin{equation}
+    \hat A \ket{\psi(t)} = U(t,t_0) \paren{U^\dagger (t,t_0) \hat A U(t,t_0)}\ket{\psi(t_0)},
+\end{equation}
+so that%
+    \footnote{Mukund mentioned some mnemonic for why daggers go on the left of operators. I don't know what his is, but this is how I remember it. Write the time-dependent expectation value in Schr\"odinger picture and regroup the $U$s into the operator.}
+\begin{equation}
+    \bra{\psi(t)}\hat A \ket{\psi(t)}=\bra{\psi(t_0)}\paren{U^\dagger (t,t_0) \hat A U(t,t_0)}\ket{\psi(t_0)}.
+\end{equation}
+Call $\ket{\psi(t_0)}$ the \term{Heisenberg state vector}, defined at some predetermined time $t_0$, and then the price we pay is that our operators have become time dependent,
+\begin{equation}
+    \hat A(t)=U^\dagger(t,t_0) \hat A(t_0)U(t,t_0),
+\end{equation}
+where $\hat A(t)$ indicates the Heisenberg picture version of $\hat A$.
+
+Note that for a time-independent Hamiltonian,
+\begin{equation}
+    \hat A(t) = e^{\frac{i}{\hbar}(t-t_0)\hat H}\hat A(t_0) e^{-\frac{i}{\hbar}(t-t_0)\hat H},
+\end{equation}
+and the only way to evaluate this is to Taylor expand as
+\begin{equation}
+    \hat A(t) = \paren{\II + \frac{i}{\hbar}(t-t_0) \hat H+ \paren{\frac{i}{\hbar}}^2 (t-t_0)^2\frac{\hat H^2}{2!} + \ldots} \hat A(t_0) \paren{\II - \frac{i}{\hbar}(t-t_0) \hat H+ \paren{-\frac{i}{\hbar}}^2 (t-t_0)^2 \frac{\hat H^2}{2!} + \ldots}
+\end{equation}
+and we claim (exercise) that every other term is of the form of a nested commutator,
+\begin{equation}
+    \hat A(t_0)+ \frac{i}{\hbar}(t-t_0)[\hat H,\hat A(t_0)] + (\#)[\hat H,[\hat H,\hat A(t_0)]]+\ldots
+\end{equation}
+where $\#$ is some numerical factor we have not worked out yet. This fact will be important on the homework.
+
+Incidentally, this tells us that where states evolve by rotations, operators generically transform in some complicated way. This has become a point of interest in the study of quantum chaos, how the time evolution of operators in the Heisenberg picture may depend very sensitively on the initial conditions.
+
+\subsection*{Generalizations}
+Here, we have considered the case of a single particle moving in 1D, but more generally we could have a particle moving in $d$ space direction so that the position and momentum operators have $d$ components,
+\begin{equation}
+    \hat x_i, \, i = 1,\ldots ,d,\qquad \hat p_j,\, j=1,\ldots,d,
+\end{equation}
+obeying the commutation relations
+\begin{equation}
+    [\hat x_i, \hat p_j]=i\hbar \delta_{ij},
+\end{equation}
+and in the Schrodinger equation, the $\hat p^2$ becomes the Laplacian in $d$ spatial coordinates,
+\begin{equation}
+    \nabla^2 = \sum_{i=1}^d \frac{\p^2}{\p x_i^2}.
+\end{equation}
+
+However, the generalization to multiple particles is more subtle. If our one-particle states live in Hilbert spaces $\cH_1,\cH_2,\ldots$ then the total Hilbert space is not just the direct sum $\oplus$ but the tensor product
+\begin{equation}
+    \cH=\cH_1 \otimes \cH_2.
+\end{equation}
+Hence if $\set{\ket{\psi_i}}_{i=1}^n$ generate $\cH_1$ and $\set{\ket{\chi_j}}_{j=1}^m$ generate $\cH_2$, then $\cH$ is generated by \emph{tensor products}
+\begin{equation}
+    \ket{\psi_i} \otimes \ket{\chi_j},
+\end{equation}
+and $\cH$ is $m\times n$-dimensional. It is this tensor product structure that is at the heart of the characteristic weirdness of quantum mechanics, namely the phenomenon known as \term{entanglement}.
+
+\subsection*{The harmonic oscillator (Shankar Ch. 7)}
+The quantum harmonic oscillator is a wonderful thing.%
+    \footnote{Not official lecture content. Just my (correct) opinion.}
+To begin, the classical harmonic oscillator is basically just a particle sitting in a parabolic (quadratic) potential. Its Lagrangian is
+\begin{equation}
+    L=\frac{1}{2}m\dot x^2 -\frac{1}{2} m\omega^2 x^2,
+\end{equation}
+with corresponding Hamiltonian
+\begin{equation}
+    H=\frac{p^2}{2m} +\frac{1}{2} m\omega^2 x^2.
+\end{equation}
+
+Canonical quantization tells us to promote $x$ and $p$ to operators,
+\begin{equation}
+    [\hat x,\hat p]=i\hbar,
+\end{equation}
+so that
+\begin{align}
+    \hat H &=\frac{\hat p^2}{2m} +\frac{1}{2}m\omega^2 \hat x^2
+    \hat H\\ &=-\frac{\hbar^2}{2m}\frac{d^2}{dx^2} +\frac{1}{2}m\omega^2 \hat x^2,
+\end{align}
+where we have rewritten $\hat p$ in the position basis.
+
+Let us try to find the eigenspectrum of the Hamiltonian, i.e. the state vectors such that
+\begin{equation}
+    \hat H \ket{\psi(t)}=E\ket{\psi(t)}.
+\end{equation}
+The Schr\"odinger equation tells us that energy eigenstates evolve in a special way, namely by
+\begin{equation}
+    \ket{\psi(t)}= e^{-iEt/\hbar}\ket{\psi(0)}.
+\end{equation}
+%
+Hence the Schrodinger equation written in terms of the position basis wavefunctions becomes
+\begin{equation}
+    \paren{-\frac{\hbar^2}{2m}\frac{d^2}{dx^2} +\frac{1}{2}m\omega^2 \hat x^2}\psi(x) = E\psi(x).
+\end{equation}
+
+This is a second-order ODE for $\psi$:
+\begin{equation}
+    \frac{d^2\psi}{dx^2}+\paren{\frac{2mE}{\hbar^2}-\frac{1}{2} \frac{m^2 \omega^2}{\hbar^2} x^2}\psi = 0.
+\end{equation}
+We can simplify by defining
+\begin{gather}
+    \frac{E}{\hbar \omega} = \epsilon,\\
+    x= \sqrt{\frac{\hbar}{m\omega}}\xi.
+\end{gather}
+In these variables, our equation becomes
+\begin{equation}
+    \frac{d^2\psi}{d\xi^2} +(2\epsilon-\xi^2)\psi=0.
+\end{equation}
+For such equations, we expect two families of solutions fitting the boundary conditions, one of which will be excluded on physical grounds. Typically we will have a condition on $\epsilon$, telling us that the energy is quantized.
+
+Suppose we didn't have a computer to find the solutions to this equation right away. How do we study this equation? One way is to look at its limiting behavior. As $\xi\to \infty$, our equation reduces to
+\begin{equation}
+    \frac{d^2\psi}{d\xi^2}-\xi^2 \psi=0,
+\end{equation}
+with solutions
+\begin{equation}
+    \psi = c_1 \xi^m e^{\xi^2/2} + c_2 \xi^m e^{-\xi^2/2}.
+\end{equation}
+But this first term grows exponentially as $\xi\to \infty$ (equivalent to $x\to \infty$, so we should exclude that on physical grounds (normalization, if you like). 
+
+In the limit $\xi\to 0$, we have instead
+\begin{equation}
+    \frac{d^2\psi}{d\xi^2} +2\epsilon \psi =0,
+\end{equation}
+with solutions
+\begin{equation}
+    \psi = a_1 \cos(\sqrt{2\epsilon}\xi) + a_2\sin(\sqrt{2\epsilon}\xi),
+\end{equation}
+so we haven't learned much from expanding about the origin.

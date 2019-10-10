@@ -1,0 +1,182 @@
+\begin{quote}
+    \textit{``If you can ask a general-sounding question that will help you with the homework, by all means do it. I encourage you to be sneaky.''} --Nemanja Kaloper
+\end{quote}
+
+%quick announcement-- send me your best Nemanja quotes
+
+We said last time that operators in a new basis $\ket{\phi'_i} = U\ket{\phi_i}$ are given by
+\begin{equation}
+    A'= UAU^\dagger=\sum a_{ik} \ket{\phi_i'}\bra{\phi_k'}.
+\end{equation}
+Hence the \emph{components} of the corresponding operator $A'$ are left unchanged in the new basis. However, it is also true that the original operator has some components%
+    \footnote{I tend to write this as components times $\ket{\phi_i}\bra{\phi_k}$ to emphasize that this is really a linear combination of operators.}
+\begin{equation}
+    A=\sum a_{ik}\ket{\phi_i} \bra{\phi_k} = \sum a_{ik}'\ket{\phi_i'}  \bra{\phi_k'}.
+\end{equation}
+
+That is, we can either define a change of basis and also rotate the operator along with it ($A'=UAU^\dagger$) or we can just change the basis and leave the operator fixed. Hence its projections onto the new basis will change and therefore its components will change. This is the difference between \term{active and passive transformations}. Incidentally, this is related to the Schr\"odinger and Heisenberg pictures. There is also a third hybrid%
+    \footnote{``Bastard,'' as per Nemanja.}
+picture known as the interaction picture, and this ends up being the most practical one to do perturbative calculations in.
+
+We will work mostly in the picture where operators are fixed and the bases change. How do we find the components in the new basis?
+\begin{align}
+    \ket{\phi_i'} &= U \ket{\phi_i}\\
+        &= \sum_j \ket{\phi_j}\bra{\phi_j}U \ket{\phi_i}\\
+        &= \sum_j U_{ji} \ket{\phi_j}.
+\end{align}
+Hence
+\begin{equation}
+    a_{ik}'=\sum_{jl} \braket{\phi_i'}{\phi_j} a_{jl} \braket{\phi_l}{\phi_k'} = \sum_{jl} U_{ji}^* a_{jl} U_{lk},
+\end{equation}
+which tells us that the components transform in the opposite way from the operator. That is, in this picture we have
+\begin{equation}
+    A^{\phi'}_{ik} = a_{ik}'=(U^\dagger A U)_{ik}.
+\end{equation}
+%Hbar is 1, the only reason we didn't realize it earlier is because we had to start with bananas and rocks and stuff.
+
+Recall from last time that for some general operator $A$, we are guaranteed at least one eigenvector,
+\begin{equation}
+    A\ket{\psi} = \lambda\ket{\psi}.
+\end{equation}
+
+Suppose we have a coupled harmonic oscillator potential
+\begin{equation}
+    V=ax^2 + bxy + cy^2,
+\end{equation}
+which results in the forces
+\begin{align}
+    F_x &= -2ax - by\\
+    F_y &= -2cy - bx.
+\end{align}
+This looks like an ellipsoidal well, and particles will form closed orbits (Lissajous figures) in this well.
+%I hate technology but this is fun.
+
+In general orbits will be 2-dimensional, changing in $x$ and $y$. But! Sometimes if we set it up right, we will find that our orbits become 1-dimensional. And this tells us that we've found the \emph{characteristic directions} of the oscillator.
+
+We can now write this as an eigenvalue problem:
+\begin{equation}
+    \begin{pmatrix}
+        a_x\\ a_y
+    \end{pmatrix}
+    =\frac{1}{m} \begin{pmatrix}
+    F_x \\ F_y
+    \end{pmatrix}
+    = \begin{pmatrix}
+        -2ax - by\\
+        -2cy - bx
+    \end{pmatrix}
+    = \begin{pmatrix}
+        -2a & -b\\
+        -b & -2c
+    \end{pmatrix}
+    \begin{pmatrix}
+        x\\ y
+    \end{pmatrix}.
+\end{equation}
+We could imagine an orbit where the acceleration becomes parallel to the displacement, in which case the motion just becomes one-dimensional.
+
+If we project down the equipotentials, we can read off the principal axes, which tells us the right directions in which the motion separates.
+
+We can abstract the problem: consider
+\begin{equation}
+    \begin{pmatrix}
+        h_{11} & h_{12}\\
+        h_{12} & h_{22}
+    \end{pmatrix}
+    \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}
+    = \lambda \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}.
+\end{equation}
+We solve the eigenvalue problem by finding the characteristic equation. That is,
+\begin{equation}
+    (h_{11}-\lambda)(h_{22}-\lambda) - h_{12}^2=0.
+\end{equation}
+These could be real eigenvalues, and potentially degenerate.%
+    \footnote{In this case, if the eigenvalues are degenerate, then our elliptical bowl becomes a circle. There are not just two characteristic directions but a continuum of characteristic directions.}
+In this example, the matrix is real and symmetric and therefore Hermitian, which implies its eigenvalues are real. In the general case the eigenvalues could be complex if the matrix entries were not all real.%
+    \footnote{Incidentally they would be complex conjugates, since complex roots to real equations must come in pairs.}
+Note that we get the constraint equations,
+\begin{align}
+    (h_{11}-\lambda_1)x + h_{12} &= 0\\
+    h_{12}x + (h_{22}-\lambda_1)y&=0.
+\end{align}
+Notice that the determinant of $H-\lambda \II$ vanished, which tells us that the rows are linearly \emph{dependent}. So we will not get any extra information out of the second equation, i.e. our solution is not uniquely determined.%
+    \footnote{In fancier language, we get a one-parameter family of eigenvalues, i.e. a 1D subspace of eigenvectors.}
+We can solve
+\begin{equation}
+    y= -\frac{h_{11}-\lambda_1}{h_{12}}x,
+\end{equation}
+but we cannot a priori fix the value of $x$.
+For notice that to any eigenvector, i.e. a solution to
+\begin{equation}
+    \begin{pmatrix}
+        h_{11}-\lambda_1 & h_{12}\\
+        h_{12} & h_{22}-\lambda_1
+    \end{pmatrix}
+    \begin{pmatrix}x\\y
+    \end{pmatrix}=0,
+\end{equation}
+another (nontrivial) solution to this is clearly $\begin{pmatrix}cx\\cy\end{pmatrix}$ for some $c\neq 0$. Hence eigenvectors are only determined up to an overall normalization factor.
+
+For instance, let us compute the eigenvectors of
+\begin{equation}
+    \begin{pmatrix}
+        0 & 1 \\ 1 & 0
+    \end{pmatrix}.
+\end{equation}
+The characteristic equation is
+\begin{equation}
+    \lambda^2-1 \implies \lambda = \pm 1.
+\end{equation}
+Hence we have 
+\begin{equation}
+    \begin{pmatrix}
+        y\\ x
+    \end{pmatrix}
+    = \pm \begin{pmatrix}
+        x\\y
+    \end{pmatrix},
+\end{equation}
+giving $y=x$ or $y=-x$. The normalized eigenvectors are
+\begin{equation}
+    \frac{1}{\sqrt{2}}\begin{pmatrix}
+    1\\1
+    \end{pmatrix},
+    \frac{1}{\sqrt{2}}\begin{pmatrix}
+    1\\-1
+    \end{pmatrix}.
+\end{equation}
+Moreover, notice that we can build a matrix built out of the components of the eigenvectors, namely
+\begin{equation}
+    E=
+    \begin{pmatrix}
+        x_+ & x_-\\
+        y_+ & y_-
+    \end{pmatrix}
+    =\frac{1}{\sqrt{2}}\begin{pmatrix}
+        1 & 1\\
+        1 & -1
+    \end{pmatrix}.
+\end{equation}
+Observe that
+\begin{equation}
+    \begin{pmatrix}
+        0 & 1\\
+        1 & 0
+    \end{pmatrix}
+    E = E\begin{pmatrix}
+        +1 & 0\\
+        0 & 1
+    \end{pmatrix} =E\begin{pmatrix}
+        \lambda_+ & 0\\
+        0 & \lambda_-
+    \end{pmatrix}.
+\end{equation}
+Moreover, $E^TE=\II$ since the eigenvectors are orthonormal. So if we now multiply on the left by $E^T$ we find that
+\begin{equation}
+    E^T A E= A'
+\end{equation}
+where $A'$ is now the diagonal matrix of the eigenvalues of $A$.
