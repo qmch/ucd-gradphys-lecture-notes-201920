@@ -1,0 +1,247 @@
+Last time, we showed that certain kinds of matrices can be diagonalized, i.e. we can write them as a similarity transform of a diagonal matrix. The goal is basically to project onto the (normalized) eigenvectors ($E$), multiply by eigenvalues in the eigenbasis ($D$), and then perform the inverse transformation to take us back to the original basis ($E^T$).
+
+Recall we are interested in the eigenvalue problem for Hermitian matrices,
+\begin{equation}\label{hermitianeval1}
+    H\ket{\psi}= \lambda_\psi \ket{\psi}
+\end{equation}
+where $H=H^\dagger$. In the finite dimensional case, we are guaranteed at least one (simply write down the characteristic equation, and it must have at least one root over the complex numbers). Suppose moreover we have another eigenvalue
+\begin{equation}
+    H\ket{\phi}= \lambda_\phi \ket{\phi}.
+\end{equation}
+
+Let us now conjugate the second equation to get
+\begin{equation}\label{hermitianeval2}
+    \bra{\phi} H = \lambda_\phi^* \bra{\phi}.
+\end{equation}
+We can multiply Eqn. \ref{hermitianeval1} by $\bra{\phi}$ and Eqn. \ref{hermitianeval2} by $\ket{\psi}$. Hence
+\begin{gather}
+    \bra{\phi} H \ket{\psi} = \lambda_\psi \braket{\phi}{\psi}\\
+    \bra{\phi} H \ket{\psi} = \lambda_\phi^* \braket{\phi}{\psi}.
+\end{gather}
+We can now subtract these two from each other to find that
+\begin{equation}
+    0 = (\lambda_\psi -\lambda_\phi^*) \braket{\phi}{\psi}.
+\end{equation}
+
+If $\ket{\phi}=\ket{\psi}$ with $\ket{\psi}\neq 0$, then we immediately find that
+\begin{equation}
+    \lambda_\phi = \lambda_\phi^*,
+\end{equation}
+which tells us the eigenvalues are real.
+
+Conversely if the eigenvalues are distinct ($\lambda_\psi \neq \lambda_\phi$) then
+\begin{equation}
+    0 = (\lambda_\psi -\lambda_\phi) \braket{\phi}{\psi} \implies \braket{\phi}{\psi}=0.
+\end{equation}
+Hence eigenvectors associated to distinct eigenvalues \emph{must be orthogonal.}
+
+Finally, suppose we have a degenerate case where multiple eigenvectors are associated to the same eigenvalue, $\lambda_\phi=\lambda_\psi$. Then this equation cannot help us because it automatically vanishes. We get a degenerate subspace associated to the eigenvalue $\lambda_\phi$, and we can then perform Gram-Schmidt within the subspace.
+
+This completes the process of diagonalization. Distinct eigenvalues correspond to orthogonal eigenvectors, and degenerate eigenvalues give us a subspace whose basis vectors can be made orthogonal by Gram-Schmidt.
+
+Moreover, there is a completeness relation for the eigenvectors:
+\begin{equation}
+    \sum_i \ket{\psi_i} \bra{\psi_i} = \II.
+\end{equation}
+This is fairly trivial in the finite-dimensional case (in $n$ dimensions we can construct $n$ orthogonal vectors from the eigenvectors, so we get a basis). However, there is a convergence requirement in the infinite-dimensional case. It is not enough to just count and show orthogonality; we must show that all the same information from the original function is contained in the Fourier coefficients, for example.
+
+We will keep in the back of our mind that this completeness relation is really something we have to prove, but for the most part we will perform calculations as though it is true. That is, recall we can write a decomposition in some basis as
+\begin{equation}
+    \ket{\phi} =\sum_i \braket{\psi_i}{\phi} \ket{\psi_i}.
+\end{equation}
+If
+\begin{equation}
+    \lim_{N\to \infty} ||\ket{\phi} - \sum_i^N \braket{\psi_i}{\phi} \ket{\psi_i}||^2 =0
+\end{equation}
+then we may say that our basis is complete in the sense that a decomposition into components $\braket{\psi_i}{\phi}$ converges to the ``real'' vector $\ket{\phi}$.
+
+Now
+\begin{align}
+    H &= H\sum_i \ket{\psi_i}\bra{\psi_i}\\
+        &= \sum_i H\ket{\psi_i} \bra{\psi_i}\\
+        &= \sum_i \lambda_i \ket{\psi_i}\bra{\psi_i}.
+\end{align}
+That is, $H$ is diagonal in its eigenbasis and its elements are the eigenvalues. Let us note that
+\begin{equation}
+    H \begin{pmatrix}
+        \psi_1^1 & \psi_1^2 \ldots\\
+        \vdots & \vdots &\\
+        \psi^1_N & \psi^2_N \ldots
+    \end{pmatrix}
+    =\begin{pmatrix}
+        \psi_1^1 & \psi_2^1 \ldots\\
+        \vdots & \vdots &\\
+        \psi_1^N & \psi_2^N \ldots
+    \end{pmatrix}
+    \begin{pmatrix}
+        \lambda_1 &&\\
+        & \lambda_2 &\\
+        && \ddots
+    \end{pmatrix},
+\end{equation}
+where lower indices indicate which eigenvector we're looking at and upper indices indicate the component of that eigenvector. That is, this is just a matrix form of
+\begin{equation}
+    H\ket{\psi_i} = \lambda_i \ket{\psi_i}.
+\end{equation}
+More generally we have constructed
+\begin{equation}
+    HU=UH_d \implies H_d = U^\dagger H U,
+\end{equation}
+which tells us that $U$ gives the complex rotation to take us to the eigenbasis of the hermitian operator $H$.
+
+Now suppose that two operators commute, $[A,B]=0$. Then a mutual eigenbasis can be found:
+\begin{equation}
+    [A,B] \iff A\ket{\phi} = a \ket{\phi}, B \ket{\phi} = b\ket{\phi},
+\end{equation}
+for all eigenvectors $\ket{\phi}$.
+The $\impliedby$ direction is easy:
+\begin{equation}
+    AB \ket{\phi} = bA\ket{\phi} = ab\ket{\phi},
+\end{equation}
+and similarly
+\begin{equation}
+    BA \ket{\phi}=ba \ket{\phi}=ab\ket{\phi}
+\end{equation}
+for scalars. By completeness,
+\begin{equation}
+    (AB-BA)\ket{\psi}=0
+\end{equation}
+for a general vector $\ket{\psi}$.
+
+Let us now prove the $\implies$ direction. If $A$ and $B$ commute, then
+\begin{equation}
+    AB\ket{\phi} = BA\ket{\phi}
+\end{equation}
+for all $\ket{\phi}$. Let us suppose $\ket{\phi}$ is an eigenvector of $B$,
+\begin{equation}
+    B\ket{\phi}= b\ket{\phi}.
+\end{equation}
+Then
+\begin{equation}
+    bA \ket{\phi} = B A \ket{\phi}.
+\end{equation}
+But this tells us that $A\ket{\phi}$ is an eigenvector of $B$ with eigenvalue $b$.
+
+There are a few possibilities here. It could be that $A\ket{\phi}=0$, which tells us that $\ket{\phi}$ is an eigenvector of $A$ with eigenvalue zero,
+\begin{equation}
+    A\ket{\phi}= 0 \ket{\phi}.
+\end{equation}
+The next case is where $b$ is a unique eigenvalue of $B$. Then
+\begin{equation}
+    A\ket{\phi} \propto \ket{\phi},
+\end{equation}
+i.e. it lives in the same 1D subspace as $\ket{\phi}$. It is simply proportional to the original eigenvector $\ket{\phi}$, and hence
+\begin{equation}
+    A\ket{\phi} = a\ket{\phi}.
+\end{equation}
+The only subtle case is when $b$ is a degenerate eigenvalue. What then? In this case, $A\ket{\phi}$ simply lives in the degenerate subspace corresponding to eigenvalue $b$.
+
+\subsection*{Normal operators}
+Suppose we have an operator $A$ obeying
+\begin{equation}
+    [A,A^\dagger]=0.
+\end{equation}
+Suppose $A$ has an eigenvalue,
+\begin{equation}
+    A \ket{\phi_1} =\lambda_1 \ket{\phi_1} \implies (A-\lambda_1) \ket{\phi_1}=0.
+\end{equation}
+Taking the dagger,
+\begin{equation}
+    \bra{\phi_1}(A^\dagger - \lambda^*)=0.
+\end{equation}
+Now since these are individually zero, we can multiply them to get
+\begin{equation}
+    \bra{\phi_1}(A^\dagger -\lambda_1^*) (A-\lambda_1) \ket{\phi_1}=0.
+\end{equation}
+Expanding out the multiplication we have
+\begin{align*}
+    0 &= \bra{\phi_1} (A^\dagger A - \lambda^* A - \lambda A^\dagger +\lambda_1^* \lambda_1 \ket{\phi_1}\\
+    &=\bra{\phi_1} (A A^\dagger - \lambda^* A - \lambda A^\dagger +\lambda_1^* \lambda_1 \ket{\phi_1}\\
+    &= \bra{\phi_1}(A -\lambda_1) (A^\dagger-\lambda_1^*) \ket{\phi_1}
+\end{align*}
+where in the second line we have used the fact that $A$ and $A^\dagger$ commute. This is just the modulus $||(A^\dagger -\lambda_1^*)\ket{\phi_1}||^2$, so since it is zero,
+\begin{equation}
+    (A^\dagger -\lambda_1^*)\ket{\phi_1}=0 \implies A^\dagger \ket{\phi_1} = \lambda_1^* \ket{\phi_1}.
+\end{equation}
+We conclude that $\ket{\phi_1}$ is an eignevector of $A^\dagger$ with eigenvalue $\lambda_1^*$.
+
+Consider now some vector $\ket{\psi}$ in the orthogonal complement of $\ket{\phi_1}$, 
+\begin{equation}
+    \ket{\psi} \in L_D \setminus \set{\ket{\phi}| \ket{\phi}=a\ket{\phi_1},a\in \CC}.
+\end{equation}
+Then
+\begin{equation}
+    0=\braket{\phi_1}{\psi}
+\end{equation}
+by definition, and
+\begin{equation}
+    \bra{\phi_a}A \ket{\psi} = \bra{\psi} A^\dagger \ket{\phi_1}^* = [\lambda_1^* \braket{\psi}{\phi_1}]^* = \lambda_1 \braket{\phi_1}{\psi}=0,
+\end{equation}
+since $\ket{\phi_1}$ is an eigenvector of $A^\dagger$. Hence it is not just $\ket{\psi}$ that is in the orthogonal complement of $\ket{\phi_1}$-- in fact, its image $A\ket{\psi}$ is also in the orthogonal complement. Hence this orthogonal complement is well-defined. Its image $A\ket{\psi}$ does not mix with any of the vectors we just took away.
+
+Now we have reduced the dimension of the space by one, which tells us that we can repeat this process with the resulting subspace and therefore find a complete set of eigenvectors and eigenvalues. This completes the proof that normal operators can be diagonalized.%
+    \footnote{In the continuous case we must also be careful about questions of convergence in the inner products so they are well-defined, but this otherwise totally defines the procedure.}
+    
+As a practical aside, these sorts of techniques appear in the case of perturbation theory. Sometimes we will have a degenerate eigenvalue of the zeroth order Hamiltonian due to certain symmetries of the problem, and if we are lucky, the perturbation will lift (break) this symmetry, splitting the degenerate energy levels. This is the case with the Stark effect (electric field aligning the electric dipole of an electron) and Zeeman effect (magnetic equivalent).
+
+Now suppose we have an eigenbasis in hand and can write
+\begin{equation}
+    H=\sum\ket{\phi_i} \lambda_i \bra{\phi_i}.
+\end{equation}
+Hence
+\begin{equation}
+    H^n \ket{\phi_i} = \lambda_i^n \ket{\phi_i},
+\end{equation}
+so in general
+\begin{equation}
+    H^n =\sum \ket{\phi_i} \lambda_i^n \bra{\phi_i}
+\end{equation}
+and we can define a function of an operator by its Taylor expansion,
+\begin{align}
+    f(H) &= \sum_n \frac{f^{(n)}(0)}{n!}H^n\\
+    &= \sum_i \ket{\phi_i} \sum_n \frac{f^n(0)}{n!} \lambda_i \bra{\phi_i}\\
+    &= \sum_i \ket{\phi_i} f(\lambda_i) \bra{\phi_i},
+\end{align}
+provided that the set is complete (so we can change the order of summation over $i,n$) and the $\lambda_i$s are in the radius of convergence of $f$ (so we can perform the sum over $n$).
+
+We can then define the inverse of a Hermitian operator acting on an eigenvector of $H$:
+\begin{equation}
+    H^{-1} \ket{\phi_i} = \frac{1}{\lambda_i} \ket{\phi_i},
+\end{equation}
+which is valid so long as \emph{none of the eigenvalues are zero}. Then its action on any vector is well-defined since the $\ket{\phi_i}$ are complete.
+
+Inserting the identity, we can also find that
+\begin{equation}
+    \bra{\phi}H\ket{\phi} = \sum \braket{\phi}{\phi_i}\lambda_i \braket{\phi_i}{\phi} = \sum_i \lambda_i |\braket{\phi_i}{\phi}|^2.
+\end{equation}
+When our states are normalized, this gives us a probabilistic interpretation of the expectation value $\bra{\phi}H\ket{\phi}$ in terms of the probability $|\braket{\phi_i}{\phi}|^2$ of measuring $\lambda_i$.
+
+\begin{exm}
+    Suppose we have three masses attached on springs, with two small masses $m$ at the sides and a larger mass $M$ in the center. The spring constants are $k$. Label their positions by $x_1,x_2,x_3$. Then the potential is
+    \begin{equation}
+        V=\frac{k}{2} \bkt{(x_1-x_2)^2 +(x_2-x_3)^2},
+    \end{equation}
+    and the restoring forces are given by
+    \begin{align}
+        \ddot x_1 &= -\frac{k}{m}(x_1-x_2)\\
+        \ddot x_2 &=-\frac{k}{M}(x_2-x_1)-\frac{k}{M}(x_2-x_3)\\
+        \ddot x_3 &= -\frac{k}{m}(x_3-x_2)
+    \end{align}
+    We take the ansatz
+    \begin{equation}
+        x_i \sim e^{i\omega t} \ket{\phi_i},
+    \end{equation}
+    so that all the derivatives become $-\omega^2$s, and then we can easily write this as a matrix equation. The solution for the normal modes reduces to finding the eigenvalues of the matrix
+    \begin{equation}
+        \begin{pmatrix}
+            \frac{k}{m} & -\frac{k}{m} & 0\\
+            -\frac{k}{M} & \frac{2k}{M} & -\frac{k}{M}\\
+            0 & -\frac{k}{m} & \frac{k}{m}
+        \end{pmatrix}.
+    \end{equation}
+    Note this matrix is normal (it commutes with its transpose) but not hermitian. That's the standard way to solve this. But we'll try something different. We have translational symmetry-- the forces depend only on relative separations. Hence there is an $\omega^2=0$ mode corresponding to the eigenvector $(1,1,1)$.
+    
+    There is also another momentum-conserving mode $(1,0,-1)$ corresponding to the outer two masses moving, and we can read off the eigenvalue immediately: $\omega^2= k/m \implies \omega =\sqrt{k/m}$.
+    
+    Finally, there is a third mode. It is orthogonal to the other two, and it takes more work to find: $(1,-2m/M,1)$, with eigenvalue $\frac{k}{m} +\frac{2k}{M}$. Hence we could take a cross product and normalize, or we could use Gram-Schmidt to calculate the final eigenvector.
+\end{exm}
