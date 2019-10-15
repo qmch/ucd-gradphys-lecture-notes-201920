@@ -1,0 +1,242 @@
+Last time, we defined the dimensionless variables $\xi,\epsilon$ in terms of $x$ and $E$ in order to write the Schr\"odinger equation in a dimension-free way:
+\begin{equation}
+    \frac{d^2\psi(\xi)}{d\xi^2} + (2\epsilon-\xi^2)\psi(\xi)=0.
+\end{equation}
+
+We suggested that there was some limiting behavior where as $\xi\to \infty,$
+\begin{equation}
+    \psi(\xi) = c_1 \xi^k e^{-\xi^2/2} + c_2 \xi^k e^{\xi^2/2},
+\end{equation}
+setting $c_2=0$ for convergence. We also had some expansion in sines and cosines about the origin $\xi\to 0$.
+
+
+Let us redefine
+\begin{equation}
+    \psi(\xi) = \phi(\xi) e^{-1/2 \xi^2}
+\end{equation}
+so that substituting (exercise), the Schr\"odinger equation becomes
+\begin{equation}
+    \frac{d^2\phi}{d\xi^2} - 2\xi \frac{d\phi}{d\xi}+(2\epsilon-1)\phi(\xi)=0.
+\end{equation}
+We shall solve this by the Frobenius method, i.e. by expanding $\phi$ as a power series in $\xi$. Let
+\begin{equation}
+      \phi(\xi) = \sum_{n=0}^\infty a_n \xi^n,
+\end{equation}
+so that our equation becomes
+\begin{equation}
+    \sum_{n=0}^\infty a_n \, n(n-1) \xi^{n-2}- 2\xi \sum_{n=0}^\infty a_n \, n \xi^{n-1} + (2\epsilon-1)\sum_{n=0}^\infty a_n \xi^n =0.
+\end{equation}
+Note that the first sum really starts from $n=2$ since the $n=0,n=1$ terms are zero, and the second term is similar. Hence we can combine all these sums:
+\begin{equation}
+    \sum_{j=0}^\infty \bkt{(j+1)(j+2) a_{j+2} -(2j+1-2\epsilon)a_j}\xi^j =0.
+\end{equation}
+That is, we collect terms in powers of $\xi$, redefining some indices. Note that on the space of smooth functions defined on $\RR$, the functions $\set{\xi^j}_{j=0}^\infty$ form a complete, linearly independent basis. That means this equation gives us a recursion relation for the coefficients $a_j$ of $\phi$, because the only way for the sum of all $\xi^j$ to be zero is if each of the individual coefficients vanish. Hence
+\begin{equation}\label{shorecursion}
+    a_{j+2} =\frac{2j+1-2\epsilon}{(j+1)(j+2)}a_j.
+\end{equation}
+For a generic second-order equation, we can always find such a recursion relation which will generally involve $a_j,a_{j+1},a_{j+2}$.
+
+Let us note that the relation \ref{shorecursion} relates even $j$ coefficients to each other, and it relates odd $j$ coefficients, but it does not mix them. This agrees with our intuition that there should be two linearly independent sets of solutions (the power law exponentials in the large $\xi$ limit and the sines and cosines in the small $\xi$ limit).
+
+Hence
+\begin{equation}
+    \phi(\xi) = a_0 \bkt{1+\frac{1-2\epsilon}{2!}\xi^2 + \frac{(1-2\epsilon)(5-2\epsilon)}{4!}\xi^4 + \ldots} + a_1 \bkt{\xi + \frac{(3-2\epsilon)}{3!}\xi^3 + \frac{(3-2\epsilon)(7-2\epsilon)}{5!}\xi^5+\ldots}.
+\end{equation}
+
+Notice that as $\xi\to 0$, $\phi(\xi)$ is determined by $a_0,a_1$, which are otherwise unconstrained. To find what happens as $\xi\to \infty$, we have
+\begin{equation}
+    \frac{a_{j+2}}{a_j} = \frac{2j+1-2\epsilon}{(j+1)(j+2)}\approx \frac{2j}{j^2} \approx \frac{2}{j}, \quad j\gg 1.
+\end{equation}
+That is, in the large $\xi$ limit (equivalently in the limit of $j$ large), for $j\geq j_c \gg 1$, our solution is approximately
+\begin{equation}
+    a_{j_c} \xi^{j_c} \paren{1+\frac{2}{j_c} \xi^2 + \frac{4}{j_c(j_c+2)} \xi^4 + \ldots}.
+\end{equation}
+That is, pick some $j_c$ large, look at all terms of power $\xi^{j_c}$ or higher, and WLOG consider just the even or odd terms. Then this solution can be explicitly summed; it is
+\begin{equation}
+    a_{j_c} \xi^{j_c} e^{\xi^2},
+\end{equation}
+and this tells us that we actually got back this bad exponential behavior in $\xi$. This is exactly like the $c_2 \xi^k e^{\xi^2/2}$ term we tried to get rid of. We could have expected this-- for a generic solution, we have not yet imposed the physical boundary conditions for convergence.
+
+So how do we do this? Independent of $a_0,a_1$, we have a divergent solution as $\xi\to \infty$. It must be that our infinite sum actually terminates at some finite $j$. We have three choices to impose the boundary conditions.
+\begin{enumerate}
+    \item[i)] We can set $a_0=a_1=0$, the trivial solution.
+    \item[ii)] Let $a_0$ be arbitrary and set $a_1=0$.
+    \item[iii)] Let $a_1$ be arbitrary and set $a_0=0$.
+\end{enumerate}
+In either case ii or iii, we must set
+\begin{equation}
+    \epsilon = \frac{2n+1}{2}
+\end{equation}
+so that the series terminates at order $n$, i.e.
+\begin{equation}
+    a_{n+2} = \frac{2n+1 - 2(2n+1)/2}{(n+1)(n+2)}a_j = 0.
+\end{equation}
+Since $\epsilon$ is related to the (dimensionful) energy $E$, this constraint tells us the spectrum of the harmonic oscillator.
+
+Let us redefine
+\begin{equation}
+    \psi(\xi) = \phi(\xi) e^{-\frac{1}{2} \xi^2},
+\end{equation}
+where the solutions are $\phi_n(\xi)$ with $\epsilon=n+1/2$. The particular solutions are \term{Hermite polynomials} $H_n(\xi)$, where the first we are
+\begin{align*}
+    H_0(\xi)&=1\\
+    H_1(\xi)&=\xi\\
+    H_2(\xi) &= 2(2\xi^2-1),
+\end{align*}
+where these Hermite polynomials have a generating function
+\begin{equation}
+    e^{-\alpha^2 + 2\alpha \xi} = \sum_{n=0}^\infty \frac{H_n(\xi)}{n!} \alpha^n,
+\end{equation}
+up to normalization.
+The Hermite polynomials also form a complete basis for smooth functions like the monomials $\xi^j$.
+
+Restoring units we get some explicit solutions for the harmonic oscillator eigenstates, i.e. the wavefunctions
+\begin{equation}
+    \psi_n(x) =\paren{\frac{m\omega}{2^{2n}(n!)^2 \pi \hbar}}^{1/4} e^{-\frac{m\omega}{2\hbar} x^2} H_n\paren{\sqrt{\frac{m\omega}{\hbar}}x}
+\end{equation}
+satisfy the Schr\"odinger equation for the harmonic oscillator potential,
+\begin{equation}
+    \hat H \psi_n(x) = E_n \psi_n(x),
+\end{equation}
+with an energy spectrum given by
+\begin{equation}
+    E_n=(n+1/2)\hbar \omega.
+\end{equation}
+
+Looking at the $n=0$ ground state, we see it is just a (normalized) Gaussian. However, it differs in one important way from the classical solution. For a solution with energy $E_0=\hbar \omega/2$, a classical particle would never escape the potential well, i.e. it must stay within $|x| \leq\sqrt{\hbar/m\omega}$. But the quantum solution (and more importantly its modulus squared, $|\psi_n(x)|^2$) is nonzero in the classically forbidden region. So there is an (exponentially damped) probability of observing the particle outside the classically forbidden region. 
+%picture of the first few states?
+Note also that the ground state is node-free, $\psi_0 >0$ everywhere. More generally, the $n$th excited state has $n$ zeros corresponding to $H_n(\xi)=0$.
+
+Here's another takeaway from this problem. The discreteness of energy levels defines the ``quantization'' of the system, and this is generally true for a confining potential. There are no nodes in the ground state, and the energy levels have some quantization condition. Moreover, there exists an isomorphism of Hilbert spaces between such confining potentials, i.e. the wavefunctions are $\psi_m(x),m=0,1,2,\ldots$ and form some countably infinite set.
+%draw
+
+Note that confining potentials differ from potentials that vanish at infinity. Potentials of the latter kind will have not just bound states but also scattering states which are not normalizable and will generally form a continuous spectrum.
+
+\subsection*{The algebraic method}
+
+The Frobenius method requires us to know how to solve differential equations. The series method is very general, but there is another method that will prove useful.%
+    \footnote{Especially if you ever do quantum field theory.}
+Let us define creation and annihilation operators
+\begin{align}
+    a &= \frac{1}{\sqrt{2}} \paren{\sqrt{\frac{m\omega}{\hbar}}\hat x + \frac{i}{\sqrt{\hbar m \omega}}\hat p},\\
+    a &= \frac{1}{\sqrt{2}} \paren{\sqrt{\frac{m\omega}{\hbar}}\hat x - \frac{i}{\sqrt{\hbar m \omega}}\hat p}.
+\end{align}
+Note that $x=x^\dagger, p=p^\dagger$, so
+\begin{equation}
+    [x,p]=i\hbar \implies [a,a^\dagger]=1.
+\end{equation}
+Hence we can ``factor'' the Hamiltonian. Writing
+\begin{equation}
+    \hat H = \hbar \omega \paren{\frac{p^2}{2m\hbar \omega}+\frac{m\omega}{2\hbar} x^2},
+\end{equation}
+we see that in terms of $a,a^\dagger$ our Hamiltonian becomes
+\begin{align}
+    H &=\frac{\hbar \omega}{2} (a^\dagger a + aa^\dagger)\nonumber\\
+        &=\hbar \omega(a^\dagger a +1/2),
+\end{align}
+where we have used the commutation relation $aa^\dagger -a^\dagger a =1$ in the second line.
+
+Let us now define the \term{number operator}
+\begin{equation}
+    N\equiv a^\dagger a.
+\end{equation}
+It commutes with the Hamiltonian, $[H,N]=0$, so we may as well find the eigenstates of $N$ since they will be eigenstates of $H$, with some shifted eigenvalues. Moreover
+\begin{align}
+    [N,a]=[a^\dagger a, a] &=a^\dagger a a - a a^\dagger a\nonumber\\
+        &= (a^\dagger a- aa^\dagger)a = -a.
+\end{align}
+Similarly
+\begin{equation}
+    [N,a^\dagger]=a^\dagger.
+\end{equation}
+
+Of course, these two relations also hold for the Hamiltonian, since everything commutes with scalars:
+\begin{equation}
+    [H,a] = -\hbar \omega a,\quad [H,a^\dagger] = \hbar \omega a^\dagger.
+\end{equation}
+That is, acting on some eigenstate $\ket{n}$ of energy $E_n$, $a^\dagger
+\ket{n}$ produces a new eigenstate of energy $E_n+\hbar \omega$ and similarly $a\ket{n}$ produces an eigenstate of energy $E_n-\hbar \omega$.
+
+For suppose that $N$ has an eigenvector $\ket{\nu}$ with eigenvalue $\nu$. That is,
+\begin{equation}
+    N\ket{\nu} = \nu\ket{\nu}.
+\end{equation}
+Then $a\ket{\nu}$ is also an eigenvector of $N$:
+\begin{equation}
+    N(a\ket{\nu})=Na\ket{\nu} = a(N-1) \ket{\nu} = (\nu-1)a\ket{\nu}.
+\end{equation}
+Moreover
+\begin{equation}
+    (a\ket{\nu})^\dagger = \bra{\nu}a^\dagger,
+\end{equation}
+so
+\begin{equation}
+    ||a\ket{\nu}||^2 = \bra{\nu} a^\dagger a \ket{\nu} = \bra{\nu} N \ket{\nu} = \nu \braket{\nu}{\nu}.
+\end{equation}
+But the norm of this new state depends on $\nu$, so we must be careful. By repeatedly applying $a$ we get a state $a^k\ket{\nu}$ such that
+\begin{equation}
+    N(a^k\ket{\nu})= (\nu-k) a^k\ket{\nu}.
+\end{equation}
+But since the norm depends on $\nu$, which can be lowered, there must be some state $a^k\ket{\nu}$ where the norm becomes negative. We must stop, or else $\nu-k$ could become (arbitrarily) negative. All states in our Hilbert space must have non-negative norm. 
+
+Hence there exists some state that is annihilated by $a$, i.e. \begin{equation}
+    a\ket{0} = 0,
+\end{equation}
+and it follows that
+\begin{equation}
+    N\ket{0}=0.
+\end{equation}
+
+Is there a ceiling? By the same manipulations, we find that
+\begin{equation}
+    Na^\dagger \ket{\nu} = (\nu+1) a^\dagger \ket{\nu},
+\end{equation}
+so we can construct arbitrarily high number eigenstates with the raising operator. So there is no ceiling in the eigenspectrum.%
+    \footnote{But contrast the angular momentum operator $L_z$ (and its operators $L^+,L^-$) later. $L_z$ has both minimum and maximum eigenvalues, so the ladder is finite.}
+We may write
+\begin{equation}
+    N a^\dagger \ket{0} = 1 a^\dagger \ket{0},
+\end{equation}
+so we see that $a^\dagger\ket{0}$ is an eigenstate of $N$ with eigenvalue 1. Define
+\begin{equation}
+    \ket{1} = a^\dagger \ket{0}
+\end{equation}
+and more generally
+\begin{equation}
+    \ket{k}=\frac{1}{\sqrt{k!}}(a^\dagger)^k \ket{0},
+\end{equation}
+where the factorial accounts for normalization.
+
+In general,
+\begin{equation}
+    N\ket{k} = k\ket{k}, \quad a\ket{k} = \sqrt{k} \ket{k-1},\quad a^\dagger \ket{k} = \sqrt{k+1} \ket{k+1}.
+\end{equation}
+We now see that $N$ has an eigenspectrum in integer steps starting from $\ket{0}$ and going up to arbitrarily high $\ket{k}$.
+
+But now we're done,%
+    \footnote{We haven't yet shown that the ground state is unique, but we can show that because this space of solutions is isomorphic to the solutions we constructed analytically, the ground state is in fact unique. We could also prove this by contradiction. But see the next footnote for a nice way to do it.}
+because $H$ has the same eigenstates as $N$.
+\begin{equation}
+    H\ket{k} = \hbar \omega(k+1/2)\ket{k}.
+\end{equation}
+To construct the wavefunctions in position basis, just use
+\begin{equation}
+    a=\frac{1}{\sqrt{2}}(\xi+\frac{d}{d\xi}),\quad a^\dagger = \frac{1}{\sqrt{2}}(\xi -\frac{d}{d\xi}),
+\end{equation}
+where $\xi=\sqrt{m\omega/\hbar}x$, and then
+\begin{equation}
+    a\ket{0} \implies (\xi +\frac{d}{d\xi}) \psi(\xi)=0 \implies \psi_0(\xi) =a_0 e^{-\xi^2/2}.
+\end{equation}
+This is a much easier differential equation to solve than the second-order one from earlier.%
+    \footnote{Actually, since this equation is first-order, we can fix $a_0$ by normalization (up to a complex phase), which completely determines the ground state. This proves uniqueness of the ground state.}
+And now we can construct the other states using \begin{equation}
+    \ket{k} =\frac{1}{k!} (a^\dagger)^k \ket{0},
+\end{equation}
+which gives (explicitly)
+\begin{equation}
+    \psi_k(\xi)=\frac{1}{\sqrt{k!}} \frac{1}{2^{k/2}} \paren{\xi-\frac{d}{d\xi}}^k e^{-\xi^2/2},
+\end{equation}
+and the Hermite polynomials are
+\begin{equation}
+    H_n (\xi) = e^{\xi^2/2} \paren{\xi-\frac{d}{d\xi}}^n e^{-\xi^2/2}.
+\end{equation}
