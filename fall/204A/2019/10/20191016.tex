@@ -1,0 +1,238 @@
+Today we'll look at roughly the material from Arfken 7.1-7.4. The topic of this section will be ordinary differential equations. We basically know that the way to solve differential equations is to either perform some integral transformation to make it easier or alternately to know a special function which solves the equation.
+
+A linear ordinary differential equation takes the form
+\begin{equation}
+    \cL y(x) = f(x),
+\end{equation}
+where $\cL$ is a linear operator,
+\begin{equation}
+    \cL = p_0(x) + p_1(x) D + \ldots + p_n(x) D^n
+\end{equation}
+where $D=\frac{d}{dx}$ and $f$ is the source function. A solution $y(x)$ can be written as
+\begin{equation}
+    y(x) =\sum_{i=1}^n c_i y_n^{(i)}(x) + y_p(x),
+\end{equation}
+where the $y_n$ are solutions to the homogeneous equation (i.e. they are in the kernel of $\cL$, $\cL y_n(x)=0$) and $y_p$ is the ``particular solution'' fitting the source. It's a general fact that $\dim(\text{ker}\cL)=n$, i.e. there are $n$ linearly independent solutions to the homogeneous equation.
+
+\subsection*{First-order equations}
+A first order equation looks like
+\begin{equation}
+    y'(x) = f(x,y) = -\frac{P(x,y)}{Q(x,y)},
+\end{equation}
+where $P$ and $Q$ are some functions. The simplest case is
+\begin{equation}
+    y' = -\frac{P(x)}{Q(y)},
+\end{equation}
+which is separable and has implicit solution
+\begin{equation}
+    \int dy\, Q(y) = -\int dx \, P(x).
+\end{equation}
+But we can also rearrange%
+    \footnote{Strictly, this manipulation is justified by differential forms.}
+to get
+\begin{equation}
+    P(x,y) dx + Q(x,y) dy=0.
+\end{equation}
+Suppose there exists $\phi(x,y)$ s.t.
+\begin{equation}
+    d\phi(x,y) = P(x,y) dx + Q(x,y)dy =0,
+\end{equation}
+and then the solution is $\phi(x,y)=\text{constant}$. Notice that since
+\begin{equation}
+    P=\P{\phi}{x}, Q = \P{\phi}{y},
+\end{equation}
+it must be that since mixed partials commute,
+\begin{equation}
+    \P{P}{y} = \P{Q}{x}
+\end{equation}
+is a necessary and sufficient condition for the equation to be exact. In the language of differential forms, we may say that the equation is closed,
+\begin{equation}
+    d\omega = P dx + Qdy=0,
+\end{equation}
+but that closed does not imply exact, $\omega = d\mu$ for some $\mu$. (Exact implies closed since $d^2=0$.)
+
+However, if the equation is not exact, we could think of multiplying by some unknown function $\alpha(x,y)$ such that it becomes exact:
+\begin{equation}
+    \alpha(x,y) P(x,y) dx  +\alpha(x,y) Q(x,y) dy=0.
+\end{equation}
+In general there's no formula for finding such an $\alpha$, but there is one case where we can do this, namely the linear case. Let
+\begin{equation}
+    y' + p(x) y = Q(x).
+\end{equation}
+We then write
+\begin{equation}
+    D(\alpha y) = \alpha' y + \alpha y',
+\end{equation}
+If we multiply our linear equation by
+\begin{equation}
+    \alpha(x) = \exp\paren{+\int^x dx' \, p(x')}
+\end{equation}
+then we claim the equation becomes exact (a total derivative), since
+\begin{equation}
+    D(\alpha y) = p(x) \alpha y + \alpha y'.
+\end{equation}
+Hence
+\begin{equation}
+    D[\alpha y] =\alpha(x) Q(x),
+\end{equation}
+so we can just integrate:
+\begin{equation}
+    y(x) = \frac{1}{\alpha(x)} \bkt{\int^x dx'\,\alpha(x') Q(x') +C}.
+\end{equation}
+
+We can think of this as a the sum of a homogeneous solution and a particular solution, i.e. when $Q(x)=0$ we just get $y(x)=\frac{C}{\alpha(x)}$ and there is a particular solution from dealing with $Q(x)\neq 0$.
+
+\subsection*{Second-order equations}
+Let us consider the case of second-order equations with constant coefficients,
+\begin{equation}
+    a\frac{d^2y}{dx^2} + b\frac{dy}{dx} + cy = f(x).
+\end{equation}
+There are various ways of solving such equations. As before, we can solve the homogeneous equation and then add back in the particular solution turning on the source term. There are some methods in the literature such as the method of undetermined coefficients or variation of parameters.
+
+We can denote our equation of order $n$ by
+\begin{equation}
+    \frac{d^ny}{dx^n} +a_{n-1} \frac{d^{n-1} y}{}dx^{n-1} + \ldots +a_0 y = f(x),
+\end{equation}
+or in the simplified notation
+\begin{equation}
+    p_n(D)y=f(x), \quad p_n(D) = D^n + a_{n-1} D^{n-1} +\ldots
+\end{equation}
+Then let us note that derivatives obey the following identities%
+    \footnote{That is, we are using the generator of translations and exponentiating.}
+\begin{align*}
+    D+\lambda &= e^{-\lambda x} D e^{\lambda x}\\
+    D - \lambda &= e^{\lambda x} D e^{-\lambda x}\\
+    (D-\lambda)^n &= e^{\lambda x} D^n e^{-\lambda x}.
+\end{align*}
+This is equivalent to writing that
+\begin{equation}
+    e^{-\lambda x} D (e^{-\lambda x} y) = y'-\lambda y.
+\end{equation}
+
+Now the homogeneous second order equation takes the form
+\begin{equation}
+    (aD^2 + bD + c) y =0.
+\end{equation}
+We know how to factor expressions. If we can factor the differential operator, then the solutions are straightforward because we know what $D\pm \lambda$ does.
+
+The nature of solutions (how nicely will the operator factor) splits into three cases depending on the discriminant $\Delta = b^2 -4ac$. if $\Delta >0$ then the equation has two real roots $\lambda_1, \lambda_2$, so that
+\begin{equation}
+    (D-\lambda_1)(D-\lambda_2) y =0,
+\end{equation}
+with solution
+\begin{equation}
+    y=Ae^{\lambda_1 x} + Be^{\lambda_2 x}.
+\end{equation}
+If $\Delta <0$ then there are two complex roots $\lambda_\pm = \mu + i\omega$, so that the equation factors as
+\begin{equation}
+    \bkt{(D-\mu)^2 + \omega^2}y =0.
+\end{equation}
+Recall that $(D^2+\omega^2)y=0$ has solutions $y=Ae^{i\omega x} + B e^{-i\omega x}$, so then
+\begin{align*}
+    p(D) y &= (e^{\mu x} D^2 e^{-\mu x} + \omega^2) y\\
+        &= e^{\mu x} (D^2 +\omega^2) e^{-\mu x} y\\
+        &= 0 \implies e^{-\mu x} y = A e^{i\omega x}  +Be^{-i\omega x}.
+\end{align*}
+Hence the solutions are both oscillating and growing or decaying exponentially with time,
+\begin{equation}
+    y=e^{\mu }(A e^{i\omega x} + Be^{-i\omega x})
+\end{equation}
+
+Finally, we could have $\Delta =0$, which gives a double root at $\lambda$. Then
+\begin{align*}
+    p(D)y&= (D-\lambda)^2 y =0\\
+        &= e^{\lambda x}D^2 e^{-\lambda x} y=0.
+\end{align*}
+But this tells us we want some $z$ such that $D^2 z=0$, and hence
+\begin{equation}
+     e^{-\lambda x} y = A + Bx,
+\end{equation}
+which gives
+\begin{equation}
+    y= e^{+\lambda x} (A +Bx).
+\end{equation}
+This is equivalent to the statement that $e^{\lambda x}, xe^{\lambda x}$ are in the kernel of $(D-\lambda)^2$.
+In each of these cases, we look for the kernel of some differential operator and set it equal to a known expression.
+
+Now can we do this for an inhomogenous equation? Indeed we can.
+\begin{exm}
+Consider
+\begin{equation}
+    y'' - 3y' + 2y = e^x,
+\end{equation}
+so
+\begin{equation}
+    (D^2-3D +2) y = (D-1)(D-2) y e^x,
+\end{equation}
+so now $(D-1)z(x) e^x$ has solution $z(x) = Ae^x + e^x$ and so
+\begin{equation}
+    (D-2)y = Ae^x + xe^x.
+\end{equation}
+Then
+\begin{equation}
+    y= e^x - xe^x -Ae^x + Be^{2x}.
+\end{equation}
+\end{exm}
+
+\begin{exm}
+Suppose we want to find a particular solution to
+\begin{equation}
+    3y''-2y' + 6y = 5e^{3x}.
+\end{equation}
+Then my ansatz might be that the solution should be in the form of some constant times $e^{3x}$. But alternately, we could invert the differential operator. We know how to do this. With
+\begin{equation}
+    (3D^2 -2D +6) y =5e^{3x},
+\end{equation}
+we can write
+\begin{equation}
+    y=\frac{1}{3D^2-2D + 6} (5e^{3x}) = \frac{1}{3(3)^2 - 2(3) + 6} 5e^{3x} =\frac{5}{27}e^{3x}.
+\end{equation}
+\end{exm}
+In general for
+\begin{equation}
+    p_n(D) y = Ae^{\lambda x},
+\end{equation}
+if $p_n(\lambda) \neq 0$ then 
+\begin{equation}
+    y=\frac{1}{p_n(\lambda)} Ae^{\lambda x}    
+\end{equation}
+and if $p_n(\lambda)=0$ then 
+\begin{equation}
+    y=\frac{1}{p_n'(\lambda)}x Ae^{\lambda x}.
+\end{equation}
+This is known as the exponential input theorem.
+
+\subsection*{General linear 2nd order equation}
+Let's consider the general case,
+\begin{equation}
+    y'' + P(x) y' + Q(x) y=0.
+\end{equation}
+This is generally hard to solve. It's a little easier if $P(x),Q(x)$ are analytic except at a finite number of poles. If we wanted to solve the equation near a nonsingular (ordinary) point, we could expand $P$ and $Q$ as power series and solve locally.
+
+Alternately, we might have a \term{regular singular point} where $P(x)$ has no worse than a single pole ($P(x)\sim 1/x$) and $Q(x)$ has no worse than a double pole ($Q(x)\sim 1/x^2$). Beyond this there are also \term{irregular singular points} or sometimes essential singularities.
+
+\begin{exm}
+    Consider the following differential equation:
+    \begin{equation}
+        x(x-1)y'' + [(1+a+b)x+c] y' + aby =0,
+    \end{equation}
+    the hypergeometric equation. This equation has regular singular points at $x=0,x=1$. But we could also analyze the point at $x\to \infty$, where if we replace $x=\frac{1}{z}$ and write $w(z)= y(1/z)$, then with a bit of chain rule, our standard second order equation becomes
+    \begin{equation}
+        w''+\bkt{\frac{2z-P(1/z)}{z^2}}w' + Q(1/z) w=0.
+    \end{equation}
+    Hence the equation we were given has a regular singular point at $x=\infty$.
+\end{exm}
+
+There's one more nice fact about general linear second-order equations, which is that we can generally get rid of the order $y$ term. Set $y(x)=\alpha(x) z(x)$ for some $\alpha$. In particular if we choose
+\begin{equation}
+    \alpha(x) = \exp(-\frac{1}{2} \int^x dx' \, P(x'))
+\end{equation}
+then the equation (exercise) becomes
+\begin{equation}
+    z''(x) + I(x) z(x) = 0
+\end{equation}
+for some $I$ given by
+\begin{equation}
+    I(x) = Q(x) - \frac{1}{2} P'(x) - \frac{1}{4} P(x)^2.
+\end{equation}
+This expression $I$ is actually an invariant-- if two different-looking differential equations have the same value of $I$, they are really the same equation.
