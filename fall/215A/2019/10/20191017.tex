@@ -1,0 +1,183 @@
+Today we'll wrap up our discussion of the harmonic oscillator and then move on to more general topics.
+
+\subsection*{Coherent states}
+Last time, we talked about the creation and annihilation operators. Recall that
+\begin{equation}
+    a = \alpha_1 \hat x + \alpha_2 i \hat p,\quad a^\dagger = \alpha_1 \hat x - \alpha_2 i \hat p
+\end{equation}
+for real constants $\alpha_1,\alpha_2$. While $a$ and $a^\dagger$ are not hermitian, perhaps eigenstates exist. Let us consider the state
+\begin{align}
+    \ket{\zeta} &= e^{\zeta a^\dagger}\ket{0}\\
+        &= \bkt{\sum_{n=0}^\infty \frac{\zeta^n}{n!} (a^\dagger)^n}\ket{0}\\
+        &= \sum_{n=0}^\infty \frac{\zeta^n}{\sqrt{n!}}\ket{n}.
+\end{align}
+
+We now claim that $\ket{\zeta}$ is an eigenstate of $a$. We can show this explicitly:
+\begin{equation}
+    a\ket{\zeta} = \sum_{n=0}^\infty \frac{\zeta^n}{\sqrt{n!}}\ket{n} = \sum_{n=1}^\infty \frac{\zeta^n}{\sqrt{(n-1)!}}\ket{n-1} = \zeta \sum_{n=1}^\infty \frac{\zeta^{n-1}}{\sqrt{(n-1)!}}\ket{(n-1)} = \zeta \ket{\zeta}.
+\end{equation}
+Hence $\ket{\zeta}$ is an eigenstate of $a$ with complex eigenvalue $\zeta$, and this is fine since $a$ is not hermitian. Similarly $\bra{0} e^{\zeta^* a}$ has the interpretation of being an eigenstate of $a^\dagger$ in the sense that
+\begin{equation}
+    \paren{\bra{0} e^{\zeta^* a}} a^\dagger = \zeta^* \paren{\bra{0} e^{\zeta^*}}.
+\end{equation}
+Moreover, the coherent states form a complete basis for the Hilbert space, albeit a very different-looking one than the energy eigenstates. Curiously, it looks as though we have gotten too many states (i.e. these are parametrized by an uncountable infinity of complex parameters $\zeta$, whereas the number states are a countable basis). But we will show that we can write a resolution of the identity in terms of the coherent states, which tells us that we indeed have a basis.
+
+Notice that $a$ has ket eigenvectors, whereas $a^\dagger$ has bra eigenvectors. The converse is not true. The operator $a$ only has \emph{right eigenvectors} but no \emph{left eigenvectors}, i.e. $\not\exists \bra{\mu}a = f(\mu)\bra{\mu},$ and an equivalent statement holds for $a^\dagger$.%
+    \footnote{Why is this true? Consider writing a general state as a linear combination of the $\ket{n}$ states, and then notice that $a^\dagger$ cannot create the vacuum state. Hence the coefficient of the vacuum state must be zero. And the next coefficient up must therefore be zero. And so on. With $a$, all the states come down; with $a^\dagger$ we always miss the vacuum $\ket{0}$.}
+This is different from the position operator (which is hermitian), such that
+\begin{equation}
+    \hat x\ket{x} = x \ket{x} \implies \bra{x} \hat x = x \bra{x}.
+\end{equation}
+Note this is generally true for any hermitian operator, since $A\ket{v} = \lambda \ket{v} \implies \bra{v}A = \bra{v} A^\dagger =\lambda^* \bra{v} =\lambda \bra{v}$.
+
+Let us also remark that
+\begin{equation}
+    \braket{\zeta_1}{\zeta_2} = \bra{0} e^{\zeta_1^* a} e^{\zeta_2 a^\dagger}\ket{0}.
+\end{equation}
+How do we evaluate this? We cannot simply add the exponentials since $a,a^\dagger$ do not commute. However, if
+\begin{equation}
+    [A,[A,B]]=[B,[A,B]]=0
+\end{equation}
+then
+\begin{equation}
+    e^A e^B = e^B e^A e^{[A,B]}.
+\end{equation}
+We haven't proved this formula but maybe later.
+More generally,
+\begin{equation}
+    e^A e^B = e^C
+\end{equation}
+where
+\begin{equation}
+    C= A  + B +\frac{1}{2}[A,B] +\frac{1}{12} [A,[A,B]]-\frac{1}{12}[B,[A,B]]+\ldots
+\end{equation}
+where the $\ldots$ indicates higher commutators.%
+    \footnote{We can also write it more nicely in terms of an adjoint action.}
+This is the Baker-Campbell-Hausdorff (BCH) formula.
+
+Let us observe that since $[a,a^\dagger]=1$, we have $[a,[a,a^\dagger]]=[a^\dagger,[a,a^\dagger]=0$, so
+\begin{equation}
+    e^{\zeta_1^* a} e^{\zeta_2 a^\dagger} = e^{\zeta_2 a^\dagger} e^{\zeta_1 * a}e^{[\zeta_2 a, \zeta_1 a^\dagger]},
+\end{equation}
+where this commutator term is $e^{\zeta_1^* \zeta_2}$, just a c-number. Hence
+\begin{align}
+    \bra{0} e^{\zeta_1^* a} e^{\zeta_2 a^\dagger}\ket{0} &= \bra{0} e^{\zeta_2 a^\dagger} e^{\zeta_1^* a} \ket{0} e^{\zeta_1^*\zeta_2}\\
+        &= e^{\zeta_1^*\zeta_2} \bra{0} \paren{ 1+\zeta_2 a^\dagger + \frac{1}{2!} \zeta_2^2 (a^\dagger)^2+ \ldots} \paren{1+\zeta_1^* a +\frac{1}{2!} (\zeta_1^*)^2 a^2+\ldots}\ket{0}\\
+        &= e^{\zeta_1^*\zeta_2} \braket{0}{0}= e^{\zeta_1^*\zeta_2}.
+\end{align}
+
+Rule of thumb working with harmonic oscillators: put all annihilation operators on the right and all the creation operators on the left.%
+    \footnote{That is, write them in normal ordering. We do this a lot in QFT.}
+
+As we've said, the $\set{\ket{\zeta}}$ states for $\zeta\in \CC$ are an overcomplete set, but the following identity is true:
+\begin{equation}
+    \II =\frac{1}{2\pi i} \int d^2 \zeta\, \ketbra{\zeta}{\zeta} e^{-|\zeta|^2},
+\end{equation}
+with $d^2\zeta = d\zeta d\zeta^*$.%
+    \footnote{We could probably check this by expressing a general state as a sum of the energy eigenstates.}
+In writing this, we've used the normalization that we just computed, $\braket{\zeta}{\zeta}=e^{|\zeta|^2}.$
+
+\subsection*{Free particle}
+Now that we have discussed the harmonic oscillator, let us go to a seemingly simpler problem, that of the free particle. The harmonic oscillator is an example of a (regular) confining potential, one where $V(x)\to \infty$ as $|x|\to \infty$. Confining potentials have a discrete spectrum of bound states (those with wavefunction decaying as $|x|\to \infty$).
+
+However, there is another relevant class of states. When particles can escape to infinity, we have \term{scattering states}. We can understand these by studying the free particle. The free particle has $V=0$ everywhere, so that the Hamiltonian is
+\begin{equation}
+    \hat H = \frac{\hat p^2}{2m}.
+\end{equation}
+It's traditional to solve this in the Schr\"odinger picture, but we're not going to do this just yet. For notice that the Hamiltonian commutes with $\hat p$, i.e.
+\begin{equation}
+    [\hat H ,\hat p]=0.
+\end{equation}
+Hence momentum eigenstates are also energy eigenstates of $H$. That is, in the momentum basis,
+\begin{equation}
+    \hat p \ket{k} = k\ket{k},
+\end{equation}
+where we will require $k\in \RR$ in order for certain boundary conditions to be satisfied. Then
+\begin{equation}
+    \hat H \ket{K} =\frac{k^2}{2m} \ket{k},
+\end{equation}
+which tells us that $E(k) =\frac{k^2}{2m}$. This reminds us of an important lesson-- when you have a problem in quantum mechanics, you should think about what basis is best to solve the problem in. This often saves us a lot of time rather than trying to brute-force our way through the Schr\"odinger equation.
+
+Conversely if we want an energy eigenstate of some energy $E$, $\hat H\ket{E} = E\ket{E}$, then
+\begin{equation}
+    k=\pm \sqrt{2mE}.
+\end{equation}
+This quadratic relation is forced upon us by the fact we are studying non-relativistic quantum mechanics, where $E=p^2/2m$. Hence a general energy eigenstate can be written as
+\begin{equation}
+    \ket{E} = \alpha_+ \ket{k=\sqrt{2mE}} + \alpha_- \ket{k=-\sqrt{2mE}},
+\end{equation}
+a linear combination of two momentum eigenstates which correspond to left-moving particles and right-moving particles. Let us now take our eigenvalue expression and sandwich it with $\bra{x}$:
+\begin{equation}
+    \bra{x} \hat p \ket{k} = k\braket{x}{k}.
+\end{equation}
+Equivalently, notice that we can write $\hat p$ in the position basis,
+\begin{equation}
+    \bra{x} \paren{-i\hbar \frac{d}{dx}} \ket{k},
+\end{equation}
+and as $p$ is self-adjoint we can make it act on the $\bra{x}$, namely by rewriting as
+\begin{equation}
+    -i\hbar \frac{d}{dx} \braket{x}{k} = k \braket{x}{k}.
+\end{equation}
+Now $\braket{x}{k}$ is some function of $k$ and $x$, with solution
+\begin{equation}
+    \braket{x}{k} = C e^{ikx/\hbar},
+\end{equation}
+which is simply our plane wave solution. Hence
+\begin{equation}
+    \ket{k} =\int_{-\infty}^\infty dx \,\ket{x}\braket{x}{k},
+\end{equation}
+with $\braket{x}{k}$ as above. We now see that
+\begin{align}
+    \psi_E(x) &= \braket{x}{E}\\
+        &= \frac{\alpha_+}{(2\pi \hbar)^{1/2}} e^{\frac{i}{\hbar}\sqrt{2mE}x} + \frac{\alpha_-}{(2\pi \hbar)^{1/2}} e^{-\frac{i}{\hbar}\sqrt{2mE}x}.
+\end{align}
+Note that the factor of $1/\sqrt{2\pi\hbar}$ is part of taking the Fourier transform to get back to position space; we can either have factors like this in both the Fourier transform and the inverse transform, or we can keep them all in e.g. the inverse transform. We'll stick with the symmetric normalization for now.
+
+In general, we can now write down a Gaussian wavepacket
+\begin{equation}
+    \psi(x,t=0) = e^{ikx} e^{-\frac{1}{2\delta_x^2} x^2}.
+\end{equation}
+Notice that $\avg{x}=0$ since this particle is localized to the origin, but it has a nonzero variance,
+\begin{equation}
+    \Delta x = \sqrt{\avg{(x-\avg{x})^2}}=\frac{1}{\sqrt{2}}\delta_x.
+\end{equation}
+Similarly one may compute
+\begin{equation}
+    \avg{p} = k\hbar, \quad \Delta p = \frac{\hbar}{\sqrt{2} \delta_x}.
+\end{equation}
+Hence this looks like a particle initialized at $t=0$ with some momentum $k\hbar$. One may also check readily that
+\begin{equation}
+    \Delta x \Delta p =\frac{\hbar}{2},
+\end{equation}
+so Heisenberg uncertainty is saturated.
+
+How does this wavepacket evolve in time? By a unitary operator, as usual.
+\begin{align}
+    \psi(x,t) &= U(t,0) \psi(x,t=0)\\
+        &= e^{-iHt/\hbar}\psi(x,t=0)\\
+        &= e^{-\frac{ip^2 t}{2m\hbar}} \psi(x,t=0)\\
+        &= e^{\frac{it}{\hbar} \paren{\frac{\hbar^2}{2m} \frac{d^2}{dx^2}}} \psi(x,0).
+\end{align}
+And we can now study the effect on our Gaussian wavepacket. The solution is
+\begin{equation}
+    \psi(x,t) = \frac{1}{\sqrt{\sqrt{\pi}\delta_x\paren{1+\frac{i\hbar t}{m\delta_x^2}}}} \exp \bkt{ik\paren{x-\frac{k\hbar t}{2m}}-\frac{1}{2\delta_x^2 \paren{1+\frac{i\hbar t}{m\delta_x^2}}} \paren{x-\frac{k\hbar t}{m}}^2}.
+\end{equation}
+It looks horrible, but it has a nice physical interpretation. What we're seeing is that the peak has moved-- it picks up an offset of $\frac{k\hbar t}{m}$, so that 
+\begin{equation}
+    \avg{x(t)}=\frac{k\hbar t}{m}.
+\end{equation}
+It also spreads out to have a new width of 
+\begin{equation}
+    \Delta x(t) =\frac{1}{\sqrt{2}}\delta_x \sqrt{1+\frac{\hbar^2 t^2}{m^2\delta_x^4}},
+\end{equation}
+and in the limit as $t$ grows large, this expression becomes
+\begin{equation}
+    \frac{1}{\sqrt{2}} \frac{\hbar t}{m\delta x}.
+\end{equation}
+It follows that
+\begin{equation}
+    \avg{x} =\frac{\hbar k t}{m} =\frac{\avg{p}}{m}t,
+\end{equation}
+so we see that the expectation values (not operators!) follow classical relations.
+
+As time goes on, we see that the localization of the particle in position fades away, while the total probability to find the particle anywhere remains $1$ (as it must under unitary time evolution).
