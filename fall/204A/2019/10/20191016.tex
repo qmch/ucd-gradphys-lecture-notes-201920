@@ -12,7 +12,7 @@ where $D=\frac{d}{dx}$ and $f$ is the source function. A solution $y(x)$ can be 
 \begin{equation}
     y(x) =\sum_{i=1}^n c_i y_n^{(i)}(x) + y_p(x),
 \end{equation}
-where the $y_n$ are solutions to the homogeneous equation (i.e. they are in the kernel of $\cL$, $\cL y_n(x)=0$) and $y_p$ is the ``particular solution'' fitting the source. It's a general fact that $\dim(\text{ker}\cL)=n$, i.e. there are $n$ linearly independent solutions to the homogeneous equation.
+where the $y_n$ are solutions to the homogeneous equation (i.e. they are in the kernel of the operator $\cL$, $\cL y_n(x)=0$) and $y_p$ is the ``particular solution'' fitting the source, $\cL y_p(x) = f(x)$. It's a general fact that $\dim(\text{ker}\cL)=n$, i.e. there are $n$ linearly independent solutions to the homogeneous equation.
 
 \subsection*{First-order equations}
 A first order equation looks like
@@ -23,11 +23,11 @@ where $P$ and $Q$ are some functions. The simplest case is
 \begin{equation}
     y' = -\frac{P(x)}{Q(y)},
 \end{equation}
-which is separable and has implicit solution
+which is \term{separable} and has implicit solution
 \begin{equation}
     \int dy\, Q(y) = -\int dx \, P(x).
 \end{equation}
-But we can also rearrange%
+But we can also rearrange this equation without integrating it%
     \footnote{Strictly, this manipulation is justified by differential forms.}
 to get
 \begin{equation}
@@ -35,9 +35,9 @@ to get
 \end{equation}
 Suppose there exists $\phi(x,y)$ s.t.
 \begin{equation}
-    d\phi(x,y) = P(x,y) dx + Q(x,y)dy =0,
+    d\phi(x,y) = P(x,y) dx + Q(x,y)dy =0.
 \end{equation}
-and then the solution is $\phi(x,y)=\text{constant}$. Notice that since
+Then it must be that $\phi(x,y)=\text{constant}$, which provides an implicit relation between $x$ and $y$. Notice that since
 \begin{equation}
     P=\P{\phi}{x}, Q = \P{\phi}{y},
 \end{equation}
@@ -91,9 +91,11 @@ There are various ways of solving such equations. As before, we can solve the ho
 
 We can denote our equation of order $n$ by
 \begin{equation}
-    \frac{d^ny}{dx^n} +a_{n-1} \frac{d^{n-1} y}{}dx^{n-1} + \ldots +a_0 y = f(x),
+    \frac{d^ny}{dx^n} +a_{n-1} \frac{d^{n-1} y}{dx^{n-1}} + \ldots +a_0 y = f(x),
 \end{equation}
-or in the simplified notation
+where we have divided through by the coefficient of $D^n$ since it must be nonzero.%
+    \footnote{Otherwise, the equation would be of some lower order. The definition of it being order $n$ is that the lowest non-vanishing derivative term is $D^n$.}
+In the simplified notation
 \begin{equation}
     p_n(D)y=f(x), \quad p_n(D) = D^n + a_{n-1} D^{n-1} +\ldots
 \end{equation}
@@ -106,7 +108,7 @@ Then let us note that derivatives obey the following identities%
 \end{align*}
 This is equivalent to writing that
 \begin{equation}
-    e^{-\lambda x} D (e^{-\lambda x} y) = y'-\lambda y.
+    e^{-\lambda x} D (e^{\lambda x} y) = y'-\lambda y.
 \end{equation}
 
 Now the homogeneous second order equation takes the form
@@ -115,7 +117,11 @@ Now the homogeneous second order equation takes the form
 \end{equation}
 We know how to factor expressions. If we can factor the differential operator, then the solutions are straightforward because we know what $D\pm \lambda$ does.
 
-The nature of solutions (how nicely will the operator factor) splits into three cases depending on the discriminant $\Delta = b^2 -4ac$. if $\Delta >0$ then the equation has two real roots $\lambda_1, \lambda_2$, so that
+The nature of solutions depends on how nicely the operator factors. There are three cases depending on the discriminant 
+\begin{equation}
+    \Delta = b^2 -4ac.
+\end{equation}
+If $\Delta >0$ then the equation has two real roots $\lambda_1, \lambda_2$, so that
 \begin{equation}
     (D-\lambda_1)(D-\lambda_2) y =0,
 \end{equation}
@@ -225,7 +231,7 @@ Alternately, we might have a \term{regular singular point} where $P(x)$ has no w
 
 There's one more nice fact about general linear second-order equations, which is that we can generally get rid of the order $y$ term. Set $y(x)=\alpha(x) z(x)$ for some $\alpha$. In particular if we choose
 \begin{equation}
-    \alpha(x) = \exp(-\frac{1}{2} \int^x dx' \, P(x'))
+    \alpha(x) = \exp\paren{-\frac{1}{2} \int^x dx' \, P(x')}
 \end{equation}
 then the equation (exercise) becomes
 \begin{equation}
