@@ -1,0 +1,177 @@
+%Ignorance is not a sin. Refusing to learn is. The problem isn't making a mistake. The problem is defending a mistake.
+Today we will continue our discussion of differential equations. A brief note on the history of differential equations-- it all was invented/discovered about the same time as calculus by (glorious) Sir Isaac Newton as a mathematical tool to do physics.
+%even biology now is trying to transform itself into a science.
+Differential equations tell us how physical observables change in space and time. The focus was originally on finding solutions. Our equations depend on some variables that are in principle all observable, and when we measure them we can find solutions that describe their dependence on one another.
+
+But one can start to see commonalities between equations. Sometimes the same technique works to solve multiple equations. Some equations are really the same. There are books like Gradshteyn and Ryzhik,%
+    \footnote{\url{https://en.wikipedia.org/wiki/Gradshteyn_and_Ryzhik}}
+and Kamke's book, which have solutions of many, many integrals and such equations. There are also methods of numerical integration to solve equations which are not readily integrable.
+
+Let us note that given a differential equation
+\begin{equation}
+    f(x,y,y',\ldots, y^{(n)})=0,
+\end{equation}
+if this function is sufficiently nice in terms of its highest derivative $y^{(n)}$ ($\delta/\delta y^{(n)} f$ exists), then
+\begin{equation}
+    y^{(n)} =\hat f(x,y, y', \ldots, y^{(n-1)})
+\end{equation}
+gives the highest derivative in terms of the lower derivatives. If indeed our function is given to be sufficiently differentiable then we may write an initial condition given by the first $n-1$ derivatives:
+\begin{equation}
+    x_0: y_0, y_0', \ldots, y_0^{(n-1)}.
+\end{equation}
+That is, if we have a Taylor expansion
+\begin{equation}
+    y= \sum_k a_k(x-x_0)^k
+\end{equation}
+then we can get the next derivative and therefore higher derivatives, provided that the functions are sufficiently differentiable. Hence the problem of finding a solution reduces to the process of differentiation itself.
+
+This line of thinking produced the theorems of Peano and Picard-Lindelof, which placed constraints on how far we could extend our solution around the initial condition. And we can take our extended solution and extend a bit more. In general we get curves through phase space. If the equation is sufficiently nice, curves in phase space do not intersect. When they do, we call it a singularity. One example of a really bad singularity is $e^{1/z}$ as $z\to 0$. No derivative of this function exists as $z\to 0$.
+
+In general, we know that an $n$th order differential equation depends on $n$ integration parameters. That fixes what point we start at in phase space. Moreover, sometimes our equations have symmetries, conserved quantities which can reduce the dimension of our problem in phase space. It was Emmy Noether who figured out that continuous symmetries imply the existence of conserved charges. Noether's theorem tells us that the invariance under complex phases of quantum mechanics results in the conservation of probability in quantum mechanics.
+%You break that symmetry, dragons can attack you.
+
+Let us consider again the general linear differential equation of order $N$ with constant coefficients,
+\begin{equation}
+    \sum_{n=0}^N a_n \paren{\frac{d}{dx}}^n f(x) =0.
+\end{equation}
+We may of course rewrite this as an operator equation in terms of the Heaviside $D$ operators,
+\begin{equation}
+    D = \frac{d}{dx} : f\mapsto f'.
+\end{equation}
+As long as $f$ is sufficiently differentiable, its image under $D$ exists. The equation now looks like a polynomial equation, and this suggests we can factor it:
+\begin{equation}
+    \prod_{k=1}^N (D-\alpha_k)f =0,
+\end{equation}
+in terms of $N$ (possibly degenerate) roots $\alpha_k$, such that
+\begin{equation}
+    \sum_{n=0}^N a_n \alpha_k^n =0.
+\end{equation}
+Note the index on the product-- a polynomial of order $N$ should have $N$ roots.
+
+Now take one factor in the expansion,
+\begin{equation}
+    (D-\alpha_k) f \equiv e^{\alpha_k x} \paren{De ^{-\alpha_k x} f}.
+\end{equation}
+Hence we can rewrite our equation as
+\begin{equation}
+    \prod_{k=1}^N \paren{e^{\alpha_k x} D e^{-\alpha_k x}}f
+\end{equation}
+Note that we can certainly evaluate these derivatives in whatever order we want, since derivatives commute:
+\begin{equation}
+    [(D-\alpha_k),(D-\alpha_N)]=0.
+\end{equation}
+
+In order for the big product to vanish, we must have $(D-\alpha_k)f=0$ for any such root (assuming they are nondegenerate). Hence
+\begin{equation}
+    0=(D-\alpha_k) f \equiv e^{\alpha_k x} \paren{De ^{-\alpha_k x} f} \implies f \propto e^{\alpha_k x},
+\end{equation}
+so we may write a general solution as
+\begin{equation}
+    f=\sum_{k=1}^N c_k e^{\alpha_k x},
+\end{equation}
+in the case of \emph{nondegenerate roots}.
+
+What about when roots are degenerate? Then we write
+\begin{equation}
+    c_1 e^{\alpha x} + c_2 x e^{\alpha x},
+\end{equation}
+the exponential times a linear polynomial in $x$. In general a root of degeneracy $n$ will have an exponential times a polynomial in $x$ of order $n-1$. For notice that
+\begin{equation}
+    0=(D-\alpha)(D-\alpha) f = \bkt{e^{\alpha x} D e^{-\alpha x} e^{\alpha x} D e^{-\alpha x}}f = e^{\alpha x} D^2 e^{-\alpha x} f.
+\end{equation}
+Hence the exponential factor $e^{\alpha x}$ will cancel the dependence $e^{-\alpha x}$ from the derivatives and we have $e^{\alpha x} D^2 g=0$ where $g=e^{-\alpha x} f$. We can solve this very easily; $D^2 g=0\implies g$ is a linear polynomial in $x$.
+%All of the hamburgers will disappear and you will just get pure bread.
+This sort of behavior shows up in resonance in classical mechanics, as well as in Pais \& Uhlenbeck effects in quantum mechanics.
+
+We see that the homogeneous linear ODE is therefore completely solved. Note that we will not discuss nonlinear ODEs for the time being, i.e. equations involving differential operators $F$ such that
+\begin{equation}
+    F(f+g) \neq F(f) + F(g).
+\end{equation}
+For instance, consider the equation
+\begin{equation}
+    y' + ay + by^2 +C=0.
+\end{equation}
+If $a,b,c$ are all constants then this equation is separable. If $c=0$ we can change variables and perhaps find a solution by dividing by $y^2$ and rewriting in terms of $w=-1/y$ as
+\begin{equation}
+    \frac{1}{y^2} \frac{dy}{dx} + \frac{a}{y} + b =0,
+\end{equation}
+where this is now just linear. But when $a,b,c$ depend on $x$, this is much harder to solve.
+
+If we can find a \emph{particular} solution to the inhomogeneous equation, then we can write $y=\frac{1}{w} + y_p$ where $y_p$ is the particular solution, such that
+\begin{equation}
+    w'=(a+ 2b y_p) w+b.
+\end{equation}
+That is, solving for the particular solution allows us to turn the remaining equation into a linear equation.
+
+But now we add a cubic term,
+\begin{equation}
+    y' + ay + by^2 + dy^3 + c=0.
+\end{equation}
+This is called \term{Abel's equation}. There is no general solution known.
+
+\subsection*{Second-order equations, revisited}
+Let us write our general linear equation where the coefficients may now depend on $x$:
+\begin{equation}
+    \sum_n a_n(x) D^n y =0.
+\end{equation}
+Let us suppose that there exists $y_1(x)$ a solution, i.e. it is in the kernel of this differential operator. Suppose moreover that $y_2(x)$ is also a solution. Because the operator is still linear, we can clearly add solutions, i.e.
+\begin{equation}
+     c_1 y_1(x) + c_2 y_2(x)
+\end{equation}
+is also a solution or more generally
+\begin{equation}
+    \sum_{p=1}^N c_p y_p
+\end{equation}
+for some set of solutions $y_p$. This is the generalization of the fact that $D^2y=0$ has solutions $y_1=1$ and $y_2=x$, so the general solution is $c_1 y_1 + c_2 y_2 = c_1 + c_2x$.
+
+One can then ask how many solutions we need to entirely span the space of solutions. The way to do this is to (re)introduce the notion of linear independence. That is, if there exists $c_p$ not all zero such that $\sum_{p=1}^N c_p y_p=0$ at \emph{every point in the interval}, then the $y_p$s are linearly \emph{dependent}. If no such $c_p$ exist, then the $y_p$ are linearly independent.
+
+Notice that for linear dependence, $\sum c_p y_p=0$ at \emph{every point $x$} in the interval, which means in particular that their derivatives in this linear combination must also vanish. That is,
+\begin{equation}
+    \sum c_p y_p(x) = 0\implies \sum c_p y_p'(x) = 0
+\end{equation}
+and in general
+\begin{equation}
+    \sum c_p y_p^{N-1}(x) =0.
+\end{equation}
+But now this is just a system of $N$ linear equations on the coefficients $c_p$:
+\begin{equation}
+    0 = \begin{pmatrix}
+    y_1 & y_2 & \ldots & y_n\\
+    y_1' & y_2' && \\
+    \vdots &\vdots&\ddots& \\
+    y_1^{(N-1)} & y_2^{(N-1)} &\ldots &y_N^{(N-1)}
+    \end{pmatrix}
+    \begin{pmatrix}
+    c_1 \\ c_2 \\ \vdots \\ c_N
+    \end{pmatrix}.
+\end{equation}
+The condition for a nontrivial solution of $c_p$s to exist (linear dependence) is that this matrix must be singular, i.e.
+\begin{equation}
+    \begin{vmatrix}
+    y_1 & y_2 & \ldots & y_n\\
+    y_1' & y_2' && \\
+    \vdots &\vdots&\ddots& \\
+    y_1^{(N-1)} & y_2^{(N-1)} &\ldots &y_N^{(N-1)}
+    \end{vmatrix}=0.
+\end{equation}
+Otherwise, the matrix would be invertible and force all the coefficients to be zero, which is the condition for linear independence.%
+    \footnote{Technically, a nonzero Wronskian implies linear independence. A zero Wronskian does not by itself imply linear dependence, see \url{https://en.wikipedia.org/wiki/Wronskian\#The_Wronskian_and_linear_independence}.}
+This determinant is called the \term{Wronskian}. One can then check that if we write the set of solutions $y_1,\ldots, y_N$ and compute the Wronskian, it will be non-vanishing. If we add a $y_{N+1}$ solution, we must get linear dependence; the Wronskian will vanish.
+
+Conversely, sometimes it is easy to find one solution to our differential equation and hard to find a second. In that case, we may use the Wronskian to find the second solution. We'll do this later.
+
+Let us now specialize to the second-order case,
+\begin{equation}
+    y'' + P(x) y' + Q(x) y = J(x),
+\end{equation}
+where $J$ is some source term. Our game plan will be as follows. We first solve the homogeneous equation for two solutions $y_1,y_2$, setting $J$ to zero, and then add in a particular solution $y_p$.%
+    \footnote{There are degenerate cases where $y_p$ is proportional to one of the $y_i$s, but we'll consider them later.}
+
+For the homogeneous case, suppose that $P(x),Q(x)$ are both infinitely differentiable. Then we may suppose that
+\begin{equation}
+    y=\sum_{k=0}^\infty a_k x^k
+\end{equation}
+has a Taylor expansion, and we can find a recursion relation between the coefficients $a_k$. In fact, it is not required that $P$ and $Q$ be infinitely differentiable; they are only required to not blow up too badly. So long as the quantities $(x-x_0) P(x)$ and $(x-x_0)^2 Q(x)$ remain finite at some singular points $x_0$, we can show that there exists at least one solution that satisfies a form similar to Taylor expansion, but with a compensating factor in order to make the equation integrable even at the singularities. That is, a solution exists of the form $y=\sum_{k=0}^\infty a_k x^{k+s}$ for $s\in \RR$.
+
+Such points $x_0$ are called regular singular points. Anything that diverges worse than this gives us irregular singular points. We may note that $(x-x_0)^2 Q(x)$ is somewhat like Gauss's law. We have a thing that's divergent but integrating it over some ``area'' in the limit makes it regular, like a point charge.
