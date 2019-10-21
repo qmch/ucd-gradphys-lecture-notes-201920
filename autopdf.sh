@@ -17,10 +17,10 @@ latexmk -c
 mv 215A-notes-ucd.pdf ../../pdfs
 
 #and for 230B
-cd ../230B
-latexmk -pdf 230B-notes-ucd.tex
-latexmk -c
-mv 230B-notes-ucd.pdf ../../pdfs
+#cd ../230B
+#latexmk -pdf 230B-notes-ucd.tex
+#latexmk -c
+#mv 230B-notes-ucd.pdf ../../pdfs
 
 echo "PDFs made. Pushing to the remote."
 #finally, return to the home directory, git add, and git commit.
