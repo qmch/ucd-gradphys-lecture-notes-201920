@@ -1,0 +1,187 @@
+Last time, we were discussing second-order equations of the form
+\begin{equation}
+    y'' + P(x) y' + Q(x) y =0.
+\end{equation}
+Recall that two functions are linearly dependent if a nontrivial linear combination of those functions vanishes at every point on the interval:
+\begin{equation}\label{secondorderhomogeneous}
+    c_1 y_1(x) +c_2 y_2(x) = 0 \quad\forall x.
+\end{equation}
+Since this holds at the level of functions, if our solutions are differentiable then we may take derivatives of this expression to get
+\begin{equation}
+    c_1 y_1'(x) + c_2 y_2'(x) = 0
+\end{equation}
+and then we can compute the Wronskian
+\begin{equation}
+    W= \begin{vmatrix}
+    y_1 & y_2 \\
+    y_1' & y_2'
+    \end{vmatrix} \? 0.
+\end{equation}
+Of course in the case of two solutions, this can be written down explicitly as $y_1 y_2'-y_2 y_1'$. Let us restrict to solutions to Eqn. \ref{secondorderhomogeneous}, and let us also take the derivative of the Wronskian,
+\begin{equation}
+    W'= (y_1 y_2' - y_2 y_1')' = y_1 y_2'' + y_1' y_2' - y_2 y_1'' - y_1' y_2'.
+\end{equation}
+But notice that the first derivative terms now cancel, and we can go back to Eqn. \ref{secondorderhomogeneous} to find expressions for $y_i''$. That is,
+\begin{equation}
+    W' = -P y_1 y_2' - Q y_1 y_2 + P y_2 y_1' + Q y_1 y_2.
+\end{equation}
+The $Q$ terms drop out and what we see is that
+\begin{equation}
+    W'=-P(y_1y_2' - y_2y_1') = -P(x) W.
+\end{equation}
+Hence this is a separable differential equation for the Wronskian $W$. That is,
+\begin{equation}
+     \frac{W'}{W} = -P \implies W(x) = W(x_0)e^{-\int_{x_0}^x dx\,P(x)}.
+\end{equation}
+That is, the Wronskian will generically depend on $x$ for some general $P(x)$; the only way (almost) this can vanish is if it initially vanishes at some $x_0$, i.e. $W(x_0)=0$. This tells us something we already knew-- two functions which are linearly dependent at one point in the interval must indeed be linearly dependent everywhere.
+
+There is one caveat-- what if $P(x)$ has a singular point? For instance, $P(x) \sim \frac{\alpha}{x-x_0}$. Thus the integral of $P(x)$ is a log, and taking the exponential of the log, we could get a Wronskian
+\begin{equation}
+    W(x) = W(x_0)(x-x_0)^\alpha,
+\end{equation}
+which simply tells us that regular singular points act like charges and will give us the equivalent of field lines beginning/ending on charges.
+
+So this tells us that the vanishing of the Wronskian does imply linear dependence in the second-order case. But can we construct a third linearly independent solution? Take some third solution $y$, with
+\begin{align*}
+    c y + c_1 y_1 + c_2 y_2 &= 0\\
+    c y' + c_1 y_1' + c_2 y_2' &= 0\\
+    c y'' + c_1 y_1'' + c_2 y_2'' &= 0.
+\end{align*}
+Then its Wronskian is
+\begin{equation}
+    W= \begin{vmatrix}
+    y_1 & y_2 & y\\
+    y_1' & y_2' & y'\\
+    y_1'' & y_2'' & y''
+    \end{vmatrix} =\begin{vmatrix}
+    y_1 & y_2 & y\\
+    y_1' & y_2' & y'\\
+    -P y_1' -Q y_1 & -Py_2' - Q y_2 & -P y' - Q y
+    \end{vmatrix}.
+\end{equation}
+Now we recall an important fact about determinants. The determinant picks up sign changes under interchange of rows and columns, and more generally, if any row/column is a linear combination of the other rows/columns, then the whole determinant vanishes. That is, $W=0$ for three functions.
+
+We conclude that $\exists c,c_1,c_2$ not all zero such that
+\begin{equation}
+    c y + c_1 y_1 + c_2 y_2 = 0.
+\end{equation}
+Suppose we had $y_1,y_2$ in hand linearly independent. In particular, $c\neq 0$ since if it were zero, this would reduce to the previous case and imply $y_1,y_2$ were linearly dependent. Hence
+\begin{equation}
+    y = -c_1 y_1 - c_2 y_2,
+\end{equation}
+so $y$ is a linear combination of the other two solutions $y_1,y_2$. We see that there are two degrees of freedom for us to fix, and we can do this by using initial conditions.
+
+Our general solution is a linear combination of the two linearly independent solutions $y_1,y_2$. How do we choose these solutions? In a way that makes our lives easiest.%
+    \footnote{For instance, we could write a solution in terms of sines and cosines or complex exponentials-- totally equivalent. For circuits, the complex exponential might be nicer; for some real waves, sines and cosines might be better.}
+%i like to reward you if you want to be living dangerously and be smart like that.
+
+Moreover, suppose we have one solution in hand, $y_1$ satisfying \ref{secondorderhomogeneous}. We can compute the Wronskian,
+\begin{equation}
+    W(x)= W(x_0) e^{-\int_{x_0}^x dx\,P(x) } = \begin{vmatrix}
+    y_1 & y_2 \\
+    y_1' & y_2'
+    \end{vmatrix}.
+\end{equation}
+Let us instead divide through by $W(x_0)$, which we can take to be nonzero since we're looking for another linearly independent function. Hence we can write
+\begin{equation}
+    W(x)/W(x_0)=  e^{-\int_{x_0}^x dx\,P(x) } = \begin{vmatrix}
+    y_1/W(x_0) & y_2 \\
+    y_1'/W(x_0) & y_2'
+    \end{vmatrix} =\begin{vmatrix}
+    \tilde y_1 & y_2 \\
+    \tilde y_1' & y_2'
+    \end{vmatrix},
+\end{equation}
+where we've absorbed the constant $1/W(x_0)$ into $\tilde y_1$. What's left is again the Wronskian. We have an equation
+\begin{equation}
+    y_1 y_2' - y_2 y_1' = \exp\paren{-\int_{x_0}^x dx\, P(x)}.
+\end{equation}
+And now we see that our problem reduces to solving a first-order equation, which we may rewrite as
+\begin{equation}
+     y_2' - y_2 y_1'/y_1 = \exp\paren{-\int_{x_0}^x dx\, P(x)}/y_1.
+\end{equation}
+Let us moreover write $y_2=uy_1$ in terms of some unknown function $u$, such that $y_2'=u' y_1 + uy_1'$ and then
+\begin{equation}
+    u' y_1 + u y_1' - uy_1' = u' y_1= \frac{e^{-\int_{x_0}^x dx\, P(x)}}{y_1},
+\end{equation}
+and therefore we see that
+\begin{equation}
+    u'= \frac{e^{-\int_{x_0}^x dx\,P(x)}}{y_1^2(x)},
+\end{equation}
+which is separable with general solution
+\begin{equation}
+    U(x)=U_0 + \int_{x_0}^x dx'\, \frac{e^{-\int_{x_0}^{x'} dx''\,P(x'')}}{y_1^2(x')}.
+\end{equation}
+Plugging back into our expression $y_2=uy_1$, we have
+\begin{equation}
+    y_2= y_1(x)\int_{x_0}^x dx'\, \frac{e^{-\int_{x_0}^{x'} dx''\,P(x'')}}{y_1^2(x')},
+\end{equation}
+where we have WLOG dropped the $U_0$ term since that term is simply a multiple of our old solution $y_1$. If we like, we're just Gram-Schmidting away the $U_0$ term. In general we might like to have some nontrivial $U_0$ in order to make these solutions $y_1,y_2$ orthonormal.
+
+Let us note also that if we sit at a regular point (e.g. $x=0$) then our second-order equation gives us a recursion relation on the expansion coefficients of
+\begin{equation}
+    y=\sum a_n x^n.
+\end{equation}
+Just take derivatives and we get equations relating $y^{(n)}, y^{(n-1)},y^{(n-2)}$ and so on. It turns out that many special functions solving (physically) interesting differential equations are simply special cases of \ref{secondorderhomogeneous} where $P$ and $Q$ are polynomials of no higher than second order. These can be rewritten as examples of the hypergeometric equation, which has known and catalogued solutions.%
+    \footnote{A nice reference is L. Elsgolts on differential equations. ``It's very good, very clear, very methodical.'' --Nemanja. As for physical applications, Born \& Wolfe wrote a book on optics (really wave mechanics) and this is also on the internet, probably.}
+
+We should also note that sometimes we must consider the point at infinity, i.e. as $x\to \infty$, define $z=1/x$ and rewrite the equation using the chain rule so that
+\begin{equation}
+    y'= \frac{dy}{dx} =\frac{dy}{dz} \frac{dz}{dx} = \frac{dy}{dz} \frac{1}{\frac{dx}{dz}} = -z^2 \frac{dy}{dz},
+\end{equation}
+and something similar holds for $y''$,
+\begin{equation}
+    y'' =\frac{d}{dz} \paren{-z^2 \frac{dy}{dz}}.
+\end{equation}
+Hence there might be singular points at $\infty$ in the $z\to 0$ limit. We get a new equation in terms of $z$ and some $\bar P, \bar Q$ which are made of the original functions:
+\begin{equation}
+    \bar P = \frac{2z- P(1/z)}{z^2},\quad \bar Q = \frac{Q(1/z)}{z^4},
+\end{equation}
+which tells you that $P$ cannot diverge worse than linearly and $Q$ cannot diverge worse than quadratically in order to maintain regular singular points.
+
+Let us now try to solve the harmonic oscillator potential
+\begin{equation}\label{classicalharmonicoscillator}
+    y'' + \omega^2 y =0
+\end{equation}
+by a series method,
+\begin{equation}
+    y= \sum_{n=0}^\infty a_n x^n.
+\end{equation}
+Hence
+\begin{equation}
+    y'' = \sum_{n=0}^\infty (n)(n-1) a_n x^{n-2}=\sum_{n=2}^\infty (n)(n-1) a_n x^{n-2},
+\end{equation}
+since the first two terms are really zero. We redefine a dummy index
+\begin{equation}
+    n=m+2,
+\end{equation}
+such that
+\begin{equation}
+    y'' = \sum_{m=0}^\infty (m+2)(m+1) a_{m+2} x^m.
+\end{equation}
+But $m$ is just a dummy variable, so we can relabel it to $n$ and plug back into our harmonic oscillator equation, Eqn. \ref{classicalharmonicoscillator}. Since we have two sums, each of which are convergent and running over the same domain, we can now combine them and compare terms:
+\begin{equation}
+    0=\sum_{n=0}^\infty \paren{(n+2)(n+1) a_{n+2} +\omega^2 a_n} x^n.
+\end{equation}
+And since the $x^n$ are linearly independent, we can get rid of the sum and look at the \emph{recursion relation} between coefficients:
+\begin{equation}
+    a_{n+2} = -\frac{\omega^2}{(n+2)(n+1)}a_n.
+\end{equation}
+Notice that the first two coefficients are set by
+\begin{equation}
+    y(0)=a_0,\quad y'(0)= a_1.
+\end{equation}
+All other coefficients are then given by these two.
+
+Notice that the original equation \ref{classicalharmonicoscillator} is in fact invariant under parity, $x\to -x$. Hence our solutions separate into even and odd solutions. In particular, if we write down the recursion relations for $a_{2n+2}$ and $a_{(2n+1)+2}$, we get precisely the expansion coefficients for sines and cosines. Hence
+\begin{equation}
+    a_{2n} =\frac{(-1)^n \omega^{2n}}{(2n)!} a_0,
+\end{equation}
+so that
+\begin{equation}
+    y=a_0 \sum_{n=0}^\infty \frac{(-1)^n \omega^{2n}}{(2n)!}x^{2n} =a_0 \sum_{n=0}^\infty \frac{(-1)^n}{(2n)!}(\omega x)^{2n}= a_0 \cos(\omega x),
+\end{equation}
+and similarly the other solution is a sine,
+\begin{equation}
+    y=a_0 \cos(\omega x) + a_1\sin(\omega x).
+\end{equation}

@@ -1,0 +1,242 @@
+Last time we discussed the free particle wavefunctions, which are scattering states in $\RR^n$. That is, for $\cH= \frac{\hat{\vec p}\cdot \hat{\vec p}}{2m}$, our solutions are
+\begin{equation}
+    \psi_{\vec k} (\vec x) =\frac{1}{(2\pi \hbar)^{d/2}} \exp (i\vec k \cdot \vec x),
+\end{equation}
+with energy given by
+\begin{equation}
+    E(k) = \frac{\vec k \cdot \vec k}{2m}\hbar^2.
+\end{equation}
+
+The unitary of time evolution guarantees conservation of probability. We say that given a wavefunction $\psi(\vec x,t)$, the quantity $|\psi(\vec x,t)|^2$ gives the probability density to find the particle in the interval (region) $[\vec x,\vec x +d\vec x]$,
+\begin{equation}
+    \rho(\vec x,t) = |\psi(\vec x,t)|^2.
+\end{equation}
+Unitarity says that
+\begin{equation}
+    \psi(\vec x,t) = U(\vec x,t; \vec x',t') \psi(\vec x',t').
+\end{equation}
+Usually we just indicate the time dependence of $U$. %
+%    \footnote{Again, in analogy to QFT where position is just a label, not an operator.}
+Since $UU^\dagger =\II$, our probability integrated over some region $D$ is
+\begin{equation}
+    \int_D \rho(\vec x,t) d^dx = \int_D |\psi(\vec x,t)|^2 d^dx.
+\end{equation}
+Notice now that
+\begin{align}
+    \frac{d}{dt} \int_D d^d x \, |\psi(\vec x,t)|^2 &= \int_D d^dx \paren{\psi^* \P{\psi}{t} + \psi \P{\psi^*}{t}}\\
+    &= \int_D d^dx \bkt{\psi^* \paren{\frac{i\hbar}{2m} \nabla^2 -i\hbar V(\vec x)} \psi + \psi \paren{-\frac{i\hbar}{2m}\nabla^2 + i\hbar V(\vec x)}\psi^*},
+\end{align}
+where in the third line we have just used Schr\"odinger's equation (or its complex conjugate) to replace the time derivatives. Now the potential terms cancel, since they are just multiplication by some numbers. What remains is
+\begin{align}
+    \frac{d}{dt} \int_D d^d x &= \frac{i\hbar}{2m} \int_D d^dx \paren{ \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^*}\\
+        &= \frac{i\hbar}{2m} \int_D d^dx\, \div\paren{\psi^* \grad \psi - \psi \grad \psi^*}.
+\end{align}
+Defining a current, or \term{probability flux density}, by
+\begin{equation}
+    \vec J(\vec x,t) =-\frac{i\hbar}{2m} \paren{\psi^* \grad \psi - \psi \grad \psi^*},
+\end{equation}
+we see that
+\begin{equation}
+    \int_D d^dx \paren{\P{\rho}{t} + \div \vec{J}}=0\implies \P{\rho}{t} + \div \vec{J}=0.
+\end{equation}
+This gives us a \emph{local statement of probability conservation}. The probability to find the particle at some location generally changes in time, but the change in its probability is directly related to the divergence of the probability current. In integral form, the probability to find the particle in some region decreases by the flux of the probability current through the boundary of the region. For notice that
+\begin{equation}
+    \int_D d^dx\, \div \vec{J} = \int_{\p D} \vec J \cdot d\vec{S}.
+\end{equation}
+Global conservation laws are true, but they are hard to impose because they require us to ``sample'' all of space. Local conservation laws are much more useful in deriving boundary conditions because we only need to check them point by point.
+
+Now consider plane wave solutions,
+\begin{equation}
+    \psi(\vec x,t) = A e^{i\vec k \cdot \vec x}.
+\end{equation}
+Then the probability current is
+\begin{equation}
+    \vec J = |A|^2 \frac{\hbar}{m} \vec k,
+\end{equation}
+and we see that the probability flux for a momentum eigenstate is given by the momentum eigenvalue. That is, probability flows constantly in the $\vec k$ direction and its divergence is zero. 
+\begin{exm}
+    Consider now
+    \begin{equation}
+        \psi(\vec x,t) = A_1 e^{i\vec k_1 \cdot \vec x} + A_2 e^{i\vec k_2 \cdot x}.
+    \end{equation}
+    What do we think the probability current will be? We expect there will be pure $\vec k_1,\vec k_2$ terms. But since this is a superposition, there will in general be interference terms:
+    \begin{equation}\label{probabilitycurrent}
+        \vec J(\vec x,t) =\frac{\hbar}{m} \bkt{|A_1|^2 \vec k_1 + |A_2|^2 \vec k_2 + (\vec k_1 + \vec k_2) \set*{\text{Re}(A_1A_2^*) \cos((\vec k_1 - \vec k_2)\cdot \vec x)
+        - \text{Im}(A_1 A_2^*) \sin(\vec k_1 - \vec k_2)\cdot \vec x}}.
+    \end{equation}
+    The cross-terms represent interference.
+\end{exm}
+
+Recall our 1D free particle time-dependent solution (wavepacket),
+\begin{equation}
+    \psi(x,t) \propto \exp{ik \paren{x-\frac{k\hbar t}{2m}} -\frac{1}{2\delta_x^2 \paren{1+\frac{i\hbar t}{m\delta_x^2}}}\paren{x-\frac{k\hbar t}{m}}^2}.
+\end{equation}
+Its expected location is
+\begin{equation}
+    \avg{x(t)} =\frac{1}{m} k\hbar t,
+\end{equation}
+and its width is
+\begin{equation}
+    \Delta x = \frac{1}{\sqrt{2}} \delta_x \sqrt{1+\frac{\hbar^2 t^2}{m^2 \delta_x^4}}.
+\end{equation}
+This drift in $\avg{x(t)}$ comes from the probability flux. Where we are most likely to find the particle drifts and flows, but what is conserved is the area under the (square of the) wavefunction, which is normalized to 1.
+
+\subsection*{Tunneling under a barrier}
+Suppose we have a potential which looks like a step,
+\begin{equation}
+    V(x) =\begin{cases}
+    0 & x<0 \text{ or }x >a\\
+    V_0 & 0 \leq x \leq a.
+    \end{cases}
+\end{equation}
+In the left region $x<0$, we have plane wave scattering states
+\begin{equation}
+    \psi(x) = A_L e^{ikx} + B_L e^{-ik x},
+\end{equation}
+and similarly on the right, $x>a$,
+\begin{equation}
+    \psi(x) = A_R e^{ikx} + B_R e^{-ik x}.
+\end{equation}
+By convention, we will take $k$ to be positive so that the right-movers are $e^{ikx}$ and the left-movers are $e^{-ikx}$. (Recall that the time dependence is $e^{-iEt}$, so the signs work out as we expect.)
+The energy of such a state is
+\begin{equation}
+    E(k) = \frac{\hbar^2 k^2}{2m} < V_0.
+\end{equation}
+That is, let us restrict ourselves to considering states which would classically just bounce off the potential barrier and could never make it through. We define
+\begin{equation}
+    \alpha^2 =\frac{2m}{\hbar^2}(V_0-E).
+\end{equation}
+Then we claim that in the classically forbidden region ($V_0>E$), our solutions take the form
+\begin{equation}
+    \psi(x) = Ce^{\alpha x} + D e^{-\alpha x}.
+\end{equation}
+For notice that in the barrier region, the Schr\"odinger equation takes the form
+\begin{equation}
+    \bkt{-\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V_0 } \psi(x) = E \psi(x) \implies \frac{\hbar^2}{2m} \frac{d^2}{dx^2} \psi(x)= (V_0-E) \psi(x),
+\end{equation}
+with $V_0-E >0$. This suggests that $\psi$ will look like a sum of exponentials in this region, i.e. 
+\begin{equation}
+    \frac{d^2}{dx^2} \psi(x) = \alpha^2 \psi(x).
+\end{equation}
+
+We can make some arguments now on physical grounds. Suppose we send in some wave coming from the left (i.e. right-moving) with energy $E<V_0$. We expect there will be some reflected (left-moving) wave in this region as well. Notice that for a 1D wavefunction
+\begin{equation}
+    \psi(x,t) = A e^{ikx} + Be^{-ikx},
+\end{equation}
+the probability current (cf. Eqn \ref{probabilitycurrent}) simplifies to
+\begin{equation}
+    J(x,t) =\frac{\hbar}{m}(|A|^2-|B|^2)k.
+\end{equation}
+Now we cannot quite impose the Schr\"odinger equation at the boundary of the classically forbidden region, but we can demand that the probability current $J$ is continuous along boundaries, and since
+\begin{equation}
+    \vec J(\vec x,t) =-\frac{i\hbar}{2m} \paren{\psi^* \grad \psi - \psi \grad \psi^*},
+\end{equation}
+this tells us that $\psi, \grad \psi$ are therefore continuous across boundaries.%
+    \footnote{This second claim is not quite true for e.g. delta function potentials. We'll come back to this loophole later.}
+That is, we may write
+\begin{align*}
+    \psi(x=0^-) &= \psi(x=0^+) \quad \psi(x= a^-)= \psi(x=a^+)\\
+    \psi'(x=0^-) &= \psi'(x=0^+)\quad \psi'(x= a^-)= \psi'(x=a^+).
+\end{align*}
+We'll write these boundary conditions in a funny way, as a matrix equation:
+\begin{equation}
+    \underbrace{\begin{pmatrix}
+        1 & 1\\
+        ik & -ik
+    \end{pmatrix}}_{M_1}
+    \begin{pmatrix}
+        A_L \\ B_L
+    \end{pmatrix}
+    =\underbrace{\begin{pmatrix}
+        1 & 1\\
+        \alpha & -\alpha
+    \end{pmatrix}}_{M_2}
+    \begin{pmatrix}
+        C \\ D
+    \end{pmatrix},
+    \quad\underbrace{\begin{pmatrix}
+        e^{\alpha a} & e^{-\alpha a}\\
+        \alpha e^{+\alpha a} & -\alpha e^{-\alpha a}
+    \end{pmatrix}}_{M_3}
+    \begin{pmatrix}
+        C \\ D
+    \end{pmatrix}
+    =\underbrace{\begin{pmatrix}
+        e^{ika} & e^{-ika}\\
+        ik e^{ika} & -ik e^{-ika}
+    \end{pmatrix}}_{M_4}
+    \begin{pmatrix}
+        A_R \\ B_R
+    \end{pmatrix}.
+\end{equation}
+Written more compactly,
+\begin{equation}
+    M_1
+    \begin{pmatrix}
+        A_L \\ B_L
+    \end{pmatrix}
+    =M_2
+    \begin{pmatrix}
+        C \\ D
+    \end{pmatrix},
+    \quad
+    M_3
+    \begin{pmatrix}
+        C \\ D
+    \end{pmatrix}
+    =M_4
+    \begin{pmatrix}
+        A_R \\ B_R
+    \end{pmatrix},
+\end{equation}
+so that with a bit of matrix manipulation to solve for $\begin{pmatrix} A_L \\ B_L\end{pmatrix}$, we find that
+\begin{equation}
+    \begin{pmatrix}
+        A_L \\ B_L
+    \end{pmatrix}
+    = M_1^{-1} M_2 M_3^{-1} M_4 \begin{pmatrix}
+        A_R \\ B_R
+    \end{pmatrix} =\cT \begin{pmatrix}
+        A_R \\ B_R
+    \end{pmatrix},
+\end{equation}
+where $\cT$ is called the \term{transfer matrix}. Unfortunately, it is rather complicated:
+\begin{equation}
+    \cT = \begin{pmatrix}
+        e^{ika} \bkt{\cosh (\alpha a) +\frac{i}{2} \sin(\alpha a) \paren{\frac{\alpha}{k}- \frac{k}{\alpha}}} & \frac{i}{2} e^{-ika} \sinh (\alpha a) \paren{\frac{\alpha}{k} + \frac{k}{\alpha}}\\
+        -\frac{i}{2} e^{-ika} \sinh (\alpha a) \paren{\frac{\alpha}{k} + \frac{k}{\alpha}}
+        & e^{-ika} \bkt{\cosh (\alpha a) -\frac{i}{2} \sin(\alpha a) \paren{\frac{\alpha}{k} -\frac{k}{\alpha}}}.
+    \end{pmatrix}
+\end{equation}
+Now suppose that we only send in a right-moving wave from $x=-\infty$, such that $B_R=0$. That is, there is no incoming wave from $x=+\infty$. We would like to know the following:
+\begin{itemize}
+    \item[i)] What is the reflected wave?
+    \item[ii)] Is there transmission?
+\end{itemize}
+In the right region, the transmitted wave would have flux 
+\begin{equation}
+    |A_R|^2 \frac{\hbar k}{m}
+\end{equation}
+since there is just the right-moving solution. In the left region, the incoming plus reflected wave give flux
+\begin{equation}
+    \frac{\hbar k}{m}(|A_L|^2-|B_L|^2).
+\end{equation}
+If we define the transmission and reflection coefficients
+\begin{equation}
+    T=\abs*{\frac{A_R}{A_L}}^2,\quad R =\abs*{\frac{B_L}{A_L}}^2,
+\end{equation}
+then (total) flux conservation guarantees that
+\begin{equation}
+    R+T=1.
+\end{equation}
+In fact, this innocuous-looking statement is the statement of unitarity. If we send in one particle, a ``piece'' of that particle comes back to you and a ``piece'' of that particle is transmitted through the barrier, at least at the level of probabilities.
+
+In terms of the transfer matrix elements (which relate $A_L,B_L,A_R$), we have
+\begin{equation}
+    R=\abs*{\frac{\cT_{21}}{\cT_{11}}}^2, \quad T =\abs*{\frac{1}{\cT_{11}}}^2,
+\end{equation}
+and by plugging in we see that our transmission coefficient is
+\begin{equation}
+    T = \paren{1+\frac{V_0^2}{4E(V_0-E)} \sinh^2 (\alpha a)}^{-1} \approx \frac{4E(V_0-E)}{V_0} e^{-2 \frac{\sqrt{2m(V_0-E)}}{\hbar} a}
+\end{equation}
+for $\alpha a \gg 1$. We see that for very wide barriers (large $a$) or very high barriers (large $\alpha^2 \sim V_0-E$), the probability of tunneling is exponentially suppressed.
