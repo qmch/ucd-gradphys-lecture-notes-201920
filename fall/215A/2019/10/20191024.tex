@@ -1,0 +1,163 @@
+Last time, we discussed tunneling through a step potential. There were only scattering states and no bound states (normalizable states with vanishing probability at $\infty$). The transmission is roughly proportional to the area under the barrier, as
+\begin{equation}
+    T\propto e^{-2\alpha a}, \quad \alpha =\frac{\sqrt{2m(V_0-E)}}{\hbar}.
+\end{equation}
+So tall and/or wide barriers will suppress the transmission probability. Note also that for incoming waves with energy higher than the ``step,'' $E-V_0>0$, there is still a reflection probability as well as a transmission probability.
+
+So far, we have discussed the bound states of the harmonic oscillator (a confining potential) as well as scattering states (plane wave states) for the free particle. Let us be more careful about what we mean here.
+
+\subsection*{Bound states}
+For potentials which are unbounded at spatial infinity,
+\begin{equation}
+    V(x)\to |x|\to \infty,
+\end{equation}
+then the system has bound states such that
+\begin{equation}
+    \lim_{x\to \pm\infty} \psi(x)=0.
+\end{equation}
+That is, a bound state is exponentially small outside of some finite region.
+On the other hand, a general system has a mix of bound and scattering states. The classic example is an attractive $\delta$-function potential, where
+\begin{equation}
+    V(x) = -V_0 \delta(x).
+\end{equation}
+For this potential, we have a Schr\"odinger equation
+\begin{equation}
+    -\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} - V_0 \delta(x) \psi(x) = E\psi(x).
+\end{equation}
+We'll come back to the scattering states; they are $e^{ikx}$ as before. But there is exactly one bound state in this problem. And a scattering state has some probability to be trapped and become a bound state. This tells us there's a nontrivial reflection coefficient.
+
+Let's see this explicitly. Consider the bound state(s), since scattering states exist with $E>0$. How will we solve for the bound state? Let us make the ansatz that our bound state wavefunction must be exponentially damped as the particle goes to $\pm \infty$. That is, for $|x|\to \pm \infty$, $\psi$ takes the form
+\begin{equation}
+    \psi(x) = \begin{cases}
+        A_L e^{\kappa x} + B_L e^{-\kappa x} & x < 0\\
+        A_R e^{\kappa x} + B_R e^{-\kappa x} & x > 0,
+    \end{cases}
+\end{equation}
+with 
+\begin{equation}
+    \kappa = \frac{\sqrt{2mE_b}}{\hbar}.
+\end{equation}
+For notice that away from $x=0$, the $E<0$ bound states have some $E=-E_b, E_B >0$, such that
+\begin{equation}
+    -\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} = -E_b \psi,
+\end{equation}
+and therefore the solutions are exponentials. Moreover, $B_L= A_R=0$ since we want our solutions to decay at infinity (normalizability). But it seems that $A_L,B_R$ are underdetermined, as is $E_B$. We still need a boundary condition at $x=0$ (two, actually).
+
+The boundary conditions are as follows:
+\begin{itemize}
+    \item[i)] $\psi(x)$ is continuous at the origin for probability flux to be conserved
+    \item[ii)] $\psi'(x)$ is not continuous; its discontinuity will depend on the integral over the delta-function potential.
+\end{itemize}
+Continuity immediately gives us that $A_L=B_R$, so
+\begin{equation}
+    \psi(x) = \begin{cases}
+        A_L e^{\kappa x} & x < 0\\
+        A_L e^{-\kappa x} & x > 0,
+    \end{cases}
+\end{equation}
+Suppose now that we integrate the Schr\"odinger equation between $x=-\epsilon$ and $x=+\epsilon$. Hence
+\begin{equation}
+    \int_{-\epsilon}^\epsilon dx\, \bkt{-\frac{\hbar^2}{2m} \psi''(x) - V_0 \delta(x) \psi(x)} = -\int_{-\epsilon}^\epsilon dx\, E_b \psi(x).
+\end{equation}
+The first term gives us
+\begin{equation}
+    -\frac{\hbar^2}{2m} \bkt{\psi'(\epsilon)-\psi'(-\epsilon)}-V_0 \psi(0) = -E_b O(\epsilon).
+\end{equation}
+In the limit as $\epsilon\to 0$, we have
+\begin{equation}
+    -\frac{\hbar^2}{2m} \bkt{\psi'(0^+) - \psi'} - V_0 \psi(0) = 0.
+\end{equation}
+If we plug in our ansatz for $\psi(x)$, we get
+\begin{equation}
+    -\frac{\hbar^2}{2m} \bkt{A_L (-\kappa) - A_L (\kappa)} -V_0 A_L = 0,
+\end{equation}
+which tells us that
+\begin{equation}
+    \kappa = \frac{m}{\hbar^2} V_0.
+\end{equation}
+This tells us the bound state energy:
+\begin{equation}
+    \kappa = \frac{\sqrt{2mE_b}}{\hbar} \implies E_B = \frac{m}{2\hbar^2} V_0.
+\end{equation}
+If we fix the normalization of $\psi$ to be $\int_{-\infty}^\infty |\psi|^2 dx =1$, we can uniquely determine $A_L$:
+\begin{equation}
+    \psi(x) = \begin{cases}
+        \sqrt{\kappa}e^{\kappa x} & x<0\\
+        \sqrt{\kappa} e^{-\kappa x} & x >0.
+    \end{cases}
+\end{equation}
+
+This has interesting physical consequences. For instance, it is responsible for the phenomenon of Anderson localization, where defects in metal disrupt the conductivity of that metal because they force the electron wavefunction to become localized and therefore not free. Note that many-particle systems are different, though. The Anderson localization of many-particle systems violates the ``eigenstate thermalization hypothesis,'' producing unusual interference that destroys conductivity.%
+    %\footnote{We may also see such potentials later with the Dirac comb, TBD.}
+
+For a homework problem, we will consider the transmission and reflection coefficients for a scattering state; the wavefunction is still continuous but the discontinuity in the derivative is defined by the integral of the potential over a vanishingly small region. The scattering will be nontrivial.
+
+What about a finite rectangular well? In such a case, we will have scattering states, but the existence of bound states depends both on the width and height of the well. Bound states have some minimum energy, analogous to the ground state of the infinite square well, so the well must be some minimum depth in order to support bound states.
+
+Note-- what if we take the potential to be a derivative of a delta function, $V(x) = -V_0 \delta^{(n)}(x)$? The limit is apparently well-defined but the direct solution is not obvious because the discontinuity in the derivative is also apparently infinite. We can integrate the $\delta$-function term by parts, but it relates the derivative discontinuity to higher derivatives at the origin, which seems ill-defined.%
+    \footnote{It took Mukund ``two minutes'' this morning to decide he could not make immediate progress with this problem.}
+
+\subsection*{Periodic potentials in 1D}
+Suppose we have a periodic potential  with
+\begin{equation}
+    V(x+a) =V(x),
+\end{equation}
+i.e. it obeys the symmetry of $x\to x+na, n\in \ZZ$. This is a bit like a 1D lattice.
+\begin{claim}[Bloch's theorem (Floquet)]
+    Wavefunctions solving periodic potentials with period $a$ take the form
+    \begin{equation}
+        \psi(x) = e^{iKx} \phi_K (x),
+    \end{equation}
+    where
+    \begin{equation}
+        \phi_K(x)  = \phi_K(x+a),
+    \end{equation}
+    where $K$ is called the Bloch momentum and can be taken to lie in the range $-\pi/a \leq K \leq \pi/a$.
+\end{claim}
+That is, the momenta lie in one block of the dual (Fourier-transformed) lattice. This is tantamount to solving the problem on a circle and then arguing that distinct solutions correspond to shifts up to the circle periodicity. Equivalently, an individual solution for the wavefunction is itself periodic up to an overall phase. More generally we will get superpositions of various Bloch momenta $K$.
+
+We claim that while our problem does not have a continuous symmetry, we can take advantage of the discrete translational symmetry of the lattice. That is, there will be a generator of discrete translations that commutes with the Hamiltonian.
+
+\begin{exm}[Dirac comb]
+    Let us take a potential of this form,
+    \begin{equation}
+        V(x) = \frac{\hbar^2}{2m} V_0 \sum_{n=-\infty}^\infty \delta(x+ na).
+    \end{equation}
+    Look at it over the interval $x\in [0,a]$. In such an interval we have free particles,
+    \begin{equation}
+        \phi_1 = e^{ikx},\quad \phi_2 = e^{-ikx},
+    \end{equation}
+    which form linearly independent solutions to the Schr\"odinger equation. Hence
+    \begin{equation}
+        \psi(x) = \alpha_1 e^{ikx}  +\alpha_2 e^{-ikx}, \quad 0\leq x \leq a.
+    \end{equation}
+    Then Bloch's theorem says that in the next interval $a\leq x \leq 2a$, the wavefunction is
+    \begin{equation}
+        \psi(x) = e^{iKa}\paren{\alpha_1 e^{ik(x-a)}+\alpha_2 e^{-ik(x-a)}}.
+    \end{equation}
+    
+    We can now impose the boundary conditions. A priori we have four unknowns: $\alpha_1, \alpha_2, k, K$. At $x=a$, the wavefunction is continuous,
+    \begin{equation}
+        \psi(x=a^-) = \psi(x=a^+),
+    \end{equation}
+    but its derivative is not,
+    \begin{equation}
+        \psi'(x=a^+) = \psi'(x=a^-)+2V_0 \psi(a).
+    \end{equation}
+    We get this discontinuity from the same sort of procedure as before, but with a sign flip because the potential is repulsive, not attractive.
+    
+    Plugging in the wavefunctions, we see that
+    \begin{gather}
+        \alpha_1 e^{ika} + \alpha_2 e^{-ika} = e^{iKa}(\alpha_1 + \alpha_2)\\
+        ik e^{iKa} (\alpha_1- \alpha_2) = ik (\alpha_1 e^{ika}-\alpha_2 e^{-ika}) + 2V_0 (\alpha_1 e^{ika} + \alpha_2 e^{-ika}).
+    \end{gather}
+    This can now be written as a matrix equation on the coefficients $\alpha_1,\alpha_2$ of the form $A\gv{\alpha}=0$, and the coefficient matrix $A$ should have vanishing determinant (is non-invertible) in order to get a nontrivial solution for $\gv{\alpha}$. Using this condition, one finds that
+    \begin{equation}
+        \cos Ka = \cos ka + \frac{V_0}{k} \sin ka.
+    \end{equation}
+    Notice that the LHS is bounded by $\pm 1$ because of the range of $K$. This tells us that $k$ is not totally arbitrary. For a wavefunction to exist, the RHS must also be bounded:
+    \begin{equation}
+        \abs*{\cos ka +\frac{V_0}{k} \sin ka} \leq 1,
+    \end{equation}
+    and $E=\frac{\hbar^2 k^2}{2m}$. This will give us energy bands with gaps in between, and this is the origin of electronic band structure.
+\end{exm}
