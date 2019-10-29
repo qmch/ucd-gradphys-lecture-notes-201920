@@ -1,0 +1,128 @@
+Logistic note-- there is a more challenging homework up this week. The first problem asks us to reason physically about the solutions to a harmonic oscillator with a delta function perturbation. There's also a nice bonus problem to do with the Poschl-Teller potentials.
+
+Let us now derive Bloch's (Floquet's) theorem, which we saw an application of last time. Recall the statement of Bloch's theorem was that the solutions of periodic potentials can be composed of wavefunctions which are also periodic (with the same period) up to a phase.%
+    \footnote{Equivalently, we can simultaneously diagonalize the Hamiltonian and the discrete translation operator. This is how it is described in Griffiths.}
+
+That is, take $V(x)$ such that
+\begin{equation}
+    V(x+a) = V(x), \quad x \to x+na, n\in \ZZ.
+\end{equation}
+Say that $\phi_1(x),\phi_2(x)$ are 2 l.i. solutions to
+\begin{equation}
+    \bkt{-\frac{\hbar^2}{2m} \frac{d^2}{dx^2} + V(x)}\phi(x) = E\phi(x).
+\end{equation}
+Then $\phi_1(x+a), \phi_2(x+a)$ are also solutions-- just shift the arguments, and the potential shifts with it. But $\phi_1,\phi_2$ were linearly independent, so the shifted versions must be linear combinations of the original solutions:
+\begin{align}
+    \phi_1 (x+a) &= \alpha_{11} \phi_1(x) + \alpha_{12} \phi_2(x)\\
+    \phi_2(x+a) &= \alpha_{21} \phi_1(x) + \alpha_{22} \phi_2(x).
+\end{align}
+If $\psi(x)$ is some such linear combination, then there exists a choice of coefficients such that
+\begin{equation}
+    \psi(x+a) = \lambda \psi(x), \lambda \in \CC, |\lambda|=1.
+\end{equation}
+In mathematics this is called Floquet's theorem. We can prove this--
+\begin{align}
+    \psi(x) &= A \phi_1(x) +B\phi_2(x)\\
+    \psi(x+a) &= A\phi_1(x+a)+ B\phi_2(x+a)\nonumber\\
+        &= A \bkt{\alpha_{11} \phi_1(x) + \alpha_{12}\phi_2(x)} + B \bkt{\alpha_{21} \phi_1(x) + \alpha_{22}\phi_2(x)}.\label{periodicpsiexpansion}
+\end{align}
+Now if we suppose that
+\begin{equation}
+    \psi(x+a) = \lambda \psi(x) = \lambda [A\phi_1(x)  + B\phi_2(x)],
+\end{equation}
+then by comparison to our expansion \ref{periodicpsiexpansion} we see that
+\begin{align}
+    A \alpha_{11}  + B \alpha_{21} &= \lambda A\\
+    A \alpha_{12} + B \alpha_{22} &= \lambda B.
+\end{align}
+The statement this equation has solutions (that the matrix of $\alpha$s has eigenvalues) is equivalent to the statement that
+\begin{equation}
+    \det \begin{pmatrix}
+    \alpha_{11}-\lambda & \alpha_{21}\\
+    \alpha_{12} & \alpha_{22}-\lambda
+    \end{pmatrix} =0.
+\end{equation}
+The coefficients $\alpha_{ij}$ are fixed by the properties of $\phi_1,\phi_2$. That means we have a quadratic equation for $\lambda$ which has 2 roots $\lambda_1,\lambda_2$.%
+    \footnote{Note that the matrix of $\alpha$s is actually unitary by probability conservation. This is sufficient to let us diagonalize the matrix of $\alpha$s, i.e. we can indeed solve for the roots $\lambda_1,\lambda_2$.}
+We therefore have wavefunctions $\psi_1,\psi_2$ such that
+\begin{equation}\label{shifteigenvalues}
+    \psi_1(x+a) = \lambda_1 \psi_1(x),\quad \psi_2(x+a) = \lambda_2 \psi_2 (x).
+\end{equation}
+To show these lambdas are of unit norm, $|\lambda_1|=|\lambda_2| = 1$, we need something else. In particular, we need to use normalizability and also prove that $\lambda_1\lambda_2=1$. The first part is easier. Notice that
+\begin{equation}
+    \psi_i(x+na) = \lambda_i^n \psi_i(x).
+\end{equation}
+This suggests that if $|\lambda|\neq 1$, then the wavefunction value grows arbitrarily large as $x$ increases to $\pm \infty$, which breaks normalizability.%
+    %\footnote{Fun fact-- plane waves still have a sensible normalization condition if we're careful-- $\int \psi^*(x')\psi(x) dx = \delta(x-x')$.}
+We conclude that $|\lambda_1|=|\lambda_2| = 1$.
+
+For the second fact, consider the Wronskian%
+    \footnote{For a refresher on the Wronskian, see my 204A notes. It tests linear (in)dependence.}
+\begin{equation}
+    W(x) = \psi_1(x) \psi_2'(x) - \psi_1'(x) \psi_2(x).
+\end{equation}
+It follows from Eqn. \ref{shifteigenvalues} that
+\begin{equation}
+    W(x+a)=\lambda_1\lambda_2 W(x).
+\end{equation}
+But the Wronskian is in fact constant, $W'(x)=0$, by Schr\"odinger's equation.%
+    \footnote{This is generally true for two linearly independent solutions to a second-order equation. Taking the derivative, the cross-terms like $\psi_1' \psi_2'$ cancel, and the other terms like $\psi_1'' \psi_2$ cancel after we replace second derivatives with their expressions in terms of the original functions.}
+Hence
+\begin{equation}
+    W(x+a)=W(x) \implies \lambda_1 \lambda_2 =1.
+\end{equation}
+
+Combining these two facts we see that
+\begin{equation}
+    \lambda_1 = e^{iKa}, \lambda_2 = e^{-iKa},
+\end{equation}
+where $K$ is a real parameter, and WLOG we can restrict
+\begin{equation}
+    -\frac{\pi}{a} \leq K \leq \frac{\pi}{a}
+\end{equation}
+where $a$ was the period of the potential. Hence we can find solutions to periodic potentials such that
+\begin{equation}
+    \psi(x+a) = e^{\pm iK (x+a)}\phi_K(x+a) = e^{\pm iKa} \psi(x).
+\end{equation}
+\begin{thm}[Bloch]
+    For $V(x) = V(x+na), n\in \ZZ$, there exist solutions
+    \begin{equation}
+        \psi(x) = e^{\pm i Kx}\phi_K(x), \quad \phi_K(x) = \phi_K(x+a).
+    \end{equation}
+\end{thm}
+Notice we haven't actually solved the Schr\"odinger equation yet; we've just said that its solutions can be expressed as linear combinations of wavefunctions which are periodic up to a phase. To find energy eigenvalues, take
+\begin{equation}
+    \psi(x) = A \phi_1(x) + B \phi_2(x), \quad 0 \leq x \leq a.
+\end{equation}
+That is, it is a linear combination of the basis solutions between 0 and $a$. We assume nothing about the periodicity of $\phi_1$ and $\phi_2$. Hence in the next unit cell, it is given by
+\begin{equation}
+    \psi(x) = e^{iKa}\bkt{A \phi_1 (x-a) + B\phi_2(x-a)}, \quad a \leq x \leq 2a,
+\end{equation}
+where we have just pulled out the overall phase. Continuity of $\psi$ and its derivative at $a$%
+    \footnote{The latter is not true for the Dirac comb because of the delta functions.}
+gives
+\begin{align}
+    A \phi_1 (a) + B\phi_2(a) &= e^{iKa} \bkt{A \phi_1(0) + B\phi_2(0)},\\
+    A \phi_1'(a) + B \phi_2'(a) &= e^{iKa} \bkt{A\phi_1'(0) + B \phi_2'(0)}.
+\end{align}
+For a solution to $A$ and $B$ to exist, the matrix of coefficients must have zero determinant,
+\begin{equation}
+    \det \begin{pmatrix} \phi_1(a) -e^{iKa} \phi_1(0) & \phi_2(a) - e^{iKa} \phi_2(0)\\
+    \phi_1'(a) -e^{iKa} \phi_1'(0) & \phi_2'(a) - e^{iKa} \phi_2'(0)
+    \end{pmatrix}=0.
+\end{equation}
+We can solve this to find
+\begin{equation}
+    \cos Ka = \frac{1}{2 W [\phi_1,\phi_2]} \bkt{(\phi_1(0) \phi_2'(a)  + \phi_1(a) \phi_2'(0))- (\phi_2(0) \phi_1'(a) + \phi_2(a) \phi_1'(0))},
+\end{equation}
+with $W[\phi_1,\phi_2]$ the Wronskian, evaluated at any point in the interval $[0,a]$. Recall it is nonvanishing for any linearly independent functions $\phi_1,\phi_2$. We see that this justifies why we restricted $K$ to lie in $[-\pi/2,\pi/2]$. Moreover, we will generally get certain ranges of $K$ which are allowed and some which are forbidden. This gives rise to a \term{band structure}, which is a key idea in condensed matter physics.
+
+It is a remarkable fact that $k$-space can have a nontrivial topology when we consider the bands of allowed values of $k$ in three-dimensional materials. This is closely related to the phenomenon of topological insulators.
+
+To conclude this class, let us discuss some properties of single-particle wavefunctions.
+\begin{enumerate}
+    \item Ground state wavefunctions do not have nodes, i.e. $\psi(x) \neq 0$ anywhere on the open interval. A rough proof is as follows-- suppose our wavefunction has a zero. Then we can construct another function (not necessarily a solution to the Schr\"odinger equation) which has a lower energy (expectation value of the Hamiltonian), which tells us that the original wavefunction must not have been the ground state.%
+        \footnote{This sounds like an example of the variational principle. Anyway, the proof is in the notes. This statement will also be important for the homework.}
+    This fact is also true in higher dimensions than 1.
+    \item The energy spectrum for bound state wavefunctions in 1D (one spatial dimension) is nondegenerate. The proof is by contradiction-- suppose two such states exist, and then show they are at best proportional to each other.
+\end{enumerate}
