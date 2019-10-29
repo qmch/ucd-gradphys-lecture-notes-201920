@@ -1,0 +1,195 @@
+Last time, we began discussing series solutions to differential equations.
+%dumb things are good because they're repeatable. Just don't do something dumb too often if you can do something clever on the side.
+We considered solutions to the classical harmonic oscillator,
+\begin{equation}
+    y'' + \omega^2 y = 0,
+\end{equation}
+and made the ansatz that such equations have a series expansion
+\begin{equation}
+    y= \sum_n a_n x^n.
+\end{equation}
+We got the recursion relation
+\begin{equation}
+     a_{n+2} = -\frac{\omega^2}{(n+2)(n+1)}a_n,
+\end{equation}
+which gave us an expression for the coefficients,
+\begin{equation}
+    a_{2n+1} = \frac{(-1)^n \omega^{2n+1}}{(2n+1)!},
+\end{equation}
+and we got solutions which were sines and cosines,
+\begin{equation}
+    y_1 = a_0 \cos(\omega x), \quad y_2 = a_1 \sin(\omega x).
+\end{equation}
+Let us notice that if $y(x)$ and $y(-x)$ both solve a differential equation, then we can create the even and odd (symmetric and antisymmetric) combinations
+\begin{equation}
+    y_\pm = y(x) \pm y(-x).
+\end{equation}
+This sort of trick works for potentials that are themselves even.
+
+Let us now try to extend this power series trick. Maybe our differential equation includes regular singular points and forces us to start our series expansion at the power $x^s$ so that we get terms $x^s, x^{s+1},\ldots$. Here $s\in\RR$ but we do not take $s$ to a priori be an integer. Its values will in general be fixed by an \term{indicial equation}, as we'll see shortly.
+
+That is, let us write a series expansion
+\begin{equation}
+    y = \sum_{n=0}^\infty a_n x^{n+s}.
+\end{equation}
+This is called the \term{Frobenius method}.
+
+We could solve equations of the form
+\begin{equation}
+    y'' + \frac{\alpha}{x} y' + \frac{\beta}{x^2}y=0
+\end{equation}
+in this way, where primes indicate derivatives with respect to $x$. This is called the \term{Euler equation.} Note that if we replace the independent variable with $x = e^t$ then solutions take the form $e^{pt}$ or in terms of the original variable $x^p$ for some $p$.%
+    \footnote{This is an exercise. Notice that $\log x = p \implies dx/x = dp$. Find $p$ in terms of $\alpha$ and $\beta$.}
+
+Let us try to apply this to the harmonic oscillator. Thus
+\begin{equation}
+     y'' = \sum_{n=0}^\infty (n+s) (n+s-1) a_n x^{n+s-2}.
+\end{equation}
+Hence the differential equation becomes
+\begin{align}
+    0 &= \sum_{n=0}^\infty (n+s) (n+s-1) a_n x^{n+s-2} + \omega^2 \sum_{n=0}^\infty a_n x^{n+s}\\
+        &=\sum_{n=-2}^\infty (n+s+2) (n+s+1) a_{n+2} x^{n+s} + \omega^2 \sum_{n=0}^\infty a_n x^{n+s}.
+\end{align}
+Notice that the first sum here now comes with two extra terms,
+\begin{equation}
+    s(s-1) a_0 x^s + (s+1)(s) a_1 x^{s+1},
+\end{equation}
+Hence we have
+\begin{equation}
+    0=s(s-1) a_0 x^s + (s+1)(s) a_1 x^{s+1} + \sum_{n=0}^\infty \bkt{(n+s+2)(n+s+1) a_{n+2} + \omega^2 a_n} x^{n+s}.
+\end{equation}
+The series term gives us almost the ordinary recursion relation on the coefficients $a_n$, up to a shift by $s$. And we know that because the individual $x^n$s are orthogonal, the coefficients in terms of $s$ and $a_0,a_1$ must themselves vanish:
+\begin{align}
+    s(s-1) a_0 &= 0\\
+    (s+1)s a_1 &= 0.
+\end{align}
+These are called the \term{indicial equations}.
+If we take $a_0=0,a_1=0$ then all higher coefficients are zero.%
+    \footnote{``We have just committed suicide by zero.'' --Nemanja}
+So if $a_0\neq 0$ then we could either have $s=0$ or $s-1=0$. 
+
+Notice that there's a shared root $s=0$ between the two indicial equations above. A priori we could have tried setting $s=-1$ in the second equation, which says that the lowest order term of the expansion goes as $1/x$. This is certainly not analytic, which simply forces us to set $a_0=0$ and then we get all the same behavior in terms of $a_1,a_3,\ldots$.
+
+Hence there are really only two interesting roots, $s=0$ and $s=1$. The recursion relation becomes the same as in the ordinary series expansion of the harmonic oscillator and the sines and cosines fall out as before.
+
+\subsection*{Bessel's equation}
+The equation
+\begin{equation}
+    x^2 y'' + x y' + (x^2-\nu^2) y=0
+\end{equation}
+is called \term{Bessel's equation}. Normally $\nu$ is an integer, but we may as well take it to be a real number. We shall see that as $\nu$ becomes an integer, something goes ``very bad in a very fun way.''
+
+Let's write our series expansion in the Frobenius way. THus
+\begin{align}
+    y&= \sum_{n=0} a_n x^{n+s}\\
+    y'&= \sum_{n=0} (n+s)a_n x^{n+s-1}\\
+    y''&= \sum_{n=0} (n+s)(n+s-1)a_n x^{n+s-2}.
+\end{align}
+Notice that if the $x^2 y$ term were zero, we would just get back the Euler equation from earlier. Note also that this equation enjoys a scale symmetry of sorts-- as $x$ scales, $y'$ scales inversely and so the first two terms of this equation are scale invariant under $x\to \alpha x$.
+
+This equation has a regular singular point at $x=0$, as we can see if we put the equation in the standard form. Substituting our Frobenius expansion, we have
+\begin{align}
+    0 &= \sum_{n=0}^\infty \set{x^{n+s} a_n \bkt{(n+s)(n+s-1) + (n+s) -\nu^2} +x^{n+s+2} a_n}\\
+    &= \sum_{n=0}^\infty \set{x^{n+s} a_n \bkt{(n+s)^2 -\nu^2} +x^{n+s+2} a_n}.
+\end{align}
+We can see that since one of these stars at order $s+2$ and the other starts at order $s$, we will get again our ``orphans'' and therefore indicial equations. That is, let us rewrite as
+\begin{equation}
+    0 = x^s a_0(s^2-\nu^2) + x^{s+1}a_1 \bkt{(s-1)^2-\nu^2}+\sum_{n=0}^\infty \set{ a_{n+2} \bkt{(n+s+2)^2 -\nu^2} + a_n} x^{n+s+2}.
+\end{equation}
+These first terms have no counterpart, so their coefficients must identically vanish. Hence
+\begin{equation}
+    s_\pm = \pm \nu
+\end{equation}
+are the solutions to the indicial equation. This generally forces $a_1=0$.%
+    \footnote{I'm not sure what happens if $\nu=1/2$.}
+Take $s=+\nu$ and label the coefficients as $a_n^+$. Then
+\begin{equation}
+    a_{n+2}^+ =-\frac{a_n^+}{(n+\nu +2)^2 - \nu^2}
+\end{equation}
+is the recursion relation for the coefficients. We can certainly factorize this denominator as
+\begin{equation}
+    a_{n+2}^+ =-\frac{a_n^+}{(n+2)(n+2 +2 \nu)}.
+\end{equation}
+In the first term, a $\nu$ cancelled out. The same thing would have happened if we took the negative root instead. We took $a_1$ to be zero, so the first few even coefficients are
+\begin{equation}
+    a_2 = \frac{-1}{2(2+2\nu)}a_0
+\end{equation}
+and
+\begin{equation}
+    a_4 = \frac{-1}{(2+2)(4+2\nu)}a_2 = \frac{(-1)^2}{(2\cdot 2 \cdot 2 \cdot 1)(2+2\nu)(4+2\nu)} a_0.
+\end{equation}
+If we keep going, we get in general
+\begin{equation}
+    a_{2n} = \frac{(-1)^n}{2^{2n} n! (1+\nu)(2+\nu) \ldots (n+\nu)}a_0.
+\end{equation}
+Suppose $\nu$ was an integer $N$. Then the sequence $(1+\nu)(2+\nu)\ldots (n+\nu)$ is almost a factorial; it is 
+\begin{equation}
+    \frac{1}{(1+\nu)(2+\nu)\ldots (n+\nu)} = \frac{N!}{(n+N)!}.
+\end{equation}
+Hence the series expansion is
+\begin{equation}
+    J_N(x) = \sum_n \frac{(-1)^n N!}{n! (n+N)!} \paren{\frac{x}{2}}^{N+2n}.
+\end{equation}
+More generally these factorials are replaced by gamma functions,
+\begin{equation}
+    J_\nu = \sum_n \frac{(-1)^n \Gamma(\nu+1)}{n! \Gamma(n+\nu+1)} \paren{\frac{x}{2}}^{\nu+2n},
+\end{equation}
+where the $\Gamma$ function is the generalization of the factorial (its argument is shifted by 1 by convention).
+
+Notice that the factor $N!$ (in the integer case) or $\Gamma(\nu +1)$ (in the real case) can be pulled out, so we can normalized. Moreover, when $\nu$ is not an integer, we get the $-\nu$ solutions for free. That is, we have a second set of solutions!
+
+However, this is \emph{not} the case when $\nu=N$ is an integer. For at some point, $n+N$ will be zero, and so $1/(n+N)!$ blows up. If you like, this is actually a proof that the $\Gamma$ function blows up at negative integers. This is the statement that the $\Gamma$ function has regular singular points.
+
+If we did this carefully, we would in fact find that the second solution for $-N$ would give something proportional to the $+N$ solution. Hence we need to go to the Wronskian method to construct the second solution.
+
+What broke down? The Frobenius method gave of both non-analytic solutions when $\nu$ was real but non-integer, since the powers of $x$ appearing in this expansion turn out to be non-integer; it only gave us one analytic solution when $\nu$ was an integer. Why? It gave us the non-singular solutions. In general so long as the difference between the roots of the indicial equation is not an integer, the Frobenius method will give us both solutions. This is the content of Fuch's theorem.
+
+When Frobenius fails, we will need to use
+\begin{equation}
+    y_2(x) = y_1(x) \int_a^x dx' \frac{e^{-\int_a^{x'} P(x'')dx''}}{y_1^2(x')}
+\end{equation}
+to construct the second solution. This might look asymmetric in $P$ and $Q$ but in fact the information from $Q$ is hidden inside $y_1$; we needed $Q$ to solve for the first solution.
+
+Let us take an equation of the form
+\begin{equation}
+    y''+P(x) y' + Q(x) y =0,
+\end{equation}
+which has a regular singular point at $x=0$. Hence
+\begin{align}
+    P(x) &= \frac{p_{-1}}{x} + p(x)\\
+    Q(x) &= \frac{q_{-2}}{x^2} + \frac{q_{-1}}{x} + q(x),
+\end{align}
+where $p(x),q(x)$ are analytic.%
+    \footnote{We should not include a log-divergent term like $q_0 \log(x)$. This would be really bad because there is no convergent expansion of the log around $x=0$.}
+
+Let us take a solution
+\begin{equation}
+    y_1 = x^s \sum_n a_n x^n,
+\end{equation}
+where $s$ is the larger of the roots of the indicial equation. n.b. we can always take $a_0$ to be the lowest nonvanishing coefficient. Its derivatives are
+\begin{align}
+    y' &= \sum_n a_n s x^{s+n-1},\\
+    y'' &= \sum_n a_n s(s+n-1) x^{s+n-2}.
+\end{align}
+Hence the indicial equation is given by the coefficient of the lowest power ``orphan.'' In our case, we have second derivatives, so the lowest order terms are the order $x^{s-2}$ terms-- taking the $n=0$ terms from each, we get
+\begin{equation}
+    Q(x) y \sim q_{-2} x^{s-2} a_0,\quad P(x) y' \sim p_{-1} x^{s-2} s a_0, \quad y'' \sim x^{s-2}s (s-1) a_0.
+\end{equation}
+Dividing through by $a_0$, the indicial equation will come out to
+\begin{equation}\label{indicialgeneric}
+    s(s-1) + s p_{-1} + q_{-2} =0.
+\end{equation}
+which is quadratic in $s$. Hence we can solve this for $s$ explicitly!
+
+Let us now suppose that the indicial equation is one of the bad ones. That is, its roots are 
+\begin{equation}
+    s=\alpha, s=\alpha-n\text{ for }n\in \ZZ.
+\end{equation}
+Hence Frobenius will fail to give us both solutions. What we will do is ``zoom in'' on the bad case and consider what sorts of equations can give these bad roots. There must be some relation between $p_{-1}$ and $q_{-2}$ that causes Frobenius to break down. If we write an equation with the desired roots
+\begin{equation}
+    0=(s-\alpha)(s-(\alpha-n)) = s^2 -(2\alpha -n)s +(\alpha^2 -n\alpha),
+\end{equation}
+then by comparing this to our indicial equation Eqn. \ref{indicialgeneric}, we have
+\begin{equation}
+    p_{-1} - 1 = n-2\alpha.
+\end{equation}
