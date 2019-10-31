@@ -101,10 +101,12 @@ That is, it is a linear combination of the basis solutions between 0 and $a$. We
 where we have just pulled out the overall phase. Continuity of $\psi$ and its derivative at $a$%
     \footnote{The latter is not true for the Dirac comb because of the delta functions.}
 gives
+\begin{subequations}
 \begin{align}
     A \phi_1 (a) + B\phi_2(a) &= e^{iKa} \bkt{A \phi_1(0) + B\phi_2(0)},\\
     A \phi_1'(a) + B \phi_2'(a) &= e^{iKa} \bkt{A\phi_1'(0) + B \phi_2'(0)}.
 \end{align}
+\end{subequations}
 For a solution to $A$ and $B$ to exist, the matrix of coefficients must have zero determinant,
 \begin{equation}
     \det \begin{pmatrix} \phi_1(a) -e^{iKa} \phi_1(0) & \phi_2(a) - e^{iKa} \phi_2(0)\\
@@ -115,7 +117,7 @@ We can solve this to find
 \begin{equation}
     \cos Ka = \frac{1}{2 W [\phi_1,\phi_2]} \bkt{(\phi_1(0) \phi_2'(a)  + \phi_1(a) \phi_2'(0))- (\phi_2(0) \phi_1'(a) + \phi_2(a) \phi_1'(0))},
 \end{equation}
-with $W[\phi_1,\phi_2]$ the Wronskian, evaluated at any point in the interval $[0,a]$. Recall it is nonvanishing for any linearly independent functions $\phi_1,\phi_2$. We see that this justifies why we restricted $K$ to lie in $[-\pi/2,\pi/2]$. Moreover, we will generally get certain ranges of $K$ which are allowed and some which are forbidden. This gives rise to a \term{band structure}, which is a key idea in condensed matter physics.
+with $W[\phi_1,\phi_2]$ the Wronskian, evaluated at any point in the interval $[0,a]$. Recall it is nonvanishing for any linearly independent functions $\phi_1,\phi_2$. We see that this justifies why we restricted $K$ to lie in $[-\pi/2,\pi/2]$. Moreover, we will generally get certain ranges of $K$ which are allowed and some which are forbidden. This gives rise to a \term{band structure}, which is a key idea in condensed matter physics, and we saw our first hint of this in the Dirac comb.
 
 It is a remarkable fact that $k$-space can have a nontrivial topology when we consider the bands of allowed values of $k$ in three-dimensional materials. This is closely related to the phenomenon of topological insulators.
 
@@ -124,5 +126,5 @@ To conclude this class, let us discuss some properties of single-particle wavefu
     \item Ground state wavefunctions do not have nodes, i.e. $\psi(x) \neq 0$ anywhere on the open interval. A rough proof is as follows-- suppose our wavefunction has a zero. Then we can construct another function (not necessarily a solution to the Schr\"odinger equation) which has a lower energy (expectation value of the Hamiltonian), which tells us that the original wavefunction must not have been the ground state.%
         \footnote{This sounds like an example of the variational principle. Anyway, the proof is in the notes. This statement will also be important for the homework.}
     This fact is also true in higher dimensions than 1.
-    \item The energy spectrum for bound state wavefunctions in 1D (one spatial dimension) is nondegenerate. The proof is by contradiction-- suppose two such states exist, and then show they are at best proportional to each other.
+    \item The energy spectrum for bound state wavefunctions in 1D (one spatial dimension) is nondegenerate. The proof is by contradiction-- suppose two distinct states of the same energy exist, and then show they must in fact be proportional to each other.
 \end{enumerate}
