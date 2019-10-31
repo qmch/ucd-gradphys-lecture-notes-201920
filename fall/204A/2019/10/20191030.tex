@@ -1,0 +1,202 @@
+\begin{quote}
+    \textit{``If you're woken up in the middle of night in cold sweat on deserted island, this is the one thing you must know. Oranges and apples do not compare well... but their weights might.''}
+    
+    --Nemanja Kaloper, on dimensional analysis
+\end{quote}
+Last time, we studied the Frobenius method for the Bessel equation, 
+\begin{equation}
+    x^2 y'' + x y' + (x^2-\nu^2) y=0,
+\end{equation}
+and we found that it breaks down for integer $\nu$. We are interested in studying second-order equations of the form
+\begin{equation}\label{secondorderregularsingulareqn}
+    y'' + P(x) y' + Q(x) y = 0,
+\end{equation}
+about a regular singular point (WLOG take it to be at $x=0$) such that
+\begin{subequations}
+\begin{align}
+    P &= \frac{p_{-1}}{x} + p(x)\label{regularsingularp}\\
+    Q &= \frac{q_{-2}}{x^2} + \frac{q_{-1}}{x} + q(x).\label{regularsingularq}
+\end{align}
+\end{subequations}
+These are early examples of Laurent series, a generalization of Taylor series for expansions which include the equivalent of charge terms (i.e. terms which are finite when multiplied by an ``area'' like $x^2$ before taking the $x\to 0$ limit). Let us also suppose that we have one solution $y_1$ in hand of the (Frobenius) form
+\begin{equation}
+    y_1 = \sum_{n=0}^\infty a_n x^{n+s}.
+\end{equation}
+That is, we solved the equation with the Frobenius method and got some value $s$ for the lowest power of $x$ in the expansion. By plugging in such an expansion into the differential equation \ref{secondorderregularsingulareqn} and using the forms of $P$ and $Q$ given by \ref{regularsingularp} and \ref{regularsingularq}, we can derive a general indicial equation
+\begin{equation}
+    s(s-1) + sp_{-1} + q_{-2} = 0,
+\end{equation}
+and by comparison to our ``bad'' indicial equation where the roots differ by an integer,
+\begin{equation}
+    (s-\alpha)(s-\alpha+n)=0,
+\end{equation}
+we found a condition on $p_{-1}$:
+\begin{equation}
+    p_{-1}-1 = n - 2\alpha.
+\end{equation}
+
+When the roots for $s$ differ by an integer, the recursion relations ``bomb'' because the coefficients blow up at some finite power. Let us note that in the Bessel equation, we could take
+\begin{equation}
+    \nu=\pm \frac{2k+1}{2}
+\end{equation}
+where $k\in \ZZ$, and then the roots will again be separated by an integer. However, such solutions will still be okay in the Frobenius method. So apparently the separation of the roots by an integer is a necessary but not sufficient condition for the breakdown of the series method.
+
+We use the Wronskian method to construct the second solution:
+\begin{equation}\label{wronskisecondsolution}
+    y_2(x) = y_1(x) \int_a^x dx' \frac{e^{-\int_a^{x'} P(x'')dx''}}{y_1^2(x')}.
+\end{equation}
+If our first series solution $y_1$ only contains terms of order $s$ or higher, then we can write it as
+\begin{equation}
+    y_1 = \sum_{n=0}^\infty a_n x^{n+s} \equiv x^s A(x)
+\end{equation}
+for some function $A(x)$.
+
+Let us look at the integral in the definition of the second solution \ref{wronskisecondsolution}, and consider the larger root for $s$, i.e. $s=\alpha$. Then substituting in $y_1 = x^\alpha A(x)$, we have
+\begin{equation}
+    \int_a^x dx' \frac{\exp\paren{-\int_a^{x'} dx'' \paren{\frac{p_{-1}}{x''} -p(x'')}}}
+    {x'{}^{2\alpha}A^2(x')}
+\end{equation}
+The integral of the sum is the sum of the integral,%
+    \footnote{At least in the absolutely convergent case!}
+so let us perform the integral of $p(x'')$ and call $\exp(-\int_a^{x'} dx''\,p(x'')) = B(x')$, some arbitrary (known) function of $x'$. Hence
+\begin{align*}
+    \int_a^x dx' \frac{e^{-\int_a^{x'} P(x'')dx''}}{y_1^2(x')} &= \int_a^x dx' \frac{\exp\paren{-\int_a^{x'} dx'' \paren{\frac{p_{-1}}{x''} -p(x'')}}}
+    {x'{}^{2\alpha}A^2(x')}\\
+        &= \int_a^x dx' \frac{\exp\paren{-\int_a^{x'} dx'' \paren{\frac{p_{-1}}{x''}}B(x')}} {x'{}^{2\alpha}A^2(x')}\\
+        &=\int_a^x dx' \frac{\exp\paren{-p_{-1} \log(x'/a)}B(x')} {x'{}^{2\alpha}A^2(x')}\\
+        &=\int_a^x dx' \frac{(a/x')^{p_{-1}} B(x')} {x'{}^{2\alpha}A^2(x')}.
+\end{align*}
+where we have used the fact that $p(x'')$ is analytic to replace its integral with $B(x')$, and we can absorb the constant $a^{p_{-1}}$ into the overall normalization. Hence we can combine the powers of $x'$ and the happy functions $B(x'),A^2(x')$ to get
+\begin{align}
+    y_2 &= y_1(x) \int_a^{x'} dx' \frac{C(x')}{x'{}^{p_{-1}+2\alpha}}\\
+        &= y_1(x) \int_a^{x'} dx' \frac{C(x')}{x'{}^{n+1}},
+\end{align}
+where we said the roots were separated by an integer. Let us also expand $C(x')$ in powers of $x'$ and write the equation as
+\begin{equation}
+    y_2(x) = y_1(x) \int_a^x dx' \frac{(c_0+ c_1 x' + c_2 x'{}^2 + \ldots + c_n x'{}^n + x^{n+1} \hat C(x')}{x'{}^{n+1}},
+\end{equation}
+where $\hat C(x')$ is now a happy function (analytic). Hence we get the integral of an analytic function $\hat{\hat C} \equiv \int dx' \hat C(x')$ plus $n$ singular terms which form a sum (schematically)%
+    \footnote{This is schematic because there are some constants attached to the divergent pieces. If we care about dimensions, those constants should carry the right dimensions to cancel out $x^n,x^{n-1},$ etc.}
+\begin{equation}
+    y_2 \sim y_1(x) \bkt{\paren{\frac{1}{x^n} + \frac{1}{x^{n-1}} + \ldots +\frac{1}{x}} + c_n \log(x/a) + \hat{\hat C}(x)}.
+\end{equation}
+We can of course absorb the $\log(1/a)$ into our $\hat{\hat C}(x)$ function. Hence our solution takes the overall structure
+\begin{equation}
+    y_2 = c_n y_1(x) \log(x) + y_1 (x) \bkt{\sum^n_{m=1} \frac{1}{x^m} +\hat{\hat C}(x)}.
+\end{equation}
+Something nice happens when $c_n=0$, though. This could certainly happen due to the symmetry of the problem. When this happens, the remaining terms are exactly of the form of the Frobenius solution for the other root with $s=\alpha-n$, since $y_1\sim x^\alpha$. This tells us that when Frobenius fails, we should try adding a log-divergent term $y_1(x) \ln(x)$, and that the Frobenius expansion is actually a special case of this general method when the solution does not include a log term.
+
+For the Bessel equation, if we crunch through the values of $B(x'), A(x'), C(x')$ we find that when $\nu$ is an odd half-integer, our solution has the form
+\begin{equation}
+    C(x) \sim \frac{1}{(x^{1/2})^2 \bkt{\sum a_k x^{2k}}^2},
+\end{equation}
+and we see that the Frobenius method gives us the right solution without a log divergence because the function we're integrating starts at power $1/x^2$.%
+    \footnote{There's a nice book on special functions from Dover by the mathematician Lebedev. ``This should be your \textit{vade mecum}, your manual.'' --Nemanja}
+
+Recall that we previously saw we can redefine a second order equation to cancel the order $y'$ term. That is, take
+\begin{align*}
+    y&=x^\alpha W\\
+    y' &= x^\alpha W' + \alpha x^{\alpha-1} W\\
+    y'' &= x^\alpha W'' + 2 \alpha x^{\alpha-1} W' + \alpha(\alpha-1) x^{\alpha-2} W.
+\end{align*}
+We might call this an integrating factor. In the Bessel equation
+\begin{equation}
+    y''+ \frac{y'}{x} + (1-\nu^2/x^2) y =0,
+\end{equation}
+we must pick $\alpha=1/2$ and this makes our equation in terms of $W$
+\begin{equation}
+    W'' + \paren{1-\frac{\nu^2}{x^2} -\frac{5}{4x^2}}W =0.
+\end{equation}
+If we write
+\begin{equation}
+    W'' + \paren{1-\frac{4\nu^2 + 5}{4x^2}}W = 0,
+\end{equation}
+we see that this is a 1D Schrodinger equation in a potential like $1-1/x^2$, at least for real $\nu$. 
+
+This is a quadratic hyperbolic well. Conversely, nothing prevents us from taking $\nu$ to be imaginary, in which case we could have a barrier instead of a well.
+%It's like kids tobogganing down a hyperbolic slope.
+%this is called gravitational blueshift.
+We can see now that in the case of imaginary $\nu$, we know what to expect. We send in a wavepacket towards the barrier which gets increasingly redshifted as it approaches the barrier. As it hits its classical turning point, the sines and cosines (complex exponentials) turn into sinhs and coshs (real exponentials). Hence we know what the asymptotic behavior of Bessel functions should based on our intuition for the Schr\"odinger equation.
+
+\subsection*{Inhomogeneous second-order linear equations}
+Finally, the last thing to do with these sorts of equations is to introduce a source term $J(x)$, such that
+\begin{equation}
+    y'' + P(x) y' + Q(x)y = J(x).
+\end{equation}
+This will lead us to the wonderful phenomenon of \term{parametric resonance}, which occurs in fly fishing and playground swings. We have an oscillator and if we kick it just right, we can drive it to higher amplitudes.
+
+Let us consider an equation of the form
+\begin{equation}
+    y'+f(x) y = J(x).
+\end{equation}
+Maybe we don't know how to solve this. But let us write $y\equiv uv$ in terms of some unknown functions $u,v$. Computing $y'$, we get
+\begin{equation}
+    v' u + (u'  +f u)v = J(x).
+\end{equation}
+We see now that we can always cancel the order $v$ term by making the choice
+\begin{equation}
+    u(x)=e^{-\int^x f(x')dx'}.
+\end{equation}
+Just calculate $u'$ and apply the fundamental theorem of calculus to see this is true. (Or separate variables and integrate, if you prefer.) If we make this choice, what remains is the equation%
+    \footnote{I'm writing the integrals at least with their variables of integration and limits of integration. This was a little quick in class, so I've rewritten it here to make clear(er) what we're integrating over and what the value of the integral depends on (e.g., is $x$ an argument of a function or a limit of integration?). Also, it is $J e^{\int f}$, not Jeff. I know it looks like Jeff.}
+\begin{equation}
+    v' u = J(x) \implies v'(x) = J(x) e^{\int^x f(x') dx'},
+\end{equation}
+with solution
+\begin{equation}
+    v= v_0 + \int^x dx \, J(x') e^{\int^{x'} f(x'')dx''},
+\end{equation}
+and so
+\begin{equation}
+    y= uv= v_0 e^{-\int^x dx'\,f} + e^{-\int^x dx'\,f} \int^x dx'\,J(x') e^{\int^{x'} f}.
+\end{equation}
+
+Why did this work? If we just solve the homogeneous equation $y' + fy=0$, we get 
+\begin{equation}
+    y_b=v_0 e^{-\int f}.
+\end{equation}
+We saw this term in the solution above. But we still need a particular solution to fit the source term $J$ and write
+\begin{equation}
+    y= y_p +y_b.
+\end{equation}
+If we promote $v_0$ to a \emph{function} of $x$, we can employ the method of variation of parameters. That is, we might guess that
+\begin{equation}
+    y_p = v(x) e^{-\int f}
+\end{equation}
+so that derivatives of the homogeneous solution will cancel out, and derivatives of $V(x)$ will let us cancel $J$. Hence all our work with the homogeneous equation was \emph{not wasted}; variation of parameters will let us cancel the source term.
+
+Let us suppose we have two solutions $y_1, y_2$ to the homogeneous second-order equation. Then promote their coefficients in the homogeneous solution to functions,
+\begin{equation}
+    y_p = c_1(x) y_1(x) + c_2(x) y_2(x),
+\end{equation}
+so that
+\begin{align}
+    y'_p &= c_1 y_1' + c_2 y_2' + c_1' y_1 + c_2' y_2,\\
+    y_p'' &= c_1 y_1'' + c_2 y_2'' + c_1' y_1' + c_2' y_2'.
+\end{align}
+But wait, you say. Where are the terms involving $c_1''$ and $c_2''$ in the second derivative? It has to do with the fact we only really needed one extra function to solve the particular solution. Two functions gives us some extra freedom, so let us impose the constraint that $c_1' y_1 + c_2' y_2=0$. Then the second derivative we've written is true. What happens if we also make the extra terms in the second derivative zero, $c_1' y_1' + c_2' y_2'=0$? Then we get
+\begin{equation}
+    \begin{pmatrix}
+    y_1 & y_2 \\
+    y_1' & y_2'
+    \end{pmatrix}
+    \begin{pmatrix}
+        c_1'\\ c_2'
+    \end{pmatrix}
+    =0,
+\end{equation}
+and since this matrix is just the matrix whose determinant is the Wronskian of two linearly independent solutions $y_1,y_2$, it must be invertible. Hence $c_1'=c_2'=0\implies c_1,c_2$ are constants, which gives us back our old homogeneous solution. Instead, we should write
+\begin{equation}
+    \begin{pmatrix}
+    y_1 & y_2 \\
+    y_1' & y_2'
+    \end{pmatrix}
+    \begin{pmatrix}
+        c_1'\\ c_2'
+    \end{pmatrix}
+    =\begin{pmatrix}
+    0\\ J
+    \end{pmatrix}.
+\end{equation}
+Now the fact that $\paren{\begin{smallmatrix} y_1 & y_2 \\ y_1' & y_2'\end{smallmatrix}}$ is invertible actually helps us; we can multiply both sides by its inverse, which lets us solve for $c_1',c_2'$ individually in terms of $J, y_1,y_2,y_1',$ and $y_2'$ and just integrate.%
+    \footnote{No one said these integrals were going to be easy, but at least we can write them down explicitly.}
