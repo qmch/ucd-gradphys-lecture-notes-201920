@@ -1,0 +1,190 @@
+%everything happens everywhere all the time.
+%there is physics everywhere, you just need to open your eyes to it.
+\begin{quote}
+    \textit{``There is physics everywhere, you just need to open your eyes to it.''}
+    
+    --Nemanja Kaloper
+\end{quote}
+We were studying the differential equation of the form
+\begin{equation}
+    y'' + py' + qy = J.
+\end{equation}
+Second-order equations are ubiquitous in physics. Let us note that we can trivially rewrite as $w=y'$ where
+\begin{align}
+    w &= y'\\
+    w' &= -Pw - Q y + J,
+\end{align}
+which looks much like Hamilton's equations, i.e. a set of two coupled first-order equations rather than a single second-order equation. We could also discuss this from the perspective of the Hamilton-Jacobi equations, if we like. But in general higher-derivative equations could be put into the form of Hamilton's equations with a suitable Legendre transform.
+
+We hope to define physical systems leading to Hamiltonians which are bounded from below so that our systems are in some sense stable; they have well-defined ground states.
+
+\subsection*{How to solve second-order equations}
+Here's our recipe for solving second order equations, in order of least to most painful.%
+    \footnote{A good resource for performing complicated integrals by contour integration is in Whittaker and Watson.}
+\begin{enumerate}
+    \item Write it down by inspection.%
+        \footnote{This includes our trick of factoring equations with constant coefficients, making clever substitutions, etc.}
+    \item Use Frobenius (series expansion). Check the indicial equation and make sure the roots are not separated by an integer.
+    \item If they are separated by an integer, guess the second solution is $y_2\sim y_1 \log(x) + \sum a_n x^{n+s_-}$, where $s_-$ was the smaller root from Frobenius.
+    \item Use the Wronskian method to construct the second solution by taking some integrals.
+\end{enumerate}
+%Let us note that if you can't eyeball the solution (write it down by inspection), we'll have to do it by Frobenius (write it down by expansion). We must check the indicial equation from Frobenius and check the difference between the roots. Sometimes we are unlucky and Frobenius only gives us one solution (when the roots are separated by an integer). In that case, we must go to the Wronskian method once we have one Frobenius solution in hand. Sometimes we can skip directly to guessing the second solution is $y_2\sim y_1 \log(x) + \sum a_n x^{n+s_-}$, where $s_-$ was the smaller root from Frobenius.
+
+The story does not end here, for these methods give solutions to the homogeneous equation. To figure out the solution to the equation \emph{with a source}, we can construct particular solutions by variation of parameters, i.e. by promoting the coefficients $c_1,c_2$ to functions:
+\begin{equation}
+    y_p = c_1(x) y_1 + c_2(x) y_2.
+\end{equation}
+In general we expect this approach to work since we showed that by a simple change of variables, we could make our second order equation look like two first-order equations. We can generalize this to a system of $n$ first-order equations and $n$ unknown functions, and then start imposing boundary conditions. That is,
+\begin{equation}
+    y_p ' = c_1 y_1' + c_2 y_2' + [c_1' y_1 + c_2' y_2],
+\end{equation}
+where we can add the constraint that the bracket term vanishes, $c_1' y_1 + c_2' y_2\equiv 0$. We only needed one particular solution, so we gave ourselves some extra freedom in introducing two functions $c_1(x),c_2(x)$. Hence
+\begin{equation}
+    y'' = c_1 y_1'' + c_2 y_2'' + c_1' y_1' + c_2' y_2',
+\end{equation}
+and when we plug this back into the original equation, all the terms without derivatives of $c$ satisfy the homogeneous equation, while the other terms give us
+\begin{align}
+    c_1' y_1 + c_2' y_2 &= 0 \text{ by construction}\\
+    c_1' y_1' + c_2' y_2' &= J(x) \text{ because $y_1,y_2$ solve the homogeneous equation.}
+\end{align}
+The matrix of coefficients here is simply the Wronskian. $y_1,y_2$ are linearly independent, so this matrix is invertible by construction. Hence we can solve the first equation for $c_2'$ as
+\begin{equation}
+    c_2' = -c_1' \frac{y_1}{y_2},
+\end{equation}
+and then by substituting into the second,
+\begin{equation}
+    \frac{c_1'}{y_2} \paren{y_1' y_2 - y_1 y_2'}=J.
+\end{equation}
+This is a first-order eqaution for $c_1$ in terms of $y_1,y_2$ and their derivatives, and also $J$. Hence
+\begin{align}
+    c_1 &= -\int^x \frac{J(x')}{W(x')} y_2(x') + c_1^0,\\
+    c_2 &= \int^x \frac{J(x')}{W(x')} y_1(x')+c_2^0.
+\end{align}
+Let's reassemble our solution, which we said was of the form $y(x)= c_1 y_1 + c_2 y_2$. Plugging in, it is
+\begin{equation}
+    y(x) = c_1^0 y_1(x) + c_2^0 y_2(x) + \int^x dx' \frac{J(x')}{W(x')}\bkt{y_1(x') y_2(x) - y_2(x') y_1(x)}.
+\end{equation}
+Our solution was smart enough to give us back not only the homogeneous solution but also a particular solution which gave us exactly the source term. This construction is so important that we give it a name-- a \term{Green's function}. That is, a Green's function is a function $G(x,x')$ which lives under an integral,
+\begin{equation}
+    \int^x dx' G(x,x') J(x'),
+\end{equation}
+which allows us to precisely fit the source term.%
+    \footnote{I tend to think of Green's functions as the inverse of differential operators. That is, when you hit a Green's function with a differential operator, you get back a delta function. Hence when you integrate a Green's function against a source and then hit it with the differential operator, you get the source term back.}
+
+A small diversion: Bernoulli's equation is
+\begin{equation}
+    y'/y = p(x) + q(x) y^n.
+\end{equation}
+We claim this is really a fake nonlinear equation, for this equation can be put in the form
+\begin{equation}
+    -\frac{1}{n} \paren{\frac{1}{y^n}}' = p(x) \frac{1}{y^n} + q(x),
+\end{equation}
+and then under the substitution $w=1/y^n$ this is just first-order in $w$. This is about as far as we will discuss nonlinear equations.
+
+\begin{note}
+    A logistic note-- the midterm content ends here, with Chapters 5, 6, and 7. The midterm is in class on Wednesday, November 20, and open book, open notes, open solutions. The expectation will be that the problems are of comparable difficulty to the homework.
+\end{note}
+\subsection*{Green's functions}
+Let's go back to our inhomogeneous equation
+\begin{equation}
+    y''+ P y' + Qy = J.
+\end{equation}
+Let's do a trivial thing to this equation, and change how we write this equation. In particular, let us define a function $p$ by
+\begin{equation}
+    \frac{p'}{p}= P.
+\end{equation}
+Hence $p= e^{\int P}$, and we can write
+\begin{equation}
+    y'' + \frac{p'}{p} y' + Qy = J.
+\end{equation}
+Note that this is a safe substitution unless we try to expand about a singular point, in which case we simply construct $p$ piecewise. Now we can write
+\begin{equation}
+    py'' + p' y' + pQ y = Jp,
+\end{equation}
+and define
+\begin{equation}
+    q = pQ.
+\end{equation}
+The first two terms in our rewritten equation are now a total derivative,
+\begin{equation}
+    (py')' + qy = j,
+\end{equation}
+where we have similarly defined
+\begin{equation}
+    j\equiv pJ.
+\end{equation}
+Let us now rewrite this in terms of a derivative operator $D$:
+\begin{equation}
+    L y \equiv \bkt{D(pD) + q} y = j,
+\end{equation}
+where we have defined a linear operator $L$ which now takes $y$ in the Hilbert space and maps it to some other vector $j$. It would be very nice if we could invert the linear operator, i.e. solving the equation is equivalent to
+\begin{equation}
+    y= L^{-1} j.
+\end{equation}
+We must be careful-- our source cannot contain any component of the zero eigenfunction, or our solutions will be terribly degenerate. That is,
+$Lu=0 \implies L^{-1} (j+\alpha u)$ will be ill-defined. For
+\begin{equation}
+    L^{-1} =\sum \frac{1}{\lambda_\alpha} \ketbra{u_\alpha}{u_\alpha}.
+\end{equation}
+One way to do this is to explicitly construct the eigenbasis of $L$ and then just invert it. That is, we diagonalize and then take the inverse of a diagonal matrix. A Green's function is therefore an object $G$ such that
+\begin{equation}
+    LG= \II,
+\end{equation}
+i.e. when we hit it with the linear operator $L$, we get back the identity. Moreover, we can expand it in a (coordinate) basis as
+\begin{equation}
+    \bra{x'} LG \ket{x} = \braket{x'}{x}.
+\end{equation}
+This means that
+\begin{equation}
+    \int dx''\,\bra{x'}L \ket{x''}\bra{x''} G\ket{x} = \delta(x-x').
+\end{equation}
+Let us note that the matrix elements of $L$ will in general depend on both $x'$ and $x''$. However, we can restrict to local operators $L$ (i.e. those with only diagonal matrix elements $\bra{x'} L \ket{x'} \delta(x'-x'')$) such that
+\begin{equation}
+    \int dx''\,\bra{x'}L \ket{x'} \delta(x'-x'') \bra{x''}G\ket{x} = \delta(x-x').
+\end{equation}
+If we now perform the $x''$ integral (thanks to locality), we get back
+\begin{equation}
+    \bra{x}L \ket{x} \bra{x} G \ket{x'} = \delta(x-x'),
+\end{equation}
+where we have relabeled variables $x\leftrightarrow x'$. This tells us that we must solve a very special differential equation for a point source, and from our point source solution we can build solutions for arbitrary sources.
+
+This 1D problem is actually analogous to solving a capacitor problem, perhaps with some charged plate inserted between. The charge sources a field. The Green's function tells you what field is sourced by the charge. This is precisely the theory of electric charges and boundary conditions in one dimension.
+
+The scaling of flux density in 3 dimensions tells us how the electric field scales (given that the total flux is constant)-- this is the basis of Gauss's law. This tells us that in 3 dimensions, the electric field from a point source drops off as $1/r^2$ (inverse to the area of a sphere) and the electric field from a long charged wire drops off as $1/r$ (inverse to the area of a cylinder). Hence the potentials go as $1/r$ and $\log r$ respectively. In 1D, the potential is actually a positive power of $r$, which is thought to be responsible for the phenomenon of \term{confinement} in quantum chromodynamics (the theory of the strong force).
+
+Once we have a Green's function in hand, we can build arbitrary sources. That's the name of the game. That is,
+\begin{equation}
+    V[\rho] = \int \frac{\rho(\vec r')}{|\vec r - \vec r'|}d^3 \vec r' = \int G(\vec r, \vec r') \rho(\vec r') d^3 \vec r'.
+\end{equation}
+We could rewrite this in terms of a generalized \emph{source} function $j(\vec r')$. That is,
+\begin{equation}
+    \int \frac{j(\vec r')}{|\vec r - \vec r'|}d^3 \vec r' = \int G(\vec r, \vec r') j(\vec r') d^3 \vec r'.
+\end{equation}
+Let us now show that the Green's function is actually useful. For notice that
+\begin{equation}
+    (p(x)G')' + q(x)G(x,x') = \delta(x-x'),
+\end{equation}
+where derivatives are taken with respect to the $x$ coordinate, and
+\begin{equation}
+    (py')'+qy = 0.
+\end{equation}Hence
+\begin{equation}
+    y\paren{(p G')' + qG} = \delta(x-x') y(x)
+\end{equation}
+and
+\begin{equation}
+    G(x,x') \bkt{(py')' + qy} = 0,
+\end{equation}
+where we've multiplied the second equation by the Green's function. Subtracting now gives
+\begin{equation}
+    y(pG')'- G(py')'= (y pG'- Gpy')'
+\end{equation}
+on the LHS. This is an example of Green's theorem-- we shall see what happens when we now integrate over $x$. That is, the LHS gives us
+\begin{equation}
+    \bkt{y pG'- Gpy'}_a^b,
+\end{equation}
+which must vanish if we set appropriate boundary conditions. There are Dirichlet boundary conditions (the function vanishes at the boundaries), Neumann boundary conditions (the function or its derivative are fixed at the boundaries), or mixed boundary conditions (all others). 
+
+If we impose the same boundary conditions on the Green's function, we can see that the bracket term vanishes when evaluated at the boundaries. For the RHS (i.e. $\int dx\, \delta(x-x') y(x) = y(x') =\int G(x,x') j(x) dx\,$) we see that we are in fact forced to impose the same boundary conditions on $G$ as on the solution. That is, the Green's function must satisfy the same boundary conditions as the general solution (for an arbitrary source) because it is itself a solution for a point source.
+
+There is one small caveat-- in general, we ought to have taken the complex conjugate of $G$ and then used the property that the Green's function is hermitian. The result is the same, but in this case we simply restricted ourselves to real functions.

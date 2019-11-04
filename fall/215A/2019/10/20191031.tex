@@ -1,0 +1,223 @@
+Today we will introduce density matrices, a different formalism for describing quantum states.
+
+To begin with, consider what makes quantum mechanics so quantum. One answer is the uncertainty principle, which reflects the non-commuting nature of various observables in our theory. However, we will argue that the quantum-ness of QM is in fact better-represented by the phenomenon of entanglement.
+
+That is, the uncertainty principle
+\begin{equation}
+    \Delta x \Delta p \geq \frac{\hbar}{2}
+\end{equation}
+is simply a consequence of operator non-commutativity. More generally if $A,B$ are non-commuting then
+\begin{equation}
+    (\Delta A)^2 (\Delta B)^2 \geq \paren{\frac{i}{2} \avg{[A,B]}}^2.
+\end{equation}
+Let us prove this. 
+\begin{proof}
+For (non-commuting Hermitian) operators $A$ and $B$, consider
+\begin{align}
+    \tilde A = A - \bra{\psi} A \ket{\psi},\\
+    \tilde B = B - \bra{\psi}B\ket{\psi}
+\end{align}
+for some state $\ket{\psi}$. Hence
+\begin{equation}
+    (\Delta A)^2 = \bra{\psi} \tilde A^2 \ket{\psi}, \quad (\Delta B)^2 = \bra{\psi} \tilde B^2 \ket{\psi}.
+\end{equation}
+Since $\tilde A, \tilde B$ are just shifted versions of $A$ and $B$, it follows that
+\begin{equation}
+    [\tilde A, \tilde B] = [A,B].
+\end{equation}
+Let us consider some new states $\ket{\tilde \psi_\lambda}$ defined by
+\begin{equation}
+    \ket{\tilde \psi_\lambda} \equiv (\tilde A + i \lambda \tilde B)\ket{\psi}, \quad \lambda \in \RR.
+\end{equation}
+As all such $\ket{\tilde \psi_\lambda}$ are in the Hilbert space,
+\begin{equation}
+    \braket{\tilde \psi_\lambda}{\tilde \psi_\lambda} \geq 0
+\end{equation}
+and expanding, we have
+\begin{align}
+    0 &\leq \bra{\psi}(\tilde A^\dagger - i\lambda \tilde B )(\tilde A + i \lambda \tilde B) \ket{\psi}\\
+        &\leq \bra{\psi}\tilde A^2\ket{\psi} + \lambda^2 \bra{\psi} \tilde B^2 \ket{\psi} +i\lambda \bra{\psi} [\tilde A, \tilde B] \ket{\psi}\\
+        &\leq (\Delta A)^2 + \lambda^2 (\Delta B)^2 + i \lambda \avg{[A,B]}.
+\end{align}
+Note that the commutator of $A,B$ is \emph{antihermitian}, so its eigenvalues are imaginary. This must hold for any $\lambda\in \RR$, so in particular it holds for the $\lambda$ that extremizes the inequality. Taking a derivative with respect to $\lambda$ gives
+\begin{equation}
+    \frac{d}{d\lambda} \bkt{(\Delta A)^2 + \lambda^2 (\Delta B)^2 + i \lambda \avg{[A,B]}} =0 \implies 2\lambda_* (\Delta B)^2 + i \avg{[A,B]}=0,
+\end{equation}
+and therefore
+\begin{equation}
+    \lambda_* = -\frac{i}{2} \frac{\avg{[A,B]}}{(\Delta B)^2}
+\end{equation}
+extremizes the inequality. If we plug in this value $\lambda_*$ back into our inequality we find that
+\begin{equation}
+    \braket{\tilde \psi_{\lambda_*}}{\tilde \psi_{\lambda_*}}=(\Delta A)^2 +\frac{1}{4} \frac{(\avg{[A,B]})^2}{(\Delta B)^2} \geq 0,
+\end{equation}
+which after rearranging is the generalized uncertainty principle.
+\end{proof}
+
+\subsection*{Density matrices}
+Having discussed the uncertainty principle, let us consider now what the defining property of quantum mechanics is. What makes it fundamentally different from classical systems? There are two ways to tackle this. One is to show that quantum probability distributions are intrinsically different from classical probability distribtutions. We'll do this later. But another good way to understand this is through the idea of density matrices (sometimes density operators or state operators), a different formalism for quantum ensembles.
+
+Thus far, we have discussed state vectors $\ket{\psi}$. Recall the corresponding projection operators
+\begin{equation}
+    \cP_n = \ketbra{z_n}{z_n}
+\end{equation}
+which project onto the state vector $\ket{z_n}$. That is,
+\begin{equation}
+    \cP_n \ket{\psi} = \braket{\z_n}{\psi}\ket{\z_n}.
+\end{equation}
+This suggests that instead of thinking of the vector in Hilbert space, we can think of the corresponding projector $\cP_n$, which belongs to the space of operators, i.e. $\cP_n \in \cH \otimes \cH^*$. That is, we identify%
+    \footnote{Formally the operator is an endomorphism, i.e. a map $\cH \to \cH$, but we won't use this language much.}
+\begin{equation}
+    \ket{\psi} \leftrightarrow \ketbra{\psi}{\psi}.
+\end{equation}
+Now let us define the following. 
+\begin{defn}
+    A state/density operator, traditionally denoted as $\rho$, is an operator associated to a state which has three properties:
+    \begin{enumerate}
+        \item Positivity (i.e. $\rho \geq 0$, in the sense that its eigenvalues are non-negative and therefore $\bra{\psi}\rho\ket{\psi}\geq 0$)%
+            \footnote{Strictly it is positive semi-definite.}
+        \item Hermiticity ($\rho^\dagger = \rho$)
+        \item Normalization ($\Tr(\rho)=1$).
+    \end{enumerate}
+\end{defn}
+Let us say what we mean by the trace of $\rho$. In a (pure) state $\rho = \ketbra{\psi}{\psi}$. we have
+\begin{align}
+    \Tr(\rho) &= \Tr(\ketbra{\psi}{\psi})\nonumber\\
+        &= \sum_n \braket{e_n}{\psi} \braket{\psi}{e_n}\nonumber\\
+        &= \sum_n \braket{\psi}{e_n} \braket{e_n}{\psi}\nonumber\\
+        &= \bra{\psi} \paren{\sum_n \ketbra{e_n}{e_n}} \ket{\psi}\nonumber\\
+        &= \bra{\psi}\II \ket{\psi} = \braket{\psi}{\psi}.
+\end{align}
+Hence if the original state was normalized, then its density matrices ought to be normalized.
+
+Since $\rho$ is hermitian, it has a spectral decomposition,
+\begin{equation}
+    \rho = \sum_i p_i \ketbra{\psi_i}{\psi_i},
+\end{equation}
+where the $\ket{\psi_i}$s are eigenvectors of $\rho$, i.e.
+\begin{equation}
+    \rho\ket{\psi_i} = p_i \ket{\psi_i}.
+\end{equation}
+Then positivity implies $p_i\geq 0$ and hermiticity implies $p_i = p_i^*$.%
+    \footnote{Hermiticity is kind of logically prior here. It doesn't make much sense to talk about complex eigenvalues being positive.}
+The normalization condition implies $\sum_i p_i = 1$.
+
+The last thing we need is a rule to compute expectation values, and it is
+\begin{equation}
+    \avg{A} = \Tr(\rho A).
+\end{equation}
+For notice that
+\begin{equation}
+    \Tr(\rho A) = \Tr(\ketbra{\psi}{\psi} A ) =\bra{\psi} A \ket{\psi} = \avg{A}.
+\end{equation}
+So this rule agrees on the simple class of density matrices for state $\rho = \ketbra{\psi}{\psi}.$
+
+Hence we can define the evolution of the density matrix in time:
+\begin{equation}
+    \rho(t) = \ketbra{\psi(t)}{\psi(t)} = U(t;t_0) \ketbra{\psi(t_0)}{\psi(t_0)} U(t;t_0)^\dagger = \U(t,t_0) \rho(t_0) U(t,t_0)^\dagger.
+\end{equation}
+Notice this is different from how other operators transformed in the Heisenberg picture (as $U^\dagger A U$). This tells us that what we've written down should really be interpreted as a Schr\"odinger picture \emph{state operator}. Although the density matrix is an operator, this describes the time evolution of a state.
+
+\subsection*{Pure states and mixed states}
+Let us now discuss the difference between \term{pure states} and \term{mixed states}.
+\begin{defn}
+    Pure states have density operators that are pure projectors. That is, they correspond to a single state we can write down as a vector in the Hilbert space,
+    \begin{equation}
+        \rho = \ketbra{\psi}{\psi}.
+    \end{equation}
+\end{defn}
+Equivalently, the spectral decomposition has one nonvanishing eigenvalue $p_1=1$, and its value is fixed by normalization. Hence 
+\begin{equation}
+    \rho^2 =\rho.
+\end{equation}
+A weaker condition that is sometimes useful to test for purity is%
+    \footnote{The product of two density matrices is not always a density matrix! In general it is not.}
+\begin{equation}
+    \Tr(\rho^2)=1.
+\end{equation}
+%This condition is necessary but not sufficient for purity.%
+    
+
+In contrast, there are \term{mixed states}.
+\begin{defn}
+    \term{Mixed states} are density operators that are convex combinations of pure states.
+\end{defn}
+That is, $\rho$ has a general spectral decomposition
+\begin{equation}
+    \rho = \sum_i p_i \rho_i^\text{pure}, \quad 0 \leq p_i \leq 1.
+\end{equation}
+This is the general form of a density operator, and it describes an ensemble of pure states $\rho_i^\text{pure}$ with given probabilities $p_i$. Density matrices are statistical mixtures of pure states, so that when we compute an expectation value on a general density matrix, we get
+\begin{align}
+    \avg{A} &= \Tr(\rho A)\\
+        &= \sum_i p_i \Tr(\rho_i^\text{pure} A)\\
+        &= \sum_i p_i \bra{\psi_i} A \ket{\psi_i}.
+\end{align}
+That is, we compute the expectation values on the pure states and then we take a classical average weighted by the classical probabilities $p_i$.
+
+For mixed states,
+\begin{equation}
+    \Tr(\rho^2) \leq 1.
+\end{equation}
+Moreover, one can define an entropy, the \term{von Neumann entropy}, by
+\begin{equation}
+    S= -\Tr (\rho\log \rho).
+\end{equation}
+The log of an operator is defined by the spectral decomposition of $\rho$. If $\rho$ is diagonal as a matrix, then
+\begin{equation}
+    S= -\sum p_i \ln p_i,
+\end{equation}
+the Shannon entropy of the classical probability distribution $\set{p_i}$.%
+    \footnote{For more on quantum information, check out my Quantum Information notes on GitHub at \url{https://github.com/qmch/partiii-lecture-notes-201819}.}
+
+Let us consider a qubit Hilbert space spanned by the state vectors $\set{\ket{0},\ket{1}}$. It describes a state in $\CC^2$. In fact, let us consider a 2-qubit Hilbert space,
+\begin{equation}
+    \cH_{\text{qubit}_1} \otimes \cH_{\text{qubit}_2}.
+\end{equation}
+This is a four-dimensional space%
+    \footnote{Counting complex dimensions.}
+with basis
+\begin{equation}
+    \ket{0}\otimes \ket{0}, \ket{0} \otimes\ket{1}, \ket{1} \otimes\ket{0} ,\ket{1}\otimes \ket{1}.
+\end{equation}
+We sometimes write this as
+\begin{equation}
+    \ket{00},\ket{01},\ket{10},\ket{11}
+\end{equation}
+omitting the tensor products. The general density operator on a 2-qubit Hilbert space is then a $4\times 4$ matrix, such that there is a sum of operators
+\begin{equation}
+    \rho = a_1 \ketbra{00}{00} + a_2 \ketbra{00}{01} + a_3 \ketbra{00}{10} + a_4 \ketbra{00}{11}\ldots + a_{13}\ketbra{11}{00} +\ldots + a_{16} \ketbra{11}{11}.
+\end{equation}
+
+Consider something simpler, the EPR state
+\begin{equation}
+    \frac{1}{\sqrt{2}} \paren{\ket{00} + \ket{11}} = \ket{\text{EPR}}.
+\end{equation}
+This is a pure state in the 2-qubit Hilbert space. Suppose we want to compute an operator acting only on the first qubit,
+\begin{equation}
+    \avg{A_1 \otimes \II_2}_{\text{EPR}}.
+\end{equation}
+Then
+\begin{align}
+    \bra{\text{EPR}}A_1 \otimes \II_2 \ket{\text{EPR}} &= \Tr\paren{\ketbra{\text{EPR}}{\text{EPR}}(A_1\otimes \II_2}\\
+    &= \Tr_1(\rho_1 A_1),
+\end{align}
+where we claim this is now the expectation value in terms of a \emph{reduced density matrix} $\rho_1$. We claim that $\rho_1$ is a mixed state, where
+\begin{equation}
+    \rho_1 = \Tr_2(\ketbra{\text{EPR}}{\text{EPR}}).
+\end{equation}
+Here, the subscripts now indicate \term{partial traces}. Notice that the density operator of the EPR state has four terms,
+\begin{align*}
+    \ketbra{\text{EPR}}{\text{EPR}} &= \frac{1}{2} \paren{\ket{00} +\ket{11}}\paren{\bra{00} + \bra{11}}\\
+        &= \frac{1}{2} \paren{\ketbra{00}{00} + \ketbra{00}{11} + \ketbra{11}{00} + \ketbra{11}{11}}.
+\end{align*}
+Hence we can rewrite the overall trace as two partial traces,
+\begin{align}
+    \Tr_{1\otimes 2} \paren{\ketbra{\text{EPR}}{\text{EPR}} (A_1 \otimes \II_2)} &= \Tr_1 \bkt{\Tr_2 \paren{\ketbra{\text{EPR}}{\text{EPR}} (A-1 \otimes \II_2)}}\\
+    &= \Tr_1 \bkt{\bra{0_2}\paren{\ketbra{\text{EPR}}{\text{EPR}} (A_1 \otimes \II_2)}\ket{0_2} + \bra{1_2} \paren{\ketbra{\text{EPR}}{\text{EPR}} (A_1 \otimes \II_2)} \ket{1_2}}\\
+    &=\Tr_1 \bkt{\frac{1}{2} \ketbra{0_1}{0_1} A_1 +\frac{1}{2} \ketbra{1_1}{1_1} A_1} =\Tr_1 (\rho_1 A_1),
+\end{align}
+where
+\begin{equation}
+    \rho_1 = \frac{1}{2} \paren{\ketbra{0}{0} + \ketbra{1}{1}}.
+\end{equation}
+Notice that the reduced state $\rho_1$ is now a mixed state.
