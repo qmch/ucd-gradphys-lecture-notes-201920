@@ -1,0 +1,91 @@
+\begin{quote}
+    \textit{``The one problem with most physics paradoxes is that when you state them carefully, there's no paradox. Most physics paradoxes are just badly stated.''}
+    
+    --Mukund Rangamani
+\end{quote}
+
+\begin{note}
+    The midterm will cover material up to but not including density matrices, i.e. through chapter 5 of the official course notes. It will go live at 9 AM on Saturday and be due by 9 AM on Sunday on Canvas.
+\end{note}
+
+\subsection*{Entanglement}
+Entanglement leads to puzzles about locality. Einstein, Podolsky, and Rosen designed a famous thought experiment to test our assumptions about the reality of quantum mechanics. Consider the spin singlet state of two qubits,
+\begin{equation}
+    \ket{\text{EPR}_s}=\frac{1}{\sqrt{2}}\paren{\ket{10} - \ket{01}}\in \cH_\text{qubit} \otimes \cH_\text{qubit}.
+\end{equation}
+This state's total spin is zero. However, the individual qubit spins are anticorrelated. One can prepare such an entangled state locally and then take the second qubit arbitrarily far away (to the moon, or Alpha Centauri).
+
+Because the qubits are anticorrelated, it seems that if we measure e.g. the first qubit, we immediately know something about the second qubit. If we measure $S_z$ on qubit 1 and get $+\hbar/2$, then qubit 2 must have the $-\hbar/2$ eigenvalue.
+
+Recall that in the projective measurement formalism, for an operator $A$ we have
+\begin{equation}
+    A\ket{\psi} = \sum_n \alpha_n \braket{a_n}{\psi} \ket{a_n}.
+\end{equation}
+Thus when we measure the first spin, we project onto one of the eigenstates. Therefore knowing something about qubit 1 via measurement implies we have gained some knowledge about qubit 2. This seems to be true even if the qubits are spacelike separated, which raises a problem with causality. Access to qubit 2's information should only be possible when causal signals from 2 reach 1.
+
+The problem gets worse when we consider that we could measure any component of spin for qubit 1, i.e. we could choose $S_x,S_y,$, or $S_z$. Qubit 2 is anti-correlated, which means any one of these measurements gives information about the corresponding spin component of qubit 2. These operators do not commute, so it seems we have learned too much about the state.
+
+Einstein's proposed resolution was to suggest the existence of local hidden variables. That is, we can construct theories which reproduce some kind of classical probability distribution. However, that statement turns out to be false.
+
+Here's our resolution. The idea that we learned something about qubit 2 by measuring qubit 1 is just too quick. The reason for this is that any measurement on qubit 1 doesn't change $\rho_2$, the second subsystem. That is, the reduced state is given by
+\begin{equation}
+    \rho_2 = \Tr_1 \bkt{\ketbra{\text{EPR}_s}{\text{EPR}_s}} = \frac{1}{2} \bkt{\ketbra{0}{0} + \ketbra{1}{1}}.
+\end{equation}
+A measurement of qubit 1 must have the form
+\begin{equation}
+    A_1 \otimes \II \ket{\text{EPR}_s}.
+\end{equation}
+The problem seems to be therefore with the Copenhagen interpretation suggesting wavefunction collapse. Qubit 2 was really in a mixed state all along-- we can see this from the density matrix. Anything we do to qubit 1 therefore doesn't affect qubit 2. That is, if we only know about qubit 2, we cannot predict the outcome of our measurement until the classical information from qubit 1 gets to us. Otherwise, being qubit 1-agnostic, we would have the same 50/50 chance of either outcome.%
+    \footnote{Also, there is a property known as monogamy of entanglement. We couldn't actually entangle, say, three qubits in such a way-- we can only do it pairwise. This is actually critical for the black hole information paradox.}
+
+Quantum teleportation uses entanglement as a resource. For suppose we have an entangled pair of qubits A and B held by Alice and Bob, and Alice moreover has a qubit Q whose state she wants to send to Bob. Alice can therefore make a joint measurement on Q and A and use up the entanglement. She learns something about the joint state of the QA system, at the cost of destroying A. And then she can classically communicate to Bob what she measured on QA, and Bob can perform a basis rotation on B to reconstruct the qubit state A.%
+    \footnote{If you are interested in this, I recommend Ed Witten's notes on quantum information. They are very good and very readable. \url{https://arxiv.org/abs/1805.11965}}
+
+\subsection*{Bell's theorem and local hidden variables}
+A local hidden variable theory is one in which there exist some classical variables $\lambda$ with a statistical distribution $p(\lambda)$ such that
+\begin{equation}
+    \int d\lambda p(\lambda) =1.
+\end{equation}
+It was suggested that we could describe quantum mechanics with such a theory. For instance, a spin measurement gives
+\begin{equation}
+    \frac{\hbar}{2} S(\lambda), \quad S(\lambda) = \pm 1.
+\end{equation}
+More generally, a spin measurement in the direction $\hat a \in \RR$ gives
+\begin{equation}
+    \frac{\hbar}{2} S(\hat a; \lambda),
+\end{equation}
+depending both on the hidden classical variable and also on the direction of measurement. The spin operator is
+\begin{equation}
+    S_{\hat a} = \sigma \cdot \hat a.
+\end{equation}
+
+Can we explain correlated measurements in such a theory? Suppose we measure
+\begin{equation}
+    \avg{s_{\hat a}^1 s_{\hat b}^2}_\text{LHV} = -\int d\lambda \, p(\lambda) S(\hat a; \lambda) S(\hat b; \lambda).
+\end{equation}
+That is, we want to construct such a distribution $p(\lambda)$ to explain correlation in quantum systems. Let us perform this measurement on the $\ket{\text{EPR}_s}$ state. If we compute the expected value, we get
+\begin{equation}
+    \avg{s_{\hat a}^1 s_{\hat b}^2}_\text{QM} = -\cos(\theta_{ab}),\quad \theta_{ab} = \hat a \cdot \hat b.
+\end{equation}
+We claim that there exists a $p(\lambda)$ which reproduces the quantum answer for this correlation. However, John Stuart Bell showed something more powerful. For a set of three measurements,
+\begin{equation}
+    \abs*{\avg{s_{\hat a}^1 s_{\hat b}^2}_\text{LHV} - \avg{s_{\hat a}^1 s_{\hat c}^2}_\text{LHV}} \leq 1 + \avg{s_{\hat a}^1 s_{\hat c}^2}_\text{LHV}.
+\end{equation}
+This inequality holds in local hidden variable theories. However, it \emph{fails in quantum mechanics.} In the EPR state, if we that $\hat a \cdot \hat b =0$ and $c=\frac{1}{\sqrt{2}}(\hat a + \hat b)$, then
+\begin{equation}
+    \left|\avg{s_{\hat a}^1 s_{\hat b}^2}_\text{QM} - \avg{s_{\hat a}^1 s_{\hat c}^2}_\text{QM}\right| =\frac{1}{\sqrt{2}}.
+\end{equation}
+And hence
+\begin{equation}
+    1+ \avg{s_{\hat a}^1 s_{\hat c}^2}_\text{QM} = 1-\frac{1}{\sqrt{2}} < \frac{1}{\sqrt{2}}.
+\end{equation}
+Quantum mechanics violates the Bell inequality, which means that QM is not a LHV theory. Moreover, all you need is one good measurement of a violation of Bell inequalities, and then you can experimentally confirm that our world cannot be described by a local hidden variable theory.%
+    \footnote{The Quantum Journal Club speaker, Marina Radulaski, gave a nice talk on this last month. The experimental tests of Bell inequalities are still ongoing but our world really does seem to be quantum.}
+
+Bell's inequality can be generalized to the CHSH (Clauser-Horne-Shimony-Holt) inequality, which states that
+\begin{equation}
+    \avg{s_{\hat a}^1 s_{\hat b}^2} - \avg{s_{\hat a}^1 s_{\hat d}^2} + \avg{s_{\hat c}^1 s_{\hat b}^2} + \avg{s_{\hat c}^1 s_{\hat d}^2} \leq 2
+\end{equation}
+in local hidden variables. QM predicts that the LHS is bounded from below by $2$ but also bounded from above by $2\sqrt{2}$. This upper bound is known as Tsivelson's bound. Previous experimental tests have exceeded $2$ with some statistical significance, but no one has yet saturated the upper bound. There are other theories which suggest the upper bound could be violated, but these are still in the minority and we are a little ways off from testing Tsivelson's bound.
+
+Nevertheless, the test of Bell's inequalities are the clearest sign our world is really quantum. Without entanglement, we could not achieve a violation of Bell inequalities. The tensor product structure of quantum mechanics has no classical analog. Everything we know about applications of quantum mechanics rests on this fact, that entanglement is a feature of our fundamentally quantum world.
