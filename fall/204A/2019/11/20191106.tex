@@ -1,0 +1,222 @@
+\begin{quote}
+    \textit{``I mean, someone introduces an inch. How narcissistic, right? At least use an electron.''}
+    
+    --Nemanja Kaloper
+\end{quote}
+
+%I want to make a point of this example because I don't get the chance to pooh-pooh on Peano every day.
+
+Let's continue our discussion of Green's functions and boundary conditions. We can revisit our discussion of Wronskians-- as mentioned previously in these notes, the vanishing of the Wronskian is sometimes not enough to imply linear dependence. For if we take the functions $x^2$ and $|x|x$, these functions have vanishing Wronskian everywhere but they are not in general linearly dependent-- the problem is the smoothness of the second function at zero. Most of the time, we never need to worry about such pathologies because our differential equations have differentiable coefficients. But sometimes the boundary conditions introduce complications.
+
+For instance, we have different charges and boundary conditions for electromagnetism. In particular, we can have positive and negative charges. Why don't we have negative masses? The reason is simply that a theory with negative masses is unstable to small perturbations. Instead of a harmonic oscillator potential tending to return the mass to equilibrium, we will get an imaginary frequency corresponding to not sines and cosines but exponential growth. This instability usually suggests that we've simply expanded around the wrong vacuum.%
+    \footnote{Compare the Higgs potential or the Ising model.}
+
+In particular, recall that $a=F/m$, so if we take two objects, one of positive and one of negative mass, these masses would simply chase each other around the universe. One exerts a pull and the other exerts a push, and moreover Heisenberg's uncertainty principle suggests that such particle pairs could pop out of the vacuum and accelerate to arbitrarily high energies. This example also covariantizes%
+    \footnote{Becomes compatible with general relativity}
+properly, and it is called the Bondi dipole.
+
+\subsection*{More on Green's functions}
+We have a Green's function, which is Hermitian in its arguments:
+\begin{equation}
+    G(x,t) = G^* (t,x).
+\end{equation}
+That is, we start with a differential equation
+\begin{equation}
+    (py')' + qy = j
+\end{equation}
+for some source $j$, and we define the differential operator
+\begin{equation}
+    Ly = \bkt{D(pD) + q}y,
+\end{equation}
+such that the Green's function inverts this operator:
+\begin{equation}
+    LG = \II.
+\end{equation}
+
+Suppose the differential operator has an eigenspectrum:
+\begin{equation}
+    L\phi_m = \lambda_m \phi_m,
+\end{equation}
+and moreover let us take the operator to be self-adjoint, such that $\lambda_m = \lambda_m^*$, i.e. there are real eigenvalues. In a basis, we may compute
+\begin{equation}
+    \bra{x'} \paren{\sum_{m} \ketbra{\phi_m}{\phi_m}} \ket{x} \braket{\phi_m}{\phi_n} = \delta_{nm}.
+\end{equation}
+Hence we see that
+\begin{equation}
+    \sum \phi_m^*(x') \phi_m(x) = \delta(x-x'),
+\end{equation}
+i.e. the eigenfunctions are delta-function normalized.
+
+Now
+\begin{equation}
+    L_x G(x,x') = \delta(x-x') = \sum_m \phi_m^*(x') \phi_m(x),
+\end{equation}
+which tells us that
+\begin{equation}
+    G(x,x') = \sum g_m(x') \phi_m(x),
+\end{equation}
+where these $g_m(x')$s can be thought of as components of the Green's function in the basis $\phi_m$. That is, because the $\phi_m$s were eigenfunctions of $L_x$, it follows that $G$ can be decomposed in the basis $\phi_m$. That is, we now compute
+\begin{align}
+    L_x G(x,x') &= L_x \sum g_m(x') \phi_m(x)\\
+        &= \sum \lambda_m g_m(x') \phi_m(x),
+\end{align}
+so by comparison to our general expression for $L_xG(x,x')$ we see that
+\begin{equation}
+    g_m(x') = \frac{\phi^*_m(x')}{\lambda_m}.
+\end{equation}
+That is, we can recover exactly these coefficients $g_m(x')$ by comparing these expressions component-wise. We seem to have a problem when $\lambda_m=0$, but in fact if we're a little careful we can apply the same analysis to the operator $L-z$ where $z$ is complex, and then take the limit as $z\to 0$.
+
+Substituting back in these coefficients, we now see that
+\begin{equation}
+    G(x,t) = \sum_m \frac{\phi_m^*(t) \phi_m(x)}{\lambda_m},
+\end{equation}
+where we have relabeled $x'$ to $t$. In particular if the differential equation and its boundary conditions are both translationally invariant, then the Green's function can only depend on the difference of the two position in the arguments:
+\begin{equation}
+    G(x,x') = G(x-x'),
+\end{equation}
+e.g. the $1/|\vec r - \vec r'|$ Coulombic potential.
+
+Let us now study the differential equation for the Green's function:
+\begin{equation}
+    (pG')' + qG = \delta(x-x').
+\end{equation}
+This looks scary. Delta functions are a little tricky to work with. However, away from where the delta function lives ($x\neq x'$), we can just solve the homogeneous equation in each region. Suppose we fix some $x'$. Then we can solve the equation in $x<x'$ and $x>x'$, and patch together by continuity.%
+    \footnote{This should feel a lot like the delta-function scattering in quantum mechanics.}
+
+That is, we have
+\begin{equation}
+    G= \begin{cases}
+        A_L y_1 + B_L y_2 & x < x'\\
+        A_R y_1 + B_R y_2 & x > x'.
+    \end{cases}
+\end{equation}
+We must have boundary conditions-- usually one at each endpoint of the interval. These place two constraints on our a priori 4 coefficients $A_L,B_L,A_R, B_R$. However, the last two constraints will come from setting boundary conditions \emph{at} the delta function, $x=x'$.
+
+Suppose we take Dirichlet boundary conditions on the interval $[a,b]$, i.e. the function vanishes at $a$ and at $b$. In particular, suppose we choose $y_1(a)=0$ and $y_2(b)=0$ so that our Green's function takes the form
+\begin{equation}
+    G= \begin{cases}
+        A_L y_1(x) & x < x'\\
+        B_R y_2(x) & x > x'.
+    \end{cases}
+\end{equation}
+
+We now impose continuity,
+\begin{equation}
+    G_L(x',x') = G_R(x',x').
+\end{equation}
+That is, the Green's function must be continuous. It must, a fortiori, since it is differentiable. Its derivative may not be continuous-- in general it will not, since we need to pick up a step function jump. For suppose we integrate the differential equation around $x'$, i.e. over the interval $[x'-\epsilon, x' + \epsilon]$. Then
+\begin{equation}
+    \int_{x'-\epsilon}^{x'+\epsilon} \bkt{(pG')' + q G} dx = \int_{x'-\epsilon}^{x'+\epsilon} \delta(x-x')dx =1.
+\end{equation}
+The second term is finite by the mean value theorem, and it is of order $\epsilon$. The other term, however, is a total derivative. We can evaluate it by the fundamental theorem of calculus. It is therefore just
+\begin{equation}
+    \left.(pG'(x,x'))\right|_{x'-\epsilon}^{x'+\epsilon} = p(x) \bkt{G_R'(x',x') -G_L'(x',x')} =1
+\end{equation}
+taking the $\epsilon\to 0$ limit. This is our final boundary condition, a condition on the derivative of $G$ at $x=x'$. Hence
+\begin{align}
+    y_1(x') A_L - y_2(x') B_R &= 0\\
+    y_1'(x') A_L - y_2'(x') B_R = -\frac{1}{p(x')}.
+\end{align}
+In matrix form, we see that
+\begin{equation}
+    \begin{pmatrix}
+        y_1 & -y_2\\
+        y_1' & -y_2'
+    \end{pmatrix}
+    \begin{pmatrix}
+        A_L\\ B_R
+    \end{pmatrix}
+    =-\begin{pmatrix}
+        0 \\ \frac{1}{p(x')}
+    \end{pmatrix}.
+\end{equation}
+Notice the matrix here is in fact the Wronskian, up to a sign flip on the second column. We could always abosrb this into $B_R$ if we wish, so it's not too important until it comes time to write down the solution. But this matrix is invertible by construction-- we took $y_1,y_2$ to be linearly independent, so that the Wronskian is nonzero.
+
+If we work out the matrix inverse, we find that
+\begin{equation}
+    G = \begin{cases}
+        A y_1(x) y_2(x') & x < x'\\
+        A y_1(x') y_2(x) & x>x',
+    \end{cases}
+\end{equation}
+where this constant is given to be
+\begin{equation}
+    A = \frac{1}{p(x')(y_1(x') y_2'(x') - y_2(x') y_1'(x')}.
+\end{equation}
+How do we know it's really a constant? Well, if $A$ is constant then we see $G$ is properly symmetric under interchange of $x$ and $x'$, hence real and symmetric $\implies$ hermitian. If $A$ were not constant, this would break the hermiticity of $G$.
+
+Let's show that $A$ really is constant. Multiply the differential equation for one solution by the other solution, i.e.
+\begin{equation}
+    y_{2,1} \bkt{(py_{1,2}')' + q y_{1,2}} =0.
+\end{equation}
+If we expand out and subtract, we find that
+\begin{equation}
+    p(x) \paren{y_2(x) y_1'(x) - y_1 y_2'} =\text{constant}.
+\end{equation}
+This defines a generalized Wronskian, and this is none other than the inverse of our normalization constant $A$.
+%I mean, someone introduces an inch. How narcissistic, right? At least use an electron.
+
+\begin{exm}
+Consider the equation
+\begin{equation}
+    y''=-f(x),
+\end{equation}
+on an interval $[0,1]$. We impose Dirichlet boundary conditions, $y(0)=y(1)=0$. The solutions to the homogeneous equation are
+\begin{equation}
+    y=A+Bx.
+\end{equation}
+Now the left solution (vanishing at $x=0$) is
+\begin{equation}
+    y_L = Bx,
+\end{equation}
+while the right solution (vanishing at $x=1$ is
+\begin{equation}
+    y_R = A(x-1).
+\end{equation}
+These are clearly linearly independent; they differ by a constant.
+Hence the Green's function takes the form
+\begin{equation}
+    G= \begin{cases}
+        Bx & x < x'\\
+        A(x-1) & x> x'.
+    \end{cases}
+\end{equation}
+These must be equal at $x=x'$, so
+\begin{equation}
+    Ax'-A = Bx'\implies B = \frac{x'-1}{x'}.
+\end{equation}
+Doing the Gaussian pillbox in a little epsilon interval about $x'$ gives the discontinuity in the derivative. That is, $(Bx)'|_{x=x'}=B$ and similarly $(A(x-1))'|_{x=x'}=A$, so the condition on the derivative (note that $p=1$ in this case) is
+\begin{equation}
+    A-B=1.
+\end{equation}
+We have two equations in two variables. If we substitute and solve, we get
+\begin{equation}
+    A\paren{1-\frac{x'-1}{x'}} =1,
+\end{equation}
+we see that
+\begin{equation}
+    A=x', B= (x'-1).
+\end{equation}
+Hence the Green's function is really
+\begin{equation}
+    G(x,x') = \begin{cases}
+        x(x'-1) & x < x'\\
+        x'(x-1) & x > x'.
+    \end{cases}
+\end{equation}
+We can now solve the general problem
+\begin{equation}
+    y''=-f(x)
+\end{equation}
+using our Green's function. That is,
+\begin{equation}
+    y(x) = \int_0^1 dx' \,G(x,x') \paren{-f(x')}
+\end{equation}
+Really, we have to keep in mind that the Green's function is defined piecewise, so we must also perform the integral piecewise, from $[0,x]$ and then from $[x,1]$. That is,
+\begin{equation}
+    y=-\int_0^x dx' (x-1) x' f(x') -\int_x^1 dx' x(x'-1) f(x').
+\end{equation}
+We can check by taking derivatives with respect to $x$ that this is a solution. What's a bit more fun is to notice that the boundary conditions are correctly satisfied as $x\to 0$ and as $x\to 1$. As $x\to 0$, the first vanishes by the fact that the integration limits coincide ($[0,0]$) and the second vanishes by the fact that $x\to 0$ makes the entire second integral vanish, thanks to our construction $y_L(0)=0$.
+\end{exm}
+
+We can also 

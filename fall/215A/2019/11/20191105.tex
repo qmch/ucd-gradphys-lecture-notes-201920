@@ -1,0 +1,169 @@
+Last time, we introduced the idea of density matrices, and we suggested that it might be more useful to discuss not state vectors $\ket{\psi}$ but generally state operators $\ketbra{\psi}{\psi}$, since a density matrix $\rho$, i.e. a positive, normalized, Hermitian operator, is the general state of a quantum system.
+
+We explicitly showed that for a state vector in a composite system
+\begin{equation}
+    \ket{\text{EPR}} = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}) \in \cH_\text{qubit} \otimes \cH_\text{qubit},
+\end{equation}
+we could trace out the second qubit to get a reduced state $\rho_1$, namely
+\begin{equation}
+    \rho_1 = \frac{1}{2} (\ketbra{0}{0} + \ketbra{1}{1}).
+\end{equation}
+This state is mixed; it has equal probability of being in the $\ket{0}$ state or being in the $\ket{1}$ state. That is, the trace is the process of forgetting about qubit 2 (being agnostic to its state) and constructing a state in $\cH_1$ the first qubit state such that observables $A$ measured only on qubit 1 will be consistent with the composite observable $A\otimes \II$ measured on the two-qubit system. In particular, its entropy is
+\begin{equation}
+    S_1 = \ln 2.
+\end{equation}
+
+Let's pick $\ket{00}\in \cH_1 \otimes \cH_2$. If we trace out qubit 2, now we have
+\begin{equation}
+    \rho_1 = \Tr_2 (\ketbra{00}{00}) = \ketbra{0}{0},
+\end{equation}
+and we can also compute the von Neumann entropy of this reduced state. It is
+\begin{equation}
+    S_1 = -1 \ln 1= 0.
+\end{equation}
+
+This is different from the EPR state. The $\ket{\text{EPR}}$ state is a pure state of 2 qubits, but it has \emph{non-trivial} correlations between qubits 1 and 2. Moreover, these are quantum correlations, not classical correlations. The presence of quantum correlations is quantum entanglement. That is, the $\ket{\text{EPR}}$ state is a pure entangled state, whereas the state $\ket{00}$ is a pure unentangled (product) state.
+
+Recall that a pure state corresponds to a state vector in Hilbert space. It is a density operator with a single nonzero eigenvalue in its spectral decomposition. Equivalently, $\rho^2=\rho$. We can also check that $S(\rho) = -\Tr(\rho \log \rho)=0$.
+
+Conversely, mixed states are not pure. That is, they fail these properties: $S(\rho)\neq 0, \Tr(\rho^2) <1, \rho^2 \neq \rho$. Equivalently $\rho_{ij}=\bra{e_i}\rho \ket{e_j}$ has more than one non-zero eigenvalue.
+
+\subsection*{Entanglement}
+To discuss entanglement, we must work in a composite system. It is easiest to define entanglement by explaining what entanglement is not. A pure state of a composite system with no correlation between the components is called \term{separable}. Such states are tensor products of states in each component (i.e. the individual Hilbert space). They have the form
+\begin{equation}
+    \ket{\Psi} = \ket{\psi_1} \otimes \ket{\psi_2},\quad \ket{\psi_i} \in \cH_i.
+\end{equation}
+For instance,
+\begin{equation}
+    \ket{00} = \ket{0} \otimes \ket{0} \text{ is separable}.
+\end{equation}
+But
+\begin{equation}
+    \ket{00} + \ket{01} + \ket{10} +\ket{11} \text{ is also separable},
+\end{equation}
+since this state is just $(\ket{0}+\ket{1})\otimes (\ket{0}+\ket{1}).$
+Separable states $\implies$ unentangled.
+
+Notice that if we construct the density matrix for such a state and trace out one component, then the reduced state is pure. (This implies that the entropy of the subsystem is zero.)
+\begin{equation}
+    \Tr_2((\ket{\psi_1}\otimes \ket{\psi_2})(\bra{\psi_1}\otimes \bra{\psi_2}) = \ketbra{\psi_1}{\psi_1} \braket{\psi_2}{\psi_2} = \ketbra{\psi_1}{\psi_1}.
+\end{equation}
+
+Now pure \term{entangled states} are just pure states that are not separable. Such states are (a subset of) linear combinations of separable states. For instance, the EPR state is a combination of two individually separable states $\ket{00}$ and $\ket{11}$. Similarly there are other Bell (EPR) states like
+\begin{equation}
+    \frac{1}{\sqrt{2}}(\ket{01} \pm \ket{10}),\quad \frac{1}{\sqrt{2}}(\ket{00} \pm \ket{11}).
+\end{equation}
+
+Not all linear combinations of separable states are entangled. For instance,
+\begin{equation}
+    \ket{00} + \ket{01} = \ket{0} \otimes (\ket{0} + \ket{1})
+\end{equation}
+is separable. The real way to tell is by taking the partial trace. \emph{The partial trace of a separable state is a pure state. The partial trace of an entangled state is a mixed state.}
+
+That is, if $\ket{\Psi} \in \cH_1 \otimes \cH_2$ is a (pure) entangled state, then
+\begin{equation}
+    \rho_1 = \Tr_2(\ketbra{\Psi}{\Psi}) \text{ and } \rho_2 = \Tr_1(\ketbra{\Psi}{\Psi})
+\end{equation}
+are mixed states.%
+    \footnote{They are operators, so they formally belong to the space of endomorphisms on $\cH_1$ and $\cH_2$. In particular they are not in the Hilbert spaces!}
+
+Note that the subsystem entropies are equal:
+\begin{equation}
+    S_1 = -\Tr(\rho_1 \log \rho_1) = S_2 = -\Tr(\rho_2 \log \rho_2).
+\end{equation}
+If after tracing out part of a state $\ket{\Psi}$ we find that the subsystem entropy $S_1=S_2=0$, then the original state was separable.
+
+We might be interested in the question of whether a general mixed state can always be purified, i.e. whether it can be written as the partial trace of a bigger system. The answer is yes, but not uniquely. For
+\begin{equation}
+    \rho_1 = \frac{1}{2}(\ketbra{0}{0} + \ketbra{1}{1})
+\end{equation}
+on $\cH_1$ can be obtained from
+\begin{equation}
+    \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})
+\end{equation}
+or from
+\begin{equation}
+    \frac{1}{\sqrt{2}}(\ket{0000} + \ket{1111})
+\end{equation}
+or even
+\begin{equation}
+    \frac{1}{\sqrt{2}}(e^{i\phi_1} \ket{00} + e^{i\phi_2} \ket{11})
+\end{equation}
+for any real $\phi_1,\phi_2$ we like.%
+    \footnote{There is a general recipe for purification. For a state $\rho$ on the Hilbert space $\cH$, simply take a \term{maximally entangled state} $\ket{\Omega} = \sum_i \ket{i}\otimes\ket{i} \in \cH \otimes \cH$, where the $\ket{i}$s form a complete set of states for $\cH$. Then write $\ket{\Psi} = \sqrt{d}(\sqrt{\rho} \otimes \II)\ket{\Omega}$. You can check that such a state is pure by construction and has the right reduced state. Again, see my quantum info notes for the details.}
+% Pure states can be entangled or unentangled (product) states. In product states, the entropy of the reduced state%
+%     \footnote{Either one. It doesn't matter which subsystem you trace out because the subsystem entropies are equal, by a property known as the Schmidt decomposition.}
+% is zero.
+
+For mixed states, we can also describe entanglement. Let $\rho$ be a density operator acting on $\cH_1 \otimes \cH_2$. Such an operator is said to be separable if
+\begin{equation}
+    \rho = \sum_i p_i (\rho_i^{(1)} \otimes \rho_i^{(2)}), \quad \sum p_i = 0, 0\leq p_i \leq 1.
+\end{equation}
+If not, it is entangled. Equivalently, $\rho$ admits a block decomposition
+\begin{equation}
+    \rho = p_1 \begin{pmatrix}
+    \boxed{\rho_1^{(1)}} &\\
+    & \boxed{\rho_1^{(2)}}
+    \end{pmatrix} + p_2 \begin{pmatrix}
+    \boxed{\rho_2^{(1)}} &\\
+    & \boxed{\rho_2^{(2)}}
+    \end{pmatrix}.
+\end{equation}
+Such a state also has entropy, but it is classical (Shannon) entropy from classical correlations.
+
+\subsection*{Thermal entropy as von Neumann entropy}
+Let us pick some quantum system with a Hilbert space $\cH$ and Hamiltonian $\hat H$. For instance, imagine the harmonic oscillator. It has a density operator
+\begin{equation}
+    \hat \rho_\beta = \frac{e^{-\beta \hat H}}{Z(\beta)},
+\end{equation}
+where $Z$ is the partition function
+\begin{equation}
+    Z(\beta) = \sum_n e^{-\beta E_n}.
+\end{equation}
+Notice that the partition function (the normalizing factor) is the sum
+\begin{align}
+    \Tr_{\cH} (e^{-\beta \hat H}) &= \sum_n \bra{E_n} e^{-\beta \hat H} \ket{E_n}\\
+        &= \sum_n e^{-\beta E_n}.
+\end{align}
+We take $\beta = 1/k_B T$. We may write the elements of $\rho$ in the energy eigenbasis:
+\begin{equation}
+    \rho_\beta = \frac{1}{Z(\beta) } \sum_n e^{-\beta E_n} \ketbra{E_n}{E_n},
+\end{equation}
+which has precisely the interpretation of a statistical thermodynamic distribution, with the correct Boltzmann factors $e^{-\beta E_n}$ weighting each state $\ketbra{E_n}{E_n}$. With the partition function, we can therefore compute the free energy
+\begin{equation}
+    F= -k_B T \ln Z(\beta)
+\end{equation}
+and moreover the entropy
+\begin{equation}
+    S= -\P{F}{T},
+\end{equation}
+from the relation $dE=TdS + \text{work}, F=E-TS \implies dF = -SdT +\text{work}$.%
+    \footnote{Work here is usually $pdV$ in differential form, and the Helmholtz free energy is just a Legendre transformation of the energy.}
+But the (classical) entropy of this distribution is 
+\begin{equation}
+    S_\text{thermal}=-\sum_n p_n \ln p_n,
+\end{equation}
+where $p_n$ is the Boltzmann probability
+\begin{equation}
+    p_n \equiv \frac{e^{-\beta E_n}}{Z(\beta)}.
+\end{equation}
+And if we compute the von Neumann entropy, we find precisely that
+\begin{equation}
+    S_\text{vN} = -\Tr(\rho \ln \rho) = -\sum p_n \ln p_n = S_\text{thermal}.
+\end{equation}
+
+Given $\hat \rho_\beta$ acting on $\cH_i$, consider
+\begin{equation}
+    \ket{\text{TFD}}\in \cH \otimes \cH
+\end{equation}
+the \term{thermofield double} state. There's a Hamiltonian on $\cH \otimes \cH$, which we can make from the Hamiltonians on the individual $\cH$s:
+\begin{equation}
+    \hat H_\text{TFD} = \hat H \otimes \II - \II \otimes \hat H.
+\end{equation}
+We may write out the matrix elements
+\begin{equation}
+    \ket{TFD} = \sum \frac{e^{-\beta E_n/2}}{\sqrt{Z(\beta)}} \ket{E_n} \otimes \ket{E_n}.
+\end{equation}
+This is a purification of $\rho_\beta$%
+    \footnote{As I defined above. This is as close as we can get to a canonical purification.}
+and this is a (maximally) entangled pure state in a bipartite system whose function is to reproduce all of thermodynamics in the reduced system.
