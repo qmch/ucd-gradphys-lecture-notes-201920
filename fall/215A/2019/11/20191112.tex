@@ -1,0 +1,173 @@
+Midterm scores are back, and basically everyone did great! As it turns out, what we saw in the midterm (two potentially different Hamiltonians with identical spectra apart from the ground state) was a special case of supersymmetric quantum mechanics, a topic we won't cover further. That is, the Hamiltonian takes the form $\cH = \set{Q,Q^\dagger}$, i.e. in terms of some
+\begin{equation}
+    \cH = \begin{pmatrix}
+        H &\\
+        & \tilde H
+    \end{pmatrix},
+    \quad Q = \begin{pmatrix}
+    0 & 0\\
+    A & 0
+    \end{pmatrix},
+    Q^\dagger = \begin{pmatrix}
+    0 & A^\dagger \\
+    0 & 0.
+    \end{pmatrix}
+\end{equation}
+For instance, the P\"oschl-Teller potential we explored as a bonus problem on Homework 5 has a general solution of some hypergeometric functions, but its spectrum reduces to that of the infinite square well for the right values of its parameters.
+
+\subsection*{Path integral formulation of QM}
+We now present a thought experiment commonly attributed to Feynman. Suppose we have a double-slit setup, where there is some source, a detector, and a large screen between them. This screen has two slits in it for particles to pass through.
+
+Quantum mechanics tells us that when both slits are open, we must sum the amplitudes for the particle to travel through each of the slits and then to the detector. That is, if the source is at $p$, the detector at $q$, and the slits at $h_1,h_2$, then the total amplitude of finding the particles at $q$ is
+\begin{equation}
+    \cA_\text{total} = \cA(p \to h_1 \to q) + \cA(p \to h_2 \to q).
+\end{equation}
+It is clear that if we add a third slit at $h_3$ we would have to add a term like $\cA (p \to h_3 \to q)$. We could also add more screens. What we realize is that every possible trajectory must be \emph{summed over}. That is, if we label the slits by a superscript representing which screen they are in (e.g. slit 1 in screen 2 is $h_1^{(2)}$), the total amplitude is the sum of all such terms
+\begin{equation}
+    \cA_\text{total} = \sum_{n,m} \cA(p \to h_n^{(1)} \to h_m^{(2)} \to \ldots \to q).
+\end{equation}
+If we increase the number of screens and the number of slits, we are indeed forced to conclude (in the limit as the number of slits and screens both become infinite) that all possible trajectories through empty space must be summed over, so long as they start at $p$ at some time $t_0$ and end at $q$ at some later fixed time $t_f$. That is, they must satisfy the boundary conditions, and the total amplitude is therefore
+\begin{equation}
+    \cA_\text{total} = \sum_\text{all paths} \cA_\text{path} (p \to q).
+\end{equation}
+The problem reduces to finding what the amplitude of an arbitrary path is, and then summing over all such paths.%
+    \footnote{For now, we're restricting ourselves to non-relativistic quantum mechanics, so we take $c$ to be $\infty$. In relativistic QM, something similar can be done but we must be careful about paths that go back in time or otherwise violate causality.}
+
+In fact, we shall argue that this amplitude is given by a (complex) weight related simply to an action:
+\begin{equation}
+    A_\text{path} (p \to q) = e^{\frac{i}{\hbar} S_\text{path}},
+\end{equation}
+where
+\begin{equation}
+    S=\int dt L,
+\end{equation}
+with $L$ the Lagrangian of a theory. The Lagrangian is generically a function of the coordinates and their derivatives, $L(x,\dot x)$, and the action is a functional of trajectories.
+
+When we compute the equations of motion of the Lagrangian, we get the \term{classical trajectory} and the corresponding action is called the \term{on-shell action}. We shall argue that writing QM in this way was in fact inevitable.
+
+The path integral is very elegant, but it is often difficult to compute. There are very few cases where they can be computed exactly. Nevertheless it will be useful to us in some general arguments, and in understanding the structure of quantum mechanics.%
+    \footnote{Path integrals are also common in quantum field theory, and ubiquitous in string theory.}
+
+\subsection*{Quantum propagator}
+Suppose we prepare a particle at some initial position $p$ at time $t_0$, and we would like to know the amplitude of it ending up at some final position $q$ at some later time $t$. In the Schr\"odinger picture, states (rays in Hilbert space) evolve by unitary time evolution,
+\begin{equation}
+    \ket{\psi(t)} = U(t,t_0) \ket{\psi(t_0)},
+\end{equation}
+where for a time-independent Hamiltonian $\hat H$, we have
+\begin{equation}
+    U = \exp \bkt{-\frac{i}{\hbar} \hat H (t-t_0)}.
+\end{equation}
+If we now project onto the position eigenbasis, we have
+\begin{align}
+    \braket{x}{\psi(t)} &= \psi(x,t)\\
+        &= \bra{x} \exp \bkt{-\frac{i}{\hbar} \hat H (t-t_0)} \ket{\psi(t_0)}.
+\end{align}
+Let's try to evaluate this. It would be great to evaluate $H$ on energy eigenstates, so let us insert two resolutions of the identity $\sum_n \ketbra{e_n}{e_n}$ and write
+\begin{align}
+    \psi(x,t) &= \sum_{n,m} \braket{x}{e_n} \bra{e_n} e^{-\frac{i}{\hbar} \hat H(t-t_0)}\ket{e_m} \braket{e_m}{\psi(t_0)}\nonumber\\
+        &= \sum_n \braket{x}{e_n} \braket{e_n}{\psi(t_0)} e^{-\frac{i}{\hbar} E_n(t-t_0)}\nonumber\\
+        &= \sum_n \phi_n(x) c_n(t_0) e^{-\frac{i}{\hbar} E_n(t-t_0)},
+\end{align}
+where we have defined the position space wavefunctions $\phi_n(x)$ of the energy eigenstates $\ket{e_n}$ and the projections $c_n$ of $\ket{\psi(t_0)}$ onto the energy eigenbasis:
+\begin{equation}
+    \braket{x}{e_n} = \phi_n(x),\quad \braket{e_n}{\psi(t_0)} = c_n(t_0).
+\end{equation}
+Working in the energy eigenbasis is great because all time dependence becomes complex phases. We could also expand out these components $c_n(t_0)$ as an integral in the position eigenbasis, i.e.
+\begin{align}
+    c_n(t_0) &= \int_{-\infty}^\infty dx \, \braket{e_n}{x} \braket{x}{\psi(t_0)}\\
+        &= \int_{-\infty}^\infty dx \, \phi_n^*(x) \psi(x,t_0).
+\end{align}
+Finally, we can use this to rewrite the time-dependent position space wavefunction as
+\begin{align}
+    \psi(x,t) &= \int_{-\infty}^\infty dx' \bkt{\sum_n \phi_n^*(x') \phi_n(x) e^{-\frac{i}{\hbar} E_n(t-t_0)}} \psi(x',t_0)\nonumber\\
+        &= \int_{-\infty}^\infty dx' K(x,t; x',t_0) \psi(x',t_0).
+\end{align}
+That is, the wavefunction at later times is an integral transform of the original wavefunction at time $t_0$, where we have defined a quantity $K(x,t; x',t_0)$. We know this gadget. It is a \term{Green's function.}
+
+We call this the \term{quantum propagator}. It is the Green's function for the time-dependent Schr\"odinger operator.%
+    \footnote{There is a lovely analogy to QFT here. The propagator that appears in Feynman diagrams is precisely the Green's function for the equations of motion of the field, e.g. Klein-Gordon or Dirac.}
+That is,
+\begin{equation}
+    \bkt{\frac{\hat p^2}{2m} + V(\hat x) -\frac{i}{\hbar} \P{}{t}} K(x,t; x',t') = -i\hbar \delta(x-x') \delta(t-t').
+\end{equation}
+
+\subsection*{Properties of the propagator}
+There are some useful alternate ways of writing the propagator. For instance,
+\begin{equation}
+    K(x,t; x',t') = \sum_n \phi_n^*(x') \phi_n(x) e^{-\frac{i}{\hbar} E_n(t-t')}.
+\end{equation}
+This is nice when we know the wavefunctions $\phi_n(x)$ of the energy eigenbasis, as in the harmonic oscillator with the Hermite polynomials. But by reversing some of our manipulations, we can also turn this into an inner product over a pair of position eigenstates,
+\begin{align}
+    K(x,t; x',t') &= \bra{x} e^{-\frac{i}{\hbar} \hat H(t-t')} \ket{x'}\\
+        &= \bra{x} e^{-\frac{i}{\hbar}\hat H t} e^{\frac{i}{\hbar} \hat H t'} \ket{x'} = \braket{x,t}{x',t'}.
+\end{align}
+We recognize that the propagator is exactly the transition amplitude we were looking for; it measures the overlap between position eigenstates $x',x$ as evaluated at times $t'$ and $t$.
+
+For the free particle ($\hat H_\text{free} = \frac{\hat p^2}{2m}$), we can compute the propagator explicitly:
+\begin{align}
+    K(x,t; x',t') &= \bra{x} e^{-\frac{i}{\hbar} \hat H_\text{free}(t-t')} \ket{x'}\\
+        &= \int_{-\infty}^\infty dp dp'\braket{x}{p} \bra{p} e^{-\frac{i}{\hbar} \frac{\hat p^2}{2m} (t-t')} \ket{p'} \braket{p'}{x'}\\
+        &= \int_{-\infty}^\infty \frac{dp}{(2\pi \hbar)} e^{\frac{i}{\hbar}(x-x') p } e^{-\frac{i}{\hbar} \frac{p^2}{2m} (t-t')},
+\end{align}
+where we have replaced $\hat p$ by its eigenvalue $p$ and performed one of the $p$ integrals with the delta function from $\braket{p}{p'}$. Hence we get
+\begin{align}
+    K(x,t' x',t') &= \int_{-\infty}^\infty \frac{dp}{(2\pi \hbar)} e^{\frac{i}{\hbar} (x-x') p} e^{-\frac{i}{\hbar } \frac{p^2}{2m}(t-t')}\\
+        &= \frac{m}{2\pi i \hbar (t-t')} e^{\frac{im}{2\hbar } \frac{(x-x')^2}{t-t'}}.
+\end{align}
+We've performed a Gaussian integral to evaluate the $dp$ integral.%
+    \footnote{Strictly, we need to use analytic continuation and an $i\epsilon$ prescription. That is, if we're being careful, we perform this as an integral in the complex plane so that it will actually converge.}
+
+As a fun aside, if we remove the $i$ from the $\P{}{t}$, our Schr\"odinger equation just reduces to the heat equation. That is, our expression (up to factors of $i$) is the heat kernel, the propagator for the heat equation describing heat flow in continuum mechanics. The heat equation is famously non-causal; it treats time differently than space (one time derivative, two in space) and so we see that propagators over very short times $t\to t'$ may have very large amplitudes, even if the distances are large. The speed of light never factors into our calculation.
+
+\subsection*{Sum over paths}
+There is one more form of the propagator we must know. It is
+\begin{equation}
+    K(x_f,t_f; x_i, t_i) = \int\bkt{\cD x} e^{\frac{iS}{\hbar}}
+\end{equation}
+with boundary conditions $x(t_i)= x_i,x(t_f)= x_f$, where $\int\bkt{\cD x} = \sum_\text{paths}$ is simply a bit of notation we've introduced.
+
+Well, what is the total transition amplitude? To find it, we must discretize time. That is, break up the interval $[t_i,t_f]$ into finite time steps $\delta t$. Notice that we can rewrite our propagator as
+\begin{equation}
+    K(x_f,t_f; x_i, t_i) = \braket{x_f, t_f}{x_i,t_i} = \int dx \braket{x_f,t_f}{x,t} \braket{x,t}{x_i,t_i},
+\end{equation}
+where we've just inserted a complete set of states $\int dx \ketbra{x,t}{x,t}$ at some intermediate time $t\in [t_i,t_f]$. In particular, we'll split the interval into $N+1$ segments of size $\delta t= (t_f-t_i)/(N+1)$ such that
+\begin{align}
+    t_n &= t_1 +n\delta t\\
+    t_f &= t_{N+1} = t_i + (N+1)\delta t.
+\end{align}
+It is clear that
+\begin{equation}
+    t_i < t_1 < t_2 \ldots < t_N < t_f.
+\end{equation}
+By inserting a complete set of states at every step, we see that
+\begin{equation}
+    \braket{x_f,t_f}{x_i}{t_i} =\int dx_N \ldots \int dx_1 \braket{x_f,t_f}{x_N,t_N} \braket{x_N,t_N}{x_{N-1},t_{N_1}},\ldots \braket{x_1,t_1}{x_i,t_i}.
+\end{equation}
+We can then take the limit as $N\to \infty$ and $\delta t \to dt$ becomes infinitesimally small. To evaluate this expression, consider a single one of these inner products $\braket{x_n,t_n} {x_{n-1},t_{n-1}}$. It is
+\begin{align}
+    \braket{x_n,t_n} {x_{n-1},t_{n-1}} &= \bra{x_n} e^{-\frac{i}{\hbar} \hat H(t_n-t_{n-1})} \ket{x_n-1}\\
+        &= \bra{x_n} e^{-\frac{i}{\hbar} \delta t \hat H} \ket{x_{n-1}}
+\end{align}
+What's difficult about evaluating the Hamiltonian on position eigenstates is that
+\begin{equation}
+    e^{-\frac{i}{\hbar} \delta t \hat H} = e^{-\frac{i}{\hbar}\delta t( \frac{\hat p^2}{2m} + V(\hat x))} \neq e^{-\frac{i}{\hbar} \delta t \frac{\hat p^2}{2m}} \cdot e^{-\frac{i}{\hbar} V(\hat x) \delta t}.
+\end{equation}
+However, if $\delta t \ll 1$, then
+\begin{equation}
+    e^{-\frac{i}{\hbar}\delta t( \frac{\hat p^2}{2m} + V(\hat x))} = e^{-\frac{i}{\hbar} \delta t \frac{\hat p^2}{2m}} \cdot e^{-\frac{i}{\hbar} V(\hat x) \delta t} + O(\delta t^2).
+\end{equation}
+That is, the errors have to do with the commutator of $\hat p^2$ and $V(\hat x)$,%
+    \footnote{More precisely, we can work them out with the BCH formula mentioned earlier.}
+and they are higher-order in $\delta t$, so we can safely neglect them as $\delta t\to 0$. Thus to order $\delta t$,
+\begin{align}
+    \braket{x_n,t_n} {x_{n-1},t_{n-1}} &= \bra{x_n} e^{-\frac{i}{\hbar} \delta t \frac{\hat p^2}{2m}} \cdot e^{-\frac{i}{\hbar} V(\hat x) \delta t} \ket{x_{n-1}} + O(\delta t^2)\\
+        &= \int dp \bra{x_n} e^{-i\frac{ \hat p^2}{2m} \delta t} \ket{p}\braket{p}{x_{n-1}} e^{-\frac{i}{\hbar} V(x_{n-1})\delta t}\\
+        &= \frac{1}{2\pi \hbar} \int_{-\infty}^\infty dp \, e^{-\frac{i}{2m \hbar} p^2 \delta t + \frac{i}{\hbar} p(x_n - x_{n-1})} \times e^{-\frac{i}{\hbar} V(x_{n-1})\delta t}\\
+        &= \sqrt{\frac{m}{2\pi \hbar \delta t}} \exp\paren{\frac{im}{2\hbar} \bkt{\frac{(x_n-x_{n-1})^2}{\delta t}} -\frac{i V(x_{n-1})\delta t}{\hbar}}.
+\end{align}
+We have inserted a complete set of states and performed the Gaussian integrals, as before. Hence we can now put this back into our expression for the overall propagator. That is,
+\begin{align}
+    \braket{x_f,t_f}{x_i}{t_i} &= \int dx_N \ldots \int dx_1 \paren{\frac{m}{2\pi \hbar i \delta t}}^{\frac{N+1}{2}} \exp \bkt{\frac{i\delta t}{\hbar} \paren{\sum_{n=0}^N \frac{m}{2} \frac{(x_n-x_{n-1})^2}{\delta t^2} - V(x_{n-1})}}\\
+        &= \exp \paren{\frac{i}{\hbar} \int_{t_i}^{t_f} dt \bkt{ \frac{m}{2} \paren{\frac{dx}{dt}}^2 -V(x)}},
+\end{align}
+and we see that when we discretized time, our manipulations exactly performed the Legendre transform to take us from the Hamiltonian to the Lagrangian.
