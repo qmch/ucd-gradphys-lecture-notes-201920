@@ -1,0 +1,181 @@
+Previously, we introduced the path integral and the quantum propagator. We said that
+\begin{align}
+    \braket{x_f,t_f}{x_i,t_i} &\equiv K(x_f,t_f; x_i, t_i)\\
+    &= \int [\cD x(t)] e^{iS[x(t)]/\hbar}\\
+    &= \sum_\text{paths} e^{iS/\hbar}.
+\end{align}
+That is, the quantum propagator measures the amplitude of propagation from a position eigenstate $x_i$ at time $t_i$ to another position eigenstate $x_f$ at time $t_f$. The integration measure was the continuous limit of a discretized set of small steps $dx_i$:
+\begin{equation}
+    \int [\cD x(t)] = \int dx_N \ldots \int dx_1 \paren{\frac{m}{2\pi i \hbar \delta t}}^{\frac{N+1}{2}}.
+\end{equation}
+
+\subsection*{Free particle path integral}
+Let's compute this exactly for the free particle,. That is, we set $V(x)=0$ so that
+\begin{equation}
+    S[x] = \int_{t_i}^{t_f} dt \,\frac{1}{2} m\dot x^2.
+\end{equation}
+Let us also denote the normalization factor from the Gaussian integral as
+\begin{equation}
+    \cN_1 \equiv \paren{\frac{m}{2\pi i \hbar \delta t}}^{1/2}
+\end{equation}
+so that the path integral now takes the form
+\begin{align}
+    \braket{x_f,t_f}{x_i,t_i}
+    =& \int [\cD x(t)] e^{iS[x(t)]/\hbar}\\
+    =& \lim_{N\to \infty, \delta t \to 0} \int dx_N \ldots \int dx_1 \, \cN_1^{N+1} \exp \left[\frac{i}{\hbar} \sum_{n=1}^N \frac{(x_n -x_{n-1})^2}{(\delta t)^2} \delta t \frac{m}{2}\right.\\
+    &+ \left.\frac{i}{\hbar} \frac{m}{2} \frac{(x_1-x_i)^2}{\delta t} +\frac{i}{\hbar} \frac{m}{2} \frac{(x_f-x_N)^2}{\delta t}\right].
+\end{align}
+These are simply a bunch of Gaussian integrals (up to analytic continuation), so in principle we can just compute them exactly. Define
+\begin{equation}
+    \xi_n = \frac{m}{2\hbar \delta t} x_n.
+\end{equation}
+Then our propagator can be written as
+\begin{multline}
+    \braket{x_f,t_f}{x_i,t_i} = \lim_{N\to \infty, \delta t \to 0} \cN_1^{N+1} \paren{\frac{2\hbar \delta t}{m}}^{N/2} \int d\xi_N \ldots \int d\xi_1 \\
+    \times \exp \bkt{i(\xi_1 - \xi_i)^2 + i (\xi_f - \xi_N)^2 + i \sum_{n=1}^N (\xi_{n+1}-\xi_n)^2}.
+\end{multline}
+Performing the $\xi_1$ integral gives
+\begin{equation}
+    \int d\xi_1 e^{-\frac{1}{i} (\xi_1 - \xi_i)^2 -\frac{1}{i} (\xi_2 - \xi_1)^2} = \sqrt{\frac{\pi i }{2}} e^{-\frac{1}{2i} (\xi_2 - \xi_1)^2}.
+\end{equation}
+We see that performing the $\xi_1$ integral gives us a factor for the $\xi_2$ integral. That is, the next integral is%
+    \footnote{Exercise to check this.}
+\begin{equation}
+    \int d\xi_2 e^{-\frac{1}{i} (\xi_3- \xi_2)^2 -\frac{1}{2i} (\xi_2 - \xi_1)^2} =\sqrt{\frac{2\pi i}{3}} e^{-\frac{1}{3i} (\xi_3 - \xi_1)^2}.
+\end{equation}
+This pattern holds up. For $N$ such integrals,
+\begin{align}
+    \braket{x_f,t_f}{x_it_i} &= \lim_{N\to \infty, \delta t\to 0} \cN_1^{N+1} \paren{\frac{2\hbar \delta t}{m}}^{N/2}  \paren{\prod_{k=1}^N \sqrt{\frac{\pi ki}{k+1}}} \exp \bkt{-\frac{1}{(N+1)i}(\xi_f - \xi_i)^2}\\
+        &= \lim_{N\to \infty, \delta t\to 0} \sqrt{\frac{m}{2\pi i \hbar (N+1)\delta t}} \exp \bkt{\frac{i m}{2\pi \hbar (N+1) \delta t} (x_f-x_i)^2}.
+\end{align}
+We now see that the limit is well-defined, since we always get the factor $(N+1)\delta t$, which is simply the time inteval between the start and end points, $(N+1)\delta t=t_f-t_i =\Delta t$. We conclude that
+\begin{equation}
+    \braket{x_f,t_f}{x_i,t_i} = \sqrt{\frac{m}{2\pi i \hbar (t_f-t_i)}} \exp \bkt{\frac{im(x_f-x_i)^2}{2\hbar (t_f-t_i)}}.
+\end{equation}
+This is the same propagator we found by going to Fourier space in the previous lecture, as Eqn. \ref{freeparticlepropagator}.
+
+One point that might concern us-- we never used the canonical commutation relations in the derivation of the path integral. We shall see later that the path integral will still give us some equivalent of commutation relations consistent with canonical quantization.
+
+There's also a much quicker way to do this computation. We use the expression
+\begin{equation}
+    \int \prod_{n=1}^N dx_n \exp\paren{-\frac{1}{2} \vec {z}^T  \cdot M \cdot \vec{z} -\vec z^T \cdot \vec x} = (2\pi)^{N/2} \frac{1}{\sqrt{\det M}} e^{\frac{1}{2} \vec x^T \cdot M^{-1} \cdot x}.
+\end{equation}
+Here, $z$ is a vector
+\begin{equation}
+    \vec{z} = \begin{pmatrix}
+    z_1 \\ \vdots \\ z_n
+    \end{pmatrix}
+\end{equation}
+and $\vec x$ is similarly some shift vector. The exponent can equivalently be written as
+\begin{equation}
+    -\frac{1}{2} \sum_{i,j=1}^N z_i z_j M_{ij} -\sum_{i=1}^N z_i x_i.
+\end{equation}
+This formula can be proven by induction or alternately by diagonalizing the matrix $M$.
+In our case, 
+\begin{equation}
+    \vec{z} = \begin{pmatrix}
+    z_1 \\ \vdots \\ z_n
+    \end{pmatrix},
+    \quad M = \frac{2}{i} \begin{pmatrix}
+    1 & -\frac{1}{2} & 0 &\ldots & 0 & 0\\
+    -\frac{1}{2} & 1 & -\frac{1}{2} & \ldots & & \vdots\\
+    \vdots \\
+    \vdots &&&& 1 & -\frac{1}{2}\\
+    0 &0 & 0 && -\frac{1}{2} & 1
+    \end{pmatrix},
+    \quad
+    \vec{x} = -\frac{2}{i}\begin{pmatrix}
+    \xi_i \\0\\ \vdots \\ 0\\ \xi_f
+    \end{pmatrix}.
+\end{equation}
+Plugging in values and taking the determinant of $M$ yields our free particle propagator.
+
+\subsection*{Harmonic oscillator}
+Let us now turn our attention to the harmonic oscillator. Let's do this path integral in a different way. Let us write paths in terms of their deviations from the classical path, as
+\begin{equation}
+    x(t) = x_\text{cl}(t) + \delta x(t).
+\end{equation}
+What we must integrate over is now the deviations $\delta x(t)$. We also recall that the integrand is a functional of the path, $S[x(t)]$.
+
+The Lagrangian is
+\begin{equation}
+    \cL = \frac{1}{2}m\dot x^2 - \frac{1}{2} m\omega^2 x^2,
+\end{equation}
+and our boundary conditions are
+\begin{equation}
+    x(t_i) = x_i ,\quad x(t_f) = x_f.
+\end{equation}
+Computing the Euler-Lagrange equations for this Lagrangian gives us our well-known solutions of sines and cosines; fitting the boundary conditions then yields
+\begin{equation}
+    x_\text{cl}(t) = x_i \frac{\sin \omega(t_f-t)}{\sin \omega (t_f - t_i)} + x_f \frac{\sin \omega (t-t_i)}{\sin \omega (t_f-t_i)}.
+\end{equation}
+
+Let us evaluate the on-shell action, i.e. $S[x_\text{cl}(t)]$. That is,
+\begin{equation}
+    S_\text{on-shell} = \int_{t_i}^{t_f} dt \bkt{\frac{1}{2} m \dot x_\text{cl}^2 -\frac{1}{2} m \omega^2 x_\text{cl}^2}.
+\end{equation}
+There is an easy way and a hard way to compute this. The hard way is to just plug in $x_\text{cl}(t)$, which we can do if we like computing horrible integrals. The easy way is to recognize that $x_\text{cl}$ satisfies the equations of motion by definition, so we can integrate the on-shell action by parts as
+\begin{equation}
+    S_\text{on-shell} = \int_{t_i}^{t_f} -\frac{m}{2} (x_\text{cl} \ddot x_\text{cl} + \omega^2 x_\text{cl}^2) dt + \int_{t_i}^{t_f} dt \frac{d}{dt} \bkt{\frac{m}{2} x_\text{cl} \dot x_\text{cl}}.
+\end{equation}
+The first term is now proportional to the equations of motion, so it vanishes. What remains is the boundary term,
+\begin{equation}
+    S_\text{on-shell} =\frac{m}{2} x_\text{cl} \frac{dx_\text{cl}}{dt}|_{t_i}^{t_f} = \frac{1}{2}m \omega \frac{(x_i^2+ x_f^2) \cos \omega (t_f-t_i) -2x_i x_f}{\sin \omega(t_f-t_i)}.
+\end{equation}
+This principle holds more generally; the on-shell action is always a boundary term because we can always integrate by parts.
+
+Now we can expand a general path in terms of its deviation from the classical path. That is, if
+\begin{equation}
+    x(t) = x_\text{cl}(t) + \delta x(t),
+\end{equation}
+then the action on such a path is
+\begin{equation}
+    \int dt \, \cL [x_\text{cl}(t) + \delta x(t)] = \int dt \set{\cL [x_\text{cl}(t)] + \frac{\delta \cL}{\delta x(t)} |_{x= x_\text{cl}(t)} \delta x(t) + \frac{1}{2} \frac{\delta^2 \cL}{(\delta x(t))^2}|_{x=x_\text{cl}(t)} (\delta x(t))^2 + \ldots}.
+\end{equation}
+This second term is in fact zero. That's just the condition that the first-order variation of the Lagrangian about the classical path vanishes because the classical path satisfies the equations of motion.
+
+In general there are higher-order corrections, but for the harmonic oscillator, the series in fact terminates here. There are no $(\delta x(t))^3$ or higher order terms.
+
+We are also free to parametrize the deviation $\delta x(t)$ however we like. In particular, let us expand it as a Fourier series, since it vanishes at $t_i$ and $t_f$. That is,
+\begin{equation}
+    \delta x(t) = \sum_{n=0}^\infty \zeta_n \sin\paren{\frac{n\pi(t-t_i)}{t_f -t_i}},
+\end{equation}
+which by construction fits the boundary conditions
+\begin{equation}
+    \delta x(t_i) = \delta x(t_f) =0.
+\end{equation}
+Now it's a bit of a computation to show that
+\begin{equation}
+    S[x_\text{cl}(t) + \delta x(t)] = S_\text{on-shell} + \frac{m}{4} \sum_{n=0}^\infty \paren{\frac{n^2 \pi^2}{t_f-t_i} -\omega^2 (t_f-t_i)}\zeta_n^2.
+\end{equation}
+The first term is just the on-shell action; the second comes from the fact we have the $dt$ integral, and the Fourier modes are orthogonal. Hence after performing the $dt$ integral we only get terms proportional to $\zeta_n^2$, the diagonal elements. The only thing to compute is the normalization.%
+    \footnote{Exercise to check this.}
+
+So much for the action. What about the integration measure? It is
+\begin{equation}
+    [\cD x] =\sqrt{\frac{m}{2\pi i \hbar (t_f-t_i)}} \prod_{n=1}^\infty \sqrt{\frac{m}{2\pi i \hbar(t_f-t_i)}} \frac{n\pi}{\sqrt{2}} d\zeta_n.
+\end{equation}
+We haven't shown this formally, but it follows from a change of variables (e.g. the $n\pi$ comes from the Fourier modes).
+
+If we put it all together, we find that
+\begin{multline}
+    \braket{x_f,t_f}{x_i,t_i} = e^{\frac{i}{\hbar}S_\text{on-shell}} \sqrt{\frac{m}{2\pi i \hbar(t_f-t_i)}} \left[ \prod_{n=1}^\infty \sqrt{\frac{m}{2\pi i \hbar(t_f-t_i)}} \frac{n\pi}{\sqrt{2}}\right.\\
+    \left.\times\int d\zeta_n \exp\paren{\frac{im}{4\hbar} \set*{\frac{n^2 \pi^2}{t_f-t_i} - \omega^2 (t_f-t_i)}\zeta_n^2}\right]
+\end{multline}
+If we do these (infinitely many) Gaussian integrals, we get
+\begin{align}
+    \braket{x_f,t_f}{x_i,t_i} &= e^{\frac{i}{\hbar}S_\text{on-shell}} \sqrt{\frac{m}{2\pi i \hbar(t_f-t_i)}}
+    \prod_{n=1}^\infty \paren{1-\frac{\omega^2 (t_f-t_i)^2}{n^2 \pi^2}}^{-1/2}\\
+    &= e^{\frac{i}{\hbar}S_\text{on-shell}} \sqrt{\frac{m\omega }{2\pi i \hbar\sin \omega (t_f-t_i)}}.
+\end{align}
+We used an infinite product formula
+\begin{equation}
+    \frac{\sin \pi z}{z} = \prod_{n=1}^\infty \paren{1 -\frac{z^2}{n^2}}.
+\end{equation}
+We can understand this formula intuitively-- notice that $\sin pi z/z$ has roots at all the integers. The right side is a product of terms which give us precisely these roots. Moreover, notice that as $\omega \to 0$, we get back the free-particle propagator.
+
+Suppose now we take $t_f-t_i = i\beta$. The sine becomes a hyperbolic sine, and we in fact recover the partition function of the harmonic oscillator,
+\begin{equation}
+    \sum_{n=0}^\infty e^{-\hbar (n+\frac{1}{2})\beta \omega} = \frac{1}{2\sin \frac{\beta \omega \hbar}{2}}.
+\end{equation}
+Hence quantum mechanics, analytically continued to imaginary time, reduces to statistical mechanics. So we should not be too surprised that going from real to imaginary time, quantum mechanics becomes statistical mechanics.

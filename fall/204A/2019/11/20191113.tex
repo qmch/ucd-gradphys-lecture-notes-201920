@@ -1,0 +1,293 @@
+\subsection*{Sturm-Liouville problems} Today we shall introduce Sturm-Liouville problems, corresponding roughly to Chapter 8 of Arfken. Let us define what we mean by a Sturm-Liouville problem, and motivate why we might be interested in one.
+
+Our focus is differential equations of the form
+\begin{equation}
+    \bkt{\p_x (p_0(x) \p_x) + p_2(x)} y(x) = \lambda w(x) y.
+\end{equation}
+This is a second-order nonlinear equation where $p_0(x),p_2(x),w(x)$ are given functions of $x$ and $\lambda$ is a parameter fixed by the boundary conditions. When we discussed Green's functions, we wanted to solve equations of the form
+\begin{equation}
+    \cL y(x) = f(x)
+\end{equation}
+for $y(x)$ given some source $f(x)$ and a differential operator $\cL$. However, we needed a boundary condition to find the Green's function; there are in general infinitely many solutions to such an equation, so we need boundary conditions to fix a particular solution.
+
+Not every set of boundary conditions is equally good. Some will be contradictory and indeed yield no solution. Others might not constrain the problem enough. Let us therefore write our problem as
+\begin{equation}
+    \cL y(x) = \lambda y(x)
+\end{equation}
+where
+\begin{equation}
+    \cL = p_0 \p_x^2 + p_1 \p_x + p_2
+\end{equation}
+is the most general second-order differential operator.
+
+Maybe you're not convinced by this yet.%
+    \footnote{I should point out that the time-independent Schr\"odinger equation has this form. So that's an infinity of good reasons to study such problems.}
+We can present another argument. Where do (families of) orthogonal functions come from? For instance, we have
+\begin{equation}
+    f_n(x) = \sin(nx), n=1,2,\ldots
+\end{equation}
+such that
+\begin{equation}
+    \int_0^\pi dx\, f_n^*(x) f_m(x) = \delta_{nm}.
+\end{equation}
+We claim that orthogonal functions naturally arise as solutions to Sturm-Liouville problems. The goal of today will be to understand how to solve such problems in general.
+
+We learned previously%
+    \footnote{Arfken Ch. 5.}
+that certain (differential) operators have nice spectral properties. We called these operators hermitian, and such operators had real eigenvalues and orthogonal eigenvectors.%
+    \footnote{There are slight caveats here. Sometimes self-adjointness depends on the boundary conditions.}
+Let's also recall that operators must be specified on domains, i.e. the space of vectors they act on.
+\begin{defn}
+    An operator $\cL$ with domain $D(\cL)$ is \term{Hermitian} if
+    \begin{equation}
+        \braket{\cL u}{v} = \braket{u}{\cL v} \quad \forall u,v \in D(\cL).
+    \end{equation}
+\end{defn}
+That is, our vector space is equipped with an inner product, and we can move our operator freely between acting on either argument of the inner product.
+
+\begin{defn}
+    The adjoint of $\cL$, denoted by $\cL^\dagger$, is defined by the relation
+    \begin{equation}
+        \braket{\cL^\dagger u}{v} = \braket{u}{\cL v} \quad \forall v \in D(\cL).
+    \end{equation}
+\end{defn}
+Notice we haven't said anything about the domain of $\cL^\dagger$. In particular, the domain $D(\cL^\dagger)$ may not be identical to original domain $D(\cL)$. We therefore make the following refinement.
+\begin{defn}
+    An operator $\cL$ is \term{self-adjoint} if
+    \begin{equation}
+        \cL u = \cL^\dagger u \quad \forall u \in D(\cL),
+    \end{equation}
+    \emph{and}
+    \begin{equation}
+        D(\cL) = D(\cL^\dagger).
+    \end{equation}
+\end{defn}
+\emph{Self-adjoint operators} have real eigenvalues and orthogonal and complete sets of eigenvectors.
+
+For instance, the momentum operator in quantum mechanics is a good example of an operator which is Hermitian but not self-adjoint when defined on a bounded domain.
+\begin{exm}
+    Consider $p=-i\p_x$ on the domain $[0,1]$ subject to $y(0)=y(1)=0$. Hence
+    \begin{align*}
+        \braket{u}{pv} &= \int_0^1 dx u^*(x) (-i v'(x))\\
+        &= \left.(-i) u^*(x) v(x)\right|_0^1 - \int_0^1 dx u^*{}'(-i) v(x)\\
+        &= \braket{p u}{v}.
+    \end{align*}
+    Hence $p$ is Hermitian. But $p$ is \emph{not} self-adjoint for this set of boundary conditions. For suppose $p$ had an eigenvector,
+    \begin{equation}
+        py=\lambda y,
+    \end{equation}
+    with $\lambda \in \RR$. Then
+    \begin{equation}
+        y=e^{i\lambda x},
+    \end{equation}
+    which certainly does not vanish at $x=0$.
+\end{exm}
+
+Let us make the following definition.
+\begin{defn}
+    For a differential operator
+    \begin{equation}
+        \cL = p_0(x) \p_x^2 + p_1(x) \p_x + p_2(x),
+    \end{equation}
+    we say that $\cL$ is ``self-adjoint in the differential equation sense'' if $p_0'= p_1$.
+\end{defn}
+This definition makes no mention of boundary conditions, so it does not exactly agree with the definition we've seen already. Let us see how we can reconcile the two.
+
+For such an operator, we can rewrite it as
+\begin{equation}
+    \cL = p_0 \p_x^2 + p_0' \p_x + p_2 = \p_x(p_0 \p_x) + p_2.
+\end{equation}
+Suppose $\cL$ lives on a domain $[a,b]$. If we act on vectors, we find that
+\begin{align}
+    \braket{v}{\cL u} &= \int_a^b dx \bkt{ v^* \p_x(p_0 u'(x)) + v^* p_2 u}\nonumber\\
+        &= v^* p_0 u'|_a^b + \int_a^b dx \bkt{-v^*{}' p_0 u' + v^* p_2 u}\nonumber\\
+        &= (v^* p_0 u' -v^*{}' p_0 u)|_a^b+ \underbrace{\int_a^b dx \bkt{\p_x(p_0 v^*{}')u + v^* p_2 u}}_{\braket{\cL v}{u}}.
+\end{align}
+Integrating by parts, we pick up some boundary terms evaluated at $a,b$ and we see that this operator is Hermitian if the boundary term vanishes, i.e.
+\begin{equation}
+    (v^* p_0 u' -v^*{}' p_0 u)|_a^b =0.
+\end{equation}
+This leads us naturally to the Dirichlet boundary conditions (where the functions themselves vanish at the boundaries) and the Neumann boundary conditions (where the derivatives vanish). We can also mix them if we're a bit clever.
+
+The most general boundary conditions which lead to self-adjoint operators are
+\begin{subequations}
+\begin{align}
+    \alpha_1 y(a) + \beta_1 y'(a) &= 0\\
+    \alpha_2 y(b) + \beta_2 y'(b) &= 0.
+\end{align}
+\end{subequations}
+
+\begin{exm}
+    The Legendre equation is one common differential equation that's already in the Sturm-Liouville form. That is,
+    \begin{equation}
+        \cL y = \lambda y
+    \end{equation}
+    where
+    \begin{equation}
+        \cL = \underbrace{-(1-x^2)}_{p_0} \p_x + \underbrace{2 x}_{p_0'} \p_x +l(l+1).
+    \end{equation}
+\end{exm}
+More generally, if we have
+\begin{equation}
+    \cL y = \lambda y, \quad \cL = p_0 \p_x^2 + p_1 \p_x + p_2,
+\end{equation}
+where $p_1 \neq p_0'$, we claim that we can put it into self-adjoint form. To see this, let us multiply both sides by a factor $w(x)$ to get
+\begin{equation}
+    w(x) \cL(x) y(x) = \lambda w(x) y(x).
+\end{equation}
+Hence
+\begin{align}
+    w(x) \cL &= w p_0 \p_x^2 + w p_1 \p_x + w p_2\\
+        &= \bar p_0 \p_x^2 + \bar p_0' \p_x + \bar p_2
+\end{align}
+in terms of some new barred functions. That is, we would like to put this into self-adjoint form, which means that
+\begin{equation}
+    \bar p_0 = w p_0,\quad \bar p_0' = w p_1.
+\end{equation}
+Hence
+\begin{equation}
+    wp_1 = w' p_0 + w p_0',
+\end{equation}
+which we can rearrange (since it is separable) into the form
+\begin{equation}
+    \frac{w'}{w} = \frac{p_1}{p_0} -\frac{p_0'}{p_0}.
+\end{equation}
+Integrating, we find that
+\begin{equation}
+    \log w = \int^x dx' \frac{p_1}{p_0} -\log p_0,
+\end{equation}
+or equivalently
+\begin{equation}
+    w = \frac{1}{p_0} \exp \paren{\int^x dx' \frac{p_1}{p_0}}.
+\end{equation}
+This function $w(x)$ is called the \term{weight function}. It follows that
+\begin{equation}
+    \bar p_0 = \exp\paren{\int^x dx' \frac{p_1}{p_0}}, \quad \bar p_0' = \frac{p_1}{p_0} \exp \paren{\int^x dx' \frac{p_1}{p_0}},
+\end{equation}
+exactly as desired. This is why we can write our problem as
+\begin{equation}
+    \cL y = \lambda w(x) y,
+\end{equation}
+where $w$ is fixed but $\cL$ is taken to be self-adjoint.
+
+We can interpret $w$ as defining a new, weighted inner product,
+\begin{equation}
+    \braket{v}{u} = \int_a^b dx\, w(x) v^*(x) u(x).
+\end{equation}
+
+\subsection*{Properties of Sturm-Liouville problems}
+Some important properties of these Sturm-Liouville (SL) problems, i.e. equations of the form
+\begin{equation}
+    \cL y = \lambda w(x) y,
+\end{equation}
+are the following.
+\begin{itemize}
+    \item The eigenvalues $\lambda$ are real.
+    \item The eigenfunctions are orthogonal with respect to the weighted inner product,
+    \begin{equation}
+        \int_a^b dx \, w(x) \psi_n^*(x) \psi_m(x) = \delta_{mn}.
+    \end{equation}
+    \item The eigenvalues are simple, i.e. to each eigenvalue there is a unique eigenfunction up to normalization.
+    \item The eigenvalues of SL problems are ordered,
+    \begin{equation}
+        \lambda_1 < \lambda_2 < \ldots < \lambda_n < \ldots,
+    \end{equation}
+    such that
+    \begin{equation}
+        \lambda_n \to \infty \text{ as } n\to \infty.
+    \end{equation}
+\end{itemize}
+
+\begin{exm}
+    Suppose we want to solve
+    \begin{equation}
+        y'' + \lambda y = 0
+    \end{equation}
+    on the interval $[0,\pi]$ subject to the constraint that $y(0)=0, y'(\pi)=0$.
+    
+    This equation is already in SL form, with weight function $w=1$. Hence we can just consider $\lambda \in \RR$. We now have some cases to consider.
+    
+    \emph{Case 1:} $\lambda <0$. If $\lambda$ is negative, then let $\lambda = -\omega^2$. The general solution is
+    \begin{equation}
+        y=Ae^{\omega x} + Be^{-\omega x}.
+    \end{equation}
+    We now impose the boundary conditions. The first tells us that
+    \begin{equation}
+        A+B =0,
+    \end{equation}
+    and applying the second, we have
+    \begin{equation}
+        A(e^{\omega p } + e^{-\omega \pi}) = 0 \implies A= 0 \implies B=0.
+    \end{equation}
+    So the only solution is $y=0$, the trivial solution.
+    
+    \emph{Case 2:} $\lambda=0$. We again get $y=0$ (the solution is $Ax+B$ and $A=B=0$).
+    
+    \emph{Case 3:} $\lambda >0$. Let $\lambda = \omega^2$ so our general solution is
+    \begin{equation}
+        y=A\sin\omega x+ B\cos\omega x.
+    \end{equation}
+    The boundary conditions tell us now that $B=0$ and
+    \begin{equation}
+        A\omega \cos \omega \pi =0 \implies \omega = n+\frac{1}{2}, n\in \ZZ.
+    \end{equation}
+    We conclude that only certain values of $\lambda$ have nontrivial solutions.
+\end{exm}
+\begin{exm}
+    Let's modify this example. We want to solve
+    \begin{equation}
+        y'' + \lambda y =0
+    \end{equation}
+    on the interval $[0,1]$ where now the boundary conditions are
+    \begin{subequations}
+    \begin{align}
+        y(0) + y'(0)= 0\\
+        y(1) -y'(1) =0.
+    \end{align}
+    \end{subequations}
+    In the $\lambda = 0$ case we have a general solution $y=Ax+B$, where the boundary conditions fix $A=B=0$.
+    
+    For $\lambda <0$, something more interesting happens. We get solutions
+    \begin{equation}
+        y=Ae^{\omega x} + Be^{-\omega x},
+    \end{equation}
+    and imposing BCs gives us
+    \begin{gather}
+        A+B+\omega(A-B)=0,
+        Ae^\omega +Be^{-\omega} - \omega( Ae^\omega - Be^{-\omega}) = 0.
+    \end{gather}
+    We can write this as a matrix equation,
+    \begin{equation}
+        \begin{pmatrix}
+            1+ \omega & 1-\omega\\
+            (1-\omega)e^\omega & (1+\omega) e^{-\omega}
+        \end{pmatrix}
+        \begin{pmatrix}
+            A\\B
+        \end{pmatrix} =0.
+    \end{equation}
+    Such an equation has nontrivial solutions if the determinant of the coefficient matrix is zero, i.e.
+    \begin{equation}
+        (1+\omega)^2 e^{-\omega} - (1-\omega)^2 e^\omega =0.
+    \end{equation}
+    Equivalently
+    \begin{equation}
+        e^\omega = \abs*{\frac{1+\omega}{1-\omega}},
+    \end{equation}
+    which is now a transcendental equation. We can solve this graphically; it turns out to have two solutions, one of which is trivial ($\omega=0$) and the other of which we can numerically determine to be about $\omega \approx 1.54$.
+    
+    For the $\lambda >0$ case we have
+    \begin{equation}
+        y=A\sin\omega x + B \cos\omega x.
+    \end{equation}
+    The boundary conditions are now
+    \begin{gather}
+        B + \omega A  =0\\
+        B\cos\omega + A \sin\omega -(A\omega \cos\omega - B \omega \sin \omega)=0.
+    \end{gather}
+    Taking the determinant and performing a bit of algebra gives another transcendental equation
+    \begin{equation}
+        \tan \omega =\frac{2\omega}{1-\omega^2}.
+    \end{equation}
+    Instead of one solution, we now have infinitely many.
+\end{exm}
