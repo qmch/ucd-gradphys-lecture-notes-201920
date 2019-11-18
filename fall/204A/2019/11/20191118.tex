@@ -1,0 +1,183 @@
+Last time we started discussing Sturm-Liouville problems. Let's take a step back and revisit a few examples of Green's functions.
+%we have to continue marching on like the planets in the sky.
+
+\subsection*{Green's functions on infinite intervals}
+Previously, we had self-adjoint operators which defined differential equations, such that their Green's functions $G$ satisfy the (schematically written) equation
+\begin{equation}
+    (pG')' + q G  = \delta.
+\end{equation}
+Before, we had boundary conditions on a finite interval $[a,b]$, like $y'(a)=y'(b)=0$. What if we instead have an infinite interval? Consider
+\begin{equation}
+    y''-k^2 y =0
+\end{equation}
+on the whole real line. The general solution is
+\begin{equation}
+    y=Ae^{kx} + Be^{-kx}.
+\end{equation}
+We can fit boundary conditions on finite intervals or indeed on semi-infinite intervals like $[0,+\infty)$. For instance on $[0,+\infty)$ we could take $A=0$. We certainly don't want the $e^{+kx}$ solution for physical problems on such an interval because it's not normalizable-- it blows up as $x\to +\infty$.
+
+If we now take the full $(-\infty,\infty)$ interval we cannot construct an individual smooth solution on this interval-- we can write down instead
+\begin{equation}
+    y=e^{-k|x|},
+\end{equation}
+but our boundary conditions now exclude $e^{k|x|}$.
+
+Let us construct the Green's function $y_g$ satisfying
+\begin{equation}\label{waveeqn_green}
+    y''_g + k^2 y_g =\delta(x-x').
+\end{equation}
+That is, our solution takes the form
+\begin{equation}
+    y_{L,R}(x) = A_{L,R} e^{ikx} + B_{L,R} e^{-ikx}.
+\end{equation}
+On either side of $x'$, it is a linear combination of the solutions to the homogeneous equation.
+
+The convention for which wave solutions are right-movers and which are left-movers comes from Kirchhoff. To understand this, we need to recognize that the equation we've written down is really the Fourier-transformed version of a time-dependent PDE. By convention, positive-frequency modes have a time dependence
+\begin{equation}
+    e^{-ikt}.
+\end{equation}
+Hence our modes with time dependence are really
+\begin{equation}
+    e^{ik(x-t)},\quad e^{-ik(x+t)}.
+\end{equation}
+We see that the first solution has constant phase on lines
+\begin{equation}
+    k(x-t)= \delta \implies x = t + \frac{\delta}{k},
+\end{equation}
+so these are the right-movers. Conversely points of constant phase move to more negative $x$ as $t$ increases, so the solutions $e^{-ikx}$ are the left-movers.
+
+Let us now impose the boundary conditions that the wave is purely right-going on the right of the $\delta$-function $\delta(x-x')$ and left-going on the left. That is,
+\begin{equation}
+    y = \begin{cases}
+        y_L = Be^{-ikx} & x > x'\\
+        y_R = A e^{ikx} & x < x'.
+    \end{cases}
+\end{equation}
+Now we must fix these constants based on the boundary at $x=x'$. Continuity gives us
+\begin{equation}
+    y_L(x') = y_R(x') \implies B=Ae^{2ik x'}
+\end{equation}
+and integrating the equation \ref{waveeqn_green} over a $(x'-\epsilon, x' + \epsilon)$ interval gives the discontinuity in the derivative. That is,
+\begin{equation}
+    y_R'(x') - y_L'(x') = 1 \implies
+    ikA e^{ikx'} + ik B e^{-ikx'} = 1.
+\end{equation}
+Plugging in and solving we find that
+\begin{equation}
+    2ikA e^{ikx'} = 1,
+\end{equation}
+so
+\begin{equation}
+    A= \frac{1}{2ik} e^{-ikx'}, \quad B = \frac{1}{2ik} e^{ikx'}
+\end{equation}
+and therefore
+\begin{equation}
+    y= \frac{1}{2ik} e^{ik|x-x'|}.
+\end{equation}
+We can in fact do this calculation in a different, faster way via the method of contour integrals. But we see the analysis extends in a straightforward way to the infinite interval.
+
+%Let's just be militant now. We want to shoot something.
+
+\subsection*{Green's functions with one-sided boundary conditions}
+So far our examples have had two-sided boundary conditions, but we can also examine one-sided boundary problems. Consider
+\begin{equation}
+    y''+y = f(t).
+\end{equation}
+This is just a driven oscillator. Let us suppose the force begins driving the oscillator (a pendulum, or something) at some time $t=0$, and that the oscillator was at rest before,
+\begin{equation}
+    y(0) = y'(0) = 0.
+\end{equation}
+These are one-sided boundary conditions. We can analyze this with the Green's function method, taking our driving force to be a delta function impulse spike at time $t$,
+\begin{equation}
+    y''+y = \delta(x-t).
+\end{equation}
+Hence we can write
+\begin{align}
+    y_L &= A_L \sin x + B_L \cos x,\\
+    y_R &= A_R \sin x + B_R \cos x.
+\end{align}
+Our initial condition that $y(0)= y'(0)=0$ implies that $A_L=B_L=0$. The particle stays at rest until hit by the impulse at time $t$, so
+\begin{equation}
+    y_L= 0.
+\end{equation}
+Both the integration constants are therefore in $y_R$. By continuity,
+\begin{equation}
+    y_L(t) = y_R(t) \implies A_R \sin t + B_R \cos t = 0.
+\end{equation}
+The other boundary condition gives us
+\begin{equation}
+    y_R'(t) - y_L'(t) = 1 \implies A_R \cos t  -B_R \sin t =1.
+\end{equation}
+Solving we find that
+\begin{equation}
+    G = \begin{cases}
+        0 & x < t\\
+        \sin(x-t) & x > t.
+    \end{cases}
+\end{equation}
+Hence the solution for a general driving force is
+\begin{equation}
+    y(x) = \int_0^x dt f(t) \sin(x-t).
+\end{equation}
+That is, we say that the final motion is nothing more than the sum of the impulses from the driving force, added up only until the time we are looking at. This is the \term{retarded Green's function}.
+
+We could have changed the boundary conditions, though. Instead of having an oscillator at rest that gets a kick from the delta function, we could have had an oscillator moving with one unit of momentum, and then we hit it exactly right to cancel its momentum and leave it stopped at all future times.
+%It's the archaic solution of the fly tape. The fly is buzzing around, it hits the tape, and you have solved the problem.
+
+\subsection*{Formal integral solutions}
+There are three main mathematical formalisms we use to do quantum mechanics. We can use infinite-dimensional matrix equations, differential equations, or integral formulations (path integrals). Let us discuss the integral idea a bit more.%
+    %\footnote{There are generalizations of the Riemann integral, one useful one being the Lebesgue integral, and sometimes these integrals have nice properties.}
+
+Let us consider the equation
+\begin{equation}
+    \cL y = \lambda y.
+\end{equation}
+We are used to thinking of this as an eigenvalue problem. But suppose instead we considered it as an inhomogeneous equation, i.e. it is certainly of the form
+\begin{equation}
+    \cL y = f,\quad f\equiv \lambda y.
+\end{equation}
+Hence we can write down the solution in terms of the Green's function as
+\begin{equation}
+    y(x) =\int_a^b dt\, G(x,t) f(t) = \lambda \int_a^b dt\, G(x,t) y(t).
+\end{equation}
+Such equations are known as Fredholm integral equations. A closely related variant is the Volterra integral equation, which allows $x$ to be one of the integration limits as well.%
+    \footnote{We saw such an equation in the retarded Green's function for the driven oscillator, above.}
+Hence we have rewritten this as an inverse problem,
+\begin{equation}
+    Ay = \lambda y \implies y = \lambda \frac{1}{A} y.
+\end{equation}
+For finite matrices we don't really gain anything from doing this but in the infinite-dimensional case sometimes integrals produce quantities that are nicer to work with.
+
+Notice that if we hit both sides with the operator $\cL$, we get
+\begin{equation}
+    \cL_x y(x)= \lambda \int_a^b dt\, \cL_x G(x,t) y(t).
+\end{equation}
+Provided that the operator is self-adjoint and $G$ obeys the boundary conditions, we see that this formal expression precisely solves the original differential equation, i.e.
+\begin{equation}
+    \cL_x y(x) = \lambda \int_a^b dt\, \cL_x G(x,t) y(t) = \lambda \int_a^b dx\,\delta(x-t) y(t) = \lambda y(t).
+\end{equation}
+
+The story of the path integral is well-documented in Feynman-Hibbs, which establishes how Feynman turned Dirac's idea about infinitesimal propagation of the wavefunction into the language of Green's functions and from there to an integral equation compactly expressing quantum mechanics in the language of a sum over amplitudes.
+
+Consider the free wave equation
+\begin{equation}
+    y''+k^2 y = 0.
+\end{equation}
+We might imagine a guitar player plucking a string, giving it some initial displacement and maybe a bit of initial velocity too. An interesting question might then be to decompose this initial disturbance into some set of complete modes-- namely, the harmonics of the string. The ends of the string fix some boundary conditions, that the wave must be zero at $x=0$ and $x=L$. Hence we get the standing waves of the string, which take the form
+\begin{equation}
+    \sin\paren{\frac{n\pi x}{L}},
+\end{equation}
+and we find that the permitted wavelengths take discrete values. $\lambda = L/n$. Treating this now as a Schr\"odinger problem, the energy is proportional to $(y'(x))^2$, so we see that the modes with large $n$ (more nodes) have larger energy, and this holds more generally. Certain modes are excluded by the boundary conditions because they interfere destructively at the boundaries, and modes with more nodes are higher-energy. This analysis works so long as our operators are Hermitian. If we permit strange boundary conditions or worse, regular singular points, then we could have examples of momenta leaking into the nucleus and other nonphysical behavior.
+
+Suppose we have an operator of the form
+\begin{equation}
+    \cL y = (py')'+ qy.
+\end{equation}
+Under what conditions is it self-adjoint? We see that
+\begin{align}
+    \int_a^b z^* \cL y &= \int_a^b q yz^* + \int\paren{[z^*(py')]' - (z^*{}' py)' + y(z^*{}' p)'}\\
+        &= \int_a^b y \cL z^* + \bkt{p(z^*y'-yz^*{}')}_a^b.
+\end{align}
+That means that if this boundary term vanishes, then the operator is Hermitian and we get all the nice properties about orthogonality of eigenfunctions and so on.%
+    \footnote{One more comment on references-- Ince is unsurpassed in his discussion of Sturm-Liouville problems.} %indiana jones of mathematical physics
+
