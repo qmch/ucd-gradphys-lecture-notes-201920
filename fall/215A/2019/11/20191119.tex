@@ -1,0 +1,152 @@
+\subsection*{Path integrals and canonical quantization} 
+Today we'll examine the connection between path integrals and canonical quantization. Let us recall that
+\begin{equation}
+    \braket{x_f,t_f}{x_i,t_i} = \int \bkt{\cD x(t)} e^{\frac{i}{\hbar}S[x(t)]}.
+\end{equation}
+%
+We can now make a change of variables, i.e. consider a reparametrization
+\begin{equation}
+    x(t) \to x(t) + \delta x(t), \quad \delta x(t_i) = \delta x(t_f)=0.
+\end{equation}
+That is, we consider a variation in the path. Hence
+\begin{equation}
+    S[x(t)] \to S[x(t)+ \delta x(t)] = S[x(t)] + \frac{\delta S}{\delta x}\delta x(t) + \ldots,
+\end{equation}
+and we now consider the quantity
+\begin{equation}
+    \int \bkt{\cD(x(t) + \delta x(t))} e^{\frac{i}{\hbar } S[x(t)+ \delta x(t)]} - \int \bkt{\cD x(t)} e^{\frac{i}{\hbar} S[x(t)]}.
+\end{equation}
+That is, how much has the path integral changed under this variation? Since $x(t) \to x(t) +\delta x(t)$ is just relabeling paths and $\cD$ tells us to sum over all paths, we have
+\begin{equation}
+    \bkt{\cD(x(t) + \delta x(t))} = \bkt{\cD x(t)}.
+\end{equation}
+Hence our expression is
+\begin{equation}
+    \int \bkt{\cD x(t)} \set*{ e^{\frac{i}{\hbar} (S[x(t)] + \frac{\delta S}{\delta x}\delta x)} - e^{\frac{i}{\hbar} S[x(t)]}},
+\end{equation}
+and keeping terms to $O(\delta x)$ we find that
+\begin{equation}
+    \int[\cD x(t)] e^{\frac{i}{\hbar} S[x(t)]} \paren{1+\frac{i\delta S}{\hbar \delta x} \delta x -1} = \frac{i}{\hbar} \int \bkt{\cD x(t)} e^{\frac{i}{\hbar} S[x(t)]} \frac{\delta S}{\delta x} \delta x.
+\end{equation}
+Hence the fact that relabeling paths (with fixed boundary conditions) doesn't change $\braket{x_f,t_f}{x_i,t_i}$ tells us that
+\begin{equation}
+    \int \bkt{\cD x(t)} e^{\frac{iS}{\hbar}} \frac{\delta S}{\delta x} \delta x = 0.
+\end{equation}
+We use the fact that
+\begin{equation}
+    \frac{\delta S}{\delta x} \delta x = \delta_\text{tot} S,
+\end{equation}
+which tells us that
+\begin{equation}
+    \avg{\delta_\text{tot} S} = 0,
+\end{equation}
+where we define expectation values to be
+\begin{equation}
+    \avg{A} = \frac{\int [\cD x(t)] A e^{\frac{i}{\hbar}S[x(t)]}}{\int [\cD x(t)] e^{\frac{i}{\hbar}S[x(t)]}}.
+\end{equation}
+For instance, in the harmonic oscillator we would have
+\begin{equation}
+    \avg{\hat x^2(\tilde t)} = \frac{\int [\cD x(t)]x(\tilde t)^2 e^{\frac{iS[x(t)]}{\hbar}}}{\int [\cD x(t)] e^{\frac{iS[x(t)]}{\hbar}}}.
+\end{equation}
+But if $\delta_\text{tot} S$ vanishes, then we recover the classical equations of motion. This tells us that \emph{classical equations of motion hold inside expectation values}. This is Ehrenfest's theorem.%
+    \footnote{This is not the same statement as saying that expectation values obey classical equations of motion! Clearly, $\avg{x}^2$ and $\avg{x^2}$ are in general different quantities. When we apply the theorem, it's the latter we want to use.}
+$S[\hat x, \hat p]$ is an operator, as is $\delta_\text{tot}S$. Quantum mechanics realizes the classical equations of motion as an expectation value/average statement
+\begin{equation}
+    \avg{\delta_\text{tot}S} =0.
+\end{equation}
+
+We have spent a whole lecture trying to calculate the denominator that appears in the path integral expectation value. But in general this same factor appears both in the numerator and denominator, so the exact normalization of the path integral is not usually too important. The one place it does matter is when we Wick rotate (analytically continue) to imaginary time-- then the integral has the interpretation of the thermal partition function $Z$, as we saw on homework 6.%
+    \footnote{In QFT, we sometimes denote this factor by $Z$ anyway to emphasize the analogy.}
+
+\subsection*{Canonical quantization}
+We would like to show that the momentum operator actually has the form $\hat p = -i\hbar \P{}{x}$ in the position basis. Rather than varying the entire path, let us move one of the endpoints. That is, we consider the difference
+\begin{equation}
+    \braket{x_f+ \delta x_f,t_f}{x_i,t_i} - \braket{x_f,t_f}{x_i,t_i},
+\end{equation}
+keeping the time interval $[t_i,t_f]$ fixed. Taylor expanding the first term, this difference is therefore
+\begin{equation}
+    \P{}{x_f} \avg{x_f,t_f}{x_i,t_i} \delta x_f
+\end{equation}
+to linear order in $\delta x_f$. Then
+\begin{align}
+    \P{}{x_f} \braket{x_f,t_f}{x_i,t_i} \delta x_f &= \int [\cD x(t)] e^{iS[x(t) + \delta x(t)/\hbar} - \int[\cD x(t)] e^{\frac{i}{\hbar} S[x(t)]}\\
+        &= \int [\cD x(t)] \paren{\frac{i}{\hbar} \delta_\text{tot} S} e^{\frac{i}{\hbar} S[x(t)]}\\
+        &= \int [\cD x(t)] \frac{i}{\hbar} \bkt{\int_{t_i}^{t_f} \paren{\frac{d}{dt} \paren{\P{\cL}{\dot x} }- \P{\cL}{x}}dt + \P{\cL}{\dot x} \delta x|_{x_i}^{x_f}} e^{\frac{i}{\hbar}S}.
+\end{align}
+That is, we rewrote the path integrals from the previous equation in integral form, and we found that what appears is again the total variation of the action. Note that the integration measure $[\cD x(t)]$ doesn't change even when we change the endpoints.%
+    \footnote{This is like going from the interval $[a,b]$ to $[a,b+\delta b]$. The measure $dx$ doesn't change.}
+
+But now this first term is zero because the trajectories satisfy the equations of motion upon taking the expectation value. What remains is a non-vanishing boundary term; $\delta x$ is $\delta x_f$ at $x_f$, so we find that the RHS reduces to
+\begin{equation}
+    \int [\cD x(t)] e^{\frac{iS}{\hbar}} \frac{i}{\hbar} \P{\cL}{\dot x}|_{x_f} \delta x_f = \int [\cD x(t)] e^{\frac{iS}{\hbar}} \frac{i}{\hbar} p_f \delta x_f.
+\end{equation}
+By comparing to the derivative expression, we conclude that
+\begin{equation}
+    \P{}{x_f} \braket{x_f,t_f}{x_i,t_i} = \int[ \cD x(t)] e^{\frac{iS}{\hbar}} \frac{i}{\hbar} p_f \implies p_f = -i\hbar \P{}{x_f}
+\end{equation}
+The reason this worked is because we've secretly been using the Heisenberg equations of motion, i.e. that time evolution happens by $U(t)=e^{-iHt/\hbar}$.
+
+Similarly one can check%
+    \footnote{Exercise.}
+that
+\begin{align}
+    \P{}{t_f} \braket{x_f,t_f}{x_i,t_i} = \int [\cD x(t)] e^{\frac{i}{\hbar}S} \frac{i}{\hbar}(-H(t_f)).
+\end{align}
+Hence we recover Schr\"odinger's equation from the path integral. Indeed, we can derive the representation of all sorts of conserved quantities by considering variations of path integrals, e.g. the angular momentum operator from rotational invariance. Such average operator-level identities are known as Ward identities.
+
+\subsection*{Connection to statistical mechanics}
+Recall that the thermal partition function is
+\begin{align}
+    Z(\beta) &=\sum_n e^{-\beta E_n}\\
+        &= \int_{-\infty}^\infty dx \,K(x, -i\beta \hbar; x,0),
+\end{align}
+as we proved on the homework. That is, we rotate to Euclidean time.%
+    \footnote{In relativity language, our metric now has signature $+,+,+,+$.}
+We define $t_E = i t$, where $t$ was the physical time (in Lorentzian signature, if we like). Hence $dt = -idt_E$, so that
+\begin{equation}
+    S= \int dt \bkt{\frac{m}{2}\paren{\frac{dx}{dt}}^2 - V(x)} \to i \int dt_E \bkt{\frac{m}{2} \paren{\frac{dx}{dt_E}}^2 + V(x)}\equiv iS_E[x],
+\end{equation}
+This rewritten term now looks like a Hamiltonian, but with respect to Euclidean time rather than physical time. The quantity $S_E$ denotes the \term{Euclidean action}.%
+    \footnote{We have expanded $x[t]$ as an analytic function of $t$ and analytically continued to the complex plane. Hence the arrow, rather than the equals sign.}
+Hence
+\begin{equation}
+    \int [\cD x] e^{\frac{i}{\hbar}} \xrightarrow{t\to -it_E} \int [\cD x] e^{-\frac{1}{\hbar} S_E[x]}.
+\end{equation}
+If our Hamiltonian is to be sensible (stable), then its value must be bounded from below, which means that instead of some oscillating function we now have something that converges nicely; it is exponentially damped.
+
+For our last trick, let's show that if we evaluate this for the harmonic oscillator, we get the harmonic oscillator partition function. In real time we had the path integral
+\begin{equation}
+    K(x_f,t_f; x_i,t_i) = \exp \bkt{\frac{im\omega}{\hbar}\frac{(x_i^2+ x_f^2) \cos \omega (t_f-t_i) -2x_i x_f}{\sin\omega(t_f-t_i)}}\sqrt{\frac{\m\omega}{2\pi i \hbar\sin(\omega(t_f-t_i))}}.
+\end{equation}
+If we now evaluate $K(x,-i\beta \hbar; x,0)$ we get
+\begin{align}
+    K(x,-i\beta \hbar; x,0) &= \exp \bkt{-\frac{m\omega}{\hbar}\frac{2x^2 (\cosh (\beta \hbar \omega) -1)}{\sinh (\beta \hbar\omega)}}\sqrt{\frac{\m\omega}{2\pi \hbar\sinh(\beta\hbar\omega)}}\\
+        &= \exp \bkt{-\frac{m\omega}{\hbar} \tanh \paren{\frac{\beta \hbar \omega}{2}}x^2} \sqrt{\frac{m\omega}{\sqrt{2\pi \hbar \sin(\beta \hbar \omega)}}},
+\end{align}
+where we have made our lives a bit easier by using a hyperbolic trig identity. If we now perform the $x$ integral, we see that
+\begin{align}
+    \int_{-\infty}^\infty dx \, K(x,-i\beta \hbar; x,0) &= \sqrt{\frac{m\omega}{2\pi \hbar \sinh(\beta\hbar \omega)}} \sqrt{\frac{\pi \hbar}{m\omega \tanh \paren{\frac{\beta \hbar \omega}{2}}}}\\
+        &= \frac{1}{2\sinh \paren{\frac{\beta \hbar \omega}{2}}}\\
+        &= \sum_{n=0}^\infty e^{-\beta \hbar \omega (n+1/2)}.
+\end{align}
+We have recovered the thermal partition function of the harmonic oscillator, as promised.
+
+Let's observe that when we go from real to imaginary time, the Euclidean coordinate $t_E$ parametrizes a circle of size $\beta\hbar$. That is, the new coordinate is periodic. Let us write now
+\begin{equation}
+    K(x,t_E = \beta \hbar; x,0) = \braket{x,t_E = \beta \hbar}{x,0}.
+\end{equation}
+But since we are working on a circle, it follows that
+\begin{equation}
+    \bra{x,t_E = \beta \hbar} = (\ket{x,0})^\dagger
+\end{equation}
+if we now identify $t_E = 0$ and $t_E = \beta \hbar$.%
+    \footnote{In an equivalence relation way, if you like.}
+Moreover, if we now cut this circle in half, we get two copies of the original $\bra{}$ and $\ket{}$ states. In particular each half is the thermofield double state $\ket{\text{TFD}}$, such that
+\begin{equation}
+    \ket{\text{TFD}} = \sum_{n=0}^\infty e^{-\beta E_n/2} \ket{E_n} \otimes \ket{E_n},
+\end{equation}
+and the whole partition function is
+\begin{equation}
+    \braket{\text{TFD}}{\text{TFD}} = Z(\beta).
+\end{equation}
+The correspondence here is such that statistical physics relies on real Boltzmann weights, whereas quantum mechanics uses complex weights (phase factors). This is effectively why we can translate between the two by analytically continuing to imaginary time.
