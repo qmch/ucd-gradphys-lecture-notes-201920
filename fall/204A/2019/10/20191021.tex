@@ -31,7 +31,9 @@ That is, if we have a Taylor expansion
 \end{equation}
 then we can get the next derivative and therefore higher derivatives, provided that the functions are sufficiently differentiable. Hence the problem of finding a solution reduces to the process of differentiation itself.
 
-This line of thinking produced the theorems of Peano and Picard-Lindelof, which placed constraints on how far we could extend our solution around the initial condition. And we can take our extended solution and extend a bit more. In general we get curves through phase space. If the equation is sufficiently nice, curves in phase space do not intersect. When they do, we call it a singularity. One example of a really bad singularity is $e^{1/z}$ as $z\to 0$. No derivative of this function exists as $z\to 0$.
+This line of thinking produced the theorems of Peano and Picard-Lindel\"of, which placed constraints on how far we could extend our solution around the initial condition.%
+    \footnote{There's a very readable write-up on the Picard-Lindel\"of theorem here: \url{https://ptolemy.berkeley.edu/projects/embedded/eecsx44/lectures/Spring2013/Picard.pdf} with a nice little sojourn into the world of operator fixed-point theory. Would recommend if you have a basic understanding of mathematical analysis.}
+And we can take our extended solution and extend a bit more. In general we get curves through phase space. If the equation is sufficiently nice, curves in phase space do not intersect. When they do, we call it a singularity. One example of a really bad singularity is $e^{1/z}$ as $z\to 0$. No derivative of this function exists as $z\to 0$.
 
 In general, we know that an $n$th order differential equation depends on $n$ integration parameters. That fixes what point we start at in phase space. Moreover, sometimes our equations have symmetries, conserved quantities which can reduce the dimension of our problem in phase space. It was Emmy Noether who figured out that continuous symmetries imply the existence of conserved charges. Noether's theorem tells us that the invariance under complex phases of quantum mechanics results in the conservation of probability in quantum mechanics.
 %You break that symmetry, dragons can attack you.
@@ -64,7 +66,7 @@ Hence we can rewrite our equation as
 \end{equation}
 Note that we can certainly evaluate these derivatives in whatever order we want, since derivatives commute:
 \begin{equation}
-    [(D-\alpha_k),(D-\alpha_N)]=0.
+    [(D-\alpha_k),(D-\alpha_n)]=0.
 \end{equation}
 
 In order for the big product to vanish, we must have $(D-\alpha_k)f=0$ for any such root (assuming they are nondegenerate). Hence
@@ -89,13 +91,13 @@ Hence the exponential factor $e^{\alpha x}$ will cancel the dependence $e^{-\alp
 %All of the hamburgers will disappear and you will just get pure bread.
 This sort of behavior shows up in resonance in classical mechanics, as well as in Pais \& Uhlenbeck effects in quantum mechanics.
 
-We see that the homogeneous linear ODE is therefore completely solved. Note that we will not discuss nonlinear ODEs for the time being, i.e. equations involving differential operators $F$ such that
+We see that the homogeneous linear ODE with constant coefficients is therefore completely solved. Note that we will not discuss nonlinear ODEs for the time being, i.e. equations involving differential operators $F$ such that
 \begin{equation}
     F(f+g) \neq F(f) + F(g).
 \end{equation}
 For instance, consider the equation
 \begin{equation}
-    y' + ay + by^2 +C=0.
+    y' + ay + by^2 +c=0.
 \end{equation}
 If $a,b,c$ are all constants then this equation is separable. If $c=0$ we can change variables and perhaps find a solution by dividing by $y^2$ and rewriting in terms of $w=-1/y$ as
 \begin{equation}
@@ -130,15 +132,16 @@ is also a solution or more generally
 \end{equation}
 for some set of solutions $y_p$. This is the generalization of the fact that $D^2y=0$ has solutions $y_1=1$ and $y_2=x$, so the general solution is $c_1 y_1 + c_2 y_2 = c_1 + c_2x$.
 
-One can then ask how many solutions we need to entirely span the space of solutions. The way to do this is to (re)introduce the notion of linear independence. That is, if there exists $c_p$ not all zero such that $\sum_{p=1}^N c_p y_p=0$ at \emph{every point in the interval}, then the $y_p$s are linearly \emph{dependent}. If no such $c_p$ exist, then the $y_p$ are linearly independent.
+One can then ask how many solutions we need to entirely span the space of solutions. The way to do this is to (re)introduce the notion of linear independence. That is, if there exists $c_p$ not all zero such that $\sum_{p=1}^N c_p y_p=0$ at \emph{every point in the interval}, then the $y_p$s are linearly \emph{dependent}. If no such $c_p$ exist, then the $y_p$ are linearly independent.%
+    \footnote{In other words, linear dependence says that we can build a perfect match for (at least) one of the $y_p$s out of linear combinations of all the others, so there is redundancy in our set of solutions.}
 
-Notice that for linear dependence, $\sum c_p y_p=0$ at \emph{every point $x$} in the interval, which means in particular that their derivatives in this linear combination must also vanish. That is,
+Notice that for a set of functions to be linearly dependent, we require that $\sum c_p y_p=0$ at \emph{every point $x$} in the interval, which means in particular that their derivatives in this linear combination must also vanish. That is,
 \begin{equation}
     \sum c_p y_p(x) = 0\implies \sum c_p y_p'(x) = 0
 \end{equation}
 and in general
 \begin{equation}
-    \sum c_p y_p^{N-1}(x) =0.
+    \sum c_p y_p^{(N-1)}(x) =0.
 \end{equation}
 But now this is just a system of $N$ linear equations on the coefficients $c_p$:
 \begin{equation}

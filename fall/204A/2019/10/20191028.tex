@@ -32,7 +32,8 @@ Let us notice that if $y(x)$ and $y(-x)$ both solve a differential equation, the
 \end{equation}
 This sort of trick works for potentials that are themselves even.
 
-Let us now try to extend this power series trick. Maybe our differential equation includes regular singular points and forces us to start our series expansion at the power $x^s$ so that we get terms $x^s, x^{s+1},\ldots$. Here $s\in\RR$ but we do not take $s$ to a priori be an integer. Its values will in general be fixed by an \term{indicial equation}, as we'll see shortly.
+\subsection*{The Frobenius method}
+Let us now try to extend this power series trick. Maybe our differential equation includes regular singular points and forces us to start our series expansion at the power $x^s$ so that we get terms $x^s, x^{s+1},\ldots$. Here $s\in\RR$ but a priori, we do not require $s$ to be an integer. Its values will in general be fixed by an \term{indicial equation}, as we'll see shortly.
 
 That is, let us write a series expansion
 \begin{equation}
@@ -40,12 +41,12 @@ That is, let us write a series expansion
 \end{equation}
 This is called the \term{Frobenius method}.
 
-We could solve equations of the form
+Using this method, we could solve equations of the form
 \begin{equation}
     y'' + \frac{\alpha}{x} y' + \frac{\beta}{x^2}y=0
 \end{equation}
 in this way, where primes indicate derivatives with respect to $x$. This is called the \term{Euler equation.} Note that if we replace the independent variable with $x = e^t$ then solutions take the form $e^{pt}$ or in terms of the original variable $x^p$ for some $p$.%
-    \footnote{This is an exercise. Notice that $\log x = p \implies dx/x = dp$. Find $p$ in terms of $\alpha$ and $\beta$.}
+    \footnote{This is an exercise. Notice that $\log x = t \implies dx/x = dt$. Find $t$ in terms of $\alpha$ and $\beta$. If you'd like to check your work, see \url{https://en.wikipedia.org/wiki/Cauchy\%E2\%80\%93Euler_equation}. There are actually three (two and a half) ways you could solve this. One is to guess the solution as some $x^m$ and then figure out $m$ from the equation. The next is to make the change of variables suggested and then solve the equation with constant coefficients. The last is to assume a Frobenius series solution. You won't get an indicial equation, and you actually won't get a recursion relation. But you will get a constraint involving $n,s,\alpha$, and $\beta$. Since it must hold for all $n$, you can then take $n=0$ to find a value for $s$. This reduces to the first way, so it only counts as half.}
 
 Let us try to apply this to the harmonic oscillator. Thus
 \begin{equation}
@@ -189,7 +190,7 @@ which is quadratic in $s$. Hence we can solve this for $s$ explicitly!
 
 Let us now suppose that the indicial equation is one of the bad ones. That is, its roots are 
 \begin{equation}
-    s=\alpha, s=\alpha-n\text{ for }n\in \ZZ.
+    s=\alpha, \alpha-n\text{ for }n\in \ZZ.
 \end{equation}
 Hence Frobenius will fail to give us both solutions. What we will do is ``zoom in'' on the bad case and consider what sorts of equations can give these bad roots. There must be some relation between $p_{-1}$ and $q_{-2}$ that causes Frobenius to break down. If we write an equation with the desired roots
 \begin{equation}

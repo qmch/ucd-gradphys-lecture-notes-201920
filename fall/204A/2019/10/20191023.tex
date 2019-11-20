@@ -63,9 +63,9 @@ Then its Wronskian is
     y_1 & y_2 & y\\
     y_1' & y_2' & y'\\
     -P y_1' -Q y_1 & -Py_2' - Q y_2 & -P y' - Q y
-    \end{vmatrix}.
+    \end{vmatrix},
 \end{equation}
-Now we recall an important fact about determinants. The determinant picks up sign changes under interchange of rows and columns, and more generally, if any row/column is a linear combination of the other rows/columns, then the whole determinant vanishes. That is, $W=0$ for three functions.
+where in the third row we have used the fact that $y_1,y_2,$ and $y$ are all solutions to the differential equation. Now we recall an important fact about determinants. The determinant picks up sign changes under interchange of rows and columns, and more generally, if any row/column is a linear combination of the other rows/columns, then the whole determinant vanishes. That is, because the third row is a linear combination of the other two, $W=0$ for three functions.
 
 We conclude that $\exists c,c_1,c_2$ not all zero such that
 \begin{equation}
@@ -81,7 +81,8 @@ Our general solution is a linear combination of the two linearly independent sol
     \footnote{For instance, we could write a solution in terms of sines and cosines or complex exponentials-- totally equivalent. For circuits, the complex exponential might be nicer; for some real waves, sines and cosines might be better.}
 %i like to reward you if you want to be living dangerously and be smart like that.
 
-Moreover, suppose we have one solution in hand, $y_1$ satisfying \ref{secondorderhomogeneous}. We can compute the Wronskian,
+\subsection*{The Wronskian method for a second solution}
+Suppose we have one solution in hand, some $y_1$ satisfying \ref{secondorderhomogeneous}. We can compute the Wronskian,
 \begin{equation}
     W(x)= W(x_0) e^{-\int_{x_0}^x dx\,P(x) } = \begin{vmatrix}
     y_1 & y_2 \\
@@ -145,19 +146,20 @@ Hence there might be singular points at $\infty$ in the $z\to 0$ limit. We get a
 \end{equation}
 which tells you that $P$ cannot diverge worse than linearly and $Q$ cannot diverge worse than quadratically in order to maintain regular singular points.
 
+\subsection*{Introducing the series method}
 Let us now try to solve the harmonic oscillator potential
 \begin{equation}\label{classicalharmonicoscillator}
     y'' + \omega^2 y =0
 \end{equation}
-by a series method,
+by a series method, i.e. we take the solution to have a Taylor expansion
 \begin{equation}
     y= \sum_{n=0}^\infty a_n x^n.
 \end{equation}
-Hence
+We have already solved it by our previous methods of factorization since the equation has constant coefficients, but this is the simplest interesting case to practice a new method on. We can take derivatives of this Taylor expansion to find
 \begin{equation}
     y'' = \sum_{n=0}^\infty (n)(n-1) a_n x^{n-2}=\sum_{n=2}^\infty (n)(n-1) a_n x^{n-2},
 \end{equation}
-since the first two terms are really zero. We redefine a dummy index
+since the first two terms are really zero. We redefine the dummy index
 \begin{equation}
     n=m+2,
 \end{equation}

@@ -129,15 +129,16 @@ with solution
 \begin{equation}
     y=Ae^{\lambda_1 x} + Be^{\lambda_2 x}.
 \end{equation}
-If $\Delta <0$ then there are two complex roots $\lambda_\pm = \mu + i\omega$, so that the equation factors as
+If $\Delta <0$ then there are two complex roots $\lambda_\pm = \mu \pm i\omega$, so that the equation can be rewritten as%
+    \footnote{A little more slowly: $(D-\lambda_+)(D-\lambda_-)y = (D-\mu -i\omega)(D-\mu + i\omega)y =[(D-\mu)^2 + \omega^2]y$, since this is a difference of squares.}
 \begin{equation}
     \bkt{(D-\mu)^2 + \omega^2}y =0.
 \end{equation}
 Recall that $(D^2+\omega^2)y=0$ has solutions $y=Ae^{i\omega x} + B e^{-i\omega x}$, so then
 \begin{align*}
     p(D) y &= (e^{\mu x} D^2 e^{-\mu x} + \omega^2) y\\
-        &= e^{\mu x} (D^2 +\omega^2) e^{-\mu x} y\\
-        &= 0 \implies e^{-\mu x} y = A e^{i\omega x}  +Be^{-i\omega x}.
+        &= e^{\mu x} (D^2 +\omega^2) e^{-\mu x} y= 0\\
+        &{}\implies e^{-\mu x} y = A e^{i\omega x}  +Be^{-i\omega x}.
 \end{align*}
 Hence the solutions are both oscillating and growing or decaying exponentially with time,
 \begin{equation}
@@ -149,15 +150,15 @@ Finally, we could have $\Delta =0$, which gives a double root at $\lambda$. Then
     p(D)y&= (D-\lambda)^2 y =0\\
         &= e^{\lambda x}D^2 e^{-\lambda x} y=0.
 \end{align*}
-But this tells us we want some $z$ such that $D^2 z=0$, and hence
+But this tells us $e^{-\lambda x}y$ is equal to some function $z$ such that $D^2 z=0$ (it is in the kernel of the operator $D^2$), and hence
 \begin{equation}
      e^{-\lambda x} y = A + Bx,
 \end{equation}
 which gives
 \begin{equation}
-    y= e^{+\lambda x} (A +Bx).
+    y= e^{\lambda x} (A +Bx).
 \end{equation}
-This is equivalent to the statement that $e^{\lambda x}, xe^{\lambda x}$ are in the kernel of $(D-\lambda)^2$.
+Equivalently, we have found that $e^{\lambda x}, xe^{\lambda x}$ are in the kernel of $(D-\lambda)^2$.
 In each of these cases, we look for the kernel of some differential operator and set it equal to a known expression.
 
 Now can we do this for an inhomogenous equation? Indeed we can.
@@ -168,15 +169,18 @@ Consider
 \end{equation}
 so
 \begin{equation}
-    (D^2-3D +2) y = (D-1)(D-2) y e^x,
+    (D^2-3D +2) y = (D-1)(D-2) y = e^x,
 \end{equation}
-so now $(D-1)z(x) e^x$ has solution $z(x) = Ae^x + e^x$ and so
+so now we can rewrite this as $(D-1)z(x)= e^x$, with $z=(D-2)y$. This equation has a solution%
+    \footnote{This follows because $(D-1)z = e^x$ is the same as $e^x D e^{-x} z = e^x$. Solving, we have $De^{-x} z = 1 \implies z = Ae^x + x e^x$.}
+$z(x) = Ae^x + xe^x$ and so
 \begin{equation}
-    (D-2)y = Ae^x + xe^x.
+    (D-2)y = z(x) = Ae^x + xe^x.
 \end{equation}
-Then
+Then%
+    \footnote{Let's do this one more time. Our equation is now $e^{2x}D e^{-2x} y = Ae^x + xe^x$, so $De^{-2x} y = Ae^{-x} + xe^{-x}$. Now we integrate. The first term is easy, that's just $-Ae^{-x}$. The second term can be done by parts: $\int dx\, x e^{-x} = -xe^{-x} -\int dx\, \paren{-e^{-x}}= - xe^{-x} -e^{-x}.$ Thus $e^{-2x} y = -Ae^{-x} -xe^{-x} - e^{-x} + B$, picking up a constant of integration, so $y= -e^x -xe^{x} - Ae^x + Be^{2x}.$ We can also absorb the $-e^x$ term into $A$ if we wish. The inhomogeneous solution is therefore just $-xe^x$, and we have two free parameters $A$ and $B$ since this is a second-order equation.}
 \begin{equation}
-    y= e^x - xe^x -Ae^x + Be^{2x}.
+    y= -e^x - xe^x -Ae^x + Be^{2x}.
 \end{equation}
 \end{exm}
 
@@ -185,7 +189,9 @@ Suppose we want to find a particular solution to
 \begin{equation}
     3y''-2y' + 6y = 5e^{3x}.
 \end{equation}
-Then my ansatz might be that the solution should be in the form of some constant times $e^{3x}$. But alternately, we could invert the differential operator. We know how to do this. With
+Then my ansatz might be that the solution should be in the form of some constant times $e^{3x}$.%
+    \footnote{In general such differential equations will have particular solutions of this form, i.e. if the inhomogeneous part is $e^{ax}$ then the particular solution will probably be $Ae^{ax}$. If that doesn't work, the next thing to try is $Axe^{ax}$.}
+But alternately, we could invert the differential operator. We know how to do this. With
 \begin{equation}
     (3D^2 -2D +6) y =5e^{3x},
 \end{equation}
@@ -222,11 +228,13 @@ Alternately, we might have a \term{regular singular point} where $P(x)$ has no w
     \begin{equation}
         x(x-1)y'' + [(1+a+b)x+c] y' + aby =0,
     \end{equation}
-    the hypergeometric equation. This equation has regular singular points at $x=0,x=1$. But we could also analyze the point at $x\to \infty$, where if we replace $x=\frac{1}{z}$ and write $w(z)= y(1/z)$, then with a bit of chain rule, our standard second order equation becomes
+    the hypergeometric equation. This equation has regular singular points at $x=0,x=1$. But we could also analyze the point at $x\to \infty$, where if we replace $x=\frac{1}{z}$ and write $w(z)= y(1/z)$, then with a bit of chain rule, our standard second order equation becomes%
+        \footnote{See Arfken 344 for the details.}
     \begin{equation}
-        w''+\bkt{\frac{2z-P(1/z)}{z^2}}w' + Q(1/z) w=0.
+        w''+\bkt{\frac{2z-P(1/z)}{z^2}}w' + \frac{Q(1/z)}{z^4} w=0.
     \end{equation}
-    Hence the equation we were given has a regular singular point at $x=\infty$.
+    If we analyze the particular form of $P$ and $Q$ here, we find that the hypergeometric equation has a regular singular point at $x=\infty$.%
+        \footnote{This is a little bit too quick. Here, $P(x) = \frac{(1+a+b)x +c}{x(x-1)}$. Hence $P(1/z)= \frac{(1+a+b)/z + c}{(1/z)(1/z-1)}= \frac{(1+a+b)z + cz^2}{1-z}.$ Now $P(1/z)/z^2$ diverges only as $1/z$ as $z\to 0$. Likewise $Q(1/z)=\frac{ab}{(1/z)(1/z-1)} = \frac{ab z^2}{1-z}$, so that $\frac{Q(1/z)}{z^4}\sim 1/z^2$, so these both diverge slowly enough for $x\to \infty$ to be a regular singular point.}
 \end{exm}
 
 There's one more nice fact about general linear second-order equations, which is that we can generally get rid of the order $y$ term. Set $y(x)=\alpha(x) z(x)$ for some $\alpha$. In particular if we choose
