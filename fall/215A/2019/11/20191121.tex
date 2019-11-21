@@ -1,0 +1,139 @@
+Today we'll discuss perturbation theory. This topic will be covered more fully in the next course Quantum II, but let's conceptually discuss anyway.
+
+Only a handful of problems can be solved exactly in quantum mechancis. For the rest, we often resort to perturbative techniques to study small changes from exact solutions.
+Consider the \term{anharmonic oscillator} with Hamiltonian
+\begin{equation}
+    \hat H = \frac{\hat p^2}{2m} + \frac{1}{2} m\omega^2 \hat x^2 + \frac{\lambda}{4!}\hat x^4.
+\end{equation}
+This Hamiltonian has a symmetry $\hat x \to -\hat x$, but for arbitrary $\lambda$ there is no general closed-form solution. However, if $\lambda \ll 1$ (that is, it is much smaller than the energy levels $\hbar \omega$ in the problem) then we can use perturbation theory to study the corrections in powers of $\lambda$. We write
+\begin{equation}
+    \hat H = \hat H_0 + \delta \hat H_\lambda,
+\end{equation}
+and we compute expectation values as
+\begin{equation}
+    \avg{A(\lambda)} = \avg{A(0)}+ \lambda \avg{A_1} + \lambda^2 \avg{A_2} + \ldots
+\end{equation}
+Let us note there is no guarantee these series actually converge to the ``true value.'' In general their radius of convergence is infinitesimally small and these are asymptotic series (that is, they converge as $\lambda \to 0$ but not as the powers $\lambda^n$ go to $\infty$). We can make sense of this with a process called Borel resummation and resurgence, if we are careful.
+
+Well, let us forge ahead anyway and treat our perturbation as small. That is, $V$ changes just a little bit, so we expect that the shifted oscillator will therefore have a spectrum similar to the original unperturbed oscillator. We've probably seen the formula before that
+\begin{equation}
+    E_n(\lambda) = E_{n,\text{osc}} + \delta E_n(\lambda)
+\end{equation}
+where the shift is given by
+\begin{align}
+    \delta E_n(\lambda) &= \bra{E_n} \delta H \ket{E_n}\\ &=\frac{3\lambda}{4!} \paren{\frac{\hbar}{2m\omega}}^2 (2n^2 + 2n +1) + O(\lambda^2).
+\end{align}
+We won't yet discuss the shift in the wavefunction because this problem is particularly complicated. Let us observe that the classical equations of motino are
+\begin{equation}
+    \ddot x + \omega^2 x + \frac{\lambda}{3!m} x^3 =0.
+\end{equation}
+If we suppose that
+\begin{equation}
+    x(t) = x_0(t)+\lambda x_1 (t)+\ldots
+\end{equation}
+then collecting terms at order $0$ and $O(\lambda)$ we have
+\begin{gather}
+    \ddot x_0(t) + \omega^2 x_0(t)=0\\
+    \ddot x_1(t) + \omega^2 x_1(t)+ \frac{1}{3! m} x_0^3(t) =0.
+\end{gather}
+The solution for $x_0$ is sines and cosines. But when we plug this into the second equation, we find that integrating by parts, our solutions actually grow with time. That is, $x_1(t) \to \infty$ as $t\to \infty$. This seems totally nonphysical-- it would be like setting up a pendulum and seeing the plumbob shoot off to arbitrarily large heights.
+
+What's gone wrong? It turns out we cannot trust the asymptotic time behavior of the first-order perturbed wavefunction. If we think of the perturbation as a driving force, there are in fact resonances because of the special spacing of the energy levels of the quantum harmonic oscillator. To solve this properly, we have to keep corrections to all orders and resum  [sic] the series to find the actual asymptotic behavior.
+
+Moreover, we should not trust perturbation theory at large energies because the characteristic energy of the oscillator may now be comparable to the perturbation.%revisit this statement?
+Nevertheless, even though the wavefunctions are hard to compute correctly, the energy corrections do work in perturbation theory, at least for the first few excited states.
+
+We can also compute so-called \term{correlation functions}, i.e. expectation values of the form
+\begin{equation}
+    \avg{\hat x(t_1) \hat x(t_2) \hat x(t_3) \ldots \hat x(t_n)} = \Tr (\rho \hat x(t_1) \ldots \hat x(t_n)).
+\end{equation}
+That is, we compare the values of $\hat x$ at different points in time. Here, $\hat x(t)$ is the Heisenberg operator
+\begin{equation}
+    \hat x(t) = U^\dagger(t,t_0) \hat x(t_0) U(t,t_0).
+\end{equation}
+We could also measure time-ordered correlators where $t_1 > t_2 > t_3 \ldots > t_{n-1} > t_n$. There are other such correlators we could compute-- if time ordering doesn't apply, we call these out-of-time-ordered correlators (OTOC), which have been of interest lately because they have been proposed as a measure of quantum chaos.
+
+Consider again the path integral representation, and let $A$ be some operator whose correlation functions we want to obtain. That is, let us write
+\begin{equation}
+    Z[J] = \int [\cD x] e^{\frac{i}{\hbar} S[x]+i \int dt J(t) A(t),}
+\end{equation}
+where we have now included a source term $J$. That is, $J(t)$ is now a classical function we get to pick. It turns on and off our operator $A(t)$. The correlation functions $A(t_1) A(t_2)$ are therefore given by
+\begin{align}
+    \avg{A(t_1)A(t_2)} =\frac{\int [\cD x] A(t_1) A(t_2) e^{\frac{i}{\hbar}S[x]}}{\int [\cD x] e^{\frac{i}{\hbar} S[x]}}.
+\end{align}
+That is, we compute expectation values in the same way as statistical mechanics. It's just that our weights are now pure phase. In particular, if we could compute $Z[J]$ exactly, we claim that we can get expectation values by differentiating the partition function. For notice that
+\begin{equation}
+    \avg{A(t_1)A(t_2)} = \frac{1}{Z[J]} \frac{\delta^2 Z[J]}{i^2 \delta J(t_1) \delta J(t_2)}|_{J=0}.
+\end{equation}
+This generalizes exactly to the quantum field theory case, where our operators are some fields and we can compute their correlation functions in coordinate space or perhaps momentum space, if we prefer.%
+    \footnote{See my QFT notes for more on this.}
+
+Since $Z[J]$ nicely gives us correlation functions, we shall call $Z[J]$ the generating function of correlators. Let's now find the generating function for the oscillator. The action is
+\begin{equation}
+    S_\text{osc} = \frac{1}{2}\int_{-\infty}^\infty dt \int_{-\infty}^\infty dt' \, x(t') D(t',t) x(t)
+\end{equation}
+where
+\begin{equation}
+    D(t',t) = m\paren{\P{}{t'} \P{}{t} - \omega^2}\delta(t-t').
+\end{equation}
+That is, we've just rewritten the oscillator Lagrangian in a funny way by breaking up the $t$ derivatives. Why did we do this? It makes our path integral look very much like a Gaussian. Hence
+\begin{equation}
+    Z_\text{osc}[J] = \int[\cD x] \exp \bkt{\frac{im}{2\hbar} \int_{-\infty}^\infty dt \int_{-\infty}^\infty dt'\, x(t') D(t',t) x(t) + \frac{i}{\hbar} \int_{-\infty}^\infty dt \,x(t) J(t)}.
+\end{equation}
+We've chosen $x(t)$ as the operator we're interested in. This is, morally speaking, just a Gaussian with a shift. Hence we can do it with our formula from before. Up to normalization, it is just
+\begin{equation}
+    Z[J] \propto \frac{1}{\sqrt{\det(D(t',t))}}\exp \paren{-\frac{1}{2m\hbar} \int_{-\infty}^\infty dt\int_{-\infty}^\infty dt' J(t') D^{-1}(t',t) J(t)}.
+\end{equation}
+These are really the continuous limit of integrals of matrices if we discretized time. That is, $D(t',t)$ is like a matrix $D_{ij}$ and the Gaussian term is like $D_{ij} x_i x_j$. Similarly, the $x(t) J(t)$ term becomes a dot product $x_i J_i$. If the continuous language makes you uncomfortable, think of these as discrete matrix sums and take the continuous limit.
+
+So we're done. But there's a nice trick we can now use. Our operator $D$ takes a simple form in momentum space.
+\begin{equation}
+    D(t',t) = m\int_{-\infty}^\infty \frac{d\nu}{2\pi} (\nu^2 -\omega^2) e^{i\nu(t-t')},
+\end{equation}
+so that
+\begin{equation}
+    D^{-1}(t',t) = G_F(t',t) = -\frac{1}{2\pi m} \int_{-\infty}^\infty d\nu \frac{e^{i\nu(t-t')}}{\nu^2 -\omega^2 + i\epsilon}.
+\end{equation}
+The $i\epsilon$ is to help us when we integrate.%
+    \footnote{Technically, this is a contour integral. The so-called $i\epsilon$ prescription tells us how to push the poles at $\nu=\pm \omega$.}
+
+The harmonic oscillator generating function can be used to set up perturbation theory. Suppose we want to compute
+\begin{equation}
+    \avg{\hat x(t_1)\hat x(t_2)}
+\end{equation}
+in the anharmonic oscillator. By our definition, this correlation function is given by
+\begin{align}
+    \avg{\hat x(t_1)\hat x(t_2)} &\propto \int [\cD x] x(t_1) x(t_2) e^{\frac{i}{\hbar} S_\text{osc} - \frac{i}{\hbar} \int \frac{\lambda}{4!} x^4(t) dt}\\
+    &\simeq \int [\cD x] x(t_1) x(t_2) \paren{1-\frac{\lambda}{4!} \frac{i}{\hbar}\int dt x^4(t) +O(\lambda^2)} e^{\frac{i}{\hbar} S_\text{osc}}.
+\end{align}
+That is, we can now expand the second term in the exponential in powers of $\lambda$ so that our correlation functions are in fact
+\begin{equation}
+    \avg{x(t_1)x(t_2)}_\text{an} =\avg{x(t_1)x(t_2)}_\text{osc} + c\lambda \avg{x(t_1)x(t_2) \int x^4(t) dt} + O(\lambda^2).
+\end{equation}
+What are these correlation values telling us? Well, we measure $x$ at some time $t_2$, we wait a little while, and then we measure $x$ again. This looks like a line. The next correction now looks like starting at $t_2$, propagating to some point $t$, and then measuring again at $t_1$. But at $t$ there are \emph{four} $x$s. That is, the order $\lambda$ term has an $x^4(t)$, so we can split into four $x$s here. That is, we have a line (propagator) and a vertex joining four legs.
+
+Therefore Feynman diagrams are nothing but a graphical encoding of a Taylor series expansion. These are useful because we can either try to work out the terms in the Taylor expansion up to say order $\lambda^5$ (including their prefactors), or we can simply draw all the pictures with five vertices and compute the corresponding integrals.
+
+We've spent the last hour arguing that perturbation theory is useful (and ubiquitous). But it's not all there is. Let us now discuss \term{non-perturbative effects}. For instance, take the double-well potential
+\begin{equation}
+    V(x) = V_0^2 (x^2-a^2)^2.
+\end{equation}
+This potential has two wells at $x=\pm a$. The classical ground states are a particle sitting in one of the two wells. That is, the potential has a reflection $x\to -x$ symmetry ($\ZZ_2$) but this symmetry is broken by the classical ground states, which correspond to some $\ket{0,a},\ket{0,-a}$. In quantum mechanics, we know that 1D potentials don't admit degenerate eigenstates. The resolution is this. Quantum particles can tunnel through the barrier. The real ground state must be a symmetric combination of the two classical ground states. After normalization, it is
+\begin{equation}
+    E_0: \frac{1}{\sqrt{2}}( \ket{0,a}  +\ket{0,-1})
+\end{equation}
+and the next excited state is the antisymmetric combination
+\begin{equation}
+    E_1: \frac{1}{\sqrt{2}} (\ket{0,a} - \ket{0,-a}).
+\end{equation}
+What is the energy splitting? It is
+\begin{align}
+    E_0 = \frac{1}{2} \hbar \sqrt{V''(a)} - \#e^{-S_\text{tun}/\hbar}\\
+    E_0 = \frac{1}{2} \hbar \sqrt{V''(a)} + \#e^{-S_\text{tun}/\hbar}.
+\end{align}
+Here, $S_\text{tun}$ is the action corresponding to tunneling. What's notable about this is that the corrections have no expansion about $\hbar \to 0$. This is a non-perturbative effect, as the quantum ground state restores the symmetry.
+The tunneling trajectory can be mediated by a Euclidean solution (imaginary time), modeled by something called an instanton. The potential flips and it gives us
+\begin{equation}
+    x(t_E) = a\tanh(\sqrt{\frac{2}{m}}V_0 a t_E).
+\end{equation}
+These trajectories are new stationary points of the Euclidean action apart from the standard ones we had sitting in the original ground states of the double well.
