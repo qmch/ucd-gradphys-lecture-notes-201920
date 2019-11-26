@@ -1,0 +1,187 @@
+\begin{quote}
+    \textit{``I like to abuse you some, but in a way that allows you to get stronger and ultimately survive.''}
+    
+    --Nemanja Kaloper
+\end{quote}
+
+\begin{note}
+    We're figuring out the logistics for the final now. It seems that we'll try to reschedule for Thursday of finals week but approval has to be unanimous. Also, midterm solutions will be posted a bit later.
+\end{note}
+
+Let's return to the Sturm-Liouville problem. We were looking at the difference
+\begin{equation}
+    y^* \cL z - (\cL y^*) z.
+\end{equation}
+If we write our operator in self-adjoint form
+\begin{equation}
+    \cL = \frac{d}{dx} \paren{p\frac{d}{dx}} + q(x)
+\end{equation}
+then what remains in this difference is a total deriviatve,
+\begin{equation}
+    \int (y^* \cL z - (\cL y^*) z) = \paren{y^* p z' - y^*{}' p z}|_a^b,
+\end{equation}
+where we have recognized a total derivative.
+
+Let us notice moreover that if $y$ is an eigenfunction with eigenvalue $\lambda_y$, then
+\begin{equation}
+    \int (y^* \cL z - (\cL y^*) z) = (\lambda_z-\lambda_y^*) \int y^* z.
+\end{equation}
+Hence if the boundary conditions are satisfied (this integral vanishes) then we are guaranteed that the eigenvalues are real ($\lambda_z-\lambda_z^*=0$), and the eigenfunctions corresponding to distinct eigenvalues are orthogonal ($\int z y^* =0$ for $y\neq z$).
+
+If the boundary conditions are \emph{not} satisfied then our normalizable functions couple to \emph{non-normalizable} functions, which means at the level of the Schr\"odinger equation that if you prepare an electron at some time, it has a non-zero probability of just vanishing and never coming back. This is a very bad violation of unitarity.
+
+\begin{exm}
+    Consider Laguerre's equation
+    \begin{equation}
+        xD^2y +(1-x)y' = \lambda y,
+    \end{equation}
+    where solutions obey the boundary conditions
+    \begin{equation}
+        y(0) <\infty, \quad y\to 0 \text{ as } x\to\infty.
+    \end{equation}
+    This is the radial equation of the hydrogen atom. The first boundary condition tells us that our wavefunction is sufficiently smeared away from $r=0$ in order to avoid feeling the infinite $1/r$ potential at the origin. In fact, one may argue that the function solves Neumann boundary conditions at the origin. This stops the electron from simply disappearing into the nucleus; this is forbidden by the uncertainty principle, since this would be an extremely localized electron state.
+    
+    The second boundary condition is in fact our ballistics problem from last time. If we overshoot or undershoot, our function will not ``hit'' zero at $\infty$. For large $x$, this equation has asymptotic behavior
+    \begin{equation}
+        xD^2 y - xD y\simeq 0.
+    \end{equation}
+    We're not interested in arbitrarily large $\lambda$; we can always take $x$ larger. Hence if we define $P=y'$ then
+    \begin{equation}
+        P'=P \implies P = e^x, y = C + C_1 e^x.
+    \end{equation}
+    
+    This tells us that a generic solution will have a finite piece and an exponential piece as $x\to \infty$, so we must pick $\lambda$ to turn off the exponential part. We can equivalently do the Frobenius expansion at $x\to \infty$ or $x'=1/x \to 0$. If we do this expansion, we would see that some terms generically blow up \emph{unless} $\lambda$ takes special values. This is precisely the quantization condition.
+    
+    That is, we get some recursion relation
+    \begin{equation}
+        a_n = \frac{w(n) - \lambda}{\hat w(n)}a_{n-2}
+    \end{equation}
+    and if $w(N) = \lambda$ for some $N$ then all higher-order coefficients $a_N$ and above vanish identically.
+\end{exm}
+
+\begin{exm}
+    Let us now look at Legendre's equation,
+    \begin{equation}
+        -(1-x^2)y'' + 2xy' = \lambda y
+    \end{equation}
+    or equivalently
+    \begin{equation}
+        (x^2-1)y''+(x^2-1)' y' =\lambda y.
+    \end{equation}
+    This is the angular equation of hydrogen if we substitute $x=\cos\theta$, and its solutions are spherical harmonics, etc. Notice this equation is bound to have issues when $x$ is near $\pm 1$. These are poles of the $y''$ coefficient, corresponding to the north and south poles of the sphere.
+    
+    We can study this bad behavior by making the change of variables $z=x-1$ and studying $z\to 0$. Then the factors become
+    \begin{equation}
+        (1-x)(1+x) = 2z+O(z^2).
+    \end{equation}
+    The derivative doesn't change so our equation becomes 
+    \begin{equation}
+        2z y'' + 2 y' = \lambda y.
+    \end{equation}
+    We now multiply by $z$ to get
+    \begin{equation}
+        2z^2 y'' + 2z y' = z\lambda y
+    \end{equation}
+    so that this looks like a hypergeometric equation and its solutions will again be singular unless we tune the parameter $\lambda$.
+    
+    The function should be good at the north \emph{and} south poles, though. This imposes a stricter condition on our solutions. We can certainly write down solutions that are nice at the north pole and not at the south. But there's nothing special about either pole so indeed we must be careful to pick our solutions.
+    
+    If we Frobenius this guy as
+    \begin{equation}
+        \sum a_n (z-1)^{n+s}
+    \end{equation}
+    and write the indicial equation we will find
+    \begin{equation}
+        s(s-1)=0.
+    \end{equation}
+    Taking the $s=0$ solution we find
+    \begin{equation}
+        a_{j+2} = \frac{j(j+1) -\lambda}{(j+1)(j+2)}a_j.
+    \end{equation}
+    For a random value of $\lambda$, we'll get an infinite series solution rather than a polynomial. But notice that for large $j$, $j(j+1)-\lambda \approx j(j+1)$ and so the coefficients go to
+    \begin{equation}
+        a_{j+2} \approx \frac{j(j+1)}{(j+1)(j+2)} a_j \approx a_j.
+    \end{equation}
+    As $x \to 1$ we see that we get an infinite sum of $1$s in the Taylor expansion. Unless! Unless we pick 
+    \begin{equation}
+        \lambda = l(l+1)
+    \end{equation}
+    for some $l$, and then $a_{l+2}$ and $a_{l+4}$ and so on all vanish. Our infinite sum has now terminated and we have a polynomial which is perfectly regular at $x=1$.
+    
+    This is nothing more than the quantization of the angular wavefunctions (the azimuthal part).
+\end{exm}
+
+%Story time-- We can arbitrarily approximate monopoles by taking the limit of a half-infinite solenoid with vanishing cross-sectional area.
+
+\begin{exm}
+    Suppose we now consider a spherically symmetric potential which is constant $V_0<0$ inside some radius $R$ and $V=0$ outside. We set up the Schr\"odinger equation:
+    \begin{equation}
+        -\frac{1}{2m} \grad^2 \psi + V\psi = E \psi.
+    \end{equation}
+    
+    This has the appearance of a Sturm-Liouville problem. We have one boundary condition that $\psi(0) < \infty$, and another that $\psi \to 0$ as $r\to \infty$. But we also know that the more nodes there are, the higher energy a state will have. This tells us that we should suppose our ground state has spherical symmetry (the angular wavefunction is trivial). If we change variables to write $\psi(r) = u/r$, then
+    \begin{equation}
+        \grad^2 \psi = \frac{1}{r} u''
+    \end{equation}
+    and
+    \begin{equation}
+        u'' + \underbrace{2m(E-V_0)}_{k_1^2}u =0, r< R
+    \end{equation}
+    and
+    \begin{equation}
+        u'' + \underbrace{2mE}_{-k_2^2} u =0, r> R.
+    \end{equation}
+    Hence these are just oscillators which we need to sew together at $r=R$. In particular, note that
+    \begin{equation}
+        V_0 < E < 0
+    \end{equation}
+    so that our solution actually fits in the potential well. These look like a pair of oscillators
+    \begin{align}
+        u'' + k_1^2 u &=0\\
+        u'' - k_2^2 u &=0.
+    \end{align}
+    That is, inside the well, we have
+    \begin{equation}
+        A\sin k_1 r + B\cos k_1 r, r < R,
+    \end{equation}
+    and outside
+    \begin{equation}
+        C e^{-k_2 r} + D e^{+k_2 r}, r > R.
+    \end{equation}
+    We must set $D=0$ so our solutions don't blow up at infinity. In fact, we also need $u/r = \psi$ to be finite at $r\to 0$, which tells us that the cosine (being finite at $r\to 0$) is no good, so we must match
+    \begin{equation}
+        u = \begin{cases}
+            A \sin k_1 r & r < R\\
+            C e^{-k_2 r} & r >R.
+        \end{cases}
+    \end{equation}
+    We can patch these solutions together by continuity at $R$ and continuity of the derivative,
+    \begin{align}
+        u_L &= u_R\\
+        u_L' &= u_R'.
+    \end{align}
+    Note that we are free to fix overall normalization so WLOG we could take $A=1$. Then we have two boundary conditions, so one fixes $C$ and the other provides a relation between
+    \begin{equation}
+        k_1 = \sqrt{2m(E-V_0)}, \quad k_2 = \sqrt{2m|E|}.
+    \end{equation}
+    This will be our quantization condition.
+    
+    Hence
+    \begin{gather}
+        \sin (k_1 R) = Ce^{-k_2 R}\\
+        k_1 \cos(k_1 R) = -k_2 C e^{-k_2 R}. 
+    \end{gather}
+    Eliminate $C$ by dividing these equations and we find that
+    \begin{equation}
+        -k_2 = k_1 \cot(k_1 R),
+    \end{equation}
+    or equivalently
+    \begin{equation}
+        \tan(k_1 R) = -\frac{k_1}{k_2}
+    \end{equation}
+    We can then solve this graphically since $k_2 = \sqrt{2m|E|} \sim -\sqrt{2m(k_1)^2+|V_0|}$. Hence the intersection of the graphs
+    \begin{equation}
+        k_1 \cot(k_1 R) = -\sqrt{2m(k_1)^2+|V_0|}
+    \end{equation}
+    give us the legitimate quantized solutions which obey the boundary conditions.
+\end{exm}

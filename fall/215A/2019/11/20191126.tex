@@ -1,0 +1,199 @@
+The path integral has a classical limit, $\hbar \to 0$. That is,
+\begin{equation}
+    \int[\cD x] e^{iS[x]/\hbar} \approx e^{iS_\text{cl}[x]/\hbar} \sqrt{\frac{2\pi i \hbar}{\det (\delta^2 S[x_\text{cl}])}}.
+\end{equation}
+We can understand this by recognizing that if we expand the action around the classical path, we get
+\begin{equation}
+    S[x] = S[x_\text{cl}] + \delta^2 S [x_\text{cl}] (x-x_\text{cl})^2,
+\end{equation}
+since the first variation of the action vanishes by the classical equations of motion, $\delta S[x_\text{cl}]=0$. Hence the integral is the action evaluated on the classical path times what is approximately a Gaussian integral in terms of $(x-x_\text{cl})$. Away from extremal points, the phase in $e^{iS[x]/\hbar}$ will oscillate rapidly, so nearby paths will cancel out. This is an example of a stationary phase approximation, or more generally the technique of saddle-point approximation of integrals.
+
+\subsection*{Double-well and symmetry breaking}
+Recall that we introduced the double-well potential
+\begin{equation}
+    V(x) = (x^2-a^2)^2 V_0^2.
+\end{equation}
+We suggested that the ground states $\ket{0,-a},\ket{0,+a}$ were degenerate classically but the quantum ground state was given by
+\begin{equation}
+    \frac{1}{\sqrt{2}}(\ket{0,-a}+\ket{0,+a})
+\end{equation}
+with
+\begin{equation}
+    E_+ = \frac{1}{2} \frac{\hbar V_0}{\sqrt{m}} -e^{-\frac{1}{\hbar}S_\text{tun}}C.
+\end{equation}
+We said that the corrections are non-perturbative in $\hbar$, but it still remains to find the tunneling amplitude $S_\text{tun}$.
+
+To warm up, what are the amplitudes
+\begin{align}
+    A_\text{cl} &= \bra{0,\pm a} e^{-\hat H T/\hbar} \ket{0,\pm a}\\
+    A_\text{tun} &= \bra{0,-a} e^{-\hat H t/\hbar} \ket{0,+a},
+\end{align}
+where we have defined the classical and tunneling amplitudes? Note that the operator in between is not quite our unitary time operator-- for one, it's not even unitary. We've analytically continued to $T=it$, if you like. But we'll see that these \term{Euclidean transition amplitudes} have a sensible interpretation. We can compute them by
+\begin{equation}
+    \int [\cD x] e^{-S_E[x]/\hbar},
+\end{equation}
+where the Euclidean action is
+\begin{equation}
+    S_E[x] = \int dt_E \paren{\frac{m}{2} \paren{\frac{dx}{dt_E}}^2 + V(x)}.
+\end{equation}
+Note the sign flip on $V(x)$-- this comes from the fact we analytically continued, so time derivatives pick up factors of $i$.
+
+For the Euclidean path integral, the saddle-point approximation is easier to motivate because the integrand is exponentially damped for $\hbar \to 0$. So a (real) Gaussian is a good approximation:
+\begin{equation}
+    \int[\cD x] e^{-S_E[x]} \approx e^{-S_E[x_\text{cl}]} \sqrt{\frac{2\pi \hbar}{\det (\delta^2 S_E[x_\text{cl}])}}.
+\end{equation}
+
+Notice that the amplitude $A_\text{cl}$ gets contributions from $x^E_\text{cl}(T_E)={}$constant. That is,
+\begin{equation}
+    \bra{0,-a} e^{-\hat H t/\hbar} \ket{0,-a}
+\end{equation}
+is dominated by
+\begin{equation}
+    x_\text{cl}^E (t_E) = -a,
+\end{equation}
+and so the numerical answer will depend on the $\delta^2S$ corrections. The amplitude for $\bra{0,+a} e^{-\hat H t/\hbar} \ket{0,+a}$ is similar.
+
+But $A_\text{tun}$ is different. Let us ask what the Euclidean solution is. Now
+\begin{equation}
+    x(-T/2)=-a, \quad x(T/2) =a,
+\end{equation}
+corresponding to the particle starting in one well (say, the left one) and ending up in the other well (the right one) at a time $T$ later. From Euler-Lagrange ($\delta S_E =0$) we can write the equation of motion,
+\begin{equation}
+    m\frac{d^2x}{dt^2_E} = -V'(x)
+\end{equation}
+or equivalently
+\begin{equation}
+    m\paren{\frac{dx}{dt_E}}^2 - V(x) =0.
+\end{equation}
+%What is an infinite amount of Euclidean time? But a moment in real time.
+
+We claimed last time that
+\begin{equation}
+    x_\text{cl}^E (t_E) = a \tanh \paren{2\sqrt{\frac{2}{m}} V_0 a t_E}.
+\end{equation}
+This has the right limiting behavior:
+\begin{gather}
+    x_\text{cl}^E(-T/2) \xrightarrow{T\to \infty} - a\\
+    x_\text{cl}^E(+T/2) \xrightarrow{T\to \infty} + a
+\end{gather}
+and we see that most of the action (in the informal sense) is located around $t_E=0$ in a small interval. This solution is known as the \term{instanton} because it takes only an instant. We can do more, actually.
+\begin{align}
+    A_\text{tun} &= \exp \paren{-\frac{1}{\hbar} S_E [x_\text{cl}^E]} \times \sqrt{\frac{2\pi\hbar}{\det(\delta^2 S_E)}}\\
+    &\sim C \exp \paren{-\frac{1}{\hbar} \int_{-a}^a dx \sqrt{2mV(x)}}\\
+    &= C e^{-S_\text{tun}/\hbar}.
+\end{align}
+where we've used the equation of motion
+\begin{equation}
+    m\paren{\frac{dx}{dt_E}}^2 - V(x) =0
+\end{equation}
+for $x=x_\text{cl}^E$. That is,
+\begin{equation}
+    S_E = \int_{-T/2}^{T/2} dt_E\, 2 V(x)
+\end{equation}
+with
+\begin{equation}
+    \frac{dx}{dt_E} = \sqrt{\frac{V(x)}{m}}.
+\end{equation}
+Our instanton solution is a special solution which is a saddle point of the Euclidean action; they look quantum in real time but classical in imaginary time. The rotation to imaginary time has helped us to find a classical trajectory that therefore had the interpretation of quantum tunneling in real time.%
+    \footnote{Note that some problems don't have good classical interpretations when we analytically continue. Most tunneling problems will have this nice interpretation, but questions of entanglement or superposition generally won't.}
+
+We notice that the energy shift has no expansion in $\hbar$. This is very strange-- we're used to thinking of the $\hbar \to 0$ limit as the classical limit, but we cannot write down any of the corrections in $\hbar$ for the term
+\begin{equation}
+    e^{-\frac{1}{\hbar}S_\text{tun}}C.
+\end{equation}
+We also see that tunneling means that there is no symmetry-breaking in 1D quantum mechanics. Finally, note that this integral over $\sqrt{2mV(x)}$ will appear again next quarter as part of the WKB approximation; WKB is often used for tunneling calculations.
+
+\subsection*{Symmetries}
+In physics, symmetries are statements of invariance. We change the system in some way (e.g. rotate a sphere), but nothing happened as a result of our change. Symmetries are particularly useful to us for two reasons-- one, they constrain the states allowed in the system, and two, they (in the continuous case) provide us with conserved quantities and therefore constrain the transitions between states.
+
+For some symmetry
+\begin{equation}
+    \ket{\psi} \to S \ket{\psi},
+\end{equation}
+Wigner's theorem states that the symmetry $S$ is a unitary operator, $S^\dagger S = \II$, with one caveat we'll revisit later. Look at the transformation of $\hat H$:
+\begin{equation}
+    \hat H  \to S^\dagger \hat H S.
+\end{equation}
+The statement of invariance is that
+\begin{equation}
+    \hat H = S^\dagger \hat H S,
+\end{equation}
+i.e. the Hamiltonian is unchanged under conjugation by some unitary $S$.
+
+Symmetries can be discrete or continuous. A reflection symmetry is the classic example of a discrete symmetry-- flip and flip back. Parity and time-reversal are two important discrete symmetries. A rotation symmetry, on the other hand, is usually parametrized by an angle, so it is continuous. Translations are similar.
+
+For a continuous symmetry transformation depending on $\lambda$, we can expand about small $\lambda$ as
+\begin{equation}
+    S(\lambda) = \II - i\lambda \hat s + O(\lambda^2)
+\end{equation}
+with
+\begin{equation}
+    \hat s^\dagger = s
+\end{equation}
+a Hermitian operator. If $S$ is a symmetry, we find that
+\begin{equation}
+    [\hat H, \hat s]=0,
+\end{equation}
+which by the Heisenberg equations of motion says that
+\begin{equation}
+    \frac{d\hat s}{dt} = [\hat H, \hat s]=0,
+\end{equation}
+i.e. $\hat s$ is time-independent.
+
+Symmetries in physics form \term{groups}.
+\begin{defn}
+    Groups are sets of elements $G$ equipped with a binary operation $*$ such that for any two elements $a,b\in G$, their product $a*b\in G$ is also an element of the group. There exists an identity element $1$ such that $1*a=a\forall a$, and an inverse to every element $a^{-1}$ such that $a^{-1}*a=1$. The operation $*$ is also associative.
+\end{defn}
+
+In physics, it is often useful to look at infinitesimal elements of continuous (Lie) groups around the identity. The generators of these infinitesimal transformations are not elements of the group; they are elements of an algebra (a set equipped with a bracket rule $[,]$).
+
+For every symmetry generator we have an operator that commutes with the Hamiltonian, which means we can simultaneously diagonalize $\hat H$ and the symmetry generators, up to the commutation rules of the symmetry generators.
+
+For two symmetry generators $\hat s_1, \hat s_2$, we have
+\begin{equation}
+    [\hat H, \hat s_1] = 0 = [\hat H, \hat s_2]
+\end{equation}
+but in general
+\begin{equation}
+    [\hat s_1, \hat s_2]\neq 0.
+\end{equation}
+
+If the group multiplication is commutative we say the group is \term{abelian}, and therefore the generators also commute. But many important groups are nonabelian and have nontrivial commutation relations between their generators. For instance, the spin algebra has three generators $\sigma_1,\sigma_2,\sigma_3$, such that
+\begin{equation}
+    [\sigma_i,\sigma_j] = 2i\epsilon_{ijk} \sigma_k, \quad i=1,2,3.
+\end{equation}
+
+Aside: how do we know when we've got all the symmetries? Degeneracies are usually an indication of a symmetry, as we saw in a previous homework. One thing we can do is try to close the algebra by computing brackets of the generators we have in hand. If we get elements we already know about, we're done, but if we get new elements, then there are more symmetries.%
+    \footnote{This is a lot like finding Killing vectors in relativity.}
+
+\subsection*{Parity and time-reversal}
+The parity symmetry takes the form
+\begin{equation}
+    x\to -x
+\end{equation}
+in 1D, and it is
+\begin{equation}
+    (x,y,z) \to (-x,-y,-z)
+\end{equation}
+in 3D.
+This is a discrete symmetry, and its application twice is the identity $\II$.
+
+The time-reversal symmetry, on the other hand, is a bit more subtle. We would like to have
+\begin{equation}
+    ``t \to -t,''
+\end{equation}
+but this can't quite work in the Schr\"odinger equation because
+\begin{equation}
+    i\P{\psi(x,t)}{t} = \hat H \psi(x,t).
+\end{equation}
+Just flipping the sign in $t$ wouldn't work, since it would change the sign on the LHS of the equation. Hence we need to actually write
+\begin{equation}
+    \psi(x,t) \to \psi^*(x,-t)
+\end{equation}
+and include a complex conjugation.
+
+We can see that parity is implemented by a linear unitary $P$ such that
+\begin{equation}
+    P\hat x + \hat x P = \set{\hat x,P}=0,
+\end{equation}
+while time reversal is described by an antilinear, anti-unitary transformation $T$.
