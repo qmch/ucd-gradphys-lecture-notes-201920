@@ -1,0 +1,215 @@
+\begin{quote}
+    \textit{``There may be some mumble about non-linear partial differential equations but God forbid you ever have to do that.''}
+    
+    --Nemanja Kaloper
+\end{quote}
+
+Last time, we discussed the fact that once we rewrite the wave equation as
+\begin{equation}
+    \p_u \p_v \phi=0
+\end{equation}
+in terms of null coordinates $u,v$, then our general solutions take the famous d'Alembert form
+\begin{equation}
+    \phi=g(x-t) + f(x+t) =g(u) + f(v).
+\end{equation}
+That is, a solution is specified by two arbitrary functions, or equivalently five integration constants. We must specify initial data on a good surface (formally a codimension one spacelike surface), and then we can solve the equation within some domain of dependence.
+
+Consider now
+\begin{equation}
+    (\p_x^2 + \p_y^2) \phi =0,
+\end{equation}
+a 2D Laplace equation. It is clear we can now factor this in terms of complex combinations of the original variables,
+\begin{equation}
+    (\p_x + i\p_y)(\p_x - i\p_y) \phi=\p_z \p_{z^*}\phi =0,
+\end{equation}
+which tells us that $\phi$ is a sum of \term{holomorphic} and \term{anti-holomorphic parts}
+\begin{equation}
+    \phi = f(z) + g(z^*),
+\end{equation}
+where we have defined
+\begin{equation}
+    z= x+ iy.
+\end{equation}
+Alternately we may write this as a sum of a real and an imaginary part. We'll discuss this more in our complex analysis unit next quarter.%
+    \footnote{A good reference on this is Ruell Churchill, which ``drops you in media res'' and just goes from there.}
+    
+Consider some equation
+\begin{equation}
+    a\p_x^2 \phi + 2b \p_x \p_y + c \p_y^2 =0
+\end{equation}
+In principle we could have other first- and zeroth-order terms $d\p_x \phi + e \p_y \phi + f\phi$, but we can always turn off the first-order terms by a judicious change of variables. In general we can't get rid of the inhomogeneous part. But with our second-order term we can define new coordinates by completing the square as
+\begin{equation}
+    a(\p_x^2 + 2 \frac{b}{a} \p_x \p_y) = a\paren{(\p_x + \frac{b}{a}\p_y)^2 - \paren{\frac{b}{a}}^2 \p_y^2}
+\end{equation}
+and then this second term can be absorbed into the existing $\p_y^2$ term. That is, by the quadratic equation,
+\begin{equation}
+    0= \paren{\frac{b+\sqrt{\Delta}}{\sqrt{c}} \p_x + \sqrt{c} \p_y}\paren{\frac{b-\sqrt{\Delta}}{\sqrt{c}} \p_x + \sqrt{c} \p_y} \phi,
+\end{equation}
+where
+\begin{equation}
+    \Delta = b^2 - ac
+\end{equation}
+is the discriminant. 
+\begin{itemize}
+    \item If $\Delta >0$ then this behaves like the wave (hyperbolic) equation.
+    \item On the other hand, if $\Delta <0$ then this is a Laplace (elliptic) equation.
+\end{itemize}
+But there is a third, degenerate case where $\Delta =0$. In that case, we have an equation which can be written as
+\begin{equation}
+    \p_{x'}^2 \phi =0,
+\end{equation}
+which is therefore just an ordinary differential equation. If we turn back on the $\p_y$ dependence then we have the heat (parabolic) equation, which is
+\begin{equation}
+    \p_{x'}^2 \phi = \p_y \phi.
+\end{equation}
+%Some of you may get tired of Cardini and move on to greener pastures, literally. If you go into finance this is called Black-SCholes equation.
+
+The initial data for the wave equation is usually called the Cauchy problem. That is, we take something with the interpretation of a time slice and we evolve it to the future. On the other hand, initial data is much harder to specify for elliptic and parabolic equations.
+
+In the case of the elliptic equation, we must specify either the function $\phi$ on the boundary or its normal derivative $\hat n \cdot \grad \phi$ on the boundary. This is none other than electrostatics. Either we specify the potential itself (as sourced by some battery) or the electric field (as sourced by some charges) on the boundary. Sometimes the boundary is infinite, so we modify the boundary conditions to restrict us to having no charges at infinity.
+
+In the case of the parabolic equation, we instead provide conditions at the endpoints of a (possibly half-infinite) interval. We fix the ``temperature'' at the endpoints and let heat flow over time.
+
+%There may be some mumble about non-linear partial differential equations but God forbid you ever have to do that.
+
+\subsection*{Separation of variables}
+\begin{exm}
+    Suppose we have a (rectangular) box, some region where we want to solve the equation
+    \begin{equation}
+        (\p_x^2 + \p_y^2 + \p_z^2 + k^2)\phi =0.
+    \end{equation}
+    This could be a Fourier transform of a wave equation, for instance. Some values are given on the boundary. How do we solve this? We'll take advantange of linearity and completeness by expanding our solutions in a complete set that respects the symmetries of the boundary conditions. That is, let us look for \term{separable} solutions of the form
+    \begin{equation}
+        \phi(x,y,z) = \sum_{i,j,k} c_{ijk} X_i(x) Y_j(y) Z_k(z)
+    \end{equation}
+    where $c_{ijk}$ are some constants. Hence when we plug this ansatz into the equation, we get
+    \begin{equation}
+        X''(x) YZ + XY''(y)Z + XYZ''(z) + k^2 XYZ = 0.
+    \end{equation}
+    Suppose we now divide the whole expression by $XYZ$. Then
+    \begin{equation}
+        \frac{X''}{X} + \frac{Y''}{Y} + \frac{Z''}{Z} + k^2 =0.
+    \end{equation}
+    We can trivially rewrite this as
+    \begin{equation}
+        -\frac{X''(x)}{X} = \frac{Y''(y)}{Y} + \frac{Z''(z)}{Z} + k^2.
+    \end{equation}
+    But the LHS can depend only on $x$, while the RHS can depend only on $y$ and $z$. Hence the expression on the LHS is in fact a constant, i.e.
+    \begin{equation}
+        -\frac{X''}{X} = l^2.
+    \end{equation}
+    For now, $l$ can be complex. It's just a placeholder until we fix the boundary conditions. But of course this equation is simply
+    \begin{equation}
+        X'' + l^2 X =0,
+    \end{equation}
+    an ordinary differential equation which we can readily solve. The RHS must also be a constant, so
+    \begin{equation}
+        \frac{Y''}{Y} +\frac{Z''}{Z} + k^2 - l^2 = 0.
+    \end{equation}
+    This is just another equation of the same form, so we can write
+    \begin{equation}
+        m^2 = -\frac{Y''}{Y} = \frac{Z''}{Z} +k^2 -l^2
+    \end{equation}
+    and then solve for the modes of $Y$ and $Z$. That is, $Z$ obeys
+    \begin{equation}
+        0 = \frac{Z''}{Z} + k^2 -m^2 - l^2 = \frac{Z''}{Z} +n^2
+    \end{equation}
+    Hence we have turned our one PDE into three ODEs:
+    \begin{align}
+        X'' +l^2 X &= 0\\
+        Y'' + m^2 Y &= 0\\
+        Z'' + n^2 Z &= 0.
+    \end{align}
+    
+    If we fix Dirichlet boundary conditions ($\phi$ vanishes on the sides of the box) then we get sines as our solutions,%
+        \footnote{We could have seen this just as well by passing to Fourier space first and gotten the separation constants right away.}
+    where
+    \begin{equation}
+        l,m,n = (L/a, M/b, N/c) \pi
+    \end{equation}
+    where the box has dimensions $a\times b \times c$, and the solution is
+    \begin{equation}
+        \sin(L\pi x/a) \sin(M\pi y/b) \sin(N\pi z/c)
+    \end{equation}
+    where
+    \begin{equation}
+        k^2 = \bkt{(L/a)^2 + (M/b)^2 + (N/c)^2}\pi^2.
+    \end{equation}
+\end{exm}
+
+Let us now look at the same equation but in cylindrical symmetry,
+\begin{equation}
+    \Delta \phi + k^2 \phi =0.
+\end{equation}
+The Laplacian is generally pretty horrible to work out in curvilinear coordinates, but we can do it with a trick.%
+    \footnote{In GR notation, this is just $\grad^2 \phi = \frac{1}{\sqrt{-g}} \p^\mu (\sqrt{-g} \p_\mu \phi)$.}
+The volume of a little cube in cylindrical coordinates is
+\begin{equation}
+    (dr)(dz)(rd\phi).
+\end{equation}
+The trick is now to compare two vectors $\vec{r}$ and $\vec{r} + d\vec{r}$. In cylindrical coordinates this is
+\begin{equation}
+    d\vec{r} = \vec{e}_r dr + \vec {e}_\phi r d\phi + \vec{e}_z dz.
+\end{equation}
+If we forgot these relations, we could rederive them by taking the differential of $r$. Thus
+\begin{align*}
+    d\vec{r}^2 &= dr^2 + r^2 d\phi^2 dz^2\\
+        &= \sum h_i^2 dq_i^2.
+\end{align*}
+These functions $h_i$ tell you how the coordinate ``unit'' vectors scale up or down as a function of the point we're looking at.
+
+Now the Laplacian is like div grad, i.e. for a little box, it is the flux of $\phi$ divided by the volume of this box:
+\begin{equation}
+    \grad^2 \phi = \frac{\text{flux}[\phi]}{\Delta V}.
+\end{equation}
+These fluxes will give us second derivatives. That is,
+\begin{equation}
+    \grad^2 \phi =\sum_i \frac{1}{h_1 h_2 h_3} \p_i (\frac{h_1 h_2 h_3}{h_i^2} \p_i \phi).
+\end{equation}
+Using this trick, we get
+\begin{equation}
+    0=\frac{1}{r} \p_r ( r \p_r \varphi) + \frac{1}{r^2} \p_\phi^2 \varphi + \p_z^2 \varphi + k^2 \varphi
+\end{equation}
+as our equation in cylindrical coordinates. Now we appeal to separation of variables again, as
+\begin{equation}
+    \varphi = R \Phi Z
+\end{equation}
+and we get
+\begin{equation}
+    0 = \frac{1}{rR}(rR')' + \frac{1}{r^2 \Phi} \Phi''(\phi) + \frac{Z''(z)}{Z} + k^2.
+\end{equation}
+The $z$ variable separates out nicely as
+\begin{equation}
+    Z''(z) + n^2 Z =0.
+\end{equation} Hence we are left with
+\begin{equation}
+     0 = \frac{1}{rR}(rR')' +\frac{1}{r^2 \Phi} \Phi''(\phi) + k^2 -n^2.
+\end{equation}
+If we define $k^2 -n^2 = l^2$ and multiply through by $r^2$ then we get 
+\begin{equation}
+    0 = \frac{r}{R} (rR')' + \frac{\Phi''(\phi)}{\Phi} +l^2 r^2.
+\end{equation}
+Now $\Phi$ is a constant on its own, satisfying
+\begin{equation}
+    \Phi''(\phi) + m^2 \Phi =0
+\end{equation}
+and what remains is
+\begin{equation}
+    r(rR')' + (l^2 r^2 - m^2)R =0.
+\end{equation}
+Simplifying,
+\begin{equation}
+    0 = r^2 R'' + rR' + (l^2 r^2 -m^2)R,
+\end{equation}
+which is the Bessel equation. We see that $z$ is still behaving like a Cartesian coordinate. The variable $\phi$ is our magnetic quantum number $m$. We may impose periodic boundary conditions if $\phi$ takes its full range $[0,2\pi]$, which gives sines and cosines. On the other hand, if the problem is specified on some angular slice (not necessarily periodic), then we may not have these nice boundary conditions. For $m$ an integer, we may write
+\begin{equation}
+    0=\rho^2 R'' + \rho R' + (\rho^2 - m^2) R,
+\end{equation}
+where there are now two linearly independent sets of solutions, $J_m(lm) = J_m(\rho)$ and the Neumann solutions $N_m(\rho r)$. We can throw away the Neumann solutions since they diverge as $r\to 0$ but in solutions for exterior regions (say, $r_a < r < r_b$) we must keep them and be more careful.%
+    \footnote{These Bessel functions are modified if we study the equation on a cone, i.e. if we make $\phi$ periodic on $[0,\theta_0]$ with $\theta_0 < 2\pi$. We might have to worry about the conical singularity as $r\to 0$. In that case, it's like modifying the charge-- the field lines are denser than they would be with the regular $2\pi$ periodicity.}
+
+In spherical coordinates, we can again use our trick to write down the Laplacian
+\begin{equation}
+    \frac{1}{r^2}\p_r (r^2 \p_r \varphi) + \frac{1}{r^2 \sin \theta} \p_\theta (\sin \theta \p_\theta \varphi) + \frac{1}{r^2 \sin^2 \theta} \p_\phi^2 \varphi + k^2 \varphi.
+\end{equation}
+One can check that separation of variables gives us the spherical harmonics for the angular dependence, and that the radial dependence turns out to be (spherical) Bessel functions.

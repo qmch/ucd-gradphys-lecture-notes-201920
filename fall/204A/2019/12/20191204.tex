@@ -1,0 +1,198 @@
+\begin{quote}
+    \textit{``People could not live inside the shell of the earth. They would just float. Unless of course they lived on the equator. Real estate would be extremely precious.''}
+    
+    --Nemanja Kaloper
+\end{quote}
+Let's finish this. We were talking about separation of variables in spherical equations. We wanted to solve
+\begin{equation}
+    (\grad^2 + \vec k^2)\varphi = 0
+\end{equation}
+in terms of a solution which takes the form
+\begin{equation}
+    \varphi = R\Theta \Phi.
+\end{equation}
+Separation of variables gives us two angular equations:
+\begin{equation}
+    -\frac{1}{\Phi} \Phi''(\phi) = m^2,
+\end{equation}
+where we take $m$ to be positive and quantized in units of the period (for the regular periodic boundary conditions), and
+\begin{equation}
+    \frac{1}{\sin\theta} \frac{d}{d\theta} \paren{\sin\theta \frac{d\Theta}{d\theta}} - \frac{m^2 + \sin^2 \theta}{\sin^2\theta} \Theta = 0,
+\end{equation}
+which is just the Legendre equation in terms of a variable $x=\cos\theta$.
+
+Finally, we have the radial equation
+\begin{equation}
+    \frac{1}{r^2} \frac{d}{dr} \paren{r^2 \frac{dR}{dr}} + k^2 R -\frac{\lambda R}{r^2} = 0.
+\end{equation}
+
+Solving the $\Phi$ equation readily gives us a phase 
+\begin{equation}
+    \Phi= e^{im \phi}
+\end{equation}
+The $\Theta$ equation gives us (associated) Legendre polynomials,
+\begin{equation}
+    \Theta=P_l^m(x=\cos\theta)
+\end{equation}
+which are derivatives of the standard Legendre polynomials $D_x^m P_l(x)$. Once we impose the quantization condition, the Legendre polynomials (and therefore their derivatives) are perfectly regular at the poles.%
+    \footnote{We can see this from the Rodriguez formula for the Legendre polynomials.}
+Finally, rewriting the radial equation yields
+\begin{equation}
+    r^2 R''+ 2r R' + (k^2 r^2 - \lambda)R=0,
+\end{equation}
+where
+\begin{equation}
+    \lambda = l(l+1).
+\end{equation}
+The solutions are Bessel functions $J_\nu$ for half-integer values of $\nu$.
+
+Suppose we have a pure Laplace equation rather than Poisson. That is, the radial equation is
+\begin{equation}
+    r^2 R'' + 2rR' -l(l+1) R = 0.
+\end{equation}
+Then the solutions are just of the form $r^\alpha$: we see that
+\begin{equation}
+    \alpha(\alpha+1) = l(l+1),
+\end{equation}
+so that the solutions are $r^l,r^{-(l+1)}$. Hence our full solution to the Laplace equation in spherical coordinates is
+\begin{equation}
+    \varphi = \sum_{l,m}\paren{A_{lm}r^l +\frac{B_{lm}}{r^{l+1}}}P_l^m (\cos\theta) e^{im\phi}
+\end{equation}
+where $-l\leq m \leq l$ and $l=0,1,2,\ldots$. Of course, this is the multipole expansion. For $l=0$ the first term is constant ($r^0$) and the second term is $1/r$. When $l=0$ we must have $m=0$ and therefore the $l=m=0$ term gives us a constant plus the standard $1/r$ Coulombic potential.%
+    \footnote{There's a cute property of associated Legendre polynomials, that $P_l^{-m} = (-1)^m P_l^m$.}
+
+Look now at the $l=0,m=1$ term. The polar angular dependence is now $P_0^1(\cos\theta) = \cos\theta$ and the $1/r^{l+1}$ radial dependence becomes $1/r^2$. This gives us a $\cos\theta/r^2$ dependence, which we should recognize as the potential of an electric dipole. Higher $l$ will give us the quadrupole, octupole, and so on. The dominant behavior at large $r$ is the monopole behavior, unless the monopole moment vanishes.
+
+However, notice that the first term $A_{lm}$ blows up at infinity, while the second term $B_{lm}$ blows up as $r\to 0$. We say the second describes an ``external solution'' outside some distribution of charges, while the first is an internal one.
+%People could not live inside the shell of the earth. They would just float. Unless of course they lived on the equator. Real estate would be extremely precious.
+
+More generally we might imagine patching together solutions based on some boundary conditions. Suppose for instance we impose a boundary condition on a sphere of some radius $a$, such that
+\begin{equation}
+    \vec E = \P{V}{\vec n} = -V_0 \cos\theta.
+\end{equation}
+These specify the normal derivative on a closed surface, so they are Neumann boundary conditions.
+We may check that
+\begin{equation}
+    \int_0^\pi V_0 \cos\theta \sin\theta d\theta d\phi = \int_{1}^{-1} V_0 \cos\theta d(\cos\theta) d\phi =0.
+\end{equation}
+That is, there is no net charge on the sphere. This allows for the Gauss law to be satisfied; more generally, there are complications arising from such a calculation when these sorts of integrals do not vanish.
+
+We now see by comparison to our general multipole expansion that $m=0$, since there must be no azimuthal (axial) angular dependence of our problem. We throw away the growing solution in the exterior region since it diverges as $r\to \infty$, and so our solutions are constrained to take the form
+\begin{equation}
+    \frac{B_{l0}}{r^{l+1}}P_l(\cos\theta).
+\end{equation}
+To match the other angular dependence with the boundary condition, we see that $l=1$, which means our solution is just
+\begin{equation}
+    \frac{B_{10}}{a^2} \cos\theta,
+\end{equation}
+on the boundary, and therefore
+\begin{equation}
+    V= - V_0 \paren{\frac{a}{r}}^2 \cos\theta.
+\end{equation}
+We recognize this as the dipole potential. Apparently the field of such a distribution is exactly the dipole potential outside!
+
+What about the interior? We would keep the $r^l$ terms, and if we again keep only the $m=0,l=1$ terms, we now get
+\begin{equation}
+    V= -V_0 r\cos\theta = -V_0 z
+\end{equation}
+inside. The key element here is the orthonormality of the angular dependence eigenfunctions. Because these eigenfunctions are orthonormal and complete, we can expand a general solution in their basis and just match coefficients to the boundary conditions.
+
+We can look at the Laplace equation in two dimensions,
+\begin{equation}
+    \Delta \Phi =0.
+\end{equation}
+Note that solutions $\Phi$ can have no extrema in the interior, for otherwise the Laplacian could not vanish-- suppose we chose axes such that $(\p_x^2 +\p_y^2)\Phi =0$. A maximum would have $\p_x^2 <0$ and $\p_y^2 <0$, which would imply that $\Delta \Phi >0$.
+
+We shall now prove uniqueness of solutions. Suppose we had two solutions $\Phi_1,\Phi_2$ satisfying the boundary conditions. Notice that
+\begin{equation}
+    \Delta \phi = \Delta \Phi_1 - \Delta \Phi_2 =0,
+\end{equation}
+where
+\begin{equation}
+    \phi|_b =0
+\end{equation}
+vanishes on the boundary. Now notice that
+\begin{align}
+    0&=\int \phi \grad^2 \phi\\
+        &= \int \grad(\phi \grad \phi) - (\grad \phi)^2\\
+        &= \int_b d\vec A \cdot (\phi \grad \phi) - \int(\grad \phi)^2.
+\end{align} 
+Notice this quantity is like an energy, since $\grad^2 \phi \sim \rho$.
+The first term vanishes since $\phi$ vanishes on the boundary. The second one is negative semi-definite, so this whole expression can only be zero if $\grad \phi=0$ identically. We conclude that $\phi$ is at most a constant, so these solutions differ at most by a constant; this is just our gauge symmetry. This argument works with Neumann boundary equations also; it's just the $\grad \phi$ term which vanishes on the boundary instead, which forces $\grad \phi$ to vanish everywhere.
+
+For the wave equation, initial conditions are much simpler. Recall that solutions are a sum of a left-mover and a right-mover, i.e.
+\begin{equation}
+    \phi = f(x-t) + g(x+t),
+\end{equation}
+such that
+\begin{align}
+    \phi_0(x,0) = f(x) + g(x)\\
+    \dot \phi_0(x,0) = -f'(x) + g'(x).
+\end{align}
+We can therefore integrate the second equation from $x-t$ to $x+t$ as
+\begin{align}
+    \int_{x-t}^{x+t} dx \, \dot \phi_0(x,0) &= -\int_{x-t}^{x+t} dx \, f'(x) + \int_{x-t}^{x+t} dx \, g'(x)\\
+        &= -f(x+t) + f(x-t) + g(x+t) - g(x-t).
+\end{align}
+We can then evaluate the first equation at $x+t, x-t$ to get
+\begin{equation}
+    \phi(x+t,0) + \phi(x-t,0) = f(x+t) + f(x-t) + g(x+t) + g(x-t).
+\end{equation}
+Adding this with the lat equation gives us
+\begin{equation}
+    \phi_0(x+t,0) + \phi_0(x-t,0) + \int_{x-t}^{x+t} dx \, \dot \phi_0(x,0) = 2\bkt{f(x-t) + g(x+t)} = 2 \phi(x,t).
+\end{equation}
+Equivalently,
+\begin{equation}
+    \phi(x,t) = \frac{1}{2} \phi_0(x-t) + \frac{1}{2} \phi_0(x+t) + \frac{1}{2} \int_{x-t}^{x+t} dx \, \dot \phi_0(x).
+\end{equation}
+This solution is somewhat intuitive-- setting $t=0$ gives back $\phi_0(x)$, while taking the time derivative makes the first two terms cancel and the second one exactly match $\dot \phi_0$. The first two terms propagate the initial condition off to the left and right, while the integral adds up the influence of the initial ``velocities'' we specified at $t=0$.
+
+Finally, we conclude with the heat equation,
+\begin{equation}
+    \p_t \phi = \p_x^2 \phi,
+\end{equation}
+which we will just treat in one spatial dimension. Let us again try separation of variables, $\Phi= TX$. Then
+\begin{equation}
+    \frac{T'(t)}{T} = \frac{X''(x)}{X}=\beta
+\end{equation}
+and each of these must be constant, where we have called the separation constant $\beta$. Then
+\begin{equation}
+    T = e^{\beta t}, \quad X = \bar Ae^{\sqrt{\beta} x} + \bar B e^{-\sqrt{\beta} x}.
+\end{equation}
+We can also define $\beta = -\alpha^2$. We ought to take $\beta \in \RR$ so that temperature does not oscillate in time. In fact, we should (on physical grounds) take $\beta <0$ in order to say our system is cooling down over time, and thus $\alpha$ is real and positive, which means that the $X$ dependence is just sines and cosines. That is,
+\begin{equation}
+    \Phi= \bkt{A\sin(\alpha x) + B \cos(\alpha x)} e^{-\alpha^2 t}
+\end{equation}
+or more generally
+\begin{equation}
+    \Phi= \int d\alpha C(\alpha) \bkt{A\sin(\alpha x) + B \cos(\alpha x)} e^{-\alpha^2 t}.
+\end{equation}
+%what's cooler than cold? Ice cold! What's cooler than ice cold? The cosmic microwave background, apparently.
+We could therefore set initial conditions by specifying the heat distribution at $t=0$, and let it evolve. We might also have rewritten our solution in terms of a new dimensionless scale $u=\alpha x$, in which case we would see that the $e^{-\alpha^2 t}$ dependence becomes $e^{-t/u^2}$. If we suppose that $\Phi$ is therefore only a function of the coordinates in the combination
+\begin{equation}
+    U(x/\sqrt{t}),
+\end{equation}
+then
+\begin{equation}
+    \p_t \Phi = -\frac{1}{2} \Phi \frac{x}{t^{3/2}}.
+\end{equation}
+We arrive at an equation of the form
+\begin{equation}
+    2U'' + \zeta U'=0,
+\end{equation}
+which is first-order in $U'$. Hence the solution is
+\begin{equation}
+    U(\zeta) = C_1 \int_0^\zeta d\zeta' e^{-\zeta'{}^2/4} + C_2.
+\end{equation}
+The limit $\zeta\to \infty$ corresponds to $t\to 0$, and we can explicitly calculate
+\begin{equation}
+    U(\zeta \to \infty) = C_1 \int_0^\infty d\zeta' e^{-\zeta'{}^2/4} + C_2 = C_1 \sqrt{\pi} + C_2.
+\end{equation}
+Similarly we can evaluate $U(-\infty) = -C_1 \sqrt{\pi}$, which means that we can solve for $C_1,C_2$ in terms of initial conditions.
+
+It follows that we can take derivatives with respect to $x,t$ of our original solution and generate new solutions. The solution is therefore
+\begin{equation}
+    \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty d\zeta e^{-\zeta^2} C (x-2\zeta \sqrt{t}).
+\end{equation}
+%7 problems on the final, 2 hours.

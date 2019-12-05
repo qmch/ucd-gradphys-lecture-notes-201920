@@ -1,0 +1,197 @@
+\begin{note}
+    Today is Sean's first guest lecture, as Mukund is away at a conference.
+\end{note}
+\subsection*{Symmerties in QM}
+In classical mechanics, we had a Lagrangian $\cL(q_i, \dot q_i, t)$ which depended on some coordinates, their first time derivatives, and perhaps time itself. Symmetries in classical mechanics were then described by coodrinate transformations $q_i \to q_i  +\delta q_i$ such that $\delta \cL = \P{\cL}{q_i} =0$, which resulted in conserved currents by the Noether procedure. This generalizes to quantum mechanics as Ehrenfest's theorem, which says that classical equations of motion hold on the level of expectation values (see our previous discussions).
+
+We'll describe symmetries in QM with some different language, though.
+\begin{defn}
+    A symmetry operator $S$ is a unitary operator $SS^\dagger = \II$ such that states transform as
+    \begin{equation}
+        \ket{\psi} \to S \ket{\psi}, \quad \rho \ to S \rho \S^\dagger.
+    \end{equation}
+    We say that $S$ is a symmetry if
+    \begin{equation}
+        \hat H = S^\dagger \hat H S.
+    \end{equation}
+    Note that while we should be careful for general operators to put the $S^\dagger$ on the left, for Hermitian operators it will not matter because we can just take the dagger of the entire expression (i.e. $\hat H = \hat H^\dagger = S \hat H^\dagger S^\dagger = S \hat H S^\dagger$).
+\end{defn}
+
+We introduced groups last time. A group $G$ is a set of elements $\set{x_i}$ equipped with a binary operation $*$ such that $\forall x,y \in G$,
+\begin{itemize}
+    \item the product $x*y$ is in $G$
+    \item there exists an identity $e$ such that $e*x =x*e = x$
+    \item the operation is associative, $x*(y*z)=(x*y)*z$
+    \item there exists an inverse $x^{-1}$ for each element $x$ such that $x^{-1} * x = e$.
+\end{itemize}
+Some examples include $SO(2)=\set{\begin{pmatrix}\cos \theta & \sin \theta \\
+-\sin\theta & \cos\theta\end{pmatrix}, 0 \leq \theta < 2\pi}$, which is the continuous group of (real) rotations in 2 dimensions. We could also look at discrete groups like $\ZZ_2=\set{\pm 1}$, where the group operation is multiplication.
+
+In the case of continuous groups, we can expand group elements in terms of a small real parameter,
+\begin{equation}
+    S = \II - i\lambda \hat S + O(\lambda^2).
+\end{equation}
+If $S$ is unitary, then the operator $\hat S$ is Hermitian. The prototypical example is unitary time evolution,
+\begin{equation}
+    U=e^{-\frac{i}{\hbar} \hat H t} = \II - \frac{i}{\hbar} t \hat H.
+\end{equation}
+
+In particular, if $S$ is a symmetry of the system, then
+\begin{align}
+    \hat H &= S^\dagger \hat H S\\
+        &= (\II + i\lambda \hat S) \hat H (\II - i\lambda \hat S)\\
+        &= \hat H - i\lambda(\hat S \hat H - \hat H \hat S) + O(\lambda^2),
+        %there might be a sign here
+\end{align}
+which tells us that
+\begin{equation}
+    [\hat S, \hat H]= 0.
+\end{equation}
+
+Suppose we now have a Hamiltonian $\hat H$ with some degenerate energy eigenstates
+\begin{equation}
+    \set{\ket{E_{n,i}},i=1,\ldots,n},
+\end{equation}
+such that
+\begin{equation}
+    \hat H \ket{E_{n,i}} = E_n\ket{E_{n,i}}.
+\end{equation}
+Then we can lift the degeneracy by acting with our symmetry operator $\hat S$ on these eigenstates and measuring the eigenvalues of $\hat S$. That is,
+\begin{equation}
+    \hat S \ket{E_{n,i}} = S_i \ket{E_{n,i}}.
+\end{equation}
+
+\begin{lem}[Schur's lemma]
+    Any operator that commutes with all operators of an irreducible representation acting on a Hilbert space must be a multiple of the identity.
+\end{lem}
+That is, we think of this set of eigenstates as its own Hilbert space. Then $\hat H$ commutes with $\hat S$, so it is a multiple of the identity.
+
+\subsection*{Representation theory}
+Representation theory is the statement of assigning linear maps (operators) to elements of groups acting on some vector space. That is, we have a Hilbert space $\cH$ and a symmetry group $G$. Then the action of a symmetry $S$ acting on vectors in the Hilbert space is as follows:
+\begin{equation}
+    S\ket{\psi} = e^{i\lambda \hat S}\ket{\psi}.
+\end{equation}
+That is, we exponentiate elements $\hat S$ of the Lie algebra to get elements $S$ of the Lie group.
+
+Let us make this concrete. Two of the most important symmetries in quantum mechanics are parity and time reversal.%
+    \footnote{These are $\ZZ_2$ symmetries, in the sense that doing them twice is the identity.}
+The parity symmetry corresponds to a Hermitian operator $P$ such that $\ket{\psi} \to P \ket{\psi}$ where
+\begin{equation}
+    \bra{\psi} P^\dagger \hat x P \ket{\psi} = -\bra{\psi} \hat x \ket{\psi}.
+\end{equation}
+That is, it flips the expectation values of $\hat x$. Hence
+\begin{equation}
+    P^\dagger \hat x P = -\hat x \implies \set{\hat x, P}=0.
+\end{equation}
+We should note that parity is also unitary, i.e. $P^\dagger P=\II$. As parity flips space, it also anticommutes with momentum, and it commutes with angular momentum,%
+    \footnote{This is because angular momentum is classically a pseudovector, not a vector.}
+i.e.
+\begin{equation}
+    \set{P,\hat p} =0
+\end{equation}
+but also
+\begin{equation}
+    \vec L = \hat x \times \hat p, \quad [\vec L, P]=0
+\end{equation}
+
+As we stated earlier, $P$ is a symmetry of a system (it is parity-invariant) if
+\begin{equation}
+    [\hat H, P]=0.
+\end{equation}
+Equivalently,
+\begin{equation}
+    V(\hat x) = V(-\hat x)
+\end{equation}
+since $P$ automatically commutes with the $p^2$ kinetic term. Notice that
+\begin{equation}
+    \hat x P\ket{x} = -P \hat x \ket{x} = -x P \ket{x},
+\end{equation}
+which tells us that $P\ket{x}$ is an eigenvector of $\hat x$ with eigenvalue $-x$. Hence
+\begin{equation}
+    P\ket{x} = e^{i\theta_p} \ket{-x},
+\end{equation}
+i.e. $P\ket{x}$ is proportional to $\ket{-x}$. If we choose $\theta_p=0$ we see that
+\begin{equation}
+    P^2 \ket{x} = \ket{x}.
+\end{equation}
+This in turn tells us that the eigenvalues of $P$ are $\pm 1$.
+Hence we can also describe the action of $P$ on a wavefunction as
+\begin{equation}
+    \psi(-x) = \bra{x} P \ket{\psi} = \pm \braket{x}{\psi} = \pm \psi(x).
+\end{equation}
+Hence if $\ket{\psi}$ is an eigenket of $P$, then $\psi(x) = \pm \psi(-x)$.
+
+\subsection*{Selection sectors}
+Suppose that $\ket{\psi_1},\ket{\psi_2}$ are vectors in a Hilbert space $\cH$ such that for all (Hermitian) operators $A$,
+\begin{equation}
+    \bra{\psi_1} A \ket{\psi_2} =0.
+\end{equation}
+This implies that $\ket{\psi_1}, \ket{\psi_2}$ live in different \term{selection sectors} of the Hilbert space $\cH$.
+As an example, consider
+\begin{equation}
+    P\ket{\psi_1} = \epsilon_1 \ket{\psi_1}, P\ket{\psi_2} = \epsilon_2 \ket{\psi_2}.
+\end{equation}
+Then
+\begin{equation}
+    \braket{\psi_2}{\psi_1} = 0 \text{ if } \epsilon_1 \neq \epsilon_2.
+\end{equation}
+More generally
+\begin{equation}
+    \bra{\psi_2} A \ket{\psi_1} = \begin{cases}
+        0 &\text{unless } \epsilon_1 = -\epsilon_2 \text{ and } \set{P,A}=0\\
+        0 &\text{unless } \epsilon_1 = +\epsilon_2\text{ and } [P,A]=0.
+    \end{cases}
+\end{equation}
+That is, there is no way to get between these two operators, and their overlap is zero (since the identity is certainly hermitian).
+
+\subsection*{Time reversal}
+Time-reversal symmetry is, morally speaking, the symmetry $t\to -t$. The actual implementation is a little more complicated, though. The original Schr\"odinger's equation says
+\begin{equation}
+    i\hbar \p_t \psi(x,t) = \hat H \psi(x,t),
+\end{equation}
+so under the transformation $t\to -t, \psi(x,t) \to \psi^*(x,-t)$, we see that the equation becomes
+\begin{equation}
+    (i\hbar \p_{-t} \psi(x,-t))^* = (\hat H \psi(x,-t))^* \implies i\hbar \p_t \psi^*(x,-t) = \hat H \psi^*(x,-t).
+\end{equation}
+So $\psi^*(x,-t)$ is also a solution.
+
+Time-reversal is also a bit subtle because it is \emph{anti-unitary}, i.e. if
+\begin{equation}
+    \ket{\psi_1} \mapsto \ket{\tilde \psi_1} = U_a \ket{\psi_1}, \quad \ket{\psi_2} \mapsto \ket{\tilde \psi_2} = U_a \ket{\psi_2},
+\end{equation}
+then it is anti-unitary,
+\begin{equation}
+    \braket{\tilde \psi_1}{\tilde \psi_2} = \braket{\psi_1}{\psi_2}^*
+\end{equation}
+and also anti-linear,
+\begin{equation}
+    U_a (\alpha \ket{\psi}) = \alpha^* U_a \ket{\psi}\text{ for }\alpha\in \CC.
+\end{equation}
+In general such operators can be written as $U_a = U C$, the product of a unitary operator and complex conjugation.
+
+Now let us actually implement time reversal as follows. In the Schr\"odinger picture, states evolve as
+\begin{equation}
+    \ket{\psi(t)} = U(t,0) \ket{\psi(0)} = e^{-i\hat H t} \ket{\psi(0)},
+\end{equation}
+so then we want time reversal to act in the following way:
+\begin{equation}
+    e^{-iH t} T\ket{\psi} = Te^{iHt} \ket{\psi}.
+\end{equation}
+That is, evolving backwards in time and then performing time reversal should be equivalent to performing time reversal first and then evolving forwards in time. Infinitesimally, it follows that
+\begin{equation}
+    -i\hat H T \ket{\psi} = -i T \hat H \ket{\psi} \implies [T,\hat H]=0.
+\end{equation}
+One can then show that time reversal acts in the following way:
+\begin{equation}
+    \bra{\psi_1} A \ket{\psi_2} = \bra{\tilde \psi_2} TA^\dagger T^{-1} \ket{\tilde \psi_1},
+\end{equation}
+which is left as an exercise. If $A$ is Hermitian, then
+\begin{equation}
+    \bra{\psi_1} A \ket{\psi_2} = \bra{\tilde \psi_1} TAT^{-1} \ket{\tilde \psi_1} \implies TAT^{-1} = \pm A.
+\end{equation}
+
+Finally, we can describe the impact on eigenstates of position and momentum:
+\begin{align}
+    \ket{p} \to T \ket{p} = e^{i\theta_T} \ket{-p}\\
+    \ket{x} \to T \ket{x} = \ket{x}.
+\end{align}
