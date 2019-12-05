@@ -1,0 +1,187 @@
+%as they say in Pirates of the Caribbean, do we have the accord?
+Today we proceed to the topic of partial differential equations (PDEs). These are the creatures we use to describe physical laws.
+
+PDEs require us to know how to take derivatives on spaces of dimension greater than $1$. If our space $M$ where the function lives is sufficiently nice (it admits local coordinates) then we can define a directional derivative by defining a parametrized curve on $M$ and looking at how a function $f$ changes as we compare nearby points. That is, we can define
+\begin{equation}
+    \frac{\delta f}{\delta \vec l} = \vec l \cdot \grad f
+\end{equation}
+where
+\begin{equation}
+    \grad f = (\p_x f, \p_y f, \p_z f,\ldots)
+\end{equation}
+and the partial derivatives are given in the usual way by
+\begin{equation}
+    \p_x f(x,y,z) = \lim_{\Delta x \to 0} \frac{f(x+\Delta x,y, z) -f(x,y,z)}{\Delta x}.
+\end{equation}
+
+\begin{defn}
+    A partial differential equation is an equation of the form
+    \begin{equation}
+        U(x_i,f,\p_{x_i}f, \p_{x_i} \p_{x_j} f, \ldots) =0.
+    \end{equation}
+    That is, our equation relates a function $f$, the coordinates $x_i$, and derivatives of $f$ with respect to the coordinates.
+\end{defn}
+
+\begin{defn}
+    We shall call a PDE \term{linear} if upon replacing $f\to \lambda f$, our equation becomes
+    \begin{equation}
+        \lambda U + F(x),
+    \end{equation}
+    i.e. our equation just rescales up to an additive piece that does not depend on $\lambda$.
+\end{defn}
+
+Let us recall that we can always turn a single $n$th-order differential equation into a system of $n$ first-order equations by defining new variables (sort of like conjugate momenta) and rewriting. That is,
+\begin{equation}
+    \cL(D) X = 0 \leftrightarrow y_i' = f_i(x,y_i).
+\end{equation}
+
+We'll also restrict our interest to homogeneous linear first-order PDEs.%
+    \footnote{Lit reference: Myskys on PDEs.}
+That is, our equation takes the form
+\begin{equation}
+    \sum f_k(x) \p_k U = 0,
+\end{equation}
+where $\set{f_k(x)}$ is some set of $C^\infty$ smooth functions. A solution of this equation is a function $U=U(x)=C$ with some number of integration constants.
+%the internets are crazy places.
+That is, $U(x)$ maps points in the original space to a scalar value $C$. These are nothing more than equipotential surfaces in the original space. Sufficient data would then be a single point in the original space. Moreover, we can think about small variations in the ``potential'' value $C$. That is, $C\to C+\delta C$. Clearly, the function changes the most normal to the surface.
+
+If we consider the tangent plane to the surface, we can also define the normal to the surface
+\begin{equation}
+    \vec n = \grad U.
+\end{equation}
+The tangent vectors on the surface are orthogonal to the normal,
+\begin{equation}
+    \vec f \cdot \vec n = 0,
+\end{equation}
+so that
+\begin{equation}
+    0=\vec f \cdot \grad U = \sum_k f_k \p_k U.
+\end{equation}
+This tells you that the $f_k(x)$ functions define a set of tangent vectors to a surface.%
+    \footnote{Equivalently we're specifying a $n$-dimensional vector field on an $n$-dimensional space. We specify one constraint, the value of the function, so the surface is of codimension $1$.}
+Most of the integration constants will fix the point we live at with respect to our surface. One constant will fix which surface we're on.%
+    \footnote{Curiously, there's a link between the Frobenius theorem from differential geometry to the cosmological constant problem in effective field theory. See Weinberg '89, Reviews of Modern Physics}
+
+\begin{exm}
+    Consider the PDE
+    \begin{equation}
+        a\p_x \phi + b \p_y \phi =0.
+    \end{equation}
+    It is clear that we can translate between
+    \begin{equation}
+        \phi(x,y) =C
+    \end{equation}
+    and the parametric representation
+    \begin{equation}
+        x= x(C), y= y(C).
+    \end{equation}
+    If $a,b$ are constants then we are simply looking for the flows of a vector field which is constant everywhere. Its equipotentials are constant lines where $a\p_x + b\p_y$ is normal to the surface.
+    
+    The natural thing to do in the constant coefficient case is to change coordinates
+    \begin{align}
+        s&= ax +by\\
+        t &= bx - ay.
+    \end{align}
+    We can rewrite our equation in terms of the new variables $s,t$ by the chain rule, i.e. because $\phi$ implicitly depends on $s$ and $t$ via
+    \begin{equation}
+        \phi(x,y) = \phi(x(s,t),y(s,t)),
+    \end{equation}
+    we can therefore write
+    \begin{align}
+        0 &= a\p_x \phi +b \p_y \phi\\
+        &= a \paren{\P{\phi}{s} a + \P{\phi}{t} b} + b\paren{\P{\phi}{s} b -a \P{\phi}{t}}\\
+            &= (a^2+b^2) \P{\phi}{s}.
+    \end{align}
+    Hence any function that depends only on $t$ is a solution,
+    \begin{equation}
+        \phi=f(t).
+    \end{equation}
+    Note that this worked since the new equation for $s$ was positive-definite. It can only become degenerate if $a^2+b^2=0$, in which case there's no equation.
+\end{exm}
+In other words, along curves of constant $t$, the function itself is constant since the solution is independent of $s$. Lines of constant $t$ are called \term{characteristics}. If you specify initial data on a line of constant $s$, then this sets initial data for the entire space. Conversely we are not free to specify arbitrary data on curves of constant $t$. In general, we must give initial data on a surface that crosses every characteristic at least once.
+
+Another way to look at it is like this: suppose we have a parametrized curve $x=x_0(\lambda),y=y_0(\lambda)$, and we moreover are given initial data
+$\phi(x_0(\lambda),y_0(\lambda))$ on this curve. Then we can write the full solution as
+\begin{equation}
+    \phi(x,y) = \phi(x_0,y_0) + \p_x \phi|_{x_0,y_0} \Delta x + \p_y \phi|_{x_0,y_0} \Delta y.
+\end{equation}
+That is,
+\begin{equation}
+    \frac{d\phi}{dl} = \p_x \phi \frac{dx}{dl} + \p_y \phi \frac{dy}{dl},
+\end{equation}
+by the chain rule, and we also know that
+\begin{equation}
+    a\p_x \phi + b \p_y \phi =0
+\end{equation}
+is our differential equation, so this provides us a system of equations for $\p_x \phi, \p_y \phi$. For this equation to have a solution, we must have
+\begin{equation}
+    \begin{vmatrix}
+        \frac{dx}{dl} & \frac{dy}{dl}\\
+        a& b
+    \end{vmatrix} \neq 0.
+\end{equation}
+This tells us that
+\begin{equation}
+    b\frac{dx}{dl} - a\frac{dy}{dl} \neq 0,
+\end{equation}
+or equivalently our initial data must not be specified on a curve parallel to the characteristics. Otherwise, we are bound to run into pathologies.
+
+Let us now consider something more exotic:
+\begin{equation}
+    a\p_x \phi + b \p_y \phi + q(x,y) \phi = F(x,y).
+\end{equation}
+If we replace $x$ and $y$ by $s,t$ as before, we find that
+\begin{equation}
+    (a^2 +b^2) \p_s \phi + \hat q(s,t) \phi = \hat F(s,t)
+\end{equation}
+where
+\begin{equation}
+    \hat q(s,t) = q(x(s,t),y(s,t))
+\end{equation}
+and $F$ is similar. Notice that this new equation has only one derivative, so now our equation has reduced to an ODE problem where $t$ just parametrizes which curve we are on.
+
+Another natural generalization is to three variables,
+\begin{equation}
+    a\p_x \phi  + b\p_y \phi + c\p_z \phi = 0.
+\end{equation}
+If $a,b,c$ are constant we can certainly just define $s,t,u$ with say
+\begin{equation}
+    s=ax +by + cz
+\end{equation}
+and $t,u$ in the plane orthogonal to $s$. Then our equation simplifies as before, i.e.
+\begin{equation}
+    (a^2+b^2+c^2) \p_s \phi =0
+\end{equation}
+and $\phi= f(t,u) ={}$constant gives the solutions. Characteristics run along $s$ and take us off our initial data surface. We just follow the flow to extend our solution to the entire space.
+
+In the 3D case, we now need initial data along two curves $l,l'$ in the surface, and then we can solve for $\p_x \phi,\p_y\phi,\p_z\phi$. The following determinant must be nonvanishing:
+\begin{equation}
+    \begin{vmatrix}
+    \frac{dx}{dl} & \frac{dy}{dl} & \frac{dz}{dl}\\
+    \frac{dx}{dl'} & \frac{dy}{dl'} & \frac{dz}{dl'}\\
+    a & b & c
+    \end{vmatrix}
+\end{equation}
+
+Finally, we will preview our first second-order equation,
+\begin{equation}
+    (\p_x^2 - \p_y^2) \phi =0.
+\end{equation}
+This is a wave equation. Clearly, this factorizes as
+\begin{equation}
+    (\p_x - \p_y)(\p_x+\p_y)\phi=0.
+\end{equation}
+If we now introduce new variables
+\begin{align}
+    u &= x+y\\
+    v &= x-y,
+\end{align}
+then in terms of the new coordinates, we can rewrite this as
+\begin{equation}
+    \p_u \p_v \phi =0.
+\end{equation}
+These are none other than the null coordinates in Minkowski space. This tells us that functions of $u$ or $v$ alone are solutions to the equation, and so
+\begin{equation}
+    \phi(u,v)=f(u) + g(v)
+\end{equation}
+solve the wave equation, such that $f,g$ are at least twice differentiable.

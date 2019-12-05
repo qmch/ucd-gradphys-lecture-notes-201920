@@ -1,0 +1,222 @@
+Today we'll discuss more about continous symmetries. Notice that for a translation
+\begin{equation}
+    \psi(x) \to \psi(x+a), \quad a\in \RR,
+\end{equation}
+we can express this infinitesimally as
+\begin{align}
+    \psi(x) \to \psi(x+\epsilon) &= \psi(x) + \epsilon \P{\psi}{x} + O(\epsilon^2)\\
+        &= (1+ \epsilon \P{}{x}) \psi(x),
+\end{align}
+where we recognize the derivative as related to the momentum operator. Namely, these are the first terms in the expansion of $e^{-i\epsilon \hat p}$ (maybe up to some factors of $\hbar$).
+
+Similarly, we know about the classical angular momentum operator
+\begin{equation}
+    \vec L = \vec x \times \vec p.
+\end{equation}
+We can construct the angular momentum operators $\hat L_i$ by promoting $x$ and $p$ to operators so that component-wise, we get
+\begin{equation}
+    \hat L_i = \epsilon_{ijk} \hat x_j \hat p_k,
+\end{equation}
+where $\epsilon_{ijk}$ is the Levi-Cevita symbol and I am using the Einstein summation convention that repeated indices are summed over. $i,j,k$ run from $1$ to $3$. Hence
+\begin{align}
+    [L_i,L_j] &= \epsilon_{imn} \epsilon_{jrs} [\hat x_m \hat p_n, \hat x_r \hat p_s]\\
+        &= \epsilon_{imn} \epsilon_{jrs} (\hat x_m ]\hat p_n, \hat x_r] \hat p_s - \hat x_r [\hat p_s,\hat x_m] \hat p_n)\\
+        &= -i\hbar \epsilon_{imn} \epsilon_{jrs} (\hat x_m \hat p_s \delta_{nr} -\hat x_r \hat p_n \delta_{sm}).
+\end{align}
+Using the property that $\epsilon_{ijk} \epsilon_{mnk} =\delta_{im} \delta_{jn} - \delta_{in} \delta_{jm}$, we can therefore write this commutator as
+\begin{align}
+    [\hat L_i, \hat L_j] &= -i\hbar \paren{-(\delta_{ij} \delta_{ms} - \delta_{is} \delta_{jm}) \hat x_m \hat p_s + (\delta_{ij} \delta_{nr} - \delta_{ir} \delta_{jn}) \hat x_r \hat p_n}\\
+        &= i\hbar(\hat x_i \hat p_j - \hat x_j \hat p_i)\\
+        &= i\hbar \epsilon_{ijk} L_k.
+\end{align}
+Alternately, we can do this using the fact that $\hat p$ is a derivative to explicitly write $\hat L_i = -i\hbar \epsilon_{ijk} x_j \p_k$. Now we can exponentiate the angular momentum generators to get a general rotation $R\in SO(3)$, which takes the form
+\begin{equation}
+    R = \exp\paren{-\frac{i}{\hbar} (\theta_1 \hat L_1 + \theta_2 \hat L_2 + \theta_3 \hat L_3)}.
+\end{equation}
+If the Hamiltonian of a system commutes with the rotation generator(s),
+\begin{equation}
+    [\hat H, \hat L_i]=0,
+\end{equation}
+then we say our system has rotational symmetry.
+
+We can also construct something called the quadratic Casimir,
+\begin{equation}
+    L^2 = L_1^2 + L_2^2 + L_3^2.
+\end{equation}
+The point of constructing this Casimir is that
+\begin{equation}
+    [\hat L^2, \hat L_i]=0,
+\end{equation}
+so it labels states of a definite total angular momentum, as we saw in Schur's lemma last time, and the others will label the states in the subspace.
+
+Since $\hat L^2$ commutes with each of the $\hat L_i$s, we can pick one of them (conventionally $L_3$) and simultaneously diagonalize $\hat L^2$ and $\hat L_3$. Let us also define
+\begin{equation}
+    \hat L_\pm = \hat L_1 \pm i\hat L_2,
+\end{equation}
+and notice that
+\begin{equation}
+    \hat L_\pm^\dagger = \hat L_\mp.
+\end{equation}
+It's a few lines of algebra to verify the following commutation relations:
+\begin{equation}
+    [\hat L_3, \hat L_\pm] = \pm \hbar \hat L_\pm, \quad [\hat L_+,\hat L_-] = 2\hbar \hat L_3, \quad [\hat L^2, \hat L_3]=[\hat L^2, \hat L_\pm] =0.
+\end{equation}
+From here, we can already see that these commutation relations are starting to look like the harmonic oscillator-- we have raising and lowering operators that commute with the $\hat L^2$ operator and the individual angular momentum operator $\hat L_3$.
+Let's get rid of the $\hbar$s by defining
+\begin{equation}
+    \hat L_i = \hbar \hat l_i.
+\end{equation}
+Then our Hilbert space has states $\ket{\lambda,\mu}$ such that
+\begin{equation}
+    \hat l^2\ket{\lambda,\mu} = \lambda \ket{\lambda,\mu},\quad \hat l_3 \ket{\lambda,\mu} = \mu \ket{\lambda,\mu}.
+\end{equation}
+Moreover,
+\begin{equation}
+    \hat l_3 \hat l_\pm \ket{\lambda,\mu} = (\mu\pm 1) \hat l_\pm \ket{\lambda,\mu},\quad \hat l^2 \hat l_\pm \ket{\lambda,\mu} = \lambda \hat l_\pm \ket{\lambda,\mu}.
+\end{equation}
+Hence we can write
+\begin{equation}
+    \hat l_\pm \ket{\lambda,\mu} = A_\pm (\lambda,\mu) \ket{\lambda,\mu \pm 1},
+\end{equation}
+i.e. we have recognized $\hat l_\pm \ket{\lambda,\mu}$ as another eigenstate of $\hat l_3$ with eigenvalue $\mu \pm 1$. So $\hat l_\pm$ really are ladder operators moving us up and down in $\mu$ eigenvalues. Well, what is this prefactor? Notice that
+\begin{equation}
+    \bra{\lambda,\mu} \hat l^2 - \hat l_3^2 \ket{\lambda,\mu} = \bra{\lambda,\mu} \frac{1}{2} (\hat l_+ \hat l_- + \hat l_- \hat l_+) \ket{\lambda,\mu} = \bra{\lambda,\mu} \hat l_1^2 + \hat l_2^2 \ket{\lambda,\mu} \geq 0,
+\end{equation}
+since this last term is manifestly non-negative (it is a sum of two inner products). Evaluating the first expression on the left explicitly, we see that
+\begin{equation}
+    \lambda-\mu^2 \geq 0.
+\end{equation}
+This tells us that there is some maximum allowed value of $\mu$, and also some minimum value of $\mu$. We're not required to actually saturate the inequality, but we will prove that the mathematics allows us to do so.
+
+That is, there is a highest $\mu_\text{hw}$ such that
+\begin{equation}
+    \hat l_+ \ket{\lambda,\mu_\text{hw}}=0
+\end{equation}
+and a lowest $\mu_\text{lw}$ such that
+\begin{equation}
+    \hat l_- \ket{\lambda,\mu_\text{lw}}=0.
+\end{equation}
+We have the anticommutation and commutation relations
+\begin{equation}
+    \set{\hat l_+,\hat l_-}= 2\hat l^2 - 2\hat l_3^2,\quad [\hat l_+,\hat l_-] = 2\hat l_3,
+\end{equation}
+so
+\begin{equation}
+    \hat l_- \hat l_+ \ket{\lambda,\mu_\text{hw}} = (\hat l^2 - \hat l_3^2 - \hat l_3) \ket{\lambda,\mu_\text{hw}} = 0,
+\end{equation}
+which tells us that
+\begin{equation}
+    \lambda = \mu_\text{hw} (\mu_{hw} +1).
+\end{equation}
+Similarly
+\begin{equation}
+    \hat l_+ \hat l_- \ket{\lambda,\mu_\text{lw}} = (\hat l^2 - \hat l_3^2 + \hat l_3) \ket{\lambda,\mu_\text{lw}} = 0,
+\end{equation}
+which says that
+\begin{equation}
+    \lambda = \mu_\text{lw}(\mu_\text{lw} -1).
+\end{equation}
+We conclude that
+\begin{equation}
+    \mu_\text{hw} = -\mu_\text{lw},
+\end{equation}
+and moreover
+\begin{equation}
+    \mu_\text{hw} - \mu_\text{lw} = 2\mu_\text{hw} \in \ZZ_{\geq 0}.
+\end{equation}
+Let us now call this highest weight
+\begin{equation}
+    j= \mu_\text{hw} \in \frac{1}{2} \ZZ_{\geq 0}.
+\end{equation}
+That is, $j$ can be a non-negative integer or half-integer. Now
+\begin{equation}
+    \lambda = j(j+1),
+\end{equation}
+which tells us that for a given value of $j$, there is a $2j+1$-dimensional Hilbert space such that our states can be labeled as
+\begin{equation}
+    \ket{j,m}, \quad m=-j, -j+1,\ldots, j-1, j.
+\end{equation}
+Then
+\begin{equation}
+    \hat l^2 \ket{j,m} =j(j+1) \ket{j,m},\quad \hat l_3\ket{j,m} = m\ket{j,m}.
+\end{equation}
+
+The last thing we need to do is find the prefactors $A_\pm(j,m)$:
+\begin{equation}
+    \hat l_\pm \ket{j,m} = A_\pm(j,m) \ket{j,m\pm 1}.
+\end{equation}
+Notice that by taking the adjoint of this expression we have
+\begin{equation}
+    \bra{j,m}\hat l_\mp = A^*_\pm(j,m) \bra{j,m\pm 1}.
+\end{equation}
+If we now take the inner product, we get
+\begin{equation}
+    \bra{j,m} \hat l_\mp \hat l_\pm \ket{j,m} = |A_\pm (j,m)|^2 \braket{j,m\pm 1}{j\pm 1} = |A_\pm(j,m)|^2,
+\end{equation}
+taking the eigenstates to be normalized. But we can also evaluate the expression on the left explicitly by noticing that
+\begin{equation}
+    \bra{j,m} \hat l_\mp \hat l_\pm \ket{j,m} = \bra{j,m} \hat l^2 - \hat l_3^2 \mp \hat l_3 \ket{j,m} = j(j+1) -m^2 \mp m = (j+m)(j-m) + (j\mp m).
+\end{equation}
+We conclude that
+\begin{equation}
+    A_\pm (j,m) = \sqrt{(j\mp m)(j\pm m +1)}.
+\end{equation}
+
+\subsection*{Superselection sectors}
+Notice that the values of $j$ separate our Hilbert space into subspaces labeled by total angular momentum. That is,
+\begin{equation}
+    \cH = \bigoplus_j \cH_j,
+\end{equation}
+where $\cH_j$ is the subspace corresponding to all states of total angular momentum $j$. The $L$ operators don't mix states of different $j$, and so the Hamiltonian has block diagonal form where each block is a $(2j+1)\times (2j+1)$ matrix.
+
+A general rotation element $\cD(R)$ is given by
+\begin{equation}
+    \cD(R) = e^{-\frac{i}{\hbar}(\hat n \cdot \hat L)\phi}.
+\end{equation}
+That is, we specify a rotation axis $\hat n$ and an angle $\phi$ about which to rotate. It has elements
+\begin{equation}
+    \cD_{m,m'}^{(j)} = \bra{j,m} e^{-\frac{i\phi}{\hbar} \hat n \cdot \hat L} \ket{j,m'}.
+\end{equation}
+Then
+\begin{equation}
+    L^2 \cD(R) \ket{j,m} = \cD(R) L^2 \ket{j,m} = j(j+1) \hbar^2 \bkt{\cD(R) \ket{j,m}},
+\end{equation}
+since $hat L^2$ commutes with all the individual $\hat L_i$s. That is, performing a rotation doesn't change the overall angular momentum. Now
+\begin{equation}
+    \cD(R) \ket{j,m} = \sum_{m'} \ket{j,m'} \bra{j_m'} \cD(R) \ket{j,m} = \sum_m \ket{j,m'} \cD_{m,m'}^{(j)}(R).
+\end{equation}
+That tells us that the matrix elements of $\cD_{m,m'}^{(j)}(R)$ have the interpretation of transition amplitudes for starting in an $L_Z$ eigenvalue $m$ state and ending up in an eigenvalue $m'$ state after performing the rotation $R$.
+
+We can write out explicit forms for the angular momentum operators in spherical coordinates. That is, if
+\begin{equation}
+    x=r\sin\theta\cos\phi, \quad y = r\sin\theta \sin \phi, z= r\cos\theta,
+\end{equation}
+then
+\begin{equation}
+    \hat l_3 = -i\P{}{\phi},\quad \hat l_\pm = \pm e^{i\phi} \paren{\P{}{\theta} + i \cot\theta \P{}{\phi}}.
+\end{equation}
+Let us consider the position-space representation of eigenstates $\ket{j,m}.$ That is,
+\begin{equation}
+    \braket{\theta,\phi}{j,m} = Y_j^m(\theta,\phi).
+\end{equation}
+We have
+\begin{equation}
+    \hat l_+ \ket{j,j} =0, \quad \hat l_3 \ket{j,j} = j\ket{j,j},
+\end{equation}
+so that in a coordinate basis,
+\begin{gather}
+    e^{i\phi} \paren{\P{}{\theta} + i \cot\theta \P{}{\phi}} Y_j^j(\theta,\phi) =0,\\
+    -i\P{}{\phi} Y_j^j(\theta,\phi) = j Y_j^j(\theta, \phi).
+\end{gather}
+If we solve these differential equations, we find that
+\begin{equation}
+    Y_j^j (\theta,\phi) = (-1)^j \sqrt{\frac{(2j+1)!}{4\pi}} \frac{1}{2^j j!} (\sin\theta)^j e^{ij\phi},
+\end{equation}
+and to get the remaining harmonics we can just act $k$ times with $\hat l_-$ to get
+\begin{equation}
+    (\hat l_-)^k Y_j^j = Y_j^{j-k}
+\end{equation}
+or equivalently
+\begin{equation}
+    Y_j^m = \bkt{-e^{i\phi} \paren{\P{}{\theta} + i \cot\theta \P{}{\phi}}}^{j-m} Y_j^j(\theta,\phi).
+\end{equation}
