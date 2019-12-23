@@ -18,7 +18,10 @@ If you would like to make use of the raw TeX files, please let me know at itlim@
 (n.b. if you're getting deja vu from this README, it's because I adapted the text from my Cambridge Part III notes. Check those out here: https://github.com/qmch/partiii-lecture-notes-201819)
 
 ### Course codes:
- - 204AB, Mathematical Methods of Physics
+ - 200BC, Mechanics and Electromagnetism
+ - 204AB, Methods of Mathematical Physics
  - 215AB, Quantum Mechanics
+ - 219A, Statistical Mechanics
+ - 232, Topics in String Theory
  
  With potentially more to come later.
