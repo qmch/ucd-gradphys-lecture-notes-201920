@@ -1,13 +1,15 @@
 \subsection*{Motivation}
-The aim of this course is to revisit quantum mechanics in more depth and more mathematical rigor. The official course text is Shankar's Principles of Quantum Mechanics, but the lecturer also recommends Weinberg's QM, Sakurai, and Leslie Valentine. To really understand the foundations of QM, Dirac's book is also useful.
+The aim of this course is to revisit quantum mechanics in more depth and more mathematical rigor. The official course text is Shankar's Principles of Quantum Mechanics, but the lecturer also recommends Weinberg's Quantum Mechanics, Sakurai, and Leslie Valentine. To really understand the foundations of quantum mechanics, Dirac's book is also useful.
 
-\subsection*{Origins of QM}
-One of the original motivations for QM was explaining the blackbody spectrum. The Rayleigh-Jones curve described the small-temperature limit, and Planck later added a correction, exponential damping at high $T$. Underlying Planck's model was some suggestion of quantized, discrete energies, and this theory was further developed with Schr\"odinger's wave mechanics.
+\subsection*{Origins of quantum mechanics}
+One of the original motivations for quantum mechanics was explaining the blackbody spectrum of thermal radiation. The Rayleigh-Jones curve described the small-temperature limit, and Planck later added a correction, exponential damping at high $T$. Underlying Planck's model was some suggestion of quantized, discrete energies, and this theory was further developed with Schr\"odinger's wave mechanics.
 
-Today, there have been many precision tests of quantum mechanics confirming that QM is a good model of small-scale phenomena. We'll spend the rest of today discussing the mathematical formalism which makes QM possible.
+Today, there have been many precision tests of quantum mechanics confirming that quantum mechanics is a good model of small-scale phenomena. We'll spend the rest of this lecture discussing the mathematical formalism which makes quantum mechanics possible.
 
 \subsection*{Mathematical background}
-Quantum mechanics is basically infinite-dimensional\footnote{Well, finite in spin systems and so on.} linear algebra. Why care about linear algebra? The key idea is this-- QM obeys a superposition principle. Our theory is linear.
+From a mathematical perspective, quantum mechanics is basically infinite-dimensional%
+    \footnote{Well, finite in spin systems and so on.}
+linear algebra. Why should we care about linear algebra? The key idea is this-- quantum mechanics obeys a superposition principle. Our theory is linear, so we can construct new solutions by taking linear combinations of existing ones.
 
 To build this theory, we need objects living in a vector space and some operators acting on those vectors. More precisely, we will deal with 
 \begin{itemize}
@@ -19,7 +21,7 @@ To build this theory, we need objects living in a vector space and some operator
 \begin{defn}
     A \term{linear vector space} is a collection of elements called \term{vectors}, denoted by kets $\set{\ket{v_i}}$, on which two operations are defined: 
     \begin{itemize}
-        \item Addition, $+\to \ket{v}+\ket{w}$,
+        \item Addition, $+: \ket{v},\ket{w}\to \ket{v}+\ket{w}$,
         \item and scalar multiplication, $\alpha \ket{v}, \alpha \in \CC.$
     \end{itemize} 
     These operations satisfy the following properties. For all $\ket{v_i},\ket{v_j}\in V$, $\alpha\in \CC$,
@@ -33,16 +35,17 @@ From these axioms, it follows that all linear combinations (superpositions) of v
 \begin{equation}
     \alpha_i \ket{v_i} +\alpha_j \ket{v_j}\in V.
 \end{equation}
-
-From the axioms, we can also prove some useful properties:
+%
+Using the axioms, we can also prove some useful properties:
 \begin{itemize}
-    \item $\exists \ket{0}\in V$ (additive identity) such that $\ket{v}+\ket{0}=\ket{v}$
-    \item For all $\ket{v}\in V$, $\exists \ket{-v} \in V$ (additive inverse) such that $\ket{v}+\ket{-v}=\ket{0}$.
+    \item $\exists\, \ket{0}\in V$ (additive identity) such that $\ket{v}+\ket{0}=\ket{v}$.
+    \item For all $\ket{v}\in V$, $\exists\, \ket{-v} \in V$ (additive inverse) such that $\ket{v}+\ket{-v}=\ket{0}$.
 \end{itemize}
-We will often be sloppy with our notation and denote $\ket{0}\sim 0$, so that $\ket{v}-\ket{v}=0$, which is secretly the zero vector.
+We will often be sloppy with our notation and denote $\ket{0}\sim 0$, so that $\ket{v}-\ket{v}=0$, which is secretly the zero vector.%
+    \footnote{However, we will sometimes indicate a ground (vacuum) state by $\ket{0}$ instead. The harmonic oscillator (and all of quantum field theory) uses this notation. In that case, the ground state is usually defined to be the state that is annihilated to the true zero vector by the annihilation operators of the theory. That is, $a\ket{0}=0$.}
 
 It would be frustrating if our set of vectors was simply impossible to manage, i.e. if the vectors had no nontrivial relationships between each other.%
-    \footnote{Free fields are kind of like this.}
+    \footnote{Free fields in abstract algebra are kind of like this.}
 Therefore, we will introduce the following definition.
 \begin{defn}
     A set of vectors $\set{\ket{w_i}}$ comprises a \term{linearly independent set} if no nontrivial linear combination of them sums to zero, i.e. if
@@ -54,10 +57,11 @@ Therefore, we will introduce the following definition.
     A set of vectors which is not linearly independent (there exists some combination $\alpha_i$ not all zero such that $\sum \alpha_i \ket{w_i}=0$) is called linearly dependent.
 \end{defn}
 
-Linear independence allows us to pick a special \emph{basis set}, which we denote $\set{\ket{e_n}}$ such that for \emph{any} $\ket{v}\in V$, there exists a decomposition
+Linear independence allows us to pick a special \emph{basis set}, which we denote $\set{\ket{e_n}}$. This set is chosen such that for \emph{any} $\ket{v}\in V$, there exists a decomposition
 \begin{equation}
     \ket{v} =\sum \alpha_n \ket{e_n}.
 \end{equation}
+%This is just an abstraction of the familiar concept of the components of a vector; choosing a basis is equivalent to choosing a coordinate system.
 Let's illustrate this with some examples.
 
 \begin{exm}
@@ -73,36 +77,37 @@ Let's illustrate this with some examples.
 \end{exm}
 \begin{exm}
     Consider a 1-qubit system, a quantum spin system with two states. A general state is written%
-        \footnote{Some people prefer $\ket{\uparrow}\ket{\downarrow}$ or $\ket{+},\ket{-}$.}
+        \footnote{Some people prefer to denote the basis states as $\ket{\uparrow}\ket{\downarrow}$ or $\ket{+},\ket{-}$.}
     \begin{equation}
         \alpha\ket{0} +\beta\ket{1},
     \end{equation}
     with $\alpha,\beta\in \CC$.
-    This is a complex vector space.
+    This is a complex vector space, because the coefficients $\alpha$ and $\beta$ are complex.
 \end{exm}
 \begin{exm}
-    We can define a \term{discretuum vector space} with a basis set $\ket{n},n=0,1,2,\ldots$. A general element is written
+    We can define a \term{discretuum vector space} with a basis set $\set{\ket{n}}_{n=0,1,2,\dots}$. A general element can be written as
     \begin{equation}
         \sum_{n=0}^\infty \alpha_n \ket{n},
     \end{equation}
     with $\alpha_n\in \CC$. This is of course the space of states for the harmonic oscillator, or more generally any confining potential.
 \end{exm}
 \begin{exm}
-    Consider the space spanned by $2\times 2$ matrices, defined over $\CC$. In particular, take
+    Consider the space spanned by $2\times 2$ matrices with complex entries. In particular, the following set of four matrices forms a basis for this space:%
+        \footnote{These matrices are linearly independent, as one can check by taking a general linear combination. Moreover, the dimension is correct. We need four complex parameters to specify a general element in this space, so it has complex dimension 4. But we've constructed a set of four linearly independent elements, so a linear combination of them will have four complex parameters, which is exactly right to form a basis.}
     \begin{equation}
         \sigma_1 =\begin{pmatrix}
             0 & 1\\
             1 & 0
-        \end{pmatrix}
+        \end{pmatrix},\,
         \sigma_2= \begin{pmatrix}
             0 & -i\\
             i & 0
-        \end{pmatrix}
+        \end{pmatrix},\,
         \sigma_3= \begin{pmatrix}
             1 & 0\\
             0 & -1
-        \end{pmatrix}
-        1=\begin{pmatrix}
+        \end{pmatrix},\,
+        \II_2=\begin{pmatrix}
             1 & 0\\
             0 & 1
         \end{pmatrix}.
@@ -111,7 +116,7 @@ Let's illustrate this with some examples.
 \begin{exm}
     We could have a continuum vector space which is the space of functions over some domain.%
         \footnote{Strictly this is a countable vector space with continuum elements. For a vector space with uncountably infinite basis elements, consider plane waves and a Fourier decomposition.}
-    In particular, consider the Hermite polynomials $H_n(x)$, $x\in \RR$, the solutions to the harmonic oscillator. This is just a function representation of the solutions. Similarly the Bessel functions from electromagnetism and spherical harmonics from the spherical Laplacian form vector spaces.
+    In particular, consider the set of Hermite polynomials $\ket{n}=H_n(x)$, $x\in \RR$, the solutions to the harmonic oscillator potential. This is just a function representation of the solutions. Similarly, the Bessel functions from electromagnetism and spherical harmonics from solving the Laplacian in spherical coordinates also form vector spaces.
 \end{exm}
 
 The rest of today's discussion centers on how to choose a useful basis.
@@ -121,7 +126,7 @@ The rest of today's discussion centers on how to choose a useful basis.
     \begin{equation}
         \ket{v}=\sum_n \alpha_n \ket{e_n}
     \end{equation}
-    with respect to a basis $\set{\ket{e_n}}$, we say that $\alpha_n$ are \emph{components} of $\ket{v}$ in the basis $\set{\ket{e_n}}$.
+    with respect to a basis $\set{\ket{e_n}}$, we say that the coefficients $\alpha_n$ are the \emph{components} of $\ket{v}$ in the basis $\set{\ket{e_n}}$.
 \end{defn}
 In a different basis, the components will generally change, but the \emph{vector does not}.%
     \footnote{This is a critical fact in general relativity, where vectors are defined in a tangent bundle.}
@@ -133,7 +138,7 @@ It's possible to do linear algebra without an inner product. But we're physicist
     \begin{equation}
         \paren{\ket{v},\ket{w}}=\braket{v}{w},
     \end{equation}
-    and obeys the following properties:
+    and which obeys the following properties:
     \begin{itemize}
         \item $\braket{v}{w}\in \CC$
         \item $\braket{v}{w}=\braket{w}{v}^*$
@@ -141,6 +146,7 @@ It's possible to do linear algebra without an inner product. But we're physicist
         \item $\braket{v}{v}\geq 0$ with $\braket{v}{v}=0\iff \ket{v}=0$.
     \end{itemize}
 \end{defn}
+Inner products generalize the notion of a (scalar) dot product, which measures how parallel two vectors are to one another.
 \begin{defn}
     We can then define the \emph{norm} of a vector as
     \begin{equation}
@@ -164,16 +170,17 @@ Recall that in $\RR^3$, this is just the statement that $\braket{w}{v}=\vec{v} \
 \end{equation}
 and using the positivity of the norm of $\ket{z}$.
 
-It also satisfies the \term{triangle inequality},
+The inner product also satisfies the \term{triangle inequality},
 \begin{equation}
     ||v+w||\leq ||v|| + ||w||.
 \end{equation}
 
-A basis $\set{\ket{e_n}}$ can be made orthonormal, i.e. such that 
+A general basis $\set{\ket{e_n}}$ can be made orthonormal, i.e. chosen/defined so that the elements obey
 \begin{equation}
     \braket{e_n}{e_m} = \delta_{nm}.
 \end{equation}
-This can always be done by the Gram-Schmidt algorithm.
+This can always be done by the Gram-Schmidt algorithm.%
+    \footnote{See my 204A notes for the details.}
 
 In an orthonormal basis, the inner product between two vectors is very easy to calculate. With $\ket{v}=\sum \alpha_n \ket{e_n}, \ket{w} =\sum \beta_n \ket{e_n},$ the inner product is given by
 \begin{equation}
@@ -181,7 +188,8 @@ In an orthonormal basis, the inner product between two vectors is very easy to c
 \end{equation}
 
 \subsection*{Dual vector space}
-We wish to use the norm to define a \term{dual vector space}. Strictly we don't need a norm to do this, but it provides a natural way to do so.
+We wish to use the inner product to define a \term{dual vector space}. Strictly we don't need an inner product to do this, but it provides a natural way to do so.%
+    \footnote{This generalizes beautifully to curved spacetimes in general relativity. An inner product (metric) $g_{ab}$ defines a map from two vectors to a scalar, $g_{ab}:V\times V \to \CC$, given by $g_{ab}V^a W^b$. But it also naturally defines a map from vectors $V^a$ to dual vectors $V_b = g_{ab} V^a$, where the dual vector $V_b$ is now a map from a single vector to a scalar, $V_b: V \to \CC$ defined by $V_b W^b$. The only complication is that a metric need not be positive semi-definite, so norms can be negative when we measure distances in spacetime. You might know this as the difference between timelike and spacelike separations.}
 \begin{defn}
     Given a vector space $V$, we define the dual vector space $V^*$, whose elements are \emph{linear functionals} on $V$. That is, if $F_w \in V^*$, then
     \begin{equation}

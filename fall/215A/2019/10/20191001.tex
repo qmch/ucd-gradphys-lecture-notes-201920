@@ -9,17 +9,18 @@ Linear operators obey
     \cO(\alpha_1\ket{v_1}+\alpha_2 \ket{v_2})=\alpha_1 \cO \ket{v_1} +\alpha_2 \cO \ket{v_2}.
 \end{equation}
 \end{defn}
-
+%
 Operators form an algebra, i.e. addition and multiplication are defined on operators such that
 \begin{gather}
     (A+B)\ket{v}=A\ket{v} + B\ket{v}\\
     (AB)\ket{v}= A(B\ket{V}).
 \end{gather}
-Addition is commutative, but multiplication is not-- generically,
+Addition is commutative, but multiplication is not-- generically,%
+    \footnote{The non-commutativity of operators in quantum mechanics is of course the reason for the Heisenberg uncertainty principle. We'll see this later.}
 \begin{equation}
     AB \neq BA.
 \end{equation}
-Multiplication is however asssociative,
+Multiplication is however associative,
 \begin{equation}
     A(BC)=(AB)C.
 \end{equation}
@@ -94,13 +95,13 @@ In finite dimension, operators are basically matrices. How do we generalize to t
     The derivative also defines an operator on this vector space.
     We might define 
     \begin{equation}
-        x\P{}{x}:f(x)\to x f'(x)
+        x\P{}{x}:f(x)\mapsto x f'(x)
     \end{equation}
     or similarly
     \begin{equation}
-        \P{}{x} x : f\to \P{}{x}(xf(x))=xf'+f
+        \P{}{x} x : f\mapsto \P{}{x}(xf(x))=xf'+f
     \end{equation}
-    
+    %
     Sometimes we will write
     \begin{equation}
         \P{}{x} x = x\P{}{x}+1,
@@ -174,18 +175,22 @@ Define
     \ket{v}=\alpha_1 \ket{v_1} +\alpha_2 \ket{v_2}
 \end{equation}
 for some $\alpha_1,\alpha_2\in \CC$. Then
-\begin{equation}
+\begin{equation}\label{eq:hermitiandiag1}
     \bra{v} A \ket{v} = |\alpha_1|^2 \bra{v_1} A \ket{v_1} + |\alpha_2|^2 \bra{v_2} A \ket{v_2} + \alpha_1 ^* \alpha_2 \bra{v_1} A \ket{v_2}  +\alpha_2^* \alpha_1 \bra{v_2} A \ket{v_1}.
 \end{equation}
-We can write $\bra{v}A \ket{v}^*$ as well, taking the complex conjugate of the previous expression. We know that
+We can write $\bra{v}A \ket{v}^*$ as well, taking the complex conjugate of the previous expression. That is,
+\begin{equation}\label{eq:hermitiandiag2}
+    \bra{v} A \ket{v}^* = |\alpha_1|^2 \bra{v_1} A \ket{v_1}^* + |\alpha_2|^2 \bra{v_2} A \ket{v_2}^* + \alpha_1 \alpha_2^* \bra{v_1} A \ket{v_2}^*  +\alpha_2 \alpha_1^* \bra{v_2} A \ket{v_1}^*.
+\end{equation}
+We know that
 \begin{equation}
     \bra{v} A \ket{v}=\bra{v} A \ket{v}^*
 \end{equation}
-for all $\ket{v}$, so setting these equal we find that
+for all $\ket{v}$, so setting Eqs.~\eqref{eq:hermitiandiag1} and \eqref{eq:hermitiandiag2} equal we find that
 \begin{equation}
     \alpha_1 ^* \alpha_2 \bra{v_1} A \ket{v_2}  +\alpha_2^* \alpha_1 \bra{v_2} A \ket{v_1} = \alpha_1 \alpha_2^* \bra{v_1} A \ket{v_2}^*  +\alpha_2 \alpha_1^* \bra{v_2} A \ket{v_1}^*.
 \end{equation}
-Let us evaluate for $\alpha_1=\alpha_2=1.$ This yields
+This is true for any $\alpha_1,\alpha_2$, so let us evaluate it for $\alpha_1=\alpha_2=1.$ This yields
 \begin{equation}
     \bra{v_1}A \ket{v_2} + \bra{v_2} A\ket{v_1} = \bra{v_1} A \ket{v_2}^* + \bra{v_2} A \ket{v_1}^*.
 \end{equation}
@@ -195,7 +200,7 @@ We can also make the choice $\alpha_1=1,\alpha_2=i$ so that
 \end{equation}
 Dividing by $i$ and adding these equations yields
 \begin{equation}
-    \bra{v_2} A \ket{v_1}^* = \bra{v_1} A \ket{v_2} \implies A = A^\dagger.
+    \bra{v_2} A \ket{v_1}^* = \bra{v_1} A \ket{v_2} \implies A = A^\dagger.\qedhere
 \end{equation}
 \end{proof}
 
@@ -203,6 +208,6 @@ Some quick definitions:
 \begin{itemize}
     \item An \term{anti-Hermitian} matrix is one obeying $A^\dagger=-A$.
     \item A \term{unitary} matrix is one satisfying $UU^\dagger = \II$. It may be thought of as a complex rotation on vector space.%
-        \footnote{Strictly we have not excluded reflections but we'll discuss anti-linear operators later.}
+        \footnote{Strictly, unitary matrices also include reflections (operations that don't preserve orientation), but we'll discuss anti-linear operators later.}
 \end{itemize}
     

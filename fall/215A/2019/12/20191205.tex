@@ -1,15 +1,18 @@
-Today we'll discuss more about continous symmetries. Notice that for a translation
+\begin{note}
+    Today is Sean's second guest lecture, and the final lecture of the course.
+\end{note}
+Today we'll discuss more about continuous symmetries. Notice that for a translation
 \begin{equation}
     \psi(x) \to \psi(x+a), \quad a\in \RR,
 \end{equation}
 we can express this infinitesimally as
 \begin{align}
     \psi(x) \to \psi(x+\epsilon) &= \psi(x) + \epsilon \P{\psi}{x} + O(\epsilon^2)\\
-        &= (1+ \epsilon \P{}{x}) \psi(x),
+        &= \paren{1+ \epsilon \P{}{x}} \psi(x),
 \end{align}
 where we recognize the derivative as related to the momentum operator. Namely, these are the first terms in the expansion of $e^{-i\epsilon \hat p}$ (maybe up to some factors of $\hbar$).
 
-Similarly, we know about the classical angular momentum operator
+Similarly, we know the classical angular momentum operator has the form
 \begin{equation}
     \vec L = \vec x \times \vec p.
 \end{equation}
@@ -17,7 +20,7 @@ We can construct the angular momentum operators $\hat L_i$ by promoting $x$ and 
 \begin{equation}
     \hat L_i = \epsilon_{ijk} \hat x_j \hat p_k,
 \end{equation}
-where $\epsilon_{ijk}$ is the Levi-Cevita symbol and I am using the Einstein summation convention that repeated indices are summed over. $i,j,k$ run from $1$ to $3$. Hence
+where $\epsilon_{ijk}$ is the Levi-Cevita symbol. I use the Einstein summation convention that repeated indices are summed over, and the indices $i,j,k$ run from $1$ to $3$. Hence
 \begin{align}
     [L_i,L_j] &= \epsilon_{imn} \epsilon_{jrs} [\hat x_m \hat p_n, \hat x_r \hat p_s]\\
         &= \epsilon_{imn} \epsilon_{jrs} (\hat x_m ]\hat p_n, \hat x_r] \hat p_s - \hat x_r [\hat p_s,\hat x_m] \hat p_n)\\

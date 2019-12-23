@@ -40,7 +40,7 @@ The solution for $x_0$ is sines and cosines. But when we plug this into the seco
 
 What's gone wrong? It turns out we cannot trust the asymptotic time behavior of the first-order perturbed wavefunction. If we think of the perturbation as a driving force, there are in fact resonances because of the special spacing of the energy levels of the quantum harmonic oscillator. To solve this properly, we have to keep corrections to all orders and resum  [sic] the series to find the actual asymptotic behavior.
 
-Moreover, we should not trust perturbation theory at large energies because the characteristic energy of the oscillator may now be comparable to the perturbation.%revisit this statement?
+Moreover, we should not trust perturbation theory at large energies because the characteristic energy of the oscillator may now be comparable to the perturbation. %revisit this statement?
 Nevertheless, even though the wavefunctions are hard to compute correctly, the energy corrections do work in perturbation theory, at least for the first few excited states.
 
 We can also compute so-called \term{correlation functions}, i.e. expectation values of the form
@@ -120,7 +120,7 @@ We've spent the last hour arguing that perturbation theory is useful (and ubiqui
 \end{equation}
 This potential has two wells at $x=\pm a$. The classical ground states are a particle sitting in one of the two wells. That is, the potential has a reflection $x\to -x$ symmetry ($\ZZ_2$) but this symmetry is broken by the classical ground states, which correspond to some $\ket{0,a},\ket{0,-a}$. In quantum mechanics, we know that 1D potentials don't admit degenerate eigenstates. The resolution is this. Quantum particles can tunnel through the barrier. The real ground state must be a symmetric combination of the two classical ground states. After normalization, it is
 \begin{equation}
-    E_0: \frac{1}{\sqrt{2}}( \ket{0,a}  +\ket{0,-1})
+    E_0: \frac{1}{\sqrt{2}}( \ket{0,a}  +\ket{0,-a})
 \end{equation}
 and the next excited state is the antisymmetric combination
 \begin{equation}
@@ -134,6 +134,6 @@ What is the energy splitting? It is
 Here, $S_\text{tun}$ is the action corresponding to tunneling. What's notable about this is that the corrections have no expansion about $\hbar \to 0$. This is a non-perturbative effect, as the quantum ground state restores the symmetry.
 The tunneling trajectory can be mediated by a Euclidean solution (imaginary time), modeled by something called an instanton. The potential flips and it gives us
 \begin{equation}
-    x(t_E) = a\tanh(\sqrt{\frac{2}{m}}V_0 a t_E).
+    x(t_E) = a\tanh\paren{\sqrt{\frac{2}{m}}V_0 a t_E}.
 \end{equation}
 These trajectories are new stationary points of the Euclidean action apart from the standard ones we had sitting in the original ground states of the double well.

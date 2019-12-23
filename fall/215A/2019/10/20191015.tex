@@ -7,12 +7,12 @@ We suggested that there was some limiting behavior where as $\xi\to \infty,$
 \begin{equation}
     \psi(\xi) = c_1 \xi^k e^{-\xi^2/2} + c_2 \xi^k e^{\xi^2/2},
 \end{equation}
-setting $c_2=0$ for convergence. We also had some expansion in sines and cosines about the origin $\xi\to 0$.
+setting $c_2=0$ for convergence. We also had some expansion in sines and cosines about the origin as $\xi\to 0$.
 
 
 Let us redefine
 \begin{equation}
-    \psi(\xi) = \phi(\xi) e^{-1/2 \xi^2}
+    \psi(\xi) = \phi(\xi) e^{-\frac{1}{2} \xi^2}
 \end{equation}
 so that substituting (exercise), the Schr\"odinger equation becomes
 \begin{equation}
@@ -36,9 +36,9 @@ That is, we collect terms in powers of $\xi$, redefining some indices. Note that
 \end{equation}
 For a generic second-order equation, we can always find such a recursion relation which will generally involve $a_j,a_{j+1},a_{j+2}$.
 
-Let us note that the relation \ref{shorecursion} relates even $j$ coefficients to each other, and it relates odd $j$ coefficients, but it does not mix them. This agrees with our intuition that there should be two linearly independent sets of solutions (the power law exponentials in the large $\xi$ limit and the sines and cosines in the small $\xi$ limit).
+The relation \eqref{shorecursion} relates even $j$ coefficients to each other, and it relates odd $j$ coefficients to each other, but it does not mix them. This agrees with our intuition that there should be two linearly independent sets of solutions (the power law exponentials in the large $\xi$ limit and the sines and cosines in the small $\xi$ limit).
 
-Hence
+Hence the solutions separate into those determined by $a_0$ and those determined by $a_1$:
 \begin{equation}
     \phi(\xi) = a_0 \bkt{1+\frac{1-2\epsilon}{2!}\xi^2 + \frac{(1-2\epsilon)(5-2\epsilon)}{4!}\xi^4 + \ldots} + a_1 \bkt{\xi + \frac{(3-2\epsilon)}{3!}\xi^3 + \frac{(3-2\epsilon)(7-2\epsilon)}{5!}\xi^5+\ldots}.
 \end{equation}
@@ -150,7 +150,7 @@ Similarly
     [N,a^\dagger]=a^\dagger.
 \end{equation}
 
-Of course, these two relations also hold for the Hamiltonian, since everything commutes with scalars:
+We can use these two relations to compute the commutator of $a$ and $a^\dagger$ with the Hamiltonian:
 \begin{equation}
     [H,a] = -\hbar \omega a,\quad [H,a^\dagger] = \hbar \omega a^\dagger.
 \end{equation}
@@ -161,9 +161,9 @@ For suppose that $N$ has an eigenvector $\ket{\nu}$ with eigenvalue $\nu$. That 
 \begin{equation}
     N\ket{\nu} = \nu\ket{\nu}.
 \end{equation}
-Then $a\ket{\nu}$ is also an eigenvector of $N$:
+Then $a\ket{\nu}$ is also an eigenvector of $N$ with eigenvalue $\nu-1$:
 \begin{equation}
-    N(a\ket{\nu})=Na\ket{\nu} = a(N-1) \ket{\nu} = (\nu-1)a\ket{\nu}.
+    N(a\ket{\nu})=Na\ket{\nu} = (aN-a) \ket{\nu} =a (N-1) \ket{\nu}= (\nu-1)(a\ket{\nu}).
 \end{equation}
 Moreover
 \begin{equation}

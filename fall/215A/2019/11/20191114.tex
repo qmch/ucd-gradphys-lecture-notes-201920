@@ -114,7 +114,7 @@ Let us evaluate the on-shell action, i.e. $S[x_\text{cl}(t)]$. That is,
 \begin{equation}
     S_\text{on-shell} = \int_{t_i}^{t_f} dt \bkt{\frac{1}{2} m \dot x_\text{cl}^2 -\frac{1}{2} m \omega^2 x_\text{cl}^2}.
 \end{equation}
-There is an easy way and a hard way to compute this. The hard way is to just plug in $x_\text{cl}(t)$, which we can do if we like computing horrible integrals. The easy way is to recognize that $x_\text{cl}$ satisfies the equations of motion by definition, so we can integrate the on-shell action by parts as
+There is an easy way and a hard way to compute this. The hard way is to just plug in $x_\text{cl}(t)$, which we can do if we like computing horrible integrals. The easy way is to recognize that $x_\text{cl}$ satisfies the equations of motion by definition, so we can integrate the kinetic term of the on-shell action by parts as
 \begin{equation}
     S_\text{on-shell} = \int_{t_i}^{t_f} -\frac{m}{2} (x_\text{cl} \ddot x_\text{cl} + \omega^2 x_\text{cl}^2) dt + \int_{t_i}^{t_f} dt \frac{d}{dt} \bkt{\frac{m}{2} x_\text{cl} \dot x_\text{cl}}.
 \end{equation}
@@ -122,7 +122,8 @@ The first term is now proportional to the equations of motion, so it vanishes. W
 \begin{equation}
     S_\text{on-shell} =\frac{m}{2} x_\text{cl} \frac{dx_\text{cl}}{dt}|_{t_i}^{t_f} = \frac{1}{2}m \omega \frac{(x_i^2+ x_f^2) \cos \omega (t_f-t_i) -2x_i x_f}{\sin \omega(t_f-t_i)}.
 \end{equation}
-This principle holds more generally; the on-shell action is always a boundary term because we can always integrate by parts.
+This principle holds more generally; the on-shell action is always a boundary term because we can always integrate by parts.%
+    \footnote{That is, so long as the kinetic term is quadratic in the velocity $\dot x$, this trick works. The factor of $x$ after integrating by parts compensates for the derivative with respect to $x$ in the Euler-Lagrange equations.}
 
 Now we can expand a general path in terms of its deviation from the classical path. That is, if
 \begin{equation}
@@ -172,10 +173,12 @@ We used an infinite product formula
 \begin{equation}
     \frac{\sin \pi z}{z} = \prod_{n=1}^\infty \paren{1 -\frac{z^2}{n^2}}.
 \end{equation}
-We can understand this formula intuitively-- notice that $\sin pi z/z$ has roots at all the integers. The right side is a product of terms which give us precisely these roots. Moreover, notice that as $\omega \to 0$, we get back the free-particle propagator.
+We can understand this formula intuitively-- notice that $\sin \pi z/z$ has roots at all the integers. The right side is a product of terms which give us precisely these roots.%
+    \footnote{This is an example of the Weierstrass factorization theorem, see for example \url{https://en.wikipedia.org/wiki/Weierstrass\_factorization\_theorem}.}
+Moreover, notice that as $\omega \to 0$, we get back the free-particle propagator.
 
 Suppose now we take $t_f-t_i = i\beta$. The sine becomes a hyperbolic sine, and we in fact recover the partition function of the harmonic oscillator,
 \begin{equation}
     \sum_{n=0}^\infty e^{-\hbar (n+\frac{1}{2})\beta \omega} = \frac{1}{2\sin \frac{\beta \omega \hbar}{2}}.
 \end{equation}
-Hence quantum mechanics, analytically continued to imaginary time, reduces to statistical mechanics. So we should not be too surprised that going from real to imaginary time, quantum mechanics becomes statistical mechanics.
+Hence quantum mechanics, analytically continued to imaginary time, reduces to statistical mechanics.% So we should not be too surprised that going from real to imaginary time, quantum mechanics becomes statistical mechanics.
