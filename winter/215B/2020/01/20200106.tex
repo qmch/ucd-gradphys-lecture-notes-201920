@@ -1,1 +1,259 @@
-Here's some filler text.
+\subsection*{Overview}
+In this course, we'll stay closer to Shankar than in the last class (215A), covering roughly chapters 10-18. The first quarter established the mathematical structure of our theory; the second quarter will be focused on developing the methodologies and applications of quantum mechanics, including its generalization to multi-particle systems. The course is basically divided into two halves:
+\begin{enumerate}
+    \item Symmetries: rotational symmetries, angular momentum, spin, addition of angular momenta, and central force problems
+    \item Approximation methods: WKB, variational principle, perturbation theory
+\end{enumerate}
+
+\subsection*{Review}
+In QM, the state of a particle is described by a wavefunction, usually expressed in some basis: $\psi(x),\phi(p),\set{c_n}$. The most flexible way to describe a state is in Dirac's bra-ket notation as a state vector, a ray in Hilbert space denoted by $\ket{\psi}$. There are (ket) vectors $\ket{\psi}$ and (bra) dual vectors $\bra{\psi}$, which are usually defined by a complex inner product with the property
+\begin{equation}
+    \braket{\psi}{\phi} \in \CC, \quad \braket{\psi}{\phi} = \braket{\phi}{\psi}^*.
+\end{equation}
+This inner product defines a norm,
+\begin{equation}
+    0\leq \braket{\psi}{\psi} < \infty,
+\end{equation}
+such that
+\begin{equation}
+    \braket{\psi}{\psi} = 0 \iff \ket{\psi} = 0.
+\end{equation}
+Only the zero vector has zero norm. We often require of our coordinate basis vectors $\ket{x}$ tha thtey are delta function-normalized,
+\begin{equation}
+    \braket{x'}{x} = \delta(x-x'),
+\end{equation}
+such that
+\begin{equation}
+    \braket{x}{\psi} = \psi(x).
+\end{equation}
+
+Measurable quantities in QM are linear Hermitian operators (observables):
+\begin{equation}
+    \cO^\dagger = \cO.
+\end{equation}
+This guarantees that we get real eigenvalues, and moreover we are guaranteed a complete set of eigenvectors (they admit a spectral decomposition). That is,
+\begin{equation}
+    \cO\ket{\lambda_i} = \lambda_i \ket{\lambda_i}, \lambda_i \in \RR,
+\end{equation}
+where
+\begin{equation}
+    \braket{\lambda_i}{\lambda_j} = \delta_{ij}
+\end{equation}
+and
+\begin{equation}
+    \sum_i \ketbra{\lambda_i}{\lambda_i} = \II.
+\end{equation}
+Hence we can decompose a general state as
+\begin{equation}
+    \ket{\psi} = \II \ket{\psi} = \sum_i\ketbra{\lambda_i}{\lambda_i} = \sum_i c_i \ket{\lambda_i}, \quad c_i \equiv \braket{\lambda_i}{\psi}.
+\end{equation}
+%
+Measurements of an operator $\cO$ give one of the eigenvalues $\lambda_i$ with probability
+\begin{equation}
+    \abs{\braket{\lambda_i}{\psi}}^2 = \bra{\psi} P_{\lambda_i} \ket{\psi}
+\end{equation}
+where $P_{\lambda_i}$ is the projection operator
+\begin{equation}
+    P_{\lambda_i} = \ketbra{\lambda_i}{\lambda_i}.
+\end{equation}
+Projection operators have the property that
+\begin{equation}
+    P^2 = P, \quad P= P^\dagger.
+\end{equation}
+In the case of a degenerate subspace (multiple eigenvectors with the same eigenvalue), we instead project onto that subspace and take the expectation value.
+
+One of the most important operators in QM is the Hamiltonian operator $\hat H$. It describes the time evolution of states by the Schr\"odinger equation:
+\begin{equation}
+    i\hbar \P{}{t} \ket{\psi(t)} = \hat H \ket{\psi(t)}.
+\end{equation}
+In the case where $\hat H$ is time-independent,%
+    \footnote{The time-dependent form is given by Dyson's formula, which involves time-ordered exponentials.}
+we can write a formal solution by
+\begin{equation}
+    \ket{\psi(t)} = U_T(t,t') \ket{\psi(t')},
+\end{equation}
+with
+\begin{equation}
+    U_T(t,t') = e^{-\frac{i\hat H}{\hbar}(t-t')}.
+\end{equation}
+
+Finally, we review changes of (orthonormal) basis. For a basis $\set{\ket{i}}$ satisfying
+\begin{equation}
+    \braket{i}{j}= \delta_{ij}, \quad \sum_i \ketbra{i}{i} = \II
+\end{equation}
+and another basis $\set{\ket{e_i}}$ satisfying the same, we can write changes of basis as
+\begin{equation}
+    \ket{e_i} = \sum_j U_{ij} \ket{j},
+\end{equation}
+where $U$ is a unitary matrix satisfying
+\begin{equation}
+    U^\dagger U = UU^\dagger =\II.
+\end{equation}
+
+\subsection*{Multiple degrees of freedom (Shankar Ch. 10)}
+Classically, we can add degrees of freedom to a system by allowing particles to move in more than 1 dimension, or by adding particles to the system. The coordinates and canonical momenta obey Poisson brackets,
+\begin{equation}
+    \set{x_i,p_j}=\delta_{ij}.
+\end{equation}
+In quantum mechanics, we can describe states in terms of a coordinate basis $\ket{x_1,x_2,\ldots,x_n}$ where the coordinates and momenta are promoted to operators,
+\begin{equation}
+    \hat X_1, \hat X_2, \ldots, \hat X_n, \hat P_1, \hat P_2, \ldots, \hat P_N.
+\end{equation}
+The only nontrivial commutator is
+\begin{equation}
+    [\hat X_i,\hat P_j] = i\hbar \delta_{ij}.
+\end{equation}
+In two dimensions we would have $\hat X, \hat Y, \hat P_x,\hat P_y$. For instance, to describe a charged particle in a magnetic field (as we did on the homework last quarter), it's useful to work in a simultaneous eigenbasis of $\hat X$ and $\hat P_y$.
+
+New states can be defined to obey the inner product
+\begin{equation}
+    \braket{x',y'}{x,y}=\delta(x-x')\delta(y-y').
+\end{equation}
+In particular it's useful to build new states by taking direct (tensor) products,
+\begin{equation}
+    \ket{x,y} = \ket{x} \otimes \ket{y},
+\end{equation}
+and if $\ket{x},\ket{y} \in \VV$, then such states live in the tensor product space
+\begin{equation}
+    \VV \otimes \VV = \VV^2.
+\end{equation}
+
+The simplest case we might deal with is a particle in 2 dimensions in a separable potential, i.e. $V(x,y)= V_1(\hat x) + V_2 (\hat y)$, such that the Hamiltonian is
+\begin{equation}
+    \hat H (\hat x,\hat y, \hat p_x, \hat p_y) = \frac{\hat p_x^2}{2m_1}+ \frac{\hat p_y^2}{2m_2} + V_1(\hat x) + V_2(\hat y) = \hat H_1(\hat x, \hat p_x) + H_2(\hat y,\hat p_y).
+\end{equation}
+It's a little weird to write two different masses $m_1,m_2$, since this is really the same particle (though particles may have different effective masses as they move in different directions), but this touches on a key point---is there a difference between one particle moving in 2 dimensions versus 2 particles moving in one dimension? The answer is no when the particles are \emph{distinguishable}, but yes when they are \emph{identical}. We'll see more of this soon.
+
+If we can solve each of the individual Hamiltonians as
+\begin{align}
+    \hat H_1 \ket{u_i} &= \epsilon_{1i} \ket{u_i}\\
+    \hat H_2 \ket{v_i} &= \epsilon_{2i} \ket{v_i},
+\end{align}
+then we can build a complete set of basis states for the 2D problem as
+\begin{equation}
+    \ket{u_i} \otimes\ket{v_j},
+\end{equation}
+with energies $\epsilon_{1i} + \epsilon_{2j}.$
+In such product spaces, we can also construct operators on the full space out of operators that only act on part by taking tensor products. That is,
+\begin{equation}
+    \hat O_1 \equiv \hat O^{(1)} \otimes \II^{(2)}
+\end{equation}
+is an operator on the full Hilbert space $\VV\otimes \VV$ such that
+\begin{equation}
+    \hat O^{(1)} \otimes \II^{(2)} \ket{u_i} \otimes \ket{v_j} = \hat O^{(1)} \ket{u_i} \otimes I^{(2)} \ket{v_j}.
+\end{equation}
+Similarly if we define
+\begin{equation}
+    \hat O_2 \equiv \II^{(1)} \otimes \hat O^{(2)},
+\end{equation}
+then
+\begin{equation}
+    \hat O_1 \cdot \hat O_2 = \hat O^{(1)} \otimes \hat O^{(2)},
+\end{equation}
+where the dot indicates composition of operators (do one, then do the other).
+
+Let us consider two systems. The first has Hamiltonian
+\begin{equation}
+    \hat H(\hat x,\hat p_x, \hat y, \hat p_y) = \frac{\hat p_x^2}{2m} + \frac{1}{2} m \omega^2 \hat x^2 + \frac{\hat p_y^2}{2m} + \frac{1}{2}m \omega^2 \hat y^2,
+\end{equation}
+a single particle in a 2D harmonic oscillator potential. The second has Hamiltonian
+\begin{equation}
+    \hat H(\hat x_1,\hat p_1, \hat x_2, \hat p_2) = \frac{\hat p_1^2}{2m} + \frac{1}{2} m \omega^2 \hat x_1^2 + \frac{\hat p_2^2}{2m} + \frac{1}{2}m \omega^2 \hat x_2^2.
+\end{equation}
+This is \emph{two particles}, each moving in one dimension in the same harmonic oscillator potential.
+We claim that if the particles are distinguishable (e.g. they have different charges, masses, something that we can measure to distinguish them), then indeed these are the same problem. But if the particles are truly indistinguishable, then some new physics creeps in.
+
+In quantum mechanics, identical particles are indistinguishable. That is, their intrinsic properties (charge, mass, spin, etc.) are the same.%
+    \footnote{Why are all particles of the same type the same, anyway? One answer comes from quantum field theory---particles are all the same because they're made of the same stuff in a quantized way. That stuff is the field itself.}
+This is different from classical mechanics, where particles with identical properties can generically be distinguished by labels and their trajectories.
+
+Suppose we construct a state
+\begin{equation}
+    \ket{w_i} \otimes \ket{w_j}.
+\end{equation}
+Then it has a wavefunction
+\begin{equation}
+    (\bra{x_1} \otimes \bra{x_2}) (\ket{w_i} \otimes\ket{w_j}) = \psi_{w_i}(x_1) \psi_{w_j}(x_2).
+\end{equation}
+For identical particles, such states are not allowed.%
+    \footnote{The states must be symmetric or antisymmetric under exchange of $x_1$ and $x_2$. There are also states which pick up a general complex phase, called anyons. See \href{https://doi.org/10.1103/PhysRevLett.49.957}{F. Wilczek, "Quantum Mechanics of Fractional-Spin Particles," Phys. Rev. Lett. 49 (1982) 957}, or a write-up by the man himself at Quanta Magazine: \url{https://www.quantamagazine.org/how-anyon-particles-emerge-from-quantum-knots-20170228/}}
+Let us define the exchange operator $\hat P_{12}$ by
+\begin{equation}
+    \hat P_{12}(\ket{w_i}_{(1)} \otimes \ket{w_j}_{(2)}) = \ket{w_j}_{(1)} \otimes \ket{w_i}_{(2)}.
+\end{equation}
+Notice that
+\begin{equation}
+    (\hat P_{12})^2 = \II.
+\end{equation}
+We can also see that
+\begin{equation}
+    ({}_{(2)}\bra{w_k} \otimes{}_{(1)}\bra{w_l}) (\hat P \ket{w_i}_{(1)} \otimes \ket{w_j}_(2)) = ({}_{(2)}\bra{w_k} \otimes{}_{(1)}\bra{w_l}) (\ket{w_j}_{(1)} \otimes \ket{w_i}_(2)) = \delta_{jl} \delta_{ik}.
+\end{equation}
+If we take the dagger, we have instead
+\begin{equation}
+    ({}_{(2)}\bra{w_k} \otimes{}_{(1)}\bra{w_l}P^\dagger) (\ket{w_i}_{(1)} \otimes \ket{w_j}_(2)) = ({}_{(2)}\bra{w_l} \otimes{}_{(1)}\bra{w_k}) ( \ket{w_i}_{(1)} \otimes \ket{w_j}_(2)) = \delta_{jl} \delta_{ik}.
+\end{equation}
+We can see that
+\begin{equation}
+    P^\dagger = P, \quad P = P^{-1},
+\end{equation}
+so $P$ is both hermitian and unitary. The exchange operator acts on other operators by conjugation, as 
+\begin{equation}
+    U O U^\dagger.
+\end{equation}
+This takes
+\begin{equation}
+    P O_1 P^\dagger = O_2, \quad P O_2 P^\dagger = O_1,
+\end{equation}
+since it swaps the particles, acts, and then swaps them back.
+
+For identical particles, we have the property that
+\begin{equation}
+    \hat P \hat H \hat P^\dagger =H \implies [\hat P,\hat H]=0.
+\end{equation}
+We also observe that since $\hat P^2 = 1$, it follows that if $\hat P \ket{\lambda}= \lambda\ket{\lambda}$, then
+\begin{equation}
+    \lambda^2 = 1 \implies \lambda = \pm 1.
+\end{equation}
+We can now construct two projection operators, suggestively named $S$ and $A$:
+\begin{align}
+    \hat S &= \frac{1}{2}(\II + \hat P)\\
+    \hat A &= \frac{1}{2}(\II - \hat P).
+\end{align}
+These are indeed projections, since $S^2 = S, S^\dagger = S$, and $A$ is similar. We show this explicitly:
+\begin{align*}
+    S^2 &= \frac{1}{4}(\II + \hat P)(\II + \hat P)\\
+        &= \frac{1}{4}(\II + P + P + P^2)\\
+        &= \frac{1}{2}(\II+\hat P) = S.
+\end{align*}
+For two-particle states, we then have
+\begin{equation}
+    S \ket{w_i} \otimes \ket{w_j} =\frac{1}{2}(\ket{w_i} \otimes \ket{w_j} + \ket{w_j} \otimes \ket{w_i}),
+\end{equation}
+with the antisymmetric projector similar:
+\begin{equation}
+    A \ket{w_i} \otimes \ket{w_j} =\frac{1}{2}(\ket{w_i} \otimes \ket{w_j} - \ket{w_j} \otimes \ket{w_i}).
+\end{equation}
+In fact, notice that since $S+A=\II$, we have
+\begin{equation}
+    \ket{\psi} = (S+A) \ket{\psi} = S\ket{\psi} + A \ket{\psi}.
+\end{equation}
+Since these operators commute with the Hamiltonian,%
+    \footnote{The operators $\II$ and $P$ commute with $H$, which means that $S$ and $A$ do too.}
+particles which are originally in symmetric combinations will stay symmetrized for all time, and the same is true for antisymmetric combinations. There is therefore an additional postulate of quantum mechanics, that identical particles come in two types.
+\begin{enumerate}
+    \item Bosons, which live in the symmetrized subspace of the Hilbert space, and
+    \item Fermions, which live in the \emph{anti}-symmetrized subspace of the Hilbert space.
+\end{enumerate}
+%
+Thus the wavefunction for bosons takes on a symmetric form in $x_1,x_2$:
+\begin{equation}
+    \psi(x_1,x_2)_S = \psi_{w_i}(x_1) \psi_{w_j}(x_2) + \psi_{w_j}(x_1) \psi_{w_i}(x_2),
+\end{equation}
+and the wavefunction for fermions is antisymmetric:
+\begin{equation}
+    \psi(x_1,x_2)_A = \psi_{w_i}(x_1) \psi_{w_j}(x_2) - \psi_{w_j}(x_1) \psi_{w_i}(x_2).
+\end{equation}
+Notice that if we set $w_i=w_j$ then the fermionic wavefunction vanishes, and it also vanishes if $x_1=x_2$.%
+    \footnote{Slight technicality-- by the spin-statistics theorem, fermions have half-integer spin, so in general there's an extra spin degree of freedom which lets us fit e.g. two electrons in the same spot (one spin up, one spin down).}
+This is the Pauli exclusion principle. Conversely bosons feel a statistical attraction to each other; we'll revisit this later.

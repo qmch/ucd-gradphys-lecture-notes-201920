@@ -1,1 +1,173 @@
-Here's some filler text.
+\begin{quote}
+    \textit{``What did you do over break?'' ``Don't ask. No rest for the wicked.''}
+    
+        ---Mark Samuel Abbott and Nemanja Kaloper
+\end{quote}
+The only outstanding logistical details here are that office hours will be posted later, and the TA is now Morgane K\"onig rather than Cameron Langer. All else is basically the same as last quarter.
+
+Let's talk about Green's functions in more than one dimension. Our discussion will be somehwat sketchy, but we'll get a rough idea of the topic. A Green's function is the inverse of a differential operator, and it lives under integrals. In one dimension, we wrote that to solve
+\begin{equation}
+    \cL \phi = J,
+\end{equation}
+we could construct $G$ such that
+\begin{equation}
+    \cL G = \delta,
+\end{equation}
+a function which gives a delta function upon being hit by a differential operator. We would like to solve the problem of finding the linear response of a field $\phi$ at a point $\vec r_1$ due to a source $J(\vec r_2)$ at a point $\vec r_2$.
+
+Recall that the adjoint of an operator is given by
+\begin{equation}
+    \braket{\psi}{\cL \phi} = \braket{\cL^\dagger \psi}{\phi},
+\end{equation}
+and an operator is self-adjoint if
+\begin{equation}
+    \cL = \cL^\dagger.
+\end{equation}
+That is, for an operator given by
+\begin{equation}
+    \cL \phi = \div (p \grad \phi) + q \phi,
+\end{equation}
+we must check that
+\begin{equation}
+    \int \psi^* (\div (p\grad \phi)) + \int q \psi^* \phi = \int \div (p \grad \phi^*)\phi + \int q \psi^* \phi.
+\end{equation}
+The $q$ terms cancel, so we find that
+\begin{equation}
+    \int \bkt{\psi^* \div (p \grad \phi) - \div (p \grad \psi^*) \phi}=0,
+\end{equation}
+and if we integrate by parts, then
+\begin{equation}
+    \int \div(\psi^* p \grad \phi - (\grad \psi^*) p \phi) =0.
+\end{equation}
+By the divergence theorem,
+\begin{equation}
+    \int_S p\bkt{ \psi^* \grad \phi -(\grad \psi^*)\phi} =0.
+\end{equation}
+Dirichlet or Neumann boundary conditions will guarantee self-adjointness. There are also mixed conditions, but these sorts of conditions are sufficient to make our operator Hermitian.
+
+For a Hermitian operator, the corresponding Green's function obeys%
+    \footnote{This property is also responsible for Green's reciprocity theorem in electromagnetism, i.e. the statement that the potential energy of a charge distribution $\rho_2$ in a field produced by another distribution $\rho_2$ is equal to the energy of $\rho_1$ in the field produced by $\rho_2$. If you like, the theorem is a special case/application since the Laplacian operator is Hermitian.}
+\begin{equation}
+    G(\vec r_1, \vec r_2) = G^*(\vec r_2, \vec r_1).
+\end{equation}
+For recall that
+\begin{equation}
+    \braket{\cL G(\vec r, \vec r_1)}{G(\vec r, \vec r_2)} = \braket{G(\vec r, \vec r_1)}{\cL G(\vec r, \vec r_2}
+\end{equation}
+by self-adjointness. By the definition of the Green's function and the inner product, we can replace $\cL G$ by a delta function and get
+\begin{equation}
+    \int \delta (\vec r - \vec r_1) G(\vec r, \vec r_2) = G(\vec r_1, \vec r_2)
+\end{equation}
+on the LHS and
+\begin{equation}
+    \int G^*(\vec r, \vec r_1) \delta(\vec r, \vec r_2) = G^*(\vec r_2, \vec r_1).
+\end{equation}
+Hence
+\begin{equation}
+    G(\vec r_1, \vec r_2) = G^*(\vec r_2,\vec r_1).
+\end{equation}
+
+Now let's construct the eigenfunction expansion of the Green's function. Consider
+\begin{equation}
+    \cL G(\vec r_1, \vec r_2) = \delta(\vec r_1 - \vec r_2).
+\end{equation}
+We're keeping the $\vec r_1, \vec r_2$ dependence in $G$ because there might be operators that are not translationally invariant. In other words, we can't assume that quantities depend only on $|\vec r_1- \vec r_2|$. That is,
+\begin{equation}
+    \cL|_{\vec r} \neq \cL|_{\vec r + \vec a}.
+\end{equation}
+Suppose we construct the eigenfunctions $\phi_\lambda$ of the operator $\cL$, such that
+\begin{equation}
+    \cL \phi_\lambda = \lambda \phi_\lambda.
+\end{equation}
+WLOG we may take them to be orthonormal,
+\begin{equation}
+    \braket{\phi_\lambda}{\phi_\mu} = \delta_{\lambda\mu}.
+\end{equation}
+%Kugo theory of operators
+For now, we shall assert that they are a complete set-- in general we will have to prove this. The expansion for the delta function is just the completeness relation:
+\begin{equation}
+    \delta(\vec r_1 - \vec r_2) = \int_\lambda \phi^*_\lambda(\vec r_2) \phi_\lambda(\vec r_1),
+\end{equation}
+since
+\begin{equation}
+    f(\vec r) = \int_\lambda f_\lambda \phi_\lambda(\vec r) = \int_{\vec r_1} f(\vec r_1) \delta(\vec r-\vec r_1) = \int_\lambda \underbrace{\int_{\vec r_1} f(\vec r_1) \phi_\lambda^*(\vec r_1)}_{f_\lambda} \phi_\lambda(\vec r).
+\end{equation}
+%maybe revisit this
+Now we can put our delta function decomposition back in: suppose that
+\begin{equation}
+    G(\vec r, \vec r_1) =\int_\lambda C_\lambda(\vec r_1) \phi_\lambda(\vec r),
+\end{equation}
+so that
+\begin{align*}
+    \cL G &= \cL \int_\lambda C_\lambda(\vec r_1) \phi_\lambda(\vec r)\\
+        &=\int_\lambda C_\lambda(\vec r_1) \cL \phi_\lambda(\vec r)\\
+        &= \int_\lambda C_\lambda(\vec r_1) \lambda \phi_\lambda(\vec r),
+\end{align*}
+and this last expression must be equal to the expansion of the delta function:
+\begin{equation}
+    0 = \int_\lambda \bkt{C_\lambda(\vec r_1) \lambda - \phi_\lambda^* (\vec r_1)} \phi_\lambda(\vec r).
+\end{equation}
+Hence
+\begin{equation}
+    c_\lambda(\vec r_1) = \frac{\phi^*(\vec r_1)}{\lambda},
+\end{equation}
+so
+\begin{equation}
+    G(\vec r_1,\vec r_2) = \int_\lambda \frac{ \phi_\lambda^*(\vec r_2) \phi_\lambda(\vec r_1)}{\lambda}.
+\end{equation}
+This makes the hermiticity of $G$ totally clear:
+\begin{equation}
+    G(\vec r_1,\vec r_2) = G^*(\vec r_2, \vec r_1).
+\end{equation}
+The only problem might be if we have a zero eigenvalue, in which case we have to be careful. Some people define a generalized Green's function by
+\begin{equation}
+    (\cL - Z) G = \delta,
+\end{equation}
+so that our expression is just modified to
+\begin{equation}
+    G(\vec r_1,\vec r_2) = \int_\lambda \frac{ \phi_\lambda^*(\vec r_2) \phi_\lambda(\vec r_1)}{\lambda -Z},
+\end{equation}
+and we can study the $z\to 0$ limit.
+
+Let's consider some examples. The Laplace equation is
+\begin{equation}
+    \grad^2 \phi = J,
+\end{equation}
+and it is of self-adjoint form,
+\begin{equation}
+    \div(\grad G) = \delta(\vec r_1-\vec r_2).
+\end{equation}
+Suppose we had a solution
+\begin{equation}
+    \int \grad^2 \phi = J
+\end{equation}
+such that $\int_V J = Q$
+and a homogenous solution
+\begin{equation}
+    \grad^2 \chi = 0.
+\end{equation}
+But now
+\begin{equation}
+    \int_V dV  \grad^2 (\phi + \chi) = \int_V J = Q.
+\end{equation}
+We can rewrite the first epxression as a surface integral, $\int d\vec S \cdot \grad(\phi + \chi)$. Hence we find that since the integral of the $\grad \phi$ term is already $Q$, it must be that
+\begin{equation}
+    \int d\vec S \cdot \grad \chi =0,
+\end{equation}
+and therefore by the uniqueness theorems, $\chi$ is at most a constant. This is an example of a gauge symmetry, actually, but we won't go too much into that. So given appropriate boundary conditions, solutions of the Laplace equation are unique up to a constant.
+
+Now let us note the Laplace equation \emph{is} translationally invariant, so we can write
+\begin{equation}
+    \div(\grad G (\vec r)) = \delta(\vec r).
+\end{equation}
+In fact, it is also manifestly spherically symmetric in this form. We've just chosen coordinates to put our charge at the origin. Let us integrate over a spherical region $R$. Then
+\begin{equation}
+    1= \int \delta(\vec r) = \int_R \div(\grad G(\vec r) = 4\pi R^2 \frac{dG}{dr}.
+\end{equation}
+We conclude that
+\begin{equation}
+    G = -\frac{1}{4\pi} \frac{1}{|\vec r_1-\vec r_2|},
+\end{equation}
+which is nothing more than the Coulomb potential for a unit charge.
+
+If we instead enclosed the charge in a Faraday cage (setting the potential to zero somewhere), we would add a homogeneous solution to the Laplace equation to our Green's function in order to fit the new boundary conditions. Note that in 2 dimensions, we would just have $1=2\pi R \frac{dG}{dr},$ which gives our Green's function as a log of $\vec|r|$ instead.
