@@ -1,0 +1,124 @@
+\begin{quote}
+    \textit{``If I had taken a potato instead of a box, I would be hard pressed to do this. It would be much much harder. Except in two dimensions. Two-dimensional potatoes are very cool because Laplacians in 2 dimensions are special.''}
+    
+    --Nemanja Kaloper
+\end{quote}
+
+Let's play a bit more with Green's functions. Consider the Laplace equation. We can fit a solution using
+\begin{equation}
+    \grad^2(G+F) = \delta.
+\end{equation}
+That is, we can construct a solution with a source using the Green's function
+\begin{equation}
+    \grad^2 G = \delta
+\end{equation}
+and add on homogeneous solutions $F$ such that
+\begin{equation}
+    \grad^2 F =0
+\end{equation}
+to fit boundary conditions.
+
+\begin{exm}
+    Let us solve the following electrostatics problem. We take a charge and place it inside a grounded conductor shaped like a cube. Can we solve the Laplace equation in this setup?
+
+    The charge has spherical symmetry, but the cube does not. That means that the field lines near the sides of the cube will deform so the field becomes normal to the faces of the cube in the static, equilibrium configuration.
+    
+    Consider a single charge near a grounded plane. We can solve this by the method of images. Suppose the charge sits on the $z$ axis, while the grounded plane is the $xy$ plane. In particular, it sits at a point $(0,0,a)$ from the origin. We now consider a point a distance $\rho$ from the $z$ axis and at a height $z$ along the $z$ axis.
+    
+    The method of images says that we can solve for the potential by considering any (fictitious) charge distribution which satisfies the same boundary conditions for the potential. That is, instead of just measuring the potential from the single charge, we can write
+    \begin{equation}
+        \frac{1}{\sqrt{\rho^2+(z-a)^2}}
+    \end{equation}
+    as the potential from the charge alone and suppose we add another image charge $Q'$ on the other side of the grounded plane at a location $(0,0,-a')$. Then the potential from this configuration of the charge and image charge is
+    \begin{equation}
+        \frac{1}{\sqrt{\rho^2+(z-a)^2}}+ \frac{Q'}{\sqrt{\rho^2+(z+a')^2}}.
+    \end{equation}
+    Now we consider the plane $z=0$ and see that
+    \begin{equation}
+        V(z=0)=\frac{1}{\sqrt{\rho^2+a^2}} + \frac{Q'}{\sqrt{\rho^2+a'{}^2}}.
+    \end{equation}
+    But this still seems to depend on $\rho$. Setting $\rho=0$ gives
+    \begin{equation}
+        \frac{1}{a} + \frac{Q'}{a'} = 0,
+    \end{equation}
+    and taking a derivative gives
+    \begin{equation}
+        \frac{1}{a^3}+\frac{Q'}{a'{}^3} = 0,
+    \end{equation}
+    so solving gives
+    \begin{equation}
+        a=a', \quad Q'=-1.
+    \end{equation}
+    
+    The potential on the real side of the grounded plane is just the dipole potential in the region we care about. The other charge is equal and opposite, and equally far away behind the plane.
+    
+    What about two conducting planes? We can construct a dipole to set the potential on one plane, but then the other won't be grounded. We can add an image dipole outside the other plane (see image). Then we the second plane is okay but the first plane is now not grounded. So we go on adding dipoles in this way ad infinitum, and the overall potential is
+    \begin{equation}
+        \sum_{n=-\infty}^\infty \frac{1}{[\rho^2 + (z-a+n(2D))^2]^{-1/2}}-\frac{1}{[\rho^2 + (z+a+n(2D))^2]^{-1/2}}.
+    \end{equation}
+    Expanded, this is
+    \begin{equation}
+        \sum_n \frac{1}{|\vec r - 2Dn \vec k|}  - \frac{1}{|\vec r + 2D n \vec k|}.
+    \end{equation}
+    The sum looks like it might diverge, since each term goes as $1/n$, but in fact since we're dealing with dipoles, the $1/n$ dependence will cancel and away from the corners, this will converge.
+    %I'm not gonna derive this. I'm just gonna say a few words to give you comfort about this madness.
+    These image charges help us to satisfy the boundary conditions on the two planes.
+    
+    The generalization to three dimensions is to extend the periodicity into three dimensions. We get an infinite lattice of image dipoles which is at once simple and complicated.
+    %If I had taken a potato instead of a box, I would be hard pressed to do this. It would be much much harder. Except in two dimensions. Two-dimensional potatoes are very cool because Laplacians in 2 dimensions are special.
+\end{exm}
+
+Let's write a nice fact about multipoles:
+\begin{equation}
+    \frac{1}{4\pi} \frac{1}{|\vec r_1 - \vec r_2|} = \sum_{l=0}^\infty \frac{r_< ^l}{r_<^{l+1}} P_l(\cos\theta).
+\end{equation}
+This simply says that the potential of a multipole drops off as $1/r^{l+1}$, and inside some spherical region it increases as $r^l$. Its angular dependence is given by the Legendre polynomials. This comes from the fact that
+\begin{equation}
+    \sum x^n P_l(t) = \frac{1}{\sqrt{1-2xt+x^2}},
+\end{equation}
+the generating function for Legendre polynomials, with $-1<t<1$ and $0<x<1$.%I think this is right
+Taking this denominator as $|\vec r_1 - \vec r_2| = \sqrt{r_1^2 +2r_1 r_2\cos\theta + r_2^2}$, if we pull out $r_1$ then we get the desired result with this formula.
+
+One more example. Suppose we write the Schr\"odinger equation as
+\begin{equation}
+    (\grad^2 + k^2) \psi = 2mV \psi,
+\end{equation}
+where $k^2 = 2mE$.
+
+We may write the Green's function
+\begin{equation}
+    (\grad^2 +k^2)G =\delta,
+\end{equation}
+satisfying
+\begin{equation}
+    \int_{S^2} d\vec{S} \cdot \grad G + k^2 \int_V dV \,G = 1,
+\end{equation}
+where $V$ is a sphere centered on the origin. In the limit of very small spheres, we shall argue that the second term vanishes. For the $k^2$ term is constant, whereas as $r$ grows small, the $\grad^2$ blows up as $1/r^2$. Near the origin, we can solve
+\begin{equation}
+    \int d\vec{S} \cdot \grad G =1,
+\end{equation}
+while away from the origin, our delta function is zero. We can exploit the spherical symmetry to rewrite the laplacian as
+\begin{equation}
+    \frac{1}{r^2} \p_r(r^2 \p_r G) + k^2 G =0.
+\end{equation}
+If we write $G=\phi/r$ to account for the asymptotic behavior of the Green's function, then we find
+\begin{equation}
+    \phi'' + k^2 \phi=0.
+\end{equation}
+This has solutions
+\begin{equation}
+    \phi = e^{\pm ikr}.
+\end{equation}
+The $+$ solution is an outgoing wave, while the $-$ solution is an incoming wave. Now
+\begin{equation}
+    G = -\frac{1}{4\pi} \frac{e^{ik |\vec r_1 - \vec r_2|}}{|\vec r_1 - \vec r_2|}.
+\end{equation}
+We can now treat the Schr\"odinger equation as an integral equation with a source. Thus
+\begin{equation}
+    \psi(\vec r_1) = 2m \int dr_2^3\, G(\vec r_1, \vec r_2) V(\vec r_2) \psi(\vec r_2).
+\end{equation}
+This is self-consistent, but is it useful? It will be if $V$ is small. Thus we can expand $\psi$ perturbatively in orders of $V$, considering each order of scattering and writing
+\begin{equation}
+    \psi = \psi_0 + \psi_1 + \psi_2 + \dots
+\end{equation}
+where each order is given by solving the integral equation with the previous order.

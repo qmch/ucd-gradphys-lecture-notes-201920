@@ -1,0 +1,216 @@
+To recap, if we have a Hamiltonian $\hat H(\hat x_i, \hat p_i)$, we are interested in constructing the spectrum
+\begin{equation}
+    \hat H(\hat x_i,\hat p_i) \ket{w_i} = \epsilon_i \ket{w_i}.
+\end{equation}
+General states $\ket{\psi}\in V$ can be expressed in the basis $\ket{w_i}$. THe wavefunction is
+\begin{equation}
+    \braket{x}{\psi}=\psi(x),
+\end{equation}
+such that $\abs{\psi(x)}^2 = p(x), \int dx \abs{\psi(x)}^2=1$.
+
+For a two-particle system, each in the same potential, if the Hamiltonian separates (there are no interactions) then
+\begin{equation}
+    H(\hat x_1, \hat p_1, \hat x_2, \hat p_2) = H_1(\hat x_1, \hat p_1) + H_1(\hat x_2, \hat p_2).
+\end{equation}
+The eigenstates of the two-particle system are tensor products of the individual one-particle eigenstates,
+\begin{equation}
+    \ket{w_i}_{(1)}\otimes \ket{w_j}_{(2)} \equiv \ket{w_i,w_j}.
+\end{equation}
+Generic vectors can be expressed in this basis,
+\begin{equation}
+    \ket{\psi}=\sum_{ij} C_{ij} \ket{w_i,w_j} \in V\otimes V.
+\end{equation}
+The two-particle wavefunction is simply
+\begin{equation}
+    \braket{x_1,x_2}{\psi} = \psi(x_1,x_2),
+\end{equation}
+satisfying the Born rule,
+\begin{equation}
+    P(x_1;x_2) = |\psi(x_1,x_2)|^2,
+\end{equation}
+the probability of finding the first particle at $x_1$ and the second at $x_2$. The normalization%
+    \footnote{This was mentioned a little later in the lecture but I think it makes more sense here.}
+is then given by
+\begin{equation}
+    \int |\psi(x_1,x_2)|^2 dx_1 dx_2 = 1.
+\end{equation}
+If $w_1,w_2$ are each already normalized with respect to integration over $x$ and orthogonal then the normalization factor is $1/\sqrt{2}$, i.e.%
+    \footnote{Exercise.}
+\begin{equation}
+    \psi(x_1,x_2) = \frac{1}{\sqrt{2}}\paren{w_1(x_1) w_2(x_2) \pm w_2(x_1) w_1(x_2)}.
+\end{equation}
+If $w_1$ and $w_2$ are the same state  the state reduces to
+\begin{equation}
+    w_1(x_1)w_1(x_2).
+\end{equation}
+
+In the case of identical particles, we argued that there are extra constraints on our states. We can do this by defining the exchange operator $P_{12}$, an operator on $V\otimes V$ which acts as
+\begin{equation}
+    P_{12} \ket{w_i,w_j} = \ket{w_j,w_i}.
+\end{equation}
+It has the properties that
+\begin{equation}
+    P_{12}^\dagger = P_{12}, P_{12}^2 = 1, P_{12} = P_{12}^{-1} \implies P_{12}^\dagger =P_{12}^{-1}.
+\end{equation}
+Hence $P_{12}$ is in fact unitary.
+
+If we suppose that $P$ commutes with the Hamiltonian (it is a symmetry of our system), i.e.
+\begin{equation}
+    [P_{12},H]=0,
+\end{equation}
+then we can prepare eigenstates of both $P$ and the Hamiltonian. At the non-relativistic level, particles are either bosons or fermions; there are no mixed states. Hence wavefunctions are either symmetric or antisymmetric.
+
+In the coordinate basis, any two-particle wavefunction can be written as
+\begin{equation}
+    w_1(x_1)w_2(x_2) \to \frac{1}{2}\paren{w_1(x_1)w_2(x_2) \pm w_2(x_1)w_1(x_2)}.
+\end{equation}
+Sometimes we write the Hilbert space as a direct sum
+\begin{equation}
+    V\otimes V = \ket{V_\text{sym}} \oplus \ket{V_\text{anti}}.
+\end{equation}
+
+Notice that for distinguishable particles, we talk about the probability density $P(x_1,x_2)$, of finding the first particle at $x_1$ and the second at $x_2$. When the particles are identical, our normalization has to change. That is, we can only identify the probability density of finding \emph{one} particle at $x_1$ and another at $x_2$; we can't say which is which. Hence the normalizaiton changes to a spatially-ordered integral
+\begin{equation}
+    \int_{-\infty}^\infty dx_1 \int_{x_1}^\infty dx_2 \, P(x_1,x_2) = 1.
+\end{equation}
+That is, $x_1 < x_2$. Morally speaking, we found one particle at $x_1$ and then we normalized the probability of finding another particle somewhere later at $x_2>x_1$.
+
+The probability density for identical particles is related to the wavefunction by
+\begin{equation}
+    P(x_1,x_2) = |\psi(x_1,x_2)|^2 + |\psi(x_2,x_1)|^2.
+\end{equation}
+This is the only thing that makes sense; it is a symmetrized version of the original distinguishable particle probability density.
+
+For three identical particles, we have a Hilbert space $V\otimes V \otimes V$ and states
+\begin{equation}
+    \braket{x_1,x_2,x_3}{w_i,w_j,w_k} = w_i(x_1)w_2(x_2)w_k(x_3).
+\end{equation}
+These obey the commutation relations
+\begin{equation}
+    [\hat x_i, \hat p_j] = i\hbar \delta_{ij},
+\end{equation}
+as usual.
+To study identical particles, we need the exchange operators for this system. They come from the permutation (symmetric) group $S_3$, if you like.%
+    \footnote{\url{https://en.wikipedia.org/wiki/Symmetric_group}}
+As before we have
+\begin{equation}
+    P_{12}\ket{w_i,w_j,w_k} = \ket{w_j,w_i,w_k}.
+\end{equation}
+We could similarly define exchange operators $P_{13}$ and $P_{23}$. Notice that $P_{12} P_{13} \neq P_{13}  P_{12}$. Suppose we have elements $(a,b,c)$. Then 
+\begin{equation}
+    P_{12}P_{13}(a,b,c)= P_{12}(c,b,a) = (b,c,a),
+\end{equation}
+whereas
+\begin{equation}
+    P_{13}P_{12}(a,b,c) = P_{13}(b,a,c) = (c,a,b) \neq (b,c,a).
+\end{equation}
+So this group is not abelian (its elements do not all commute).
+
+The symmetric group $S_n$ is the group of all permutations of $n$ objects. It has $n!$ elements (i.e. choose one element of $n$ to be first, one of $n-1$ to be second, and so on until you run out of elements).
+
+Let's change our notation a bit and write $P_{123} = \II$ to denote the identity operator. That is, $P_{123}(a,b,c) = (a,b,c)$ and other permutations are given by e.g. $P_{132}(a,b,c) = (a,c,b)$. That is, each label in $P$ says which element goes in which slot. For three elements, there are six options:
+\begin{equation}
+    \underbrace{P_{123},P_{231},P_{312}}_\text{even}\quad\underbrace{ P_{213},P_{321},P_{132}}_\text{odd}.
+\end{equation}
+The labels even and odd refer to how many pairwise swaps we need to get to that permutation from the identity.
+
+Let us define now two projection operators in analogy to the two-particle case from earlier. The first is
+\begin{equation}
+    S= \frac{1}{N!} \sum_\alpha P_\alpha,
+\end{equation}
+which we call the \term{symmetric projector}, and
+\begin{equation}
+    A= \frac{1}{N!} \sum_\alpha \epsilon_\alpha P_\alpha,
+\end{equation}
+the \term{antisymmetric projector}, where $\epsilon_\alpha = +1$ when $\alpha$ is an even permutation and $-1$ when it is an odd permutation. Note that $P_\alpha$ commutes with $S$ for any permutation $\alpha$. Since all the permutations are already represented in the sum over $\alpha$ in $S$, all acting with $P_\alpha$ does is mix up the elements. But we already have all the elements and no two original elements can be mapped to the same one (i.e. $P_\alpha P_i \neq P_\alpha P_j$ unless $i=j$). Hence
+\begin{equation}
+    P_\alpha S = S = S P_\alpha \implies [P_\alpha, S]=0.
+\end{equation}
+
+Similarly, for $A$ we sometimes pick up a minus sign. The swap operator $P_{12}$, which is odd, gives
+\begin{equation}
+    P_{12} A = \frac{1}{N!} \sum_\alpha \epsilon_\alpha P_{12} P_\alpha = \frac{1}{N!} \sum_\alpha \epsilon_\alpha P_{\alpha'} = -\frac{1}{N!} \sum_{\alpha'} \epsilon_{\alpha'} P_{\alpha'}.
+\end{equation}
+That is,
+\begin{equation}
+    P_{12}A = -A,
+\end{equation}
+and in general
+\begin{equation}
+    P_\alpha A = \epsilon_\alpha A.
+\end{equation}
+Even permutations mix even and odd permutations amongst themselves, while odd permutations exchange the two sets, taking even to odd and vice versa.
+We see that
+\begin{equation}
+    P_\alpha A = \epsilon_\alpha A = A P_\alpha,
+\end{equation}
+so
+\begin{equation}
+    [P_\alpha,A]=0.
+\end{equation}
+
+Let us now check that $S^2=S$:
+\begin{equation}
+    S^2 = \paren{\frac{1}{N!}\sum_\alpha P_\alpha }S = \frac{1}{N!} \sum_\alpha S = S,
+\end{equation}
+while $A^2=A$ since
+\begin{equation}
+    A^2 =\frac{1}{N!} \sum_\alpha \epsilon_\alpha P_\alpha A = \frac{1}{N!} \sum_\alpha \epsilon_\alpha \epsilon_\alpha A = A,
+\end{equation}
+since $(\epsilon_\alpha)^2 =1$ for all $\alpha$. We conclude that $S$ and $A$ are honest projection operators.
+
+We can project onto the corresponding subspaces, i.e. $S\ket{\psi}$ gives a totally symmetric vector such that
+\begin{equation}
+    \psi_S(x_1,x_i, \ldots, x_j, \dots) = + \psi(x_1,x_j,\ldots,x_i,\dots),
+\end{equation}
+while $A\ket{\psi}$ gives a totally antisymmetric vector.%
+    \footnote{In the three-particle case, we have $S(a,b,c) = \frac{1}{3!}\big((a,b,c)+(b,a,c) +(a,c,b) + (b,c,a) + (c,a,b) + (c,b,a) \big)$, and $A(a,b,c) = \frac{1}{3!} \big((a,b,c) +(b,c,a) +(c,a,b)-(a,c,b)-(b,a,c)-(c,b,a)\big)$. That is, $S$ just adds up all the combinations, while $A$ adds a sign for parity.}
+The Hilbert space can be decomposed into
+\begin{equation}
+    V^N = V_\text{sym} \oplus V_\text{anti} \oplus V_\text{rest},
+\end{equation}
+where the first two subspaces correspond to bosons and fermions respectively, and the rest of the states in the Hilbert space are not allowed.
+
+Note that acting on a general state with $S$ and $A$ give unique states, the maximally (anti)symmetric combinations. In a coordinate basis, our symmetric state is
+\begin{equation}
+    \psi(x_1,\ldots,x_N) = \frac{1}{N!} \sum_\alpha w_1(x_{\alpha_1}) w_2(x_{\alpha_2}) w_3(x_{\alpha_3})
+\end{equation}
+and the antisymmetric state is
+\begin{equation}
+    \psi(x_1,\ldots,x_N) = \frac{1}{N!} \sum_\alpha \epsilon_\alpha w_1(x_{\alpha_1}) w_2(x_{\alpha_2}) w_3(x_{\alpha_3}).
+\end{equation}
+Note that for the three-particle state, our antisymmetric state (up to a constant factor) is
+\begin{multline}
+    w_1(x_1) w_2(x_2) w_3(x_3) + w_1(x_2) w_2(x_3) w_3(x_1) + w_1(x_3)w_2(x_1) w_3(x_2)\\
+        - w_1(x_2) w_2(x_1) w_3(x_3) - w_1(x_3)w_2(x_2)w_3(x_1) -w_1(x_1)w_2(x_3)w_3(x_2).
+\end{multline}
+This is precisely the determinant of a matrix:
+\begin{equation}
+    \begin{vmatrix}
+        w_1(x_1) & w_2(x_1) & w_3(x_1)\\
+        w_1(x_2) & w_2(x_2) & w_3(x_2)\\
+        w_1(x_3) & w_2(x_3) & w_3(x_3)
+    \end{vmatrix}.
+\end{equation}
+
+Question: when can we treat two systems (perhaps very separated in space) as independent? For example, one particle is on the earth and the other is on the moon. Can we write
+\begin{equation}
+    \psi(x_1,x_2) \approx G_E(x_1)G_M(x_2)?
+\end{equation}
+Sure, if they never overlap:
+\begin{equation}
+    G_E(x_1)G_M(x_1)= 0 \text{ for all }x_1,
+\end{equation}
+i.e. their supports are disjoint. In the case of identical particles we would write the symmetrized wavefunction
+\begin{equation}
+    \psi_S(x_1,x_2) = \frac{1}{\sqrt{2}}\paren{G_E(x_1)G_M(x_2) + G_M(x_1)G_E(x_2)}.
+\end{equation}
+Then our condition would imply that
+\begin{equation}
+    \psi_S(x_{1M},x_{2M}) = 0 = \psi_S(x_{1E},x_{2E}).
+\end{equation}
+% That is, we evaluate
+% \begin{equation}
+%     \psi_S(x_{1M},x_{2M}) = \frac{1}{\sqrt{2}}(G_E(x_{1E})G_M(x_{2M}) + G_M(x_{1E})G_E(x_{2M})).
+% \end{equation}
+% If the second term is negligible (e.g. $G_M(x_1E)$ is small) then we get a separable wavefunction

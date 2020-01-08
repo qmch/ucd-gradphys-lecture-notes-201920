@@ -1,1 +1,129 @@
-Here's some filler text.
+\begin{note}
+    This course will have discussion sections! I will not be writing notes for those since they're like homework. Exams will be closed-book but with a formula sheet---two pages, front and back, typed okay. The final exam can be moved with signed consent of all students.
+    
+    The textbook for this course is Zangwill \textit{Modern Electrodynamics}. The plan is to cover chapters 1-13, mostly electrostatics and magnetostatics (time-independent stuff). Homeworks due Tuesdays apart from the very last one, which is due Thursday.
+\end{note}
+
+Most of Chapter 1 of Zangwill is mathematical preliminaries. Chapter 2 is largely a review of Maxwell's equations. There is one important auxiliary to the Maxwell equations, though, and it's the \term{continuity equation},
+\begin{equation}
+    \P{\rho}{t} + \div \vec{j} =0.
+\end{equation}
+This equation just says there's stuff ($\rho$) and the stuff can flow in a way defined by the vector field $\vec{j}$. The divergence $\div \vec{j}$ tells us how much charge is flowing out of a point, on average.
+
+To review, the first two Maxwell's equations are the following:
+\begin{align}
+    \div \vec{E} &= \frac{\rho}{\epsilon_0}\\
+    \div \vec{B} &= 0
+\end{align}
+The next one we might guess is
+\begin{equation}
+    \curl \vec{B} = \mu_0 \vec{j},
+\end{equation}
+that current flow sources magnetic fields. This equation can't be quite right, because if we take the divergence, the divergence of a curl always vanishes, so
+\begin{equation}
+    0 = \div(\curl \vec{B}) = \mu_0 \div \vec{j},
+\end{equation}
+which by the continuity equation says that $\P{\rho}{t}=0$ everywhere. That seems nonphysical, so let us amend the equation by adding a $\vec{j}_D$ term, called the \term{displacement current}. That is,
+\begin{equation}
+    0 = \vec{j_D} + \mu_0 \paren{-\P{\rho}{t}} = -\mu_0 \epsilon_0 \div \P{\vec{E}}{t} + \vec {j}_D.
+\end{equation}
+This \emph{defines} the displacement current as
+\begin{equation}
+    \mu_0 \epsilon_0 \div \P{\vec{E}}{t} = \vec{j}_D,
+\end{equation}
+and since we recall that $\mu_0\epsilon_0 = \frac{1}{c^2}$, we can rewrite what we recognize as Amp\`ere's law as
+\begin{equation}
+    \curl \vec{B} = \mu_0 \vec{j} + \frac{1}{c^2} \P{\vec{E}}{t}.
+\end{equation}
+The last Maxwell equation is Faraday's law,
+\begin{equation}
+    \curl \vec{E} = -\P{\vec{B}}{t}.
+\end{equation}
+These are Maxwell's equations in vacuum, and they can be modified to describe fields in materials with some little tweaks.
+
+There's also a ``glitch'' in Zangwill's exposition. In the text, Zangwill mentions that Maxwell wrote down 12 equations prior to the development of vector notation (relating each of the components), but in fact he wrote down \emph{eight}. Why eight? Each of the curl equations is a vector equation (three components), but each of the divergence equations is only one (a scalar equation). Hence $2\times 3 + 2\times 1 = 8$.
+
+Altogether, we have the differential forms of Maxwell's equations,
+\begin{align}
+    \div \vec{E} &= \frac{\rho}{\epsilon_0}\\
+    \div \vec{B} &= 0\\
+    \curl \vec{E} &= -\P{\vec{B}}{t}\\
+    \curl \vec{B} &= \mu_0\vec{j} + \frac{1}{c^2}\P{\vec{E}}{t}.
+\end{align}
+%
+We should also be familiar with the integral forms of the Maxwell equations,
+\begin{align}
+    \int \vec{E} \cdot d\vec{S} &= \frac{1}{\epsilon_0} Q_\text{enc}\\
+    \int \vec{B} \cdot d\vec{S} &=0\\
+    \oint \vec{E} \cdot d\vec{l} &= -\P{}{t} \int \vec{B} \cdot d\vec{S}\\
+    \oint \vec{B} \cdot d\vec{L} &= \mu_0 I_\text{enc}+ \frac{1}{c^2} \P{}{t}\int \vec{E} \cdot d\vec{S}.
+\end{align}
+
+If we have matter, then the laws need to be adapted because generically, charges and magnetic dipoles reorient themselves based on the applied fields. Materials have electric and magnetic polarizabilities. It's useful to define the total charge as a sum
+\begin{equation}
+    \rho = \rho_f - \div \vec{P},
+\end{equation}
+where $\vec{P}$ is the \term{polarization vector}. That is, we can put some charge $\rho_f$ on a material, but in general when there's a background applied field, the charges will redistribute themselves. We know this as the fact that charges in a dielectric generically rearrange themselves to oppose the applied field. Recall that $\vec{P}$ points from negative to positive charge. Thus a positive divergence of $\vec{P}$ acts like a local negative charge.
+
+We can do the same for magnetism, though ti's a bit messier.
+\begin{equation}
+    \vec{j} = \vec{j}_f + \P{\vec{P}}{t}+ \curl \vec{M},
+\end{equation}
+where $\vec{M}$ is the \term{magnetization vector}, which we think of as little magnetic dipoles or eddy currents orienting themselves to minimize their energy. This one depends on the current due to free charge $\vec{j_f} = \P{\rho_f}{t}$, the rate of change of the bound charge from polarization, and the curl of the magnetization.
+
+This leads us to define auxiliary fields:
+\begin{align}
+    \vec D &= \epsilon_0 \vec E + \vec P = \epsilon \vec{E}\\
+    \vec H &= \frac{1}{\mu_0} \vec{B} - \vec M  = \frac{1}{\mu} \vec{B}.
+\end{align}
+For the electric field, the sign conventions (whether to add or subtract $\vec{p}$ make sense. It's very natural for the polarization pointing from $-$ to $+$ to add to an effective field $\vec{D}$. But for the magnetic field, it could go either way. Magnets near superconductors induce a magnetization that perfectly cancels the applied field, whereas in ferromagnets like iron, the magnetization is in the same direction as the applied field. We just have to pick a convention and stick to it.
+
+The Maxwell equations in materials take on kind of a nice form:
+\begin{align}
+    \div \vec{D} &= \rho_f\\
+    \div \vec{B} &= 0\\
+    \curl \vec{E} &= -\P{\vec{B}}{t}\\
+    \curl \vec{H} &= \vec{j}_f + \P{\vec{D}}{t}.
+\end{align}
+
+\subsection*{Helmholtz theorem}
+The Helmholtz theorem says that if we specify the divergence and curl of a function everywhere, then the function is uniquely defined up to adding functions which have zero divergence and zero curl. Such functions are called \term{harmonic functions}, which we'll see more later, and whether or not we should add them corresponds to fitting boundary conditions.
+
+We can actually write the electric field explicitly in terms of the divergence and curl:
+\begin{equation}
+    \vec{E}(\vec{r}) = -\underbrace{\grad \int d^3 r' \frac{\grad' \cdot \vec{E}(\vec{r}')}{4\pi \abs{\vec{r}-\vec{r}'}}}_{\text{curl}=0} + \underbrace{\curl \int d^3 r' \frac{\grad'\times \vec{E}(\vec{r}')}{4\pi\abs{\vec{r}-\vec{r'}}}}_{\text{div}=0}.
+\end{equation}
+The second term is actually zero if there is no time dependence, from Faraday's law. If we apply Gauss's law to rewrite $\grad'\cdot \vec{E}$,, we recognize what remains as
+\begin{equation}
+    \vec{E}(\vec{r}) = -\grad \phi(\vec r) = -\grad \int d^3 r' \frac{\rho(\vec{r}')}{4\pi \epsilon_0 \abs{\vec{r} - \vec{r}'}} = \frac{1}{4\pi \epsilon_0} \int d^3 r' \frac{\rho(\vec{r}')(\vec{r}-\vec{r}')}{\abs{\vec{r} - \vec{r}'}^3}.
+\end{equation}
+We've recovered Coulomb's law, just written in a more vectorial language.
+
+Let's consider the force on a charge distribution $\rho^*$ due to the field from a distribution $\rho$. That is,
+\begin{align}
+    \vec{F}(\rho,\rho^*) &= \int d^3 r \rho^*(\vec r) \vec{E}(\vec{r})\\
+        &= \frac{1}{4\pi \epsilon_0} \int d^3 r \int d^3 r' \frac{\rho^*(\vec{r}) \rho(\vec{r'}) (\vec r-\vec{r}')}{|\vec{r} - \vec{r'}|^3}.
+\end{align}
+But we notice that we can exchange $\vec{r}$ and $\vec{r}'$ at the cost of picking up a sign flip:
+\begin{equation}
+    \vec{F}(\rho,\rho^*) = -\vec{F}(\rho^*,\rho).
+\end{equation}
+If we set $\rho=\rho^*$, then $\vec{F}(\rho,\rho)=0$, which tells us that a charge distribution cannot exert a net force on itself.
+
+Finally, let's introduce potentials. The electric field in electrostatics can be written as the gradient of the scalar potential,
+\begin{equation}
+    \vec{E} = -\grad \phi,
+\end{equation}
+so that
+\begin{equation}
+     \frac{\rho}{\epsilon_0} = \div \vec{E} = - \div \grad \phi = -\grad^2 \phi.
+\end{equation}
+The equation
+\begin{equation}
+    \grad^2 \phi = -\frac{\rho}{\epsilon_0}
+\end{equation}
+is hopefully familiar to us as Poisson's equation, and the homogeneous case ($\rho=0$) is
+\begin{equation}
+    \grad^2 \phi = 0,
+\end{equation}
+which is Laplace's equation.
