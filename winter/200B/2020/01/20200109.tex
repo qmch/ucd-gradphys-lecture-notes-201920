@@ -1,0 +1,141 @@
+Today we'll start our discussion with Gauss's law, moving rapidly into chapter 3 of Zangwill. Gauss's law lets us calculate electric fields rapidly for situations with high amounts of symmetry. Basically, we can solve systems with spherical symmetry, cylindrical symmetry, and translational plane symmetry. It doesn't get us too far but it's a lot better than Coulomb's law volume integrals.
+
+As we know, Gauss's law (differential form) states
+\begin{equation}
+    \div \vec E = \frac{\rho}{\epsilon_0},
+\end{equation}
+or in integral form
+\begin{equation}
+    \oint_S \vec E \cdot d\vec A = \int_V \div \vec E d^3 r = \int_V \frac{\rho}{\epsilon_0} d^3 r = \frac{Q_\text{enc}}{\epsilon_0}.
+\end{equation}
+The simplest example is for the point charge. For a single positive charge $q>0$, we can reason that the field must point radially outwards and it is constant at surfaces of constant $R$, so that
+\begin{equation}
+    \oint_S \vec E \cdot d\vec Q = |E| 4\pi R^2 = \frac{q}{\epsilon_0},
+\end{equation}
+which yields
+\begin{equation}
+    \vec{E} = \frac{1}{4\pi R^2 \epsilon_0} \uv r.
+\end{equation}
+Gauss's law also gives us a nice result (sometimes known as Newton's shell theorem), which says that the electric field due to a spherically symmetric shell of charge \emph{inside} that shell ($r<R$) is zero.
+
+We can also do Gauss's law for an infinite plane by drawing a Gaussian pillbox, say, extending a height $h$ above and below the plane. Rotational symmetry lets us reason that the field can only point in the normal direction to the plane, while reflection symmetry says its magnitude is the same equal distances above and below the plane. It follows that
+\begin{equation}
+    \oint_S \vec E \cdot d \vec A = \frac{1}{\epsilon_0} \sigma A,
+\end{equation}
+where $A$ is the area of the face of the Gaussian pillbox. Since the field is normal to the plane and the faces of the pillbox are oriented outwards, we have
+\begin{equation}
+    \oint_S \vec E \cdot d\vec A = 2 E(h) A,
+\end{equation}
+so that
+\begin{equation}
+    \vec{E}(h) =\begin{cases}
+        \frac{\sigma}{2\epsilon_0}\uv z & z >0\\
+        -\frac{\sigma}{2\epsilon_0} \uv z & z < 0.
+    \end{cases}
+\end{equation}
+The reason there is no $h$ dependence is because the infinite plane is scale-invariant. If we rescale all the coordinates, the infinite plane still looks like an infinite plane. This result isn't necessarily useful to us because real life is filled with infinite planes of charge, or even because the problem is exactly solvable; rather, it's because any reasonably smooth (in the mathematical sense) surface looks locally flat, which means that near the surface, we have essentially the field from an infinite plane. 
+
+By the same Gaussian pillbox arguments, we find that $E_\parallel$ is continuous at surfaces of charge, while $E_\perp$ is discontinuous by $\frac{\sigma}{\epsilon_0}$.
+How should we calculate the force on a little surface of charge, given that the electric field is discontinuous above and below the field? Well, we can just take the average. This seems physically reasonable, but we can justify it. Remember the discontinuity comes from the charge at the surface itself, and as we showed last time, charges cannot exert forces on themselves. So if we average above and below the surface, we will basically average away the contribution of the charged surface itself and get the right answer.
+%figure
+
+We can also state Earnshaw's theorem-- in a closed region with no charge, any extrema of the potential must be on the boundary. For suppose there was a local maximum of the potential in the interior. The gradient of the potential vanishes at that point, and a little bit away we can draw a Gaussian surface it is pointing towards that point everywhere. %figure
+It follows that the $\vec E$-field points away everywhere, so our integral $\oint_S \vec E \cdot d\vec A > 0$, which violates our assumption that there was no charge in the region.%
+    \footnote{One can also argue this directly from the form of Laplace's equation.}
+This tells us that we cannot make an electrostatic cage; no charge distribution can hold itself in a static configuration under Coulomb interactions alone. Earnshaw's theorem has told us that any charge dropped in a region with no other charge will move to the edges of that region, since it cannot sit at an extremum.
+
+\subsection*{Potential and potential energy}
+For our purposes, we will follow Zangwill and denote potential energy by $V$ and electrostatic potential by $\varphi$. We say the potential energy changes as
+\begin{equation}
+    \delta V = -\vec F \cdot d\vec s
+\end{equation}
+for small displacements, i.e.
+\begin{equation}
+    \vec F = -\grad V.
+\end{equation}
+In addition, when forces are due only to electric fields, then
+\begin{equation}
+    \vec F = q\vec E = -q \grad \varphi \implies V = q\varphi.
+\end{equation}
+Hence the electrostatic potential is the energy per charge.
+
+Let's now prove Green's reciprocity relation for the potential energy. That is, suppose there are two charge distributions $\rho_1,\rho_2$. The energy of $\rho_2$ in the potential $\varphi_1$ created by $\rho_1$ is
+\begin{equation}
+    V = \int d^3 r \, \rho_2(\vec r) \varphi_1(\vec r),
+\end{equation}
+such that
+\begin{equation}
+    \delta V = \int d^3 r \, \bkt{\rho_2(\vec r-\delta \vec s)-\rho_2(\vec r)} \varphi_1(\vec r).
+\end{equation}
+The minus sign comes from that active/passive transformation jazz. If the distribution is moved by $\delta \vec s$, then looking at the ``same'' point in space $\vec r$ for the new distribution is equivalent to looking at the original distribution at a point $\vec r - \delta \vec s$.
+
+We can now Taylor expand as $\delta \vec s$ gets small, such that
+\begin{equation}
+    \delta V \approx - \delta \vec s \cdot \int d^3 r \, (\grad \rho_2(\vec r)) \varphi_1(\vec r) = -\delta\vec s \cdot \int d^3 r\paren{\grad(\rho_2 \varphi_1) - \rho_2 \grad \varphi_1},
+\end{equation}
+after a product rule manipulation (basically an integration by parts). Now this first term is a total derivative, so it vanishes as we take our integration region $d^3r$ to be all space. What's left is
+\begin{equation}
+    \delta V = -\delta \vec s \cdot \int d^3 r \, \rho_2(\vec r) \vec E_1(\vec r).
+\end{equation}
+
+Let us rewrite this energy in a different way:
+\begin{equation}
+    V = \int d^3 r \, \rho_2(\vec r) \varphi_1(\vec r) = \frac{1}{4\pi \epsilon_0} \int d^3 r \int d^3 r' \, \rho_2 (\vec r) \frac{\rho_1(\vec r')}{|\vec r - \vec r'|}.
+\end{equation}
+But notice that this integral is manifestly symmetric in $\vec r$ and $\vec r'$ (i.e. $|\vec r- \vec r'| = |\vec r' - \vec r|$). This certainly converges, so we can switch the order of integration and do the $d^3 r$ integral first to find
+\begin{equation}
+    V = \int d^3 r \, \rho_2(\vec r) \varphi_1(\vec r) = \int d^3 r' \, \rho_1(\vec r') \varphi_2(\vec r').
+\end{equation}
+This relation means that the energy in an electrostatic charge distribution doesn't depend on how we build it, only on the final geometry.
+
+Consider the following example.
+\begin{exm}
+    Suppose we have a spherical region of radius $R$ centered on the origin with no charge inside. As it turns out, the potential at the center is the average potential on the surface:%
+        \footnote{Again, this is a property of Laplace's equation. For a good reference on this, see Evans \textit{Partial Differential Equations}, section 2.2.2.}
+    \begin{equation}
+        \varphi(0) = \frac{1}{4\pi R^2} \int dS \varphi(\vec r).
+    \end{equation}
+    Can we use Green's reciprocity relation to find this result? Take 
+    \begin{equation}
+        \varphi_1 = \varphi, \quad \rho_1 = \rho; \quad \rho_2(\vec r) = \frac{q}{4\pi R^2} \delta(r-R).
+    \end{equation}
+    Then
+    \begin{equation}
+        \varphi_2 = \begin{cases}
+            \frac{q}{4\pi \epsilon_0 r} & r \geq R,\\
+            \frac{q}{4\pi \epsilon_0 R} & r \leq R.
+        \end{cases}
+    \end{equation}
+    It follows that
+    \begin{equation}
+        \int d^3 r \frac{q}{4\pi R^2} \delta(r-R) \varphi(\vec r) = \int d^3r \rho(\vec r) \varphi_2(\vec r) = \int_R^\infty r^2 dr \int d\Omega \rho(\vec r) \frac{q}{4\pi \epsilon_0 r}.
+    \end{equation}
+    But this last expression up the the factor of $q$ is exactly the integral we would use to compute the potential at the origin. That is,
+    \begin{equation}
+        \int_R^\infty r^2 dr \int d\Omega \rho(\vec r) \frac{q}{4\pi \epsilon_0 r} = q \varphi(\vec r=0).
+    \end{equation}
+    Meanwhile, the LHS says that we just integrate
+    \begin{equation}
+        \int d^3 r \frac{q}{4\pi R^2} \delta(r-R) \varphi(\vec r) = \frac{q}{4\pi R^2} \int dS \,\varphi(\vec r).
+    \end{equation}
+    Cancelling the factors of $q$, we have exactly the desired result. The potential at the center of the sphere is equal to the average potential on its surface.
+\end{exm}
+
+We can write the potential energy of a charge distribution as
+\begin{equation}
+    U_E = \frac{1}{4\pi \epsilon_0} \sum_{j=1}^N \sum_{i>j}^N \frac{q_i q_j}{|\vec r_i - \vec r_j|}
+\end{equation}
+or for continuous distributions,
+\begin{equation}
+    U_E = \frac{1}{8\pi \epsilon_0} \int d^3 r \int d^3 r' \frac{\rho(\vec r) \rho(\vec r')}{|\vec r - \vec r'|} = \frac{1}{2} \int d^3 r \rho(\vec r) \varphi(\vec r)
+\end{equation}
+Note that for all-positive or all-negative distributions of charges, these formulae make it clear that the energy of assembling the distribution is positive-definite. The answer is somewhat less clear when we have a mix of charges. Let's manipulate this result to see what happens.
+\begin{align*}
+    U_E &= \frac{1}{2} \int d^3 r \rho(\vec r) \varphi(\vec r)\\
+        &= \frac{1}{2} \int d^3r \epsilon_0 \div \vec E \varphi(\vec r)\\
+        &= \frac{\epsilon_0}{2} \int d^3 r \paren{\div(\vec E \varphi) - \vec E \cdot (\grad \phi)}\\
+        &\to \frac{\epsilon_0}{2} \int d^3 r |E|^2
+\end{align*}
+where the last step is taking the limit as the region of integration becomes all space, and the total derivative term goes away. 
+
+So $U_E$ for continuous distributions defined in this way is \emph{positive-definite}. How does this square with our idea that we could just bring one positive and one negative charge together? Well, it takes energy to assemble the charges in the first place. In fact, one can check that the energy of a point charge is divergent since it's a finite amount of charge squished into a single point of space. Part of the energy in this expression (summing up the energy in the E-field) comes from actually assembling the charge distribution, and we'll get some practice with this on the homework.
