@@ -1,0 +1,168 @@
+\begin{quote}
+    \textit{``If wavelength is very small compared to the interstitial distance, this just goes through like hot knife through butter. That's why we exist.''
+    }
+    
+    --Nemanja Kaloper
+\end{quote}
+%hans sagan, boundary and eigenvalues in mathematical physics
+Last time, we rewrote the Schr\"odinger equation as an integral equation,
+\begin{equation}
+    \psi(\vec r_1) = -\frac{2m}{4\pi} \int \frac{e^{ik |\vec r_1 -\vec r_2|}}{|\vec r_1 - \vec r_2|} V(\vec r_2) \psi(\vec r_2).
+\end{equation}
+To solve this perturbatively, we require that the potential is small,
+\begin{equation}
+    V= \lambda W
+\end{equation}
+for some $\lambda \ll 1$, and moreover that these integrals converge.
+
+We must make a guess for the initial wave as
+\begin{equation}
+    \psi_0 = e^{-i \vec k \cdot \vec r},
+\end{equation}
+which solves the homogeneous equation, and hence the first-order correction is
+\begin{equation}
+    \psi_1 = -\frac{2m}{4\pi} \int d^3r_2 \frac{e^{ik |\vec r_1 -\vec r_2|}}{|\vec r_1 - \vec r_2|} V(\vec r_2) e^{-i \vec k \cdot \vec r}.
+\end{equation}
+This will give us the order $\lambda$ correction.
+%If wavelength is very small compared to the interstitial distance, this just goes through like hot knife through butter. That's why we exist.
+
+\subsection*{Fourier series}
+Consider a function $f(x)$ defined on the interval $[-\pi,\pi]$. As long as a function satisfies certain ``Dirichlet conditions,'' it has a valid Fourier decomposition that converges in the mean. These conditions require that the function has only finitely many finite discontinuities. So any smooth function on the integral will work, but functions with a finite jump can still give us a valid Fourier decomposition. It turns out that at the point of the discontinuity, the Fourier series will have the mean value of the limits from the left and right.
+
+Things that will break the decomposition include infinite discontinuities ($1/x$) or that have infinitely many finite discontinuities. There are functions which are not Dirichlet which have Fourier decompositions, but the conditions are sufficient to guarantee the convergence of the Fourier decomposition.
+
+The decomposition takes the form
+\begin{equation}
+    f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos n x + b_n \sin nx,
+\end{equation}
+with
+\begin{equation}
+    a_0 = \frac{1}{\pi} \int_{-\pi}^\pi f(x) dx
+\end{equation}
+so that $a_0/2$ is the mean value of the function. The coefficients are given by
+\begin{align}
+    a_n = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos(nx) dx, \quad b_n = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) dx.
+\end{align}
+This is nothing more than the decomposition of a function in an infinite-dimensional vector space. Thanks to the orthogonality of cosines and sines, we can treat this as a complete basis and compute the components, which are exactly the Fourier coefficients.
+
+On our function space, there is an inner product defined by
+\begin{equation}
+    f\cdot g = \int_{-\pi}^\pi f^*(x) g(x).
+\end{equation}
+Notice that 
+\begin{equation}
+     0 = \int_{-\pi}^\pi \sin nx \cos mx dx,
+\end{equation}
+since the trig addition formulas tell us we are integrating sines $\sin(n+m)x$ and $\sin(n-m)x$ over whole intervals.%
+    \footnote{Equivalently the function is odd and integrated over a symmetric interval.}
+If we have
+\begin{equation}
+    \int_{-\pi}^\pi \sin n x \sin nx dx = \frac{1}{n} \int_{-\pi}^\pi \sin nx d(\cos nx) = \frac{1}{n} (\sin nx \cos nx)|_{-\pi}^\pi - \frac{1}{n} \int_{-\pi}^\pi \cos n x d
+    (\sin nx).
+\end{equation}
+The boundary terms are zero since $\sin n\pi=0$, and we get that%
+    \footnote{We can also derive this by noting that the integral of $\sin nx$ over $-\pi$ to $\pi$ (i.e. integer multiples of the period) is equal to the integral of $\cos nx$ over the same interval, since a sine is just a phase-shifted cosine. Hence $\int_{-\pi}^\pi \sin(nx) dx = \int_{-\pi}^\pi \cos(nx) dx$ and the same is true for their squares. Since they both complete the same number of full periods over the interval, their integrals must be the same. So we can immediately conclude that $\int_{-\pi}^\pi \sin^2 x dx = \int_{-\pi}^\pi \cos^2 x dx.$}
+\begin{equation}
+    \int \sin^2 nx dx = \int \cos^2 nx dx.
+\end{equation}
+Since
+\begin{equation}
+    1 = \sin^2 nx + \cos^2 nx \implies \underbrace{\int_{-\pi}^\pi dx}_{2\pi} = \int_{-\pi}^\pi dx (\sin^2 nx + \cos^2 nx) = 2\int_{-\pi}^\pi dx \sin^2 nx,
+\end{equation}
+we conclude that
+\begin{equation}
+    \frac{1}{\pi} \int_{-\pi}^\pi dx \sin^2 nx = 1.
+\end{equation}
+
+We can also do this with complex exponentials pretty easily. We find that%
+    \footnote{See the end of this section for a bit of extra detail.}
+\begin{equation}
+    \frac{1}{\pi} \int_{-\pi}^\pi dx \sin nx \sin mx = \frac{1}{\pi} \int_{-\pi}^\pi dx \cos nx \cos mx = \delta_{nm}.
+\end{equation}
+Let $f_N$ be the truncated Fourier series approximation of $f$,
+\begin{equation}
+    f(x) = \frac{a_0}{2} + \sum_{n=1}^N a_n \cos n x + b_n \sin nx,
+\end{equation}
+One may show that
+\begin{equation}
+     0 \leq |f-f_N|^2 = \int f^2 + f_N^2 - 2f f_N,
+\end{equation}
+which is just the Bessel's inequality.
+We have a term independent of the $a_n$s, one quadratic in them, and one linear in them.
+
+It is sometimes convenient to use a more symmetric expansion for the Fourier series as
+\begin{equation}
+    f(x) = \sum_{n=-\infty}^\infty c_n e^{inx}.
+\end{equation}
+This is perfectly equivalent to sines and cosines, as we know. The matching works out as
+\begin{equation}
+    c_0 = \frac{a_0}{2}, \quad c_n = \frac{1}{2}(a_n + i b_n), \quad c_{-n} = c_n^* = \frac{1}{2} (a_n - ib_n)
+\end{equation}
+assuming that $a,b$ are real.
+
+These eigenfunctions satisfy the Sturm-Liouville problem
+\begin{equation}
+    y''= -\lambda y
+\end{equation}
+where
+\begin{equation}
+    y(-\pi) = y(\pi), \quad y'(-\pi) = y'(\pi).
+\end{equation}
+The eigenvalues are $\lambda =n^2$ and the sets of solutions are
+\begin{equation}
+    y_n = \sin nx, \cos nx.
+\end{equation}
+
+\subsection*{Non-lectured: exponentials and integrals of $\sin nx $, two ways}
+We can compute the integral of $\sin^2 nx$ by passing to the complex exponential form,
+\begin{equation}
+    \sin nx = \frac{e^{inx} - e^{-inx}}{2i}.
+\end{equation}
+Then for $n\neq m$,
+\begin{align}
+    \frac{1}{\pi} \int_{-\pi}^\pi \sin nx \sin mx dx &= \frac{1}{\pi} \int_{-\pi}^\pi dx\paren{\frac{e^{inx}- e^{-inx}}{2i}}\paren{\frac{e^{imx}- e^{-imx}}{2i}}\\
+        &= -\frac{1}{2\pi} \int_{-\pi}^\pi dx \paren{e^{i(n+m)x} + e^{-i(n+m)x} -e^{-ix(n-m)x} - e^{ix(n-m)x}}\label{eqn:sinintegralline2}\\
+        &= -\frac{1}{2\pi} \bkt{\frac{e^{ix(n+m)}}{i(n+m)}-\frac{e^{-ix(n+m)}}{i(n+m)}+\frac{e^{-ix(n-m)}}{i(n-m)}-\frac{e^{ix(n-m)}}{i(n-m)}}_{-\pi}^\pi
+\end{align}
+However, notice that these exponentials are all at least $2\pi$ periodic. That is,
+\begin{equation}
+    e^{i(2\pi)(n+m)} = 1 \implies e^{i\pi (n+m)} = e^{-i \pi (n+m)}
+\end{equation}
+for $n,m\in \ZZ$. That means that all these exponential terms vanish when $n\neq m$. If $n=m$, then the second line, Eqn.~\eqref{eqn:sinintegralline2}, becomes
+\begin{equation}
+    -\frac{1}{2\pi} \int_{-\pi}^\pi dx \paren{e^{i(n+m)x} + e^{-i(n+m)x} -2}=-\frac{1}{2\pi} (-2\pi) = 1.
+\end{equation}
+We conclude that
+\begin{equation}
+    \frac{1}{\pi} \int_{-\pi}^\pi \sin nx \sin mx\, dx = \delta_{nm}.
+\end{equation}
+
+But wait, there's more! Here is a high-powered way to do this integral using contour integration. If you don't know contour integration, read ahead to when these notes cover them and come back later. Let's write this integral suggestively in terms of $\theta$,
+\begin{equation}
+    \frac{1}{\pi} \int_{-\pi}^\pi \sin n\theta \sin m\theta\,d\theta.
+\end{equation}
+Since $\theta$ runs from $-\pi$ to $\pi$, we can think of this integral as tracing a unit circle contour in the complex plane (cf. Arfken 11.8). That is, we shall make the change of variables
+\begin{equation}
+    z= e^{i\theta}
+\end{equation}
+so that
+\begin{equation}
+    d\theta = -i \frac{dz}{z}, \quad \sin n \theta = \frac{e^{in\theta}-e^{-in\theta}}{2i} = -i\frac{z^n - z^{-n}}{2}.
+\end{equation}
+Now our integral becomes
+\begin{align*}
+    \frac{1}{\pi} \int_{-\pi}^\pi \sin n\theta \sin m\theta\,d\theta &= -\frac{i}{\pi} \oint_C \paren{-i\frac{z^n - z^{-n}}{2}} \paren{-i\frac{z^m - z^{-m}}{2}} \frac{dz}{z}\\
+        &= \frac{i}{4\pi} \oint (z^{n+m}-z^{n-m} - z^{-n+m} +z^{-n-m}) \frac{dz}{z}.
+\end{align*}
+We can evaluate this with the Cauchy residue theorem! Just look for poles inside the unit circle. Actually, this function only has poles at the origin. We may recall that anything that's not a simple pole in this sort of integral will have zero residue. For instance, suppose $n=1,m=2$. Then our integral would be 
+\begin{equation}
+    \frac{i}{4\pi} \oint (z^{1+2}-z^{1-2} - z^{-1+2} +z^{-1-2}) \frac{dz}{z}.
+\end{equation}
+Just by power counting, none of these are simple poles. For the $z^{n+m}$ term to give a simple pole, we would need $n+m=0$, and for $n,m\in \ZZ_+$ there are no solutions to this equation. The same is true for the $z^{-n-m}$ term. Our only hope is for the middle terms to give us a simple pole, and this happens exactly when $n=m$. When $n=m$, we have
+\begin{equation}
+    \frac{i}{4\pi} \oint (z^{2n}-2 +z^{-2n}) \frac{dz}{z} = \frac{i}{4\pi} \paren{2\pi i (-2)} =1
+\end{equation}
+by the Cauchy residue theorem. As before, we conclude that
+\begin{equation}
+    \frac{1}{\pi} \int_{-\pi}^\pi \sin n\theta \sin m\theta\, d\theta = \delta_{nm}. \qed
+\end{equation}
