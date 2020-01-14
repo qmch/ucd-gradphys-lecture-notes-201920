@@ -1,0 +1,118 @@
+\subsection*{Multipole expansion}
+Today we're moving into Chapter 4 of Zangwill, on multipoles. Multipoles are a way of thinking about the field of a charge distribution far away from that distribution. For instance, if there is a net charge in that distribution, far away we have a field that decays as $1/r^2$, like the field of a point charge.
+
+Suppose we have a charge distribution $\rho(\vec r')$ contained entirely within a sphere of radius $R$. That is, $\rho(\vec r') =0$ for $|\vec r'| > R$. Then we can look at a point $\vec r$ outside the sphere with $|\vec r| > R$. Well, our potential is just given by
+\begin{equation}
+    \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \int d^3 r' \frac{\rho(\vec r')}{|\vec r-  \vec r'|},
+\end{equation}
+and we'd like to expand the denominator when $|\vec r| \gg |\vec r'|$. Our expansion looks like
+\begin{equation}
+    \frac{1}{|\vec r- \vec r'|} \approx \frac{1}{r} - \vec r' \cdot \grad \frac{1}{r} + \frac{1}{2}(\vec r' \cdot \grad)^2 \frac{1}{r} - \dots
+\end{equation}
+If we're being careful we should really expand in $r'/r$ as a small parameter. The derivatives are all with respect to unprimed coordinates, and then the $\vec r'$ determines which direction we're looking. This is much better in index notation. With the Einstein summation convention (i.e. sum over repeated indices), this becomes
+\begin{equation}
+    \frac{1}{|\vec r- \vec r'|} \approx \frac{1}{r} - r_i' \grad_i \frac{1}{r} + \frac{1}{2} r_i' r_j' \grad_i \grad_j \frac{1}{r}+ \dots
+\end{equation}
+If we plug this expansion back into the expression for the potential, we get
+\begin{equation}
+    \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \set*{\underbrace{\bkt{\int d^3 r' \rho(\vec r')}}_{\text{monopole}=Q} \frac{1}{r} - \underbrace{\bkt{\int d^3 r' \rho(\vec r') r_i'}}_{\text{dipole}=\vec p} \p_i \frac{1}{r}+ \underbrace{\bkt{\frac{1}{2} \int d^3 r' \rho(\vec r') r_i' r_j'}}_{\text{quadrupole}=Q_{ij}} \grad_i \grad_j \frac{1}{r} + \dots}
+\end{equation}
+
+A note on tensors. Tensors are like collections of numbers that have special properties under coordinate transformations. A rank 1 tensor is just a vector; we need only one number to label which component we are looking at. So if we write a vector $\vec v = (a,b,c)$ then we can also write its components $v_i$ such that $v_1=a,v_2=b,v_3=c$. 
+
+Similarly matrices are rank two tensors--- we need two index labels to say which element we are looking at. That is, a $3\times 3$ matrix requires two index labels to pick out an element, a row and a column. We can guess what a rank three tensor looks like, i.e. some sort of cube of numbers. After rank three it's best to just think of these in the abstract. However, not any collection of numbers is a tensor. Each row and column of a matrix must transform like a vector.
+
+Note that many of the complications of working with tensors (e.g. where do you put the indices, up or down?) will drop out when we work in flat Cartesian coordinates.
+
+Can we study the limiting behavior of this expansions? Sure, if we perform some dimensional analysis. We took our charge to be confined to a sphere of radius $R$; the monopole moment is independent of $R$, while the dipole and quadrupole components scale as
+\begin{equation}
+    p_i \sim QR, \quad Q_{ij} \sim QR^2.
+\end{equation}
+Derivatives with respect to the $\vec r$ unprimed coordinates act like $1/r$, so our approximation looks like
+\begin{equation}
+    \varphi(r) \sim \frac{1}{4\pi \epsilon_0} \bkt{\frac{Q}{r} - \frac{QR}{r^2} + \frac{QR^2}{r^3} + \dots}.
+\end{equation}
+If we work out the derivatives, we get
+\begin{equation}
+    \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \set*{\frac{Q}{r} + \frac{p_i r_i}{r^3} + Q_{ij} \frac{3r_i r_j - r^2 \delta_{ij}}{r^5}+ \dots}
+\end{equation}
+
+Let us find the field of the dipole far away.
+\begin{align}
+    \vec E &= - \grad \varphi_\text{dipole}\\
+        &=-\frac{1}{4\pi \epsilon_0} \grad \paren{\frac{\vec p \cdot \vec r}{r^3}}.
+\end{align}
+Let us write this component-wise. Note that $\p_i r= \p_i \sqrt{x^2 +y^2+z^2} = \frac{r_i}{\sqrt{x^2+y^2+z^2}} = r_i/r$. Then
+\begin{align*}
+    E_i &= - \frac{1}{4\pi \epsilon_0} \p_i \paren{\frac{p_j r_j}{r^3}}\\
+        &= -\frac{1}{4\pi \epsilon_0} \bkt{p_j \frac{\delta_{ij}}{r^3} - \frac{3 p_j r_j}{r^4} \p_i r }\\
+        &= -\frac{1}{4\pi \epsilon_0} \bkt{p_j \frac{\delta_{ij}}{r^3} - \frac{3 p_j r_j r_i}{r^5}}\\
+        &= \frac{1}{4\pi \epsilon_0} \bkt{ \frac{\vec p \cdot \vec r}{r^5} r_i - \frac{p_i}{r^3}}.
+\end{align*}
+Equating these as vectors gives
+\begin{equation}
+    \vec E = \frac{1}{4\pi \epsilon_0} \bkt{\frac{3 \vec p \cdot \uv r}{r^3} \uv r - \frac{\vec p }{r^3}}.
+\end{equation}
+
+One can model a physical dipole as two charges, one $+q$ and one $-q$, separated by a distance $a$ and connected by a rigid ``rod'' of some sort. Then the dipole moment is $q\vec a$. One can imagine shrinking this dipole down by keeping the product $qa$ fixed while taking $a\to 0$. In a sense, a dipole is like a derivative of a delta function.
+
+In constant electric fields, there is no net force on a dipole since each of the charges experiences an equal and opposite force. (In general there will be a torque.) It's only when the field is changing that we experience a net force, so we may think of dipoles as sensitive to gradients in the field.
+
+\subsection*{The quadrupole}
+The quadrupole moment was defined as
+\begin{equation}
+    Q_{ij} = \frac{1}{2} \int d^3 r'(\rho (\vec r') r_i' r_j',
+\end{equation}
+and from this expression we see that $Q_{ij} = Q_{ji}$, e.g. $Q_{12}=Q_{21}$, and so on. It is symmetric, and hence in 3 dimensions there are 6 independent components. If we choose our axes really well, we can diagonalize the quadrupole tensor and just compute three components.
+
+We can also define the \term{traceless quadrupole tensor} as
+\begin{equation}
+    \Theta_{ij} = 3 Q_{ij} - Q_{kk} \delta_{ij}.
+\end{equation}
+That is, if we take the trace of this, then we get
+\begin{equation}
+    \Theta_{ii} = 3Q_{ii} - Q_{kk} \delta_{ii} = 3Q_{ii} - Q_{kk}(3) = 0,
+\end{equation}
+since the trace of the Kronecker delta in 3 dimensions is 3. (More generally, it is the dimension of the space in $d$ dimensions.) This will have \emph{five} independent components, since we have imposed one algebraic constraint on the six components (that the trace vanishes).
+
+Why is this useful? Well, we can rewrite the quadrupole potential as
+\begin{equation}
+    \varphi_\text{quad}(\vec r) = \frac{1}{4\pi \epsilon_0} Q_{ij} \frac{3r_i r_j - \delta_{ij} r^2}{5} = \frac{1}{4\pi \epsilon_0} \Theta_{ij} \frac{r_i r_j}{r^5}.
+\end{equation}
+
+If we ever need to go to higher orders, this trace-free condition becomes really useful, since we can take the trace with respect to any pair of indices, e.g. by setting $Q_{iij}=0$ or $Q_{ijj}=0$.
+
+We can write the potential as
+\begin{equation}
+    \frac{Q}{r} + \frac{\vec p \cdot \uv r}{r^2} + Q_{ij} \frac{3 \text{``$\cos\theta_i \cos\theta_j$''} - \delta_{ij}}{r^3}.
+\end{equation}
+If we start writing out the expansion terms in spherical coordinates, we find that these are secretly (maybe not so secretly) Legendre and associated Legendre polynomials.
+
+The reason for this is that our potential far away can be built out of solutions to Laplace's equation $\nabla^2 \varphi =0$, since there is no charge there. In 204A, we considered separable solutions to Laplace's equation in spherical coordinates, which we wrote as
+\begin{equation}
+    \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \sum_{l=0}^\infty \sum_{m=-l}^l \frac{A_{lm}}{r^{l+1}} Y_{lm}(\theta,\phi).
+\end{equation}
+It's perhaps not so surprising that the spherical harmonics arise like this. Moreover, if we think about how many $A_{lm}$ we get for fixed $l$, there are $2l+1$ choices for $m$. That is, the quadrupole moment, which corresponds to $l=2$, really should have five independent components.%
+    \footnote{There's also a second solution to Laplace's equation scaling as $r^l$, but those solutions diverge as $r\to \infty$, so they represent interior rather than exterior solutions.}
+
+For $l=3$, we expect $2l+1=7$ components. From the Cartesian perspective, there are a priori $3\times 3 \times 3=27$ components. However, $Q_{ijk} = Q_{jik}$ and so on. Hence we get some different sets of components. 
+
+There's 
+\begin{equation}
+    Q_{111},Q_{222},Q_{333}
+\end{equation}
+which are unaffected by the symmetry and all independent. There's also sets where all three indices are distinct, e.g. 
+\begin{equation}
+    Q_{123},
+\end{equation}
+and there are six of these (like $Q_{213}$), all related to this one by the symmetry. Then there are ones with two identical indices, like 
+\begin{equation}
+    Q_{122},Q_{133},Q_{112},Q_{113},Q_{233},Q_{223}
+\end{equation}
+Each of these is related to two other components by symmetry, e.g. $Q_{122}= Q_{212} = Q_{221}$, for a total of $3\times 6 =18$ components with two indices the same. Hence $3+6+18=27$.
+
+All the other components are related to the ones we have listed by symmetry, so there are $3+1+6=10$ components. Moreover, if we impose three constraints on the traces
+\begin{equation}
+    T_{iik}=0, T_{iji}=0, T_{ijj}=0,
+\end{equation}
+then we get $10-3=7$, which is exactly the right number of components as given by the spherical harmonic coefficients $A_{2m}$.
