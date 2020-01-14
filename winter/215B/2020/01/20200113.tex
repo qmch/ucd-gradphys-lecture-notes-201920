@@ -1,0 +1,136 @@
+Symmetries are critical in quantum mechanics, but their study predates quantum mechanics. For instance, if we consider an equilateral triangle, it has some symmetries (namely, the dihedral group $D_6$). We can leave it alone (identity, $I$), rotate clockwise by 120 degrees ($R_{120}$, rotate clockwise by 240 degrees ($R_{240}$), reflect over the $z$ axis ($\sigma_a$), or reflect over one of the two other symmetry axes running through the vertices ($\sigma_b,\sigma_c$).
+
+Note that there are no further symmetries of this object. We can see this by enumerating the possible configurations of the vertices, i.e. we can pick one vertex to be on top (1,2, or 3) and then pick an order for the vertices at the base (e.g. if $1$ is on top then either $2$ or $3$ can be on the bottom). Thus we have $3\times 2$ choices which means there are six elements in the group total.
+
+We also notice that rotations form a \emph{subgroup}, i.e. a group within a group. Specifically, they form the cyclic group $\ZZ_3$, which is the set of symmetries of the integers modulo 3 under addition.
+
+In quantum mechanics, we have states $\ket{\psi}$ which live in a vector space, and group elements correspond to unitary operators which act on the vector space. The assignment of operators to group elements in a way that respects the group multiplication is called a \term{representation}., i.e.
+\begin{equation}
+    g_i \mapsto U_{g_i}\text{ such that } U_{g_i}^\dagger =U_{g_i}^{-1}, \quad U_{g_i} U_{g_j} = U_{g_i g_j}
+\end{equation}
+defines a unitary representation.
+
+Two representations are \emph{equivalent} if they are related by a unitary transformation. That is, they are the same up to a change of basis. A representation is \term{reducible} if by a unitary transformation it can be put into block diagonal form (all operators $\set{U_i}$ can be block diagonalized). That is,
+\begin{equation}
+    U_i = \begin{bmatrix}
+        U_{1i} & 0\\
+        0 & U_{2i}
+    \end{bmatrix}
+\end{equation}
+such that the vector space decomposes into a direct sum
+\begin{equation}
+    V= V_1 \oplus V_2.
+\end{equation}
+The operator acts separately on each of the subspaces $V_1,V_2$.
+
+In QM, we are interested in irreducible representations. A representation is \term{irreducible} if it is not reducible. Consider the ammonia molecule. There are three hydrogen atoms at three of the corners of a trigonal pyramid with a nitrogen atom at the last corner. There are the same symmetry operations on this pyramid, i.e. the hydrogen atoms have the same symmetries as the equilateral triangle, so there are therefore six symmetries of this molecule which correspond to its degrees of freedom.%
+    \footnote{There is a group theory course with notes at \url{http://courses.physics.ucsd.edu/2016/Spring/physics220/}.}
+
+We can also define the character of an element as the trace
+\begin{equation}
+    \chi_i = \Tr U_i,
+\end{equation}
+and the conjugacy class of an element $g_a$, which is defined as the set
+\begin{equation}
+    \set{g_i g_a g_i^{-1}}, g_i \in G.
+\end{equation}
+Note that the identity forms a conjugacy class in itself. One can see that $R_{120},R_{240}$ forms a conjugacy class and $\sigma_a,\sigma_b,\sigma_c$ form another.
+
+There exist orthogonality theorems which state that if one constructs a vector of the characters of a group in two different representations $\Gamma,\Gamma'$, i.e.
+\begin{equation}
+    \sum_{g\in G}\chi^\Gamma(g^{-1}) \chi^{\Gamma'}(g) = N_G \delta_{\Gamma \Gamma'},
+\end{equation}
+where $N_G$ is the number of elements in the group. That is, their inner product constructed in this way is zero unless the the representations are identical.
+
+The number of irreps of a group is equal to its number of conjugacy classes. We can always construct the trivial representation, for instance, assigning the operator $1$ to every element, or we could construct an alternating representation assigning operators to $\pm 1$. That is,
+\begin{equation}
+    \begin{tabular}{c|c|c|c|c|c|c}
+         & $I$ & $R_{120}$ & $R_{240}$ & $\sigma_a$ & $\sigma_b$ & $\sigma_c $\\\hline
+         $A_1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$\\
+         $A_2$ & $1$ & $1$ & $1$ & $-1$& $-1$& $-1$\\
+         $B$& $2$ & $a$& $a$& $b$& $b$& $b$
+    \end{tabular}
+\end{equation}
+The trace (character) assigned to any element in a conjugacy class must be the same as all other elements in the conjugacy class, since $g_b = g_i g_a g_i^{-1} \implies \Tr R(g_b) = \Tr R(g_i g_a g_i^{-1}) = \Tr R(g_i) R(g_a) R(g_i^{-1}) = \Tr R(g_a)$.
+
+One can solve for $a$ and $b$ with a bit of linear algebra using the orthogonality relation. One could also work out the matrix representation in 2 dimensions and find out what the traces are.
+
+There is a ``great orthogonality theorem'' which states that for 2 irreps $U^\Gamma, U^{\Gamma'}$, we can consider their matrix elements and
+\begin{equation}
+    \sum_{g\in G} U_{ki}^\Gamma(g^{-1}) U_{i'k'}^{\Gamma'} (g) = \frac{N_G}{d_\Gamma} \delta_{\Gamma\Gamma'} \delta_{ii'} \delta_{kk'}.
+\end{equation}
+
+\subsection*{Continuous symmetries}
+Continuous symmetries are symmetries where the group elements can be expressed as continuous differentiable functions of some parameters. These are also called \term{Lie groups.}
+
+One of the simplest examples is translational symmetry. In one dimension, we have a unitary operator $T_a$ such that
+\begin{equation}
+    T_a \ket{x} = \ket{x+a}.
+\end{equation}
+Consider a general wavefunction $\psi(x)$, which we write as
+\begin{equation}
+    \ket{\psi} = \int dx \psi(x) \ket{x}.
+\end{equation}
+What happens if we apply $T_a$ to $\ket{\psi}$? We get
+\begin{align}
+    T_a \ket{\psi} &= \int dx \psi(x) \ket{x+a}\\
+        &= \int dx' \psi(x'-a) \ket{x'},
+\end{align}
+so
+\begin{equation}
+    \psi(x) \to \psi'(x) = \psi(x-a).
+\end{equation}
+
+For infinitesimal transformations $T_\epsilon$, we then have
+\begin{equation}
+    \psi_\epsilon(x) = \psi(x-\epsilon) = \psi(x) - \epsilon \P{\psi}{x}+O(\epsilon^2),
+\end{equation}
+so that if we assume $T$ has a Taylor expansion in $\epsilon$, then we can expand about $\epsilon=0$ (the identity) to get
+\begin{equation}
+    T_\epsilon = \II + \epsilon\paren{\P{T}{\epsilon}}_{\epsilon=0}+O(\epsilon^2).
+\end{equation}
+We can also rewrite this as
+\begin{equation}
+    T_\epsilon = \II - \frac{i\epsilon}{\hbar} \hat p,
+\end{equation}
+where this $i$ accounts for the fact that if $T$ is to be unitary, the generator (the first-order expansion term) must be anti-Hermitian. Notice that if
+\begin{equation}
+    T_\epsilon = 1 + \epsilon A, \quad T_\epsilon^\dagger = 1 + \epsilon A^\dagger,
+\end{equation}
+then since $T$ is unitary,
+\begin{equation}
+    1 = T_\epsilon T_\epsilon^\dagger =(1+\epsilon A)(1+\epsilon A^\dagger ) = 1 + \epsilon (A+A^\dagger)+O(\epsilon^2).
+\end{equation}
+It follows that $A=-A^\dagger$, i.e. $A$ is anti-hermitian.
+
+Comparing orders we find that
+\begin{equation}
+    \bra{x} (1-\frac{i\epsilon}{\hbar}\hat p) \ket{\psi} = \psi(x) + \frac{i}{\hbar}\epsilon \hat p \psi(x),
+\end{equation}
+and by construction this is equal to
+\begin{equation}
+    \psi(x) + \epsilon \P{\psi}{x}.
+\end{equation}
+Comparing orders we find that
+\begin{equation}
+    \hat p_x \psi(x) = -i\hbar \P{}{x} \psi(x).
+\end{equation}
+
+We can construct finite transformations from infinitesimal ones by the exponential map. Equvialently we write
+\begin{equation}
+    T_a = T_\epsilon T_\epsilon \dots T_\epsilon = (T_\epsilon)^N = \paren{1-\frac{ia}{\hbar N} \hat p}^N = e^{-\frac{ia}{\hbar} \hat p},
+\end{equation}
+where $\epsilon = a/N$. The last equality results from taking the $N\to \infty$ limit.
+
+Consider the hydrogen atom, which has a 2-particle hamiltonian
+\begin{equation}
+    H = \frac{p_1^2}{2m_1} +\frac{p_2^2}{2m_2} + V(|\vec r_1 - \vec r_2|).
+\end{equation}
+Notice that with the regular commutation relations, we can define
+\begin{equation}
+    \vec p_1 + \vec p_2 = \vec p_\text{cm}
+\end{equation}
+so that
+\begin{equation}
+    [\vec p_\text{cm} , \vec r_1 - \vec r_2] =0.
+\end{equation}

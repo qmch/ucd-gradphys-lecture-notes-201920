@@ -1,0 +1,116 @@
+\begin{quote}
+    \textit{``If I attempted to do it [the completeness relation on Fourier modes] any other way, any self-respecting mathematician would decapitate me immediately. So I won't do it because I like my neck just the way it is.''}
+    
+    --Nemanja Kaloper
+\end{quote}
+Suppose we have
+\begin{equation}
+    \phi_n = \frac{e^{inx}}{\sqrt{2\pi}},
+\end{equation}
+such that the inner product is given by
+\begin{equation}
+    \braket{\phi_n}{\phi_m} = \int \phi_n^* \phi_m.
+\end{equation}
+For a general function $f$ let us now take its inner product with the basis vectors,
+\begin{equation}
+    c_n = \braket{\phi_n}{f}
+\end{equation}
+and for a general set of coefficients $\set{\bar c_n}$, write the function (linear combination)
+\begin{equation}
+    \bar f_N = \sum \bar c_n \phi_n.
+\end{equation}
+
+We shall show that the Fourier decomposition of $f$ converges to $f$ faster than any other sequence $\bar f_N$. To do this, let us use the triangle inequality and write
+\begin{align}
+    0 \leq |f - \bar f_N|^2 &= \braket{f-\bar f_N}{f-\bar f_N}\\
+        &= |f|^2 -\braket{\bar f_N}{f} -\braket{f}{\bar f_N} +|\bar f_N|^2\\
+        &=|f|^2 -2\text{Re}\braket{\bar f_N}{f} +|\bar \bar f_N|^2.
+\end{align}
+We can compute these inner products explicitly.
+\begin{equation}
+    \braket{\bar f_N}{\bar f_N} = \sum_{n,m} \bar c_n^* \bar c_m \phi_n \phi_m = \sum_n \bar c_n^* \bar c_n = \sum_n |\bar c_n|^2.
+\end{equation}
+The cross-terms are
+\begin{equation}
+    \braket{\bar f_N}{f} = \sum \bar c_n^* \braket{\phi_n}{f}  = \sum \bar c_n^* c_n.
+\end{equation}
+Plugging back in, we have
+\begin{equation}
+    0 \leq |f|^2 - \sum(\bar c_n^* c_n + \bar c_n c_n^*) + \sum \bar c_n^* \bar c_n.
+\end{equation}
+This is guaranteed to be positive semi-definite by the positivity of the norm. This defines a distance $D(f,\bar f_N)$ on the space of functions.
+
+Notice there are really two sets of free parameters, $c_n$ and $\bar c_n$ or equivalently $c_n$ and $\bar c_n^*$. If we take a derivative with respect to $\bar c_n^*$ to extremize this, we get
+\begin{equation}
+    \bar c_n = c_n, \bar c_n^* = c_n^*.
+\end{equation}
+That is, we want to approximate our function as fast as we can, and the best way to do it is by picking the Fourier coefficients.%
+    \footnote{If you like, this is a discrete version of a functional derivative where we just vary the components of each function.}
+The derivative guarantees it. This is exactly the same as the least-squares fit, just by a different process.
+
+The convergence of these sorts of series may be in question when the metric on the space is not positive definite (e.g. Minkowski signature). In that case, these approximations may converge to something but perhaps not uniquely, and we may require additional information to ensure uniqueness.
+
+Fourier series have some nice properties. Notice that since the Fourier basis elements $\cos nx,\sin nx$ are periodic in $2\pi$, the entire Fourier series is also periodic in $2\pi$. Note that the function we are approximating need not itself have the same value at $-\pi$ and $\pi$; this just counts as a single discontinuity.
+
+What if our function is periodic on a different interval, say $2L$? That is,
+\begin{equation}
+    f(x+2L) = f(x).
+\end{equation}
+Then define $x = \alpha \bar x$ such that we can write
+\begin{equation}
+    x + 2L = \alpha(\bar x+2\pi),
+\end{equation}
+since we know how to deal with functions which are $2\pi$ periodic. We find immediately that
+\begin{equation}
+    \alpha = L/\pi.
+\end{equation}
+Hence our Fourier expansion can now be written as
+\begin{equation}
+    f= \frac{a_0}{2} + \sum a_n \cos\paren{\frac{n\pi x}{L}} + b_n \sin\paren{\frac{n\pi x}{L}}.
+\end{equation}
+All this corresponds to is changing the radius of the unit circle. The circle has a radius given by $L$ instead of $1$. Then the coefficients are just
+\begin{equation}
+    a_0 = \frac{1}{L} \int_{-L}^L dx\,f(x)
+\end{equation}
+and the other coefficients are%
+    \footnote{You can do this by just making a change of variables in the integral to get your limits of integration how you want them.}
+\begin{equation}\label{eqn:fourierdefs}
+    a_n =\frac{1}{L} \int_{-L}^L dx f(x) \cos \frac{n\pi x}{L}, \quad b_n =\frac{1}{L} \int_{-L}^L dx f(x) \sin \frac{n\pi x}{L}.
+\end{equation}
+Equivalently we can write
+\begin{equation}
+    f(x)= \sum_{n=-\infty}^\infty c_n e^{\frac{in\pi x}{L}}, \quad c_n = \frac{1}{2L} \int_{-L}^L dx f(x) e^{-\frac{in\pi x}{L}}.
+\end{equation}
+%If I attempted to do it [the completeness relation on Fourier modes] any other way, any self-respecting mathematician would decapitate me immediately. So I won't do it because I like my neck just the way it is.
+
+Let us define a function which is given on the fundamental domain as
+\begin{equation}
+    f(x) = x, \quad -\pi < x < \pi.
+\end{equation}
+and $2\pi$ periodic, so e.g. $f(x) = x-2\pi, \pi < x <3\pi$ and so on. This is a sawtooth wave. What is the Fourier decomposition of this wave? One can do the integrals in Eq.~\eqref{eqn:fourierdefs} to figure it out. One finds that all the cosine coefficients go away because this function is odd. It will only have sines:
+\begin{equation}\label{eqn:xfourier}
+    x=f(x) = 2 \bkt{\sin x - \frac{\sin 2x}{2} + \frac{\sin 3x}{3} - \dots} = \sum_{n=1}^\infty (-1)^{n+1} \frac{\sin nx}{n}.
+\end{equation}
+This does not converge absolutely, if one checks. The ratio test is indeterminate. This is like a harmonic series. But it should converge, and the reason it does is because it is an alternating series. Alternating series have nicer convergence properties in general.
+
+We can also evaluate this at $\pi/2$. Remember this was the Fourier expansion of $x$. So then by plugging $x=\pi/2$ into Eqn.~\eqref{eqn:xfourier}, we get
+\begin{equation}
+    \frac{\pi}{2} = 2 \bkt{1-\frac{1}{3} + \frac{1}{5} - \frac{1}{7} +\dots},
+\end{equation}
+which lets us sum a series we might not have expected. 
+
+We could actually do this for a triangle wave instead, defined as $|x|$ on $-\pi,\pi$. If we wrote down the Fourier series we would find that
+\begin{equation}
+    f(x) = \frac{\pi}{2} - \sum \frac{4}{\pi} \frac{\cos((2n+1)x)}{(2n+1)^2}.
+\end{equation}
+This series is no longer alternating, but it actually converges faster, like $\sum 1/n^2$, since the function is not discontinuous like our sawtooth wave. The derivative is discontinuous, yes, but we still have nicer convergence. In general, the Fourier decompositions of functions which are smoother will converge faster.
+
+It's fairly clear that we can add two Fourier series to get a new one.. But in fact we can also integrate Fourier series by linearity (assuming the original sum converges). When we integrate Fourier series, our sines and cosines get factors of $1/n$ in the series coefficients, i.e. for $f(x)$ given as 
+\begin{equation}
+    f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos n x + b_n \sin nx,
+\end{equation}
+the integral of $f(x)$ is
+\begin{equation}
+    \int_{-\pi}^x f(x') dx' = \frac{a_0}{2}(x+\pi) + \sum_{n=1}^\infty a_n \frac{\sin nx}{n} - b_n \frac{\cos nx}{n} +\text{ constant boundary terms.}
+\end{equation}
+These factors of $1/n$ mean that the convergence properties of the integrated function are nicer than the original, i.e. it converges at least as fast as the expansion of $f(x)$.
