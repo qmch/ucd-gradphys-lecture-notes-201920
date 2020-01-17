@@ -1,0 +1,136 @@
+Last time, we discussed the generator of translations, which was the momentum operator. That is, the operator
+\begin{equation}
+    \hat T_{\vec a} = e^{-\frac{i\vec a \cdot \vec p}{\hbar}}.
+\end{equation}
+In the coordinate basis, the operator has the form
+\begin{equation}
+    e^{-\frac{ia}{hbar} \paren{-i\hbar \P{}{x}}} = e^{-a\P{}{x}},
+\end{equation}
+such that
+\begin{equation}
+    e^{-a \P{}{x} } \psi(x) = \psi(x-a).
+\end{equation}
+The translation group is abelian, i.e. its elements all commute with one another. All irreducible representations of the translation group are one-dimensional.
+
+Our orthogonality relations moreover tell us that
+\begin{equation}
+    \int d^3r e^{-i\frac{\vec v \cdot \vec p'}{\hbar}} e^{+i\frac{\vec v \cdot \vec p}{\hbar}} =V \delta^{(3)} (\vec p- \vec p'),
+\end{equation}
+where $V$ indicates that this inner product is in a sense the volume of the space we're integrating over.
+
+\subsection*{Rotations in 3D}
+Rotations in 3D are a linear map $\RR^3\to \RR^3$, such that $R(\vec 0) = \vec 0$, while $R(\vec a + \vec b) = R \vec a + R \vec b.$ That is, we can add vectors and rotate their sum, or we can rotate each one first and then sum them.
+
+If we write a coordinate system $\uv x, \uv y, \uv z: \hat e_1, \hat e_2, \hat e_3$ and some new vectors $\hat  e_1, \hat e_2, \hat e_3$.%
+    \footnote{I've redone the exposition here.}
+
+Let us posit that we can describe rotations by a matrix $R_{ij}$, so that $b'_i = R_{ij} b_j$. We would like the inner product to be preserved under rotations, such that
+\begin{equation}
+    a_i b_i = a_i' b_i'.
+\end{equation}
+Let us write this out explicitly.
+\begin{align}
+    a_i b_i = a_i' b_i' = R_{ij} a_j R_{ik} b_k.
+\end{align}
+But
+\begin{equation}
+    a_i b_i = a_j b_j = a_j \delta_{jk} b_k,
+\end{equation}
+so in fact
+\begin{equation}
+    R_{ij} R_{ik} = \delta_{jk} \implies R^T R = \II.
+\end{equation}
+These are \term{orthogonal matrices}. Notice that if $R^T R = \II$, then $\det (R^T R) = 1 \implies \det R = \pm 1$.
+
+If we moreover require that $\det(R) = +1$ then we have the group of proper rotations, whereas $\det R = -1$ form the set of improper rotations. The proper rotations define a group $SO(3)$, which is the subgroup of $O(3)$ connected to the identity.
+
+A rotation can be described by Euler angles, which we leave as an exercise. We can also do it by specifying an axis to rotate about $\uv n$ and an angle $\theta$. If we decompose a vector $\vec u$ into its components parallel $\vec u_\parallel$ and perpendicular $\vec u_\perp$ to $\uv n$, then
+\begin{align}
+    \vec u_\parallel &= \uv n \vec u \cdot \uv n,\\
+    \vec u_\perp &= \vec u - \vec u_\parallel = (\uv n \times \vec u) \times \uv n.
+\end{align}
+It follows that
+\begin{align}
+    \vec u' &= \vec u_\parallel + \cos\theta (\uv n \times \vec u ) \times \uv n + \sin\theta(\hat u \times \vec u)\\
+        &= \uv n (\vec u \cdot \uv n) + \cos\theta \bkt{\vec u - \uv n(\vec u \cdot \uv n)} + \sin\theta(\uv n \times \vec u)\\
+        &= \cos\theta \vec u + \uv n (\vec u \cdot \uv n)(1-\cos\theta) + \sin\theta(\uv n \times \vec u).
+\end{align}
+One can check that the rotation matrix about the $\uv z$ axis has a simple form,
+\begin{equation}
+    R(\uv z,\theta) = \begin{pmatrix}
+        R(\uv z,\theta) = \begin{pmatrix}
+            \cos\theta & - \sin\theta & 0\\
+            \sin\theta & \cos\theta & 0\\
+            0 & 0 & 1
+        \end{pmatrix}.
+    \end{pmatrix}
+\end{equation}
+For infinitesimal $\theta$ we keep terms only to order $\theta$, so
+\begin{equation}
+    \vec u' = \vec u + \theta \uv n \times \vec u.
+\end{equation}
+From the matrix point of view, let us write
+\begin{equation}
+    R_\epsilon = \II + \epsilon A.
+\end{equation}
+If $R$ is to be orthogonal, then
+\begin{equation}
+    \II = R_\epsilon^T R = (1+\epsilon A^T) (1+ \epsilon A) = \II + \epsilon (A^T + A) + O(\epsilon^2) \implies A^T + A =0.
+\end{equation}
+Hence the generator $A$ is antisymmetric. The most general $3\times 3$ antisymmetric matrix takes the form
+\begin{equation}
+    A= \begin{pmatrix}
+        0 & -a_3 & a_2\\
+        a_3 & 0 & -a_1\\
+        -a_2 & a_1 & 0
+    \end{pmatrix} = a_i \mathscr{J},
+\end{equation}
+with
+\begin{equation}
+    \mathscr{J}_1 =\begin{pmatrix}
+        0 & 0 & 0\\
+        0 & 0 & -1\\
+        0 & 1 & 0
+    \end{pmatrix}, \mathscr{J}_2 = \begin{pmatrix}
+        0 & 0 & 1\\
+        0 & 0 & 0\\
+        -1 & 0 & 0
+    \end{pmatrix}, \mathscr{J}_3 = \begin{pmatrix}
+        0 & -1 & 0\\
+        1 & 0 & 0\\
+        0 & 0 & 0
+    \end{pmatrix}
+\end{equation}
+%
+For infinitesimal $\theta=\epsilon$, we have
+\begin{equation}
+    R(\uv n, \epsilon) = I+\epsilon \uv n \cdot \vec{\mathscr{J}}.
+\end{equation}
+
+Under matrix multiplication, these generators obey an anticommutator (a Lie bracket, actually):
+\begin{equation}
+    [\mathscr{J}_i, \mathscr{J}] = \epsilon_{ijk} \mathscr{J}_k.
+\end{equation}
+Note that the matrices actually have the elements $(\mathscr{J}_k)_{ij} = \epsilon_{kij}$, so
+\begin{align}
+    \bkt{(\vec a \cdot \mathscr{J})\vec u}_i &= (\vec a \cdot \mathscr{J})_{ij} u_j\\
+        &= a_k (\mathscr{J}_k)_{ij} u_j\\
+        &= \epsilon_{kij} a_k u_j = \vec a \times \vec u.
+\end{align}
+The anticommutator tells us that this group is non-abelian--- it has nontrivial commutators.
+
+We can find a general rotation by noticing that
+\begin{equation}
+    \frac{dR(\uv n,\theta)}{d\theta} = \lim_{\epsilon\to 0} \frac{R(\uv n, \theta + \epsilon) - R(\uv n, \theta)}{\epsilon} = \lim_{\epsilon\to 0} \paren{\frac{R(\uv n, \epsilon) - 1}{\epsilon}} R(\uv n, \theta) = (\uv n \cdot \mathscr{J}) R(\uv n, \theta).
+\end{equation}
+We conclude that
+\begin{equation}
+    R(\uv n, \theta) = e^{\theta \uv n \cdot \mathscr{J}}.
+\end{equation}
+%
+As it turns out,
+\begin{equation}
+    R(\vec a \times \vec u) =\det R (R\vec a) \times (R \vec u).
+\end{equation}
+
+Aaaaand I'm out. Have fun, y'all.

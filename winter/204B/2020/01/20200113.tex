@@ -1,7 +1,7 @@
 \begin{quote}
     \textit{``If I attempted to do it [the completeness relation on Fourier modes] any other way, any self-respecting mathematician would decapitate me immediately. So I won't do it because I like my neck just the way it is.''}
     
-    --Nemanja Kaloper
+    ---Nemanja Kaloper
 \end{quote}
 Suppose we have
 \begin{equation}
@@ -89,7 +89,7 @@ Let us define a function which is given on the fundamental domain as
 \end{equation}
 and $2\pi$ periodic, so e.g. $f(x) = x-2\pi, \pi < x <3\pi$ and so on. This is a sawtooth wave. What is the Fourier decomposition of this wave? One can do the integrals in Eq.~\eqref{eqn:fourierdefs} to figure it out. One finds that all the cosine coefficients go away because this function is odd. It will only have sines:
 \begin{equation}\label{eqn:xfourier}
-    x=f(x) = 2 \bkt{\sin x - \frac{\sin 2x}{2} + \frac{\sin 3x}{3} - \dots} = \sum_{n=1}^\infty (-1)^{n+1} \frac{\sin nx}{n}.
+    x=f(x) = 2 \bkt{\sin x - \frac{\sin 2x}{2} + \frac{\sin 3x}{3} - \dots} = 2\sum_{n=1}^\infty (-1)^{n+1} \frac{\sin nx}{n}.
 \end{equation}
 This does not converge absolutely, if one checks. The ratio test is indeterminate. This is like a harmonic series. But it should converge, and the reason it does is because it is an alternating series. Alternating series have nicer convergence properties in general.
 

@@ -37,12 +37,12 @@ If we work out the derivatives, we get
     \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \set*{\frac{Q}{r} + \frac{p_i r_i}{r^3} + Q_{ij} \frac{3r_i r_j - r^2 \delta_{ij}}{r^5}+ \dots}
 \end{equation}
 
-Let us find the field of the dipole far away.
+Let us find the field of the dipole term far away.
 \begin{align}
     \vec E &= - \grad \varphi_\text{dipole}\\
         &=-\frac{1}{4\pi \epsilon_0} \grad \paren{\frac{\vec p \cdot \vec r}{r^3}}.
 \end{align}
-Let us write this component-wise. Note that $\p_i r= \p_i \sqrt{x^2 +y^2+z^2} = \frac{r_i}{\sqrt{x^2+y^2+z^2}} = r_i/r$. Then
+We will write this vector in terms of its components. Note that $\p_i r= \p_i \sqrt{x^2 +y^2+z^2} = \frac{r_i}{\sqrt{x^2+y^2+z^2}} = r_i/r$. Then
 \begin{align*}
     E_i &= - \frac{1}{4\pi \epsilon_0} \p_i \paren{\frac{p_j r_j}{r^3}}\\
         &= -\frac{1}{4\pi \epsilon_0} \bkt{p_j \frac{\delta_{ij}}{r^3} - \frac{3 p_j r_j}{r^4} \p_i r }\\

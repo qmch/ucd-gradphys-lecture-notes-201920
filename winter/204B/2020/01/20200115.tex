@@ -1,0 +1,127 @@
+\begin{quote}
+    \textit{``I'm gonna skip this example of the full wave rectifier, blah blah blah. I never cared much for electronics. This is not a statement of preference but of personal incompetence.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+
+Today we will continue our discussion of Fourier series.
+%What do you think, is this too beautiful to erase? No. Mona Lisa is too beautiful. This? *shrug*
+In general the integral of a Fourier series is not itself a Fourier series, since it has a linear term. But its convergence properties are nicer than the original. What's happening is that we put frequencies in the denominator, which makes the different frequency modes decouple more.
+
+Recall we derived the Fourier series of a sawtooth wave,
+\begin{equation}
+    x = 2\sum_{n=1}^\infty (-1){n+1} \frac{\sin nx}{n}.
+\end{equation}
+Can we take derivatives of this, as
+\begin{equation}
+    1= 2 \sum (-1)^{n+1} \cos nx?
+\end{equation}
+Alas, this is nonsense. Suppose we evaluated this at $x=0$. Then we would find
+\begin{equation}
+    1 = 2 \paren{1-1+1-1+\dots}
+\end{equation}
+which is clearly not convergent in the usual sense.%
+    \footnote{However, see \url{https://en.wikipedia.org/wiki/Grandi\%27s_series}. One can define a sensible Ces\`aro sum which actually is $1/2$, but it's not what we mean by convergence.}
+    
+However, if we take the Fourier expansion of $|x|$, we can get
+\begin{equation}
+    |x| = \frac{\pi}{2} - \frac{4}{\pi} \sum \frac{\cos nx}{n^2},
+\end{equation}
+which converges faster than $1/n$ (i.e. uniformly). Hence we can define the derivative such that
+\begin{equation}
+    \frac{d}{dx} |x| = +\frac{4}{\pi} \sum \frac{\sin nx}{n} = \begin{cases}
+        1 & x >0,\\
+        -1 & x <0.
+    \end{cases}
+\end{equation}
+ This is correct, as
+ \begin{equation}
+     \frac{d}{dx}|x| = 2\theta(x) - 1,
+ \end{equation}
+ with $\theta$ the Heaviside step function.
+ %If there are essential singularities then all hope is lost. Like you are entering Dante Alegheiri's inferno.
+ 
+ Suppose now we are handed a series
+ \begin{equation}
+     \sum_{n=1}^\infty \frac{\cos nx}{n}.
+ \end{equation}
+ What function does this correspond to? Let's think qualitatively. The cosine is bounded by $\pm 1$, so this might converge. The point $x=0$ is dangerous since our series becomes a harmonic series, which is divergent (albeit only logarithmically). This is true at any integer multiple of $2\pi$, in fact.
+ 
+ Let's make sense of this as follows. We shall write this as
+ \begin{equation}
+     \sum_{n=1}^\infty \frac{\cos nx}{n} = \text{Re} \sum \frac{e^{inx}}{n}.
+ \end{equation}
+ Now $e^{inx}$ is a point on a unit circle in the complex plane, and we can further think of this as a limit
+ \begin{equation}
+     \text{Re} \sum \frac{e^{inx}}{n} = \lim_{r\to 1} \text{Re} \paren{\sum \frac{(re^{ix})^n}{n}} = |\sum \frac{q^n}{n}| <  \sum \frac{|q|^n}{n}.
+ \end{equation}
+ If we take this limit where $|q|=r <1$ then this surely converges.
+ 
+ Notice that
+ \begin{equation}
+     \frac{1}{1-q} = \sum q^n.
+ \end{equation}
+ This is not quite what we want, since we're missing the $n$ in the denominator. But we can do a trick.
+ \begin{equation}
+     \int \frac{dq}{1-q} = \sum_{n=0}^\infty \int q^n dq = \sum_{n=0}^\infty \frac{q^{n+1}}{n+1}.
+ \end{equation}
+ If we shift the dummy variable (noting that $n=0$ just gives $q$), we can write
+ \begin{equation}
+     1-\ln(1-q) = \sum_{n=0}^\infty \frac{q^n}{n}.
+ \end{equation}
+ It follows that our function was
+ \begin{equation}
+     \ln(2-2\cos x)^{1/2} = -\ln \bkt{2 \sin (x/2)}.
+ \end{equation}
+ This passes a reasonable sanity check, which is that when $x$ is a multiple of $2\pi$, then this series is the log of zero, which is clearly divergent.%
+    \footnote{However, something a little weird happens when we take $x$ to be e.g. $-\pi$. On the RHS we have a log of something negative, which is only well-defined in terms of the analytic continuation of $\ln(z)$. In fact, the log of a negative number has an imaginary part. The LHS looks like we're summing real numbers, so this is a bit unusual; it has to do again with the lack of uniform convergence.}
+ %I'm gonna skip this example of the full wave rectifier, blah blah blah. I never cared much for electronics. This is not a statement of preference but of personal incompetence.
+ 
+ Consider some square-wave potential which is $2\pi$ periodic, such that
+ \begin{equation}
+    f(x) = \begin{cases}
+        -\pi < x < 0 & 0,\\
+        0 < x < \pi & h.
+    \end{cases}
+ \end{equation}
+ The Fourier transform is
+ \begin{equation}
+     f(x) = \frac{h}{2} +\frac{2h}{\pi} \sum \frac{\sin(2n+1)x}{2n+1}.
+ \end{equation}
+ Note that only odd sines appear, since the odd sines will have nonzero integral over the half-interval $0,\pi$, while the even ones vanish.
+ 
+ We can also switch to exponential notation,
+ \begin{equation}
+     f(x) = \sum c_n e^{inx}, \quad c_n =\frac{1}{2\pi}\int_{-\pi}^\pi dx f(x) e^{-inx}.
+ \end{equation}
+ What's interesting now is to consider the finite truncation of the Fourier series,
+ \begin{equation}
+     f_N(x) = \sum_{n=-N}^N c_n e^{inx} = \sum_{n=-N}^N e^{inx} \frac{1}{2\pi} \int_{-\pi}^\pi dt f(t) e^{-int}.
+ \end{equation}
+ If this sum were infinite, we could not exchange the order of integration and summation with impunity. But for finite $N$, there are no problems with convergence. So we can do this freely and write
+ \begin{equation}
+     f_N(x) = \frac{1}{2\pi} \int_{-\pi}^\pi dt f(t) \sum_{n=-N}^N e^{in(x-t)}.
+ \end{equation}
+ This is in fact just a sum of cosines. For notice that if we define
+ \begin{equation}
+     q=e^{i(x-t)},
+ \end{equation}
+ then our sum is
+ \begin{align}
+     S= \sum_{n=-N}^N q^n = \frac{1}{q^N} \sum_{n=0}^{2N} q^n
+ \end{align}
+ Note that the sum with $N\to \infty$ is the geometric series $\sum_{n=0}^\infty q^ = \frac{1}{1-q}$. It follows that the finite sum can be written as the difference of two infinite sums,
+ \begin{equation}
+     \sum_{n=0}^{2N} q^n = \sum_{n=0}^\infty q^n - \sum_{n=2N+1}^\infty q^n = S_\infty - q^{2N} S_\infty = \frac{1-q^{2N}}{1-q}.
+ \end{equation}
+ We get that this is
+ \begin{equation}
+     \frac{q^N - q^{-N}}{1-q} = \frac{\sin (N+\frac{1}{2})(x-t))}{\sin \frac{x-t}{2}}.
+ \end{equation}
+ Hence
+ \begin{equation}
+     f_N(x) = \frac{1}{2\pi} \int_{-\pi}^\pi dt f(t) \bkt{\frac{\sin((N+1/2)(x-t))}{\sin \frac{x-t}{2}}},
+ \end{equation}
+ which is the best approximation to our function in terms of a finite truncation. The goal is now to determine what properties $f$ must have such that $f_N$ actually converges nicely to $f$.
+ 
+ Note also that the term in the brackets is just a delta function. It is simply the sum $\frac{1}{2\pi} \sum_{n=-\infty}^\infty e^{in(x-t)}$, and in a sense this is just the statement of the completeness of complex exponentials.
