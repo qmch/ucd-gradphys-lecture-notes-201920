@@ -67,7 +67,7 @@ which converges faster than $1/n$ (i.e. uniformly). Hence we can define the deri
  \end{equation}
  If we shift the dummy variable (noting that $n=0$ just gives $q$), we can write
  \begin{equation}
-     1-\ln(1-q) = \sum_{n=0}^\infty \frac{q^n}{n}.
+     -\ln(1-q) = \sum_{n=0}^\infty \frac{q^n}{n}.
  \end{equation}
  It follows that our function was
  \begin{equation}
@@ -112,7 +112,7 @@ which converges faster than $1/n$ (i.e. uniformly). Hence we can define the deri
  \end{align}
  Note that the sum with $N\to \infty$ is the geometric series $\sum_{n=0}^\infty q^ = \frac{1}{1-q}$. It follows that the finite sum can be written as the difference of two infinite sums,
  \begin{equation}
-     \sum_{n=0}^{2N} q^n = \sum_{n=0}^\infty q^n - \sum_{n=2N+1}^\infty q^n = S_\infty - q^{2N} S_\infty = \frac{1-q^{2N}}{1-q}.
+     \sum_{n=0}^{2N} q^n = \sum_{n=0}^\infty q^n - \sum_{n=2N+1}^\infty q^n = S_\infty - q^{2N} S_\infty = \frac{1-q^{2N+1}}{1-q}.
  \end{equation}
  We get that this is
  \begin{equation}
