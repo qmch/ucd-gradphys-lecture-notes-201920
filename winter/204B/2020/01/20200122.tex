@@ -1,0 +1,161 @@
+\begin{quote}
+    \textit{``Today I have a `fold.' Combination of flu and cold. Keep your distance.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+
+Let's recall our key equation for the truncated Fourier series,
+\begin{equation}
+    f_N(x) = \frac{1}{2\pi} \int_{-\pi}^\pi dt\, f(t) \bkt{\frac{\sin((N+1/2)(x-t))}{\sin \frac{x-t}{2}}}.
+\end{equation}
+We shall start by writing a new integration variable
+\begin{equation}
+    x=-t = -s \leftrightarrow s = t-x.
+\end{equation}
+It follows that
+\begin{equation}
+    f_N(x) = \frac{1}{2\pi} \int_{-\pi-x}^{\pi-x} ds f(x+s) \frac{\sin\bkt{(N+1/2)s}}{\sin(s/2)}.
+\end{equation}
+We're integrating over complete intervals (note that while the numerator and denominator are $4\pi$-periodic, their quotient is actually $2\pi$-periodic).%
+    \footnote{The best way to see this is by using complex exponentials, i.e. by writing
+    \begin{equation*}
+        \frac{\sin((N+1/2)x)}{\sin(x/2)} \? \frac{\sin((N+1/2)(x+2\pi)}{\sin(1/2(x+2\pi))} = 
+        \frac{e^{i(N+1/2)(x+2\pi)}-e^{-i(N+1/2)(x+2\pi)}}{e^{i(1/2)(x+2\pi)}-e^{-i(1/2)(x+2\pi)}}.
+    \end{equation*}
+    Now the $2\pi$ factors give $e^{i(2N+1)\pi}=-1$ and $e^{-i(2N+1)\pi}=-1$, so we find that
+    \begin{equation*}
+        \frac{e^{i(N+1/2)(x+2\pi)}-e^{-i(N+1/2)(x+2\pi)}}{e^{i(1/2)(x+2\pi)}-e^{-i(1/2)(x+2\pi)}} = \frac{-e^{i(N+1/2)x}+e^{-i(N+1/2)x}}{-e^{ix/2}+e^{-ix/2}} = \frac{\sin((N+1/2)x)}{\sin(x/2)}.
+    \end{equation*}
+    One can also do this with trig addition formulae, which give the same result.
+    }
+So the shifting of the argument by $x$ doesn't actually affect the value of the integral. That is,
+\begin{equation}
+    f_N(x) = \frac{1}{2\pi}\int_{-\pi}^{\pi} dt f(x+t) \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}.
+\end{equation}
+By evenness in $t$, we can write the integral as a symmetrized sum
+\begin{equation}
+    f_N(x) = \frac{1}{4\pi} \int_{-\pi}^\pi dt \bkt{f(x+t) + f(x-t)} \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}.
+\end{equation}
+Now we take the specific case of the step function
+\begin{equation}
+    f(x) = 2\Theta(x) -1,
+\end{equation}
+such that for the first term,
+\begin{equation}
+    x+t > 0, t > -x, \quad x+t < 0, t<-x.
+\end{equation}
+Hence the first term splits into two integrals
+\begin{equation}
+    +\int_{-x}^\pi - \int_{-\pi}^{-x}.
+\end{equation}
+Similarly, for the second term,
+\begin{equation}
+    x-t > 0, t < x, \quad x-t <0, t >x.
+\end{equation}
+Hence the $f(x-t)$ term also splits into
+\begin{equation}
+    -\int_x^\pi + \int_{-\pi}^x.
+\end{equation}
+we have an overall sum
+\begin{equation}
+    +\int_{-x}^\pi - \int_{-\pi}^{-x}-\int_x^\pi + \int_{-\pi}^x.
+\end{equation}
+In the  $-\int_{-\pi}^{-x}$ integral, we can take $t\to -t$ so that
+\begin{equation}
+    -\int_{-\pi}^{-x} \to + \int_{+\pi}^{+x}
+\end{equation}
+and similarly in the last integral we have
+\begin{equation}
+    + \int_{-\pi}^x \to -\int_{+\pi}^{-x}.
+\end{equation}
+Hence we have
+\begin{equation}
+    \int_{-x}^\pi +\int_\pi^x - \int_x^\pi -\int_\pi^{-x}.
+\end{equation}
+If we now flip the limits of integration we see that terms double up, so this becomes
+\begin{equation}
+    2\bkt{\int_{-x}^\pi + \int_\pi^x} = 2 \int_{-x}^x.
+\end{equation}
+Hence our integral was really
+\begin{equation}
+    \frac{1}{2\pi} \int_{-x}^x dt \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}.
+\end{equation}
+We can use the evenness of the integrand to ge rid of a factor of $1/2$ and write
+\begin{equation}
+    f_N(x) = \frac{1}{\pi} \int_0^x dt \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}.
+\end{equation}
+For a fixed $N$, if we take $x\to 0$, every expression in the interpolating series is zero and it follows that $f(0) = \lim_{N\to \infty}f_N(0) = 0$.
+
+Let us now consider positive $x$ and define
+\begin{equation}
+    \zeta = (N+1/2)t
+\end{equation}
+so that
+\begin{equation}
+    f_N = \frac{1}{\pi} \int_0^{(N+1/2)x} \frac{d\zeta}{N+1/2} \frac{\sin \zeta}{\sin\paren{\frac{\zeta}{2N+1}}}.
+\end{equation}
+In the limit as $N\to \infty$, we can approximate $\sin(\zeta/(2N+1)) \approx \zeta$ and therefore
+\begin{equation}
+    f_N \to \frac{2}{\pi} \int_0^\infty d\zeta \frac{\sin \zeta}{\zeta}.
+\end{equation}
+How can we perform this? Let's introduce a regularizing function $e^{-\lambda \zeta}$ and we'll take the limit $\lambda \to 0$ later. This is Yukawa's trick for regularizing Coulombic integrals. That is, define
+\begin{equation}
+    I(\lambda) = \int_0^\infty d\zeta\, e^{-\lambda \zeta} \frac{\sin \zeta}{\zeta}.
+\end{equation}
+Now let us study the derivative with respect to $\lambda$, i.e.
+\begin{equation}
+    I'(\lambda) = -\int_0^\infty d\zeta\, e^{-\lambda \zeta} \sin \zeta.
+\end{equation}
+We could make some exponential substitution for $\sin \zeta$ now to evaluate this. Even more simply, we could do integration by parts. Doing it twice gives the original expression back, which means we can evaluate this explicitly and solve the PDE for $I$ in terms of $\lambda$. Taking the $\lambda \to 0$ limit then yields our answer:
+\begin{equation}
+    \int_0^\infty d\zeta \frac{\sin\zeta}{\zeta} = \frac{\pi}{2}.
+\end{equation}
+Hence it follows that in the limit as $N\to \infty$, our function really does converge for $x>0$:
+\begin{equation}
+    \lim_{N\to \infty}f_N(x>0) = \frac{2}{\pi} \paren{\frac{\pi}{2}}=1.
+\end{equation}
+Finally, we must calculate the overshoot. We now take the limit as $x\to 0$ for fixed $N$ of
+\begin{equation}
+    f_N = \frac{1}{\pi} \int_0^{(N+1/2)x} \frac{d\zeta}{N+1/2} \frac{\sin \zeta}{\sin\paren{\frac{\zeta}{2N+1}}}.
+\end{equation}
+We shall again take $N$ to be large but not infinite, such that
+\begin{equation}
+    f_N(x) = \frac{2}{\pi} \int_0^{(N+1/2)x} d\zeta \frac{\sin\zeta}{\zeta}.
+\end{equation}
+At what point is this overshoot maximized? Well, it is maximized when the numerator $\sin\zeta$ hits zero and starts to become negative, i.e. when the upper limit of integration is $\zeta =\pi$, i.e.
+\begin{equation}
+    (N+1/2)x = \pi.
+\end{equation}
+Hence
+\begin{equation}
+    f_N = \frac{2}{\pi} \int_0^\pi \dots = \frac{2}{\pi} \int_0^{3\pi} - \int_\pi^{3\pi} = \frac{2}{\pi} \bkt{\int_0^\infty - \int_\pi^{3\pi} - \int_{3\pi}^{5\pi} - \int_{5\pi}^{7\pi}-\dots}.
+\end{equation}
+The integral $\int_0^\infty$ was just $\pi/2$, as we calculated. We just increase the integration limits by a whole period and then subtract off what we added on. What about the first correction? We have
+\begin{equation}
+    \int_\pi^{3\pi} d\zeta \frac{\sin\zeta}{\zeta}.
+\end{equation}
+These integrals over periods $\pi,3\pi$ are small negative numbers, since the $\sin$ is negative from $\pi$ to $2\pi$ and positive from $2\pi$ to $3\pi$, but the $1/\zeta$ suppresses the positive contribution.
+We can't compute these exactly; at this point, we must resort to numerical methods. It turns out the sum of the corrections is very close to $0.18$; this is the $18\%$ overshoot of the Gibbs phenomenon.
+
+Finally, let us prove the Fourier theorem. We have an integral
+\begin{equation}
+    f_N(x) = \frac{1}{2\pi} \int_{-\pi}^\pi dt f(x+t) \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)},
+\end{equation}
+which is manifestly $2\pi$-periodic. We may allow $f$ to have finitely many finite discontinuities, e.g.
+\begin{equation}
+    f(x_0^+) \neq f(x_0^-)
+\end{equation}
+for some $x_0$. Now we split the integral into two, as
+\begin{equation}
+    \frac{1}{2\pi} \bkt{\int_{-\pi}^0 dt f(x+t) \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}+\int_{0}^\pi dt f(x+t) \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}}.
+\end{equation}
+Hence if $f$ has a discontinuity at $x$, then the left integral from $t\in -\pi, 0$ picks up all the contributions up to the discontinuity at $x$. Similarly the right integral picks up all the contributions from $x$ onwards. Let us add and subtract the left limit and rewrite this first term as
+\begin{equation}
+    \frac{1}{2\pi} \int_{-\pi}^0 \bkt{f(x^-) +\paren{f(x+t)-f(x^-)}} \frac{\sin \bkt{(N+1/2)t}}{\sin(t/2)}.
+\end{equation}
+This first term is just a constant integrated against the $\sin$ piece, so its integral over a half period is just $\pi$. That is, the $f(x^-)$ integral becomes
+\begin{equation}
+    \frac{1}{2}f(x^-).
+\end{equation}
+The integral from $0$ to $\pi$ does something similar; it picks up the right limit, $\frac{1}{2}f(x^+)$. What about the rest of it? There's continuity argument to be made here, which we'll revisit next time.    One can also do this with trig addition formulae, which give the same result.
+
