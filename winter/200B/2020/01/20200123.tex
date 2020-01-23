@@ -1,0 +1,106 @@
+In full generality, we have an expression for the electrostatic potential near some charge distribution $\rho(\vec r)$:
+\begin{equation}
+    \varphi(\vec r)  =\frac{1}{4\pi \epsilon_0} \int d^3 r' \frac{\rho(\vec r')}{|\vec r- \vec r'|}.
+\end{equation}
+However, this denominator is complicated; it depends both on $\vec r'$, which we integrate over, and also $\vec r$, which we don't. A very nice way to decompose this expression is in terms of Legendre polynomials, as
+\begin{equation}
+    \frac{1}{|\vec r - \vec r'|} = \sum_{l=0}^\infty \frac{r'{}^l}{r^{l+1}} P_l(\uv r \cdot \uv r').
+\end{equation}
+If We're only interested in the potential on e.g. the $z$-axis, then this might be a good expansion to use. In that case, integrating over $\uv r'$ is not too bad. But if we're interested in more general $\vec r$ (say, ranging over a sphere), we still want to separate the angles, and we can instead use the angle addition formula for the spherical harmonics, which says
+\begin{equation}
+    \frac{1}{|\vec r - \vec r'|} = \sum_{l=0}^\infty \frac{r'{}^l}{r^{l+1}} \frac{4\pi}{2l+1} \sum_{m=-l}^l Y_{lm}(\theta, \phi) Y_{lm}^*(\theta',\phi').
+\end{equation}
+
+\subsection*{Capacitance}
+Recall that the capacitance is defined as
+\begin{equation}
+    C= \frac{Q}{V},
+\end{equation}
+where $V$ is the potential relative to infinity. In a sense, the self-capacitance is the capacitance of the object with the other plate being a hollow sphere of infinite radius.
+
+We're going to skip the details of the capacitance matrix and many-conductor systems; our main interest will be in systems with precisely two conductors, i.e. capacitors. Typically we put a $+Q$ charge on one and a $-Q$ charge on the other. These charges produce a potential difference $V$ between the conductors, such that the ratio $C=Q/V$ is the capacitance.
+
+The prototypical example is the parallel-plate capacitor, with two plates of area $A$ and charge $+Q$ and $-Q$. So long as the plate separation $d$ is much less than the lateral dimension $\sqrt{A}$, i.e. $\sqrt{A} \gg d$, we can approximate these as infinite plates. It follows that
+\begin{equation}
+    \vec E = - \frac{Q}{\epsilon_0 A} \uv z, \quad V = -\int_0^d E\, dz = \frac{Qd}{\epsilon_0 A},
+\end{equation}
+so that
+\begin{equation}
+    C= \frac{Q}{V} = \frac{\epsilon_0 A}{d}.
+\end{equation}
+Let's note that our plates aren't really infinite, so the fringing effects at the edges mean that the $E$-field is weaker at the edges. It follows that the potential difference is lower for the same charge, so the capacitance goes up. Apparently we have \emph{underestimated} the capacitance.
+
+Now we can calculate the energy in the capacitor as
+\begin{equation}
+    U=\frac{1}{2}\int d^3 r \rho(\vec r) V(\vec r)
+\end{equation}
+Notice that if we have two conductors, this integral simplifies considerably. Suppose we have one conductor with a surface $S_1$ and a charge $+Q$ and another conductor with a surface $S_2$ and a charge $-Q$. Conductors are equipotentials, and it follows that since all the charge lies on the surface, the integral becomes
+\begin{equation}
+    U= \frac{1}{2} \bkt{\int_{S_1} d^2 S \sigma_+(\vec r) V_+ + \int_{S_2} d^2S \sigma_-(\vec r) V_-} = \frac{1}{2} \bkt{V_+ Q + V_- (-Q)} = \frac{1}{2} QV.
+\end{equation}
+We can rewrite this as
+\begin{equation}
+    U= \frac{1}{2} \frac{Q^2}{C} = \frac{1}{2} CV^2,
+\end{equation}
+and this has interesting consequences depending on whether we hold charge constant or voltage constant. That is, if we hold charge constant, then it makes sense that a higher-capacitance (in the case of parallel plates, smaller $d$) setup is energetically favored. But if we hold voltage constant, then the plates actually want to push apart (lower capacitance).
+
+For our parallel plate capacitor, we can check that this works by integrating the energy in the $E$-field:
+\begin{equation}
+    U_\parallel = \frac{1}{2} \epsilon_0 \int E^2 d^3r = \frac{\epsilon_0}{2} \frac{Q^2}{\epsilon_0^2 A^2} Ad = \frac{1}{2} QV.
+\end{equation}
+
+\begin{exm}[The quantum dot]
+    We've just found that the self-energy of an object is given by
+    \begin{equation}
+        U= \frac{Q^2}{2C}.
+    \end{equation}
+    For objects with large self-capacitances, adding a bit of charge doesn't affect the total energy much. But for very small objects on the nanoscale, this self-capacitance can be very small, so it may take a lot of energy to change the charge by a little bit. That is, $U$ looks like a parabola centered at zero, and if we apply a ``gate voltage,'' we can shift the zero over to e.g. $Q=1/2$, so that whether we have $0$ or $1$ (electron) charges in the dot, both are equally favorable from an energy standpoint. Adding temperature into the picture can mess this up, though. Once the energy scale $k_BT$ becomes comparable to the energy cost of adding a charge, thermal effects will destroy this nice zero-or-one picture.
+\end{exm}
+%things will get worse before they get better
+
+\subsection*{Dielectrics (Zangwill Ch. 6)}
+Conductors are nice because their charge carriers redistribute to cancel applied electric fields. But insulators are more complicated because their cancellation is imperfect due to subtle material properties.
+
+In materials, we can write the total charge $\rho$ as a sum of two terms-- a free (applied) charge and a polarization/bound charge due to the material response. That is,
+\begin{equation}
+    \rho(\vec r) = \rho_f(\vec r) + \rho_P(\vec r).
+\end{equation}
+The free charge $\rho_f$ is charge we control by putting it on objects, while the polarization (bound) charge $\rho_P$ is how the material responds to the applied charge/fields. For instance, in conductors, all the $\rho_P$ (i.e. the induced charge) lies on the surface of the conductor.
+
+If we consider a dielectric with no net charge, then
+\begin{equation}\label{eqn:unchargeddielectric}
+    \int_V d^3 r\, \rho_P(\vec r) + \int_S d^2S \, \sigma_P(\vec r) =0.
+\end{equation}
+That is, the sum of the polarization volume charge and the polarization surface charge is zero.
+
+We can then motivate the polarization vector $\vec P(\vec r)$ in the following way. A polarization vector should describe how charges redistribute in a material, such that
+\begin{gather}
+    \vec P(\vec r) = 0 \text{ outside the material},\\
+    \vec P(\vec r) \cdot \uv n = \sigma_P(\vec r) \text{ on surface}.
+\end{gather}
+We can plug this into our equation~\eqref{eqn:unchargeddielectric} to get
+\begin{equation}
+    \int_V d^3 r\, \rho_P(\vec r) + \int_V d^3r\, \div \vec P(\vec r) =0
+\end{equation}
+by the divergence theorem. Since these are both volume integrals, it follows that the integrand vanishes,
+\begin{equation}\label{eqn:divp}
+    \div \vec P(\vec r) = -\rho_P(\vec r) \text{ inside material.}
+\end{equation}
+
+We can now integrate the polarization over the volume of the material. Note that $\grad_i r_j= \delta_{ij}$, so
+\begin{equation}
+    \int_V d^3 r\, P_j  = \int d^3r\, P_i \grad_i r_j = \int_V d^3r\, \grad_i(r_j P_i) - \int_V d^3r \, r_j \grad_i P_i
+\end{equation}
+by the chain rule. Then the first term is a divergence, so we can turn it into a surface integral, i.e.
+\begin{equation}
+    \int_V d^3r\, P_j = \int_S d^2 S\, r_j \sigma_P(\vec r) + \int_V d^3 r \, r_j \rho_P(\vec r)
+\end{equation}
+using the definitions of the polarization volume charge and surface charge. But now we recognize that these are moment integrals of charge distributions, which means that these are precisely in the form of a dipole moment. That is,
+\begin{equation}
+    \int_V d^3r \,\vec P = \vec p,
+\end{equation}
+the net dipole moment of the distribution. Hence we can think of polarization as dipole moment per unit volume.
+
+Question: which quantity has more information, $\vec P(\vec r)$ or $\rho(\vec r)$? A priori, we might think that because of Eqn.~\eqref{eqn:divp}, the charge density has less information than the polarization vector, since we've taken a derivative (which is a lossy operation). But if we take the integral $\int_V d^3r \vec P = \vec p$, we only specify one moment of the distribution.
+
+As it turns out, the polarization has more information because it contains phase information. That is, the integral tells us one piece of information we can extract from $\vec P$, but there's in principle more we can do with $\vec P$.
