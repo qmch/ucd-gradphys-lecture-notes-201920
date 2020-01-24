@@ -1,0 +1,96 @@
+\begin{quote}
+    \textit{``When I was in kindergarten... you know, it's like that Opus Dei thing. You punish yourself to see how much you can take.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+
+Let's conclude our proof of the Fourier theorem. We wrote the partial sum
+\begin{equation}
+    f_N(x) = \frac{1}{2\pi} \int_{-\pi}^\pi dt f(x+t) \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)},
+\end{equation}
+and said that due to the $2\pi$-periodicity, we could simply shift the domain of integration in $t$ as we like. If there's a single discontinuity at $x$, we can break up the domain of integration as
+\begin{equation}
+    \frac{1}{2\pi} \bkt{\int_{-\pi}^0 dt\,f(x+t) \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}
+    +\int_{0}^\pi dt\, f(x+t) \frac{\sin\bkt{(N+1/2)t}}{\sin(t/2)}}.
+\end{equation}
+Consider just the first term, the integral from $-\pi$ to $0$. We can add and subtract the function's limit from the left,
+\begin{equation}
+    f_N^- = \frac{1}{2\pi} \int_{-\pi}^0 \bkt{f(x^-) +\paren{f(x+t)-f(x^-)}} \frac{\sin \bkt{(N+1/2)t}}{\sin(t/2)}.
+\end{equation}
+We've just added zero. Hence the following integral can be evaluated as
+\begin{equation}
+    \frac{1}{2\pi} \int_{-\pi}^0 \bkt{f(x^-)} \frac{\sin \bkt{(N+1/2)t}}{\sin(t/2)} =\frac{f(x^-)}{2\pi} (\pi) = \frac{f(x^-)}{2}.
+\end{equation}
+We did the integral of the ratio of sines previously. On the interval $-\pi$ to $\pi$ it was $2$, and by the evenness of the ratio of sines, the integral over the half-interval $-\pi$ to $0$ is just $\pi$. 
+
+Computing the integral $f_N^+$from $0$ to $\pi$, we get something very similar---the right limit of the function, $f(x^+)/2$, and another integral.
+%When I was in kindergarten... you know, it's like that Opus Dei thing. You punish yourself to see how much you can take.
+
+We shall argue that the integrals cancel each other perfectly by the Riemann-Lebesgue lemma, which (roughly) states that the integral of fast functions which oscillate a lot about a point are zero except about some region where the oscillations are slow.
+
+That is, we wish to compute
+\begin{equation}
+    \frac{1}{2} \int_{-\pi}^0 dt \frac{f(x+t)-f(x^-)}{\sin(t/2)} \sin\bkt{(N+1/2) t}.
+\end{equation}
+Notice that for $t\to 0$ from the left, the numerator goes as $f(x^-)t$ since $f$ is continuous up to $x$. The denominator $\sin(t/2)$ is a slow function; it is $4\pi$ periodic and only goes to zero at $t\to 0$, where its leading order behavior is $\sin(t/2) \sim t/2$. In the limit as $N$ grows very large, we need only worry about the integrand near $t\to 0$. That is, it goes as $\sin((N+1/2)t) \sim (N+1/2) t + O(t^3)$. Hence our slow function is approximately
+\begin{equation}
+    \sigma(t) = \frac{f(x+t)-f(x^-)}{\sin(t/2)} \approx \frac{f'(x^-)t}{t/2} = 2f'(x^-),
+\end{equation}
+%if you can't explain your idea without equations then you don't know what is going on.
+so that
+\begin{equation}
+    \lim_{N\to \infty} \int_a^b dt \, \sigma(t) \sin((N+1/2) t) = 0.
+\end{equation}
+That is, this integral oscillates so fast and our slow function is well-behaved on the whole integral, so the whole integral vanishes. This is the conclusion of the Riemann-Lebesgue lemma.
+
+Let's do a trick to see this works. Let $\omega = N+1/2$, and define a new variable
+\begin{equation}
+    t = t'  + \frac{\pi}{N+1/2} = t' + \frac{\pi}{\omega}
+\end{equation}
+so that
+\begin{equation}
+    \int_{a-\pi/\omega}^{b-\pi/\omega} dt' \, \sigma(t' + \pi/\omega) \sin(\omega (t' +\pi/\omega)) = -\int_{a-\pi/\omega}^{b-\pi/\omega} dt' \, \sigma(t' + \pi/\omega) \sin(\omega t')
+\end{equation}
+since the $\sin$ is $2\pi$-periodic. This is clearly the same as our original integral, since we've just changed variables. Call the integral $I$. Then
+\begin{equation}
+    2I = \int_a^b dt \, \sigma(t) \sin(\omega t) - \int_{a-\pi/\omega}^{b-\pi/\omega} dt\, \sigma(t + \pi/\omega) \sin (\omega t).
+\end{equation}
+We see that as $\omega \to \infty$, these integrals perfectly cancel each other. More precisely, we get an integral
+\begin{equation}
+    \int_a^{b-\pi/\omega} dt \sin(\omega t) \bkt{\sigma(t) - \sigma(t+\pi/\omega)}-\int_{a-\pi/\omega}^a dt \, \sigma (t + \pi/\omega) \sin \omega t + \int_{b-\pi/\omega}^b dt \sigma(t) \sin \omega t.
+\end{equation}
+If we take the last two terms, we see they are both bounded. The last two are bounded by some multiple of $\pi/\omega$, since the interval from $b-\pi/\omega$ to $b$ becomes infinitesimal and the functions $\sigma(t), \sin(\omega t)$ are well-behaved around $b$. A similar argument applies for the integral from $a-\pi/\omega$ to $a$.
+%If you want to live a stable steady life, don't live too dangerously. Stay away from fast guys.
+
+The first term is also bounded and vanishes since $\sigma(t) -\sigma(t+\pi/\omega)$ is just a derivative times $\pi/\omega$, and $\sigma$ is well-behaved. It follows that in the limit as $\omega \to \infty$, all these integrals go to zero, so that indeed $I=0$ and
+\begin{equation}
+    \lim_{N\to \infty} f_N(x) = \frac{f(x^-) + f(x^+)}{2},
+\end{equation}
+and moreover we recover the completeness relation
+\begin{equation}
+    \lim_{N\to \infty} \frac{\sin(N+1/2)(x-t)}{\sin(\frac{x-t}{2})} = \delta(x-t).
+\end{equation}
+
+\subsection*{Complex analysis}
+A complex number is a pair $(x,y)$, which we may write
+\begin{equation}
+    z = x+iy, \quad x,y\in \RR
+\end{equation}
+in cartesian form. Complex numbers also have a polar form,
+\begin{equation}
+    z = \rho e^{i\phi}, \quad \tan \phi =y/x, \quad \rho = \sqrt{x^2+y^2}.
+\end{equation}
+
+Complex functions on the complex plane may be multivalued. For instance, consider the function $\ln z$. If we write a number like $A = Ae^{2\pi n i}$, $n\in\ZZ$, then
+\begin{equation}
+    \log A = \log (Ae^{2\pi n i}) = \log A + 2\pi n i,
+\end{equation}
+so the log is infinitely multivalued. We consider complex functions
+\begin{equation}
+    f: \CC \to \CC,
+\end{equation}
+mapping some $z \in \CC$ to $w\in \CC$, and since the output is complex, we can write
+\begin{equation}
+    f(z) = u(x,y) + i v(x,y)
+\end{equation}
+where now $u,v: \CC \to \RR$ are real-valued functions. Arbitrary complex functions are clearly as complicated as real functions, but there is a special subset of complex functions which are more constrained in interesting ways. These are the \emph{analytic functions.}
