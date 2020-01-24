@@ -1,0 +1,133 @@
+Let's continue thinking about dielectrics. Let's assume the polarization $\vec P$ is known and see what we can do from there. For instance, what is the potential due only to the polarization charge?
+\begin{equation}
+    \varphi_P(\vec r) = \frac{1}{4\pi \epsilon_0} \int d^3 r' \frac{ -\grad' \cdot\vec P(\vec r')}{|\vec r - \vec r'|} + \frac{1}{4\pi\epsilon_0} \int_S d\vec S' \cdot \frac{\vec P(\vec r')}{|\vec r - \vec r'|}.
+\end{equation}
+That is, we just integrate the influences of the volume charge $\rho_P = -\div \vec P$ and the surface charge $\vec P \cdot \uv n$. Now the electric field is given by
+\begin{equation}
+    \vec E_P(\vec r) = -\grad \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \int d^3 r' \frac{-\grad' \cdot \vec P(\vec r')}{|\vec r - \vec r'|^3} (\vec r - \vec r') + \frac{1}{4\pi \epsilon_0} \int_S d\vec S' \cdot \frac{\vec P(\vec r')}{|\vec r - \vec r'|^3} (\vec r - \vec r').
+\end{equation}
+Now we'll make a simplifying assumption. If we not only know the polarization $\vec P$ but also know that $\vec P(\vec r')$ is uniform (within the sample), then $\grad' \cdot \vec P(\vec r')=0$, so this first term goes away and we are left with just the surface term. By the divergence theorem, we can rewrite the flux integral as
+\begin{equation}
+    \vec E_{P,i}(\vec r) = \frac{1}{4\pi \epsilon_0} \int_V d^3 r'\, \grad'_j \paren{\frac{\vec P_j(\vec r')}{|\vec r - \vec r'|^3} (r_i - r_i')} =\frac{P_j}{4\pi \epsilon_0} \int_V d^3 r' \grad_j' \paren{\frac{r_i - r_i'}{|\vec r - \vec r'|^3}}.
+\end{equation}
+However, notice that the final expression is symmetric in $r$ and $r'$ up to a minus sign, so
+\begin{equation}
+    \grad_j' \paren{\frac{r_i - r_i'}{|\vec r - \vec r'|^3}} = -\grad_j \paren{\frac{r_i - r_i'}{|\vec r - \vec r'|^3}}.
+\end{equation}
+Hence
+\begin{equation}
+    E_{P,i}(\vec r) = -\frac{P_j}{4\pi \epsilon_0} \grad_j \int d^3 r' \frac{r_i - r_i'}{|\vec r - \vec r'|^3},
+\end{equation}
+or in vector notation,
+\begin{equation}
+    \vec E_P(\vec r) = -(\vec P \cdot \grad) \gv\epsilon(\vec r),
+\end{equation}
+where
+\begin{equation}
+    \gv \epsilon(\vec r) = \frac{1}{4\pi \epsilon_0} \int_V d^3 r' \frac{\vec r - \vec r'}{|\vec r - \vec r'|^3},
+\end{equation}
+which is none other than the electric field of a uniform charge distribution
+\begin{equation}
+    \rho_\text{im} = \begin{cases}
+        1 & \text{in $V$,}\\
+        0 & \text{outside}.
+    \end{cases}
+\end{equation}
+We sometimes call this \term{Poisson's theorem.}
+
+\begin{exm}
+    Consider a uniformly polarized sphere. We can calculate its field the hard way (with spherical harmonics) or the easy way (with Poisson's theorem).
+    
+    Let's do it the easy way. Our electric field from the constant density helper system is
+    \begin{equation}
+        \gv \epsilon(\vec r) = 
+        \begin{cases}
+            \frac{1}{3\epsilon_0} \vec r, & r < R\\
+            \frac{1}{3\epsilon_0} \paren{\frac{R}{r}}^3, & r > R.
+        \end{cases}
+    \end{equation}
+    Let's say that the polarization is constant in the $\uv z$ direction. Then our theorem says that the field is
+    \begin{equation}
+        \vec E_P(\vec r) = \begin{cases}
+            \frac{1}{3\epsilon_0} \vec P, & r < R\\
+            \frac {R^3}{3\epsilon_0} \frac{3(\uv r \cdot \vec P) \uv r - \vec P}{r^3}, & r > R.
+        \end{cases}
+    \end{equation}
+    That is, we get a dipole field outside and a uniform field inside, which is similar to what we saw for conductors, except that the interior has a nonzero field.
+\end{exm}
+
+Alas, this result isn't as useful as we might hope, because uniform polarizations are hard to come by. In general systems are complicated and do not admit closed-form solutions for their charge distributions. Consider two dielectric spheres in a uniform electric field (say, in the $\uv z$ direction) at some offset (say, in the $\uv z + \uv x$ direction). The dipole moment induced on one by the external field produces a dipole field that hits the other at some weird angle, and the other has to respond to the dipole field of the first.
+
+Generally, we can write the polarization vector as
+\begin{equation}
+    P_i = \epsilon_0 \chi_{ij} E_j + \epsilon_0 \chi_{ijk}^{(2)} E_j E_k + \dots,
+\end{equation}
+where these $\chi$s are tensors indicating the response of the polarization to different electric fields in different directions. Real materials might have different responses to $E$-fields in the $x$ versus $y$ directions, for instance. We call this \term{anisotropy}.
+
+However, having said that, we'll now run away from all these complications as fast as possible. We look at ``simple'' dielectrics with
+\begin{equation}
+    \vec P = \epsilon_0 \chi \vec E = (\epsilon- \epsilon_0) \vec E  = \epsilon_0(\kappa -1) \vec E.
+\end{equation}
+We call $\chi$ the \emph{electric susceptibility}, $\epsilon$ the \term{permittivity}, and $\kappa$ the \term{dielectric constant}. We need
+\begin{equation}
+    \chi \geq 0, \epsilon \geq \epsilon_0, \kappa \geq 1,
+\end{equation}
+where the bounds are saturated in vacuum. Note that $\chi$ and $\kappa$ are dimensionless, while $\epsilon$ has the same units as $\epsilon_0$.
+
+Now we can write Gauss's law as
+\begin{equation}
+    \epsilon_0 \div \vec E = \rho = \rho_f + \rho_P = \rho_f - \div \vec P.
+\end{equation}
+If we define the auxiliary field (sometimes called the electric displacement) $\vec D$ as
+\begin{equation}
+    \vec D = \epsilon_0 \vec E +\vec P,
+\end{equation}
+then we get Gauss's law in materials,
+\begin{equation}
+    \div \vec D = \rho_f.
+\end{equation}
+This field is nice because it depends only on the free charge, which we control. In particular, for electrostatic fields, it follows that
+\begin{equation}
+    \curl \vec D = \curl \vec P.
+\end{equation}
+We can also derive boundary conditions on the displacement by the same Gaussian pillbox arguments as before. At a surface, if there is no applied surface charge, then
+\begin{gather}
+    \Delta D_\perp = 0,\\
+    \Delta D_\parallel = \Delta P_\parallel.
+\end{gather}
+
+\begin{exm}
+    Consider a point charge $+q$ embedded in a dielectric. Calculating the displacement around this charge is super easy, by the usual Gauss's law arguments. It is just
+    \begin{equation}
+        \vec D = \frac{1}{4\pi} \frac{q}{r^2} \uv r,
+    \end{equation}
+    with $r$ the radial distance from the point charge. Now if we assume this is a linear dielectric, then
+    \begin{equation}
+        \vec D = \epsilon_0 \vec E + \vec P = \epsilon_0 (\chi+1) \vec E= \epsilon_0\kappa \vec E= \epsilon \vec E.
+    \end{equation}
+    It follows that
+    \begin{equation}
+        \vec E = \frac{1}{4\pi \epsilon} \frac{q}{r^2} \uv r = \frac{1}{4\pi \epsilon_0} \frac{q/\kappa}{r^2} \uv r
+    \end{equation}
+    As a sanity check, we can recognize that since $\epsilon\geq \epsilon_0$ or equivalently $\kappa \geq 1$, the electric field is reduced from its vacuum value by a factor of $\kappa$. The charge is ``screened'' by the dielectric.
+    
+    We can also compute the polarization charge, since we know that $\vec P = \epsilon_0 (\kappa-1) \vec E$. Then
+    \begin{equation}
+        \rho_P = -\div \vec P = -\epsilon_0(\kappa-1) \div \vec E = -\epsilon_0 (\kappa-1) \rho/\epsilon_0 = (1-\kappa)(\rho_f + \rho_p).
+    \end{equation}
+    It follows that
+    \begin{equation}
+        \rho_P = \frac{(1-\kappa)\rho_f}{\kappa} = \paren{\frac{1}{\kappa}-1} \rho_f.
+    \end{equation}
+\end{exm}
+\begin{exm}
+    What if we have charge $+1$ in a sphere of radius $R$ with one dielectric constant $\kappa_1$ inside a bigger dielectric of dielectric constant $\kappa_2$? Most of the analysis is the same, but now
+    \begin{equation}
+        \vec E = \begin{cases}
+            \frac{1}{4\pi \epsilon_0} \frac{q/\kappa_1}{r^2} \uv r & r < R\\
+            \frac{1}{4\pi \epsilon_0} \frac{q/\kappa_2}{r^2} \uv r, & r > R.
+        \end{cases}
+    \end{equation}
+    How can the field outside not depend on the first dielectric? The answer is similar to what happened for conductors, except the screening is imperfect. The electric field is discontinuous at $r=R$ because there is an induced surface charge density there due to the polarizations from the dielectrics.
+\end{exm}
+In general the game plan will be to calculate $\vec D$ using our old Gauss's law tricks and then convert to $\vec E$-fields given the linearity of the medium, and then find surface charge densities.
