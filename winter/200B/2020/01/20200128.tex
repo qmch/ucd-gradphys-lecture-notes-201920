@@ -1,0 +1,124 @@
+Last time, we discussed the field from a charge at the boundary between two dielectrics. At the boundary, $E_\perp$ is discontinuous because of the surface charge. But $\vec D$ seems to be continuous since it depends only on the free charge. What's happening? Why does $E$ have a curl if $D$ is continuous? Really, what's happening is that $D$ also knows about the polarization:
+\begin{equation}
+    \curl \vec D = \curl \vec P.
+\end{equation}
+So $E$ can be composed of a curl part and a divergence part, and the polarization itself is sourcing a curl at the boundary.
+
+\subsection*{Poisson and Laplace equations}
+%``Everyone uses their own words, especially Professor Kaloper.''
+Let us leave behind the world of matter for a bit and explore Laplace's equation. To begin our discussion, suppose we have two solutions of Poisson's equation,
+\begin{equation}
+    \nabla^2 \varphi_1 + \nabla^2 \varphi_2 = -\frac{\rho(\vec r)}{\epsilon}.
+\end{equation}
+When are solutions unique? Define
+\begin{equation}
+    \Phi = \varphi_1 - \varphi_2.
+\end{equation}
+By linearity, it follows that
+\begin{equation}
+    \nabla^2 \Phi = 0.
+\end{equation}
+In general, note that for scalar functions $f,g$, we have
+\begin{equation}
+    \int_S d\vec S \cdot f\grad g = \int_V d^3r \, \div(f\grad g) =\int_V d^3r (f\nabla^2 g + \grad f \cdot \grad g).
+\end{equation}
+If we take $f=g=\Phi$, then
+\begin{equation}
+    \int_S d\vec S \cdot \Phi \grad \Phi = \int_V d^3 r \paren{\Phi \underbrace{\nabla^2 \Phi}_\text{=0} + |\grad \Phi|^2} \geq 0.
+\end{equation}
+This first term is zero by assumption, while the second term is positive semi-definite and equal to zero only for $\grad \Phi=0$.
+
+When does the LHS vanish? Either $\Phi$ vanishes on the boundary or $\grad \Phi\cdot \uv n$ vanishes on the boundary, i.e. the normal derivative is zero. Either way, we get $\grad \Phi=0$, which forces $\Phi={}$constant.
+
+If $\Phi=0$ on $S$, then these are the Dirichlet boundary conditions, and in fact $\varphi_1 = \varphi_2=$some known values on $S$. Alternately, if $\uv n \cdot \grad \Phi=0$, then that's equivalent to specifying the normal derivative $\uv n \cdot \grad \varphi$ on the boundary. These are \term{Neumann boundary conditions}, and the solutions can vary by a constant. We could also specify the value on part of the boundary and a normal derivative elsewhere; these are mixed or Cauchy boundary conditions.
+
+This tells us when solutions are unique, though it does not prove existence. In general we need only specify $\varphi$ or $\uv n\cdot \grad \varphi$ on the boundary; if we try to fix both, the problem will usually be overdetermined unless we're very lucky.
+
+Let us make a guess when we try to solve Laplace's equation. We will make the following ansatz:
+\begin{equation}
+    \varphi(u,v,w) = A(u) B(v) C(w)
+\end{equation}
+in terms of some functions $A,B,C$. If we make this guess and plug it into the differential equation, then our PDE separates into ODEs for each variable, linked by separation constants. While this seems like a really simple guess, Zangwill says that this works in 13 different coordinate systems.%
+    \footnote{I haven't checked.}
+
+Zangwill also claims to write down the general solution to Laplace's equation, but it's not true. \emph{Do not believe Zangwill Eqn. 7.14.} When the equation separates, we get two linearly independent solutions for $A$, two for $B$, and two for $C$ (the equation is second-order). That is, we have
+\begin{equation}
+    A, \Tilde{A}; B,\Tilde{B}; C, \Tilde{C}.
+\end{equation}
+In fact, each ODE might give us a family of eigenfunctions (think of sines in a rectangular waveguide) indexed by some eigenvalues. So we really have
+\begin{equation}
+    \set{A_\alpha, \Tilde{A}_\alpha}; \set{B_\beta,\Tilde{B}_\beta}; \set{C_\gamma, \Tilde{C}_\gamma},
+\end{equation}
+and to construct the most general solution, we need $8$ terms:
+\begin{equation}
+    \varphi=\sum_{\alpha,\beta,\gamma} \bkt{a^{(1)}_{\alpha \beta \gamma} A_\alpha(u) B_\beta(v) C_\gamma(w) + a^{(2)}_{\alpha \beta \gamma} A_\alpha(u) B_\beta(v) \tilde C_\gamma(w) + a^{(3)}_{\alpha \beta \gamma} A_\alpha(u) \tilde B_\beta(v) C_\gamma(w) + \dots}.
+\end{equation}
+This is precisely equivalent to the construction of entangled states in quantum mechanics. That is, the most general solution isn't just a product of individual solutions but a sum of products. It is a tensor product structure, not a direct product. Contrast Zangwill 7.14, which claims the most general solution is
+\begin{equation}
+    \sum_{\alpha \beta \gamma}(a_\alpha A_\alpha(u) + \tilde a_\alpha \tilde A_\alpha(u)) (b_\beta B_\beta (v) + \tilde b_\beta \tilde B_\beta(V) ) (c_\gamma C_\gamma(w) + \tilde c_\gamma \tilde C_\gamma(w)).
+\end{equation}
+This is just a product of solutions, but there aren't enough parameters for the solution space. There are really only four independent parameters here, since we can pull out an $a_\alpha b_\beta c_\gamma$ and treat this as a single number.
+
+Now, in the theory of Sturm-Liouville problems, ODEs satisfying self-adjointness provide us with a complete orthonormal set of eigenfunctions. Completeness says that
+\begin{equation}
+    \sum_k \psi_k(v) \psi_k^*(v') = \delta(v-v'),
+\end{equation}
+where $k$ indexes over eigenfunctions. It follows that we have a basis, so that
+\begin{equation}
+    F(v) = \int \delta(v-v') F(v') dv' = \sum_k \underbrace{\int dv' \psi_k^*(v') F(v')}_{F_k} \psi_k(v) = \sum_k F_k \psi_k(v).
+\end{equation}
+That is, we can decompose $F(v)$ into its components. Note that if $F(v) = \psi_k'(v)$, then we immediately have $F_k =\int dv' \psi_k^*(v') \psi_{k'}(v') =\delta_{kk'}$.
+
+In Cartesian coordinates, separation of variables is very nice. We have
+\begin{equation}
+    \nabla^2 \varphi = 0, \quad \varphi(x,y,z) = X(x) Y(y) Z(z).
+\end{equation}
+If we plug in and divide by the original function $\varphi$, we get
+\begin{equation}
+    -\frac{X''}{X} = \frac{Y''}{Y} + \frac{Z''}{Z}.
+\end{equation}
+Since the LHS depends only on $x$ and the RHS depends only on $Y$ and $Z$, we can write
+\begin{equation}
+    X'' = \alpha^2 X \implies X(x) = \begin{cases}
+        A_0 + B_0 x & \alpha = 0\\
+        A_\alpha e^{\alpha x}  + B_\alpha e^{-\alpha x} & \alpha \neq 0.
+    \end{cases}
+\end{equation}
+As we expected, there are two linearly independent solutions ($1$ and $x$ for $\alpha=0$ and $e^{\pm x}$ for $\alpha \neq 0$.
+
+For instance, we could set up a box (say, a cube of side length $a$) where the boundary condition is $V_1(x,y)$ at $z=0$ and $V=0$ on the sides. It follows that the $X$ and $Y$ dependence is sines which are periodic in $a$, namely
+\begin{equation}
+    V(x,y,z) = \sum_{m=1}^\infty \sum_{n=1}^\infty V_\text{mn} \sin \frac{m\pi x}{a} \sin \frac{n\pi y}{a} \frac{\sinh \gamma_{mn}(a-z)}{\sinh \gamma_{mn}a},
+\end{equation}
+such that
+\begin{equation}
+    \gamma_{mn}^2 = \paren{\frac{m\pi}{a}}^2 + \paren{\frac{n\pi}{a}}^2.
+\end{equation}
+This now satisfies $V(z=a)=0$, and the coefficients $V_{mn}$ are given by taking the Fourier components of the boundary condition $V_1(x,y)$, i.e.
+\begin{equation}
+    V_{mn}^{(1)} = \frac{4}{a^2} \int_0^a dx \int_0^a dy \, V_1(x,y) \sin \frac{m\pi x }{a} \sin \frac{n\pi x}{a}.
+\end{equation}
+What if another wall had a nontrivial boundary condition, e.g. $V_2(y,z)$ at $x=a$? Fortunately, Poisson's equation is linear and homogeneous so we can just add solutions. That is, we can add on a solution
+\begin{equation}
+    V_2(x,t,z) = \sum_{m=1}^\infty \sum_{n=1}^\infty V^{(2)}_\text{mn} \sin \frac{m\pi y}{a} \sin \frac{n\pi z}{a} \frac{\sinh \gamma_{mn}(x)}{\sinh \gamma_{mn}a}.
+\end{equation}
+
+\begin{exm}
+    Let's consider the solution to Laplace's equation in a Faraday cage. Suppose we have two rows of infinite wires. The wires are separated within the rows by a distance $a$ and the two rows are separated by a distance $d$ (so one is at $z=0$ and one is at $z=d$). Say the row extends in the $x$ direction and the wires extend in the $y$ direction. Each wire has linear charge density $\lambda$.
+    
+    The charge density from the lower row of wires is
+    \begin{equation}
+        \sigma(x) = \lambda \sum_{p=-\infty}^\infty \delta(x-pa).
+    \end{equation}
+    Because the charge distribution is symmetric (even) about the origin, we can write our charge distribution in terms of cosines,
+    \begin{equation}
+        \sigma(x) = A_0 + \sum_{m=1}^\infty A_m \cos \frac{2\pi m x}{a}.
+    \end{equation}
+    This will turn out to be Neumann boundary conditions, since we're specifying a charge distribution on the boundary, which fixes the perpendicular component of the $E$-field at the boundary and therefore the normal derivative of $V$.
+    
+    The coefficients are given by
+    \begin{equation}
+        A_0 = \frac{1}{a} \int_{-a/2}^{a/2} dx\, \sigma(x)  = \frac{\lambda}{a}, \quad A_m =\frac{2}{a} \int_{-a/2}^{a/2} dx \,\sigma(x) \cos \frac{2\pi mx}{a} = \frac{2\lambda}{a}.
+    \end{equation}
+    Since our period is $a$, we only ever see the delta function at the origin. We    Since our charge density has a period $a$, we only ever see the delta function at the origin. We'll continue this next time.
+\end{exm}

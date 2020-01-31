@@ -1,0 +1,83 @@
+\begin{quote}
+    \textit{``This is just his Majesty Sir Newton. Or Sir Issac, shall we say. You know, I think the purpose of old England was to give birth to Newton. Everything else we can discount.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+
+Last time, we defined integrals of complex functions in terms of the limit of their Riemann (discretized) sums. In general, the integral between two endpoints will depend on the path taken to get there. But we know from classical mechanics that some forces are conservative, i.e. the integrals of certain functions are independent of path.
+%This is just his Majesty Sir Newton. Or Sir Issac, shall we say. You know,I think the purpose of old England was to give birth to Newton. Everything else we can discount.
+
+What is the condition for the integral of a function to be independent of path? This is the same as asking when any integral around a closed loop is zero, and the answer is provided by the following theorem.
+
+\begin{thm}[Cauchy's integral theorem]
+    If a function $f(z):\CC\to \CC$ is analytic in and around a curve $C$ in a region which is simply connected,%
+        \footnote{Simply connected means informally that the region has no holes. Formally it means that the fundamental group $\pi_1$ is trivial. That is, any closed curve is homotopic (can be continuously deformed) to a point.}
+    then
+    \begin{equation}
+        \oint_C f(z) dz = 0.
+    \end{equation}
+\end{thm}
+
+Let us compute the integral
+\begin{equation}
+    \oint_{|z|=1} dz \, z^n.
+\end{equation}
+Since $z= e^{i\phi}$ on this contour, $dz = i e^{i\phi}d\phi$, so
+\begin{equation}
+     \oint_{|z|=1} dz \, z^n = i \int_0^{2\pi} d\phi e^{i\phi(n+1)} = \frac{i}{i(n+1)} e^{i\phi(n+1)}|_0^{2\pi} = 2\pi i \delta_{n,-1},
+\end{equation}
+where we take $n\in \ZZ$.
+%Log knows. Pepperidge farm remembers.
+
+One could imagine doing this integral around a square of corners $a,b,c,d$. Then
+\begin{equation}
+    \oint dz \, z^n = \frac{z^{n+1}}{n+1}|_\text{endpoints} = \frac{1}{n+1}(b^{n+1}-a^{n+1} + c^{n+1}-b^{n+1} + \dots)
+\end{equation}
+where all the terms will cancel. Except in the case $n=-1$, where we get logs instead, i.e. a sum
+\begin{equation}
+    \ln(b/a) + \ln(c/b) + \ln(d/c) + \ln (ae^{2\pi i}/d) = 2\pi i.
+\end{equation}
+So the case $n=-1$ (which we'll later recognize as that of a simple pole) is special.
+
+We also claimed last time that since $f(z)$ can be written as real and imaginary parts and similarly $z$ can be written in terms of real and imaginary parts, then
+\begin{equation}
+    \int_C f(z) dz = \int (u+iv) (dx+idy) = \int(udx - vdy) + i \int(u dy + vdx).
+\end{equation}
+Recall from vector calculus that
+\begin{equation}
+    \oint_C \vec A \cdot d\vec l = \int_A d\vec S (\curl \vec A).
+\end{equation}
+If we like, this is really a definition of the curl, as the circulation of a vector field around an infinitesimal loop. If we write this in terms of components, we have
+\begin{equation}
+    \oint_C (V_x dx + V_y dx) = \int d\vec S \cdot (\p_y V_x - \p_x V_y)\uv z.
+\end{equation}
+Let's apply this to our integral. We find that
+\begin{equation}
+    \oint _C dz\, f(z) = \int dA (\p_y u + \p_x v) + i \oint dA (\p_y v - \p_x u)=0
+\end{equation}
+by the Cauchy-Riemann conditions. However, this definition of the curl relies on not just the existence of the derivatives of $A$ but their continuity. The full theorem is stronger. But let us take this as a first proof that if a function is analytic in a simply connected region, then its integral around any closed loop is zero.
+
+Let us suppose now that we have a (planar) region that we break up with a fine mesh. Since the border of each mesh region in the interior is counted twice, but with opposite orientation, then
+\begin{equation}
+    \sum_i \oint_{C_i} f(z) = \oint_C f(z).
+\end{equation}
+We now pick a point $z_i$ inside each cell $C_i$ and define
+\begin{equation}
+    \delta(z,z_i) = \frac{f(z) -f(z_i)}{z-z_i} -f'(z_i).
+\end{equation}
+Notice that for
+\begin{equation}
+    |z-z_i| < \Delta, \quad |\delta(z,z_i)|< \epsilon.
+\end{equation}
+That is, we can make the difference between the discretized derivative at $z_i$ and the true derivative $f'(z_i)$ arbitrarily small.
+%cf purcell
+
+Then we rewrite $f(z)$ in terms of $\delta$:
+\begin{equation}
+    \oint f(z) = \sum\bkt{\oint_{C_i} \delta(z-z_i) + \oint f'(z_i) (z-z_i) + \oint f(z_i)}.
+\end{equation}
+But if we take the limit as the limit gets arbitrarily fine, this last term is just the integral of a constant over a closed contour. This is zero, since we are integrating $f(z)=1$ around a closed contour, and $1$ is clearly analytic. The second term vanishes by the same argument, since $z-z_i$ is also analytic. We're left with
+\begin{equation}
+    \oint f(z) dz = \sum \oint_{C_i} \delta(z-z_i) dz < \epsilon A,
+\end{equation}
+and since this can be made arbitrarily small, we find that the integral is zero.   

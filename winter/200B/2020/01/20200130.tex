@@ -1,0 +1,104 @@
+Let's finish our discussion from last time of the Faraday cage. The Fourier decomposition of the charge distribution is
+\begin{equation}
+    \sigma(x,z=0) = \frac{\lambda}{a} + \sum_{m=1}^\infty \frac{2\lambda}{a} \cos \frac{2\pi mx}{a},\label{eq:faradaychargedensity}
+\end{equation}
+and we see that cosines in $x$ are part of the separable solutions to Laplace's equation in Cartesian coordinates. The wires extend in the $y$ direction, so we want a constant solution in $y$, and it just remains to fit the $z$-dependence.
+
+Note that $\sigma$ specifies a normal derivative of $\varphi$ (it is a discontinuity in $E$), so our general solution could look like
+\begin{equation}
+    \varphi(x,y,z) = (ax+ b|z| +cx|z| + d) + \sum_\gamma c_\gamma \cos(\gamma x) e^{-\gamma|z|}.
+\end{equation}
+But by the symmetry in $x$, the terms linear in $x$ go away and the constant $d$ can be set to zero WLOG. There's no $e^{+\gamma|z|}$ terms since this would diverge as $|z|\to \infty$. Thus we're left with
+\begin{equation}
+    \varphi(x,y,z) = b|z| + \sum_\gamma c_\gamma \cos(\gamma x) e^{-\gamma|z|}.
+\end{equation}
+If we now take the normal derivative at $z\to 0$, we get
+\begin{equation}
+    \P{\varphi}{z}|_{z\to 0^+} =b+ \sum_\gamma c_\gamma(\cos(\gamma x)) (-\gamma) e^{-\gamma(0)}
+\end{equation}
+and 
+\begin{equation}
+    \P{\varphi}{z}|_{z\to 0^-} =-b+ \sum_\gamma c_\gamma(\cos(\gamma x)) (\gamma) e^{\gamma(0)}.
+\end{equation}
+It follows that the electric fields are
+\begin{gather}
+    E_\perp(z\to 0^+) = -\P{\varphi}{z}|_{z\to 0^+} = - b+  \sum_\gamma c_\gamma(\cos(\gamma x)) \gamma,\\
+    E_\perp(z\to 0^-) = -\P{\varphi}{z}|_{z\to 0^-} = +b - \sum_\gamma c_\gamma(\cos(\gamma x)) \gamma.
+\end{gather}
+If we now take their difference, we have
+\begin{equation}
+    \frac{\sigma}{\epsilon_0} = E_\perp(z\to 0^+) - E_\perp(z\to 0^-) = -2b + 2 \sum_\gamma c_\gamma(\cos\gamma x) \gamma.
+\end{equation}
+By matching coefficients with Eq.~\eqref{eq:faradaychargedensity}, we find that
+\begin{equation}
+    -2b=\frac{\lambda}{\epsilon_0 a}, \quad \gamma = \frac{2\pi}{a}m, \quad c_\gamma = \frac{\lambda}{a\gamma \epsilon_0}= \frac{\lambda}{\epsilon_0 2\pi m}
+\end{equation}
+Plugging back into our solution, we have
+\begin{equation}
+    \boxed{\varphi(x,y,z) = -\frac{\lambda}{2a \epsilon_0} |z| + \frac{\lambda}{2\pi \epsilon_0} \sum_{m=1}^\infty \frac{1}{m} \cos \frac{2\pi m}{a} e^{-\frac{2\pi m}{a} |z|}.}
+\end{equation}
+This diverges far away due to the $|z|$ term, but that actually makes sense because far from the cage (at large $z$, we see the field of an infinite plane of charge, i.e. a constant field and a potential changing linearly with distance.
+
+That's the solution for a single wire plane. If we add two such planes separated by a distance $d$, then we have
+\begin{equation}
+    \varphi(x,y,z) = -\frac{\lambda}{2a\epsilon)} \overbrace{\paren{|z| + |d-z|}}^{{}=d\text{ ``inside,'' }0 < z < d} + \sum \dots
+\end{equation}
+and the exponential terms both decay inside exponentially fast.
+
+We can discuss separable solutions to Laplace's equation in some generality. For Cartesian coordinates, there are three separation constants $\alpha,\beta,\gamma$ with $\alpha^2 + \beta^2 + \gamma^2 =0$, It follows that most of our solutions will have oscillation in at least one direction and decay (or growth) in another. For spherical solutions, there are technically two independent solutions for the $\theta$ dependence, the associated Legendre polynomials $P_l^m$ and the other kind $Q_l^m$. The second kind are divergent at $\theta=\pi$ and sometimes at $\theta=0$. Cylindrical solutions have many different options; the radial dependence can be growing exponentially, decaying exponentially, growing as a log, or oscillating/decaying as cylindrical Bessel functions. We won't really discuss this in any large degree of detail, but it's good to be aware that such solutions exist.%
+    \footnote{Arfken has a very detailed discussion of Bessel functions and Legendre polynomials}
+
+\begin{exm}
+    Consider a ring of charge $Q$ and radius $R$. If we consider this in a spherical expansion, we can write
+    \begin{equation}
+        \varphi(r,\theta,\phi) = \begin{cases}
+            \sum_{l=0}^\infty \frac{B_l}{r^{l+1}} P_l(\cos\theta) & r > R,\\
+            \sum_{l=0}^\infty A_l r^l P_l(\cos\theta)& r< R.
+        \end{cases}
+    \end{equation}
+    But since these solutions must agree at $r=R$, we can actually write
+    \begin{equation}
+        \varphi(r,\theta,\phi) = \begin{cases}
+            \sum_{l=0}^\infty c_l \frac{R^{l+1}}{r^{l+1}} P_l(\cos\theta) & r > R,\\
+            \sum_{l=0}^\infty c_l \frac{r^l}{R^l} P_l(\cos\theta)& r< R.
+        \end{cases}
+    \end{equation}
+    Moreover, we can explicitly calculate
+    \begin{equation}
+        \varphi(r,0,0) = \frac{1}{4\pi \epsilon_0 } \frac{Q}{\sqrt{r^2+R^2}} = \frac{Q}{4\pi \epsilon_0 R} \sum_{l=0}^\infty \paren{\frac{r}{R}}^l P_l(0)
+    \end{equation}
+    for $r<R$ and the expansion of $\frac{1}{\sqrt{1-2tz + t^2}}$. Now we can just evaluate our general expansion for $r<R$ at $\theta=\pi/2$ using the fact that $P_l(\cos(\theta=\pi/2))=1$. Matching the $r$ dependence, we find that
+    \begin{equation}
+        c_l = \frac{Q}{4\pi \epsilon_0 R} P_l(0).
+    \end{equation}
+    It's a bit like analytic continuation---if we know a function on some line, we can actually extend it consistently elsewhere. Now that we have the coefficients $c_l$, we have the solution for $\varphi$.
+\end{exm}
+
+\begin{exm}
+    Consider a solid grounded conductor with a ``bite'' taken out of it. Suppose we can analyze this system in cylindrical coordinates with translational symmetry along the $z$-axis. Then our solution (in almost full generality: see our discussion from last time) is
+    \begin{equation}
+        \varphi(\rho,\phi,z) = (A_0+ B_0 \ln \rho)(C_0 \phi + D_0) + \sum_{\alpha \neq 0} \bkt{A_\alpha \rho^\alpha _\alpha \rho^{-\alpha}} \bkt{C_\alpha e^{i\alpha \phi} + D_\alpha e^{-i\alpha \phi}}.
+    \end{equation}
+    This will be the general solution so long as one of $A_\alpha,B_\alpha,C_\alpha,D_\alpha$ is zero for each $\alpha$. We'd like to avoid singularities as $\rho \to 0$. We can now write
+    \begin{equation}
+        \varphi(\rho\to 0,\phi,z) \propto \rho^{\pi/\beta} \sin\frac{\pi \phi}{\beta}
+    \end{equation}
+    as the leading dependence. That is, we've thrown away the $\rho^{-\alpha}$ and $\ln \rho$ dependence, and we also got rid of $C_0$ in order for our potential to be single-valued.
+    
+    If we look at $\vec E = -\grad \varphi$, we notice that
+    \begin{equation}
+        \P{\varphi}{\rho} \propto \frac{\pi}{\beta} \rho^{\pi/\beta - 1} \sin \frac{\pi \phi}{\beta},
+    \end{equation}
+    and we can now see that if $\beta > \pi$ (i.e. we have a spike, not a bite) then the corner will have very large electric fields at small $\rho$.
+\end{exm}
+
+\begin{exm}
+    Finally, let us consider two cylindrical rods aligned along the $z$-axis, separated by a little gap. We hold the rod at positive $z$ at a potential $V_R$ and the rod at negativ $z$ at a potential $V_L$. What is the potential inside the gap? There is no $\phi$ dependence, so $\alpha=0$ (we don't get the power-law decay/growth in $\rho$). Our boundary conditions are given in $\phi,z$, so we will take the separation constant $k^2<0$ to expand in $z$, and define $k=i\kappa$ as is conventional.
+    
+    This means we're expanding in Bessel functions $I$ and $K$, and since $K$ diverges as $\rho \to 0$, we will be using the functions $I$. THus
+    \begin{align}
+        \varphi(\rho,\phi,z) &= \frac{1}{2\pi} \int_0^\infty I_0(\kappa \rho) (E(\kappa) e^{i\kappa z} + F(\kappa) e^{-i\kappa z}) d\kappa + \text{constant}\
+            &= \frac{1}{2\pi} \Int A(\kappa) I_0(|\kappa|\rho) e^{i\kappa z} d\kappa + \text{constant.}
+    \end{align}
+    That is, we extended the limits of integration to $-\infty,\infty$ and now we recognize this integral as a Fourier transform. We can recover $A(\kappa) I_0(|\kappa|\rho)$ by taking an inverse Fourier transform.
+\end{exm}

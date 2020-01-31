@@ -1,0 +1,126 @@
+\begin{quote}
+    \textit{``Suppose you have a transparent beach ball. And you take one of these laser pointers that fools like to shine at airplanes and such things, and you shine it through your beach ball.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+
+Today's material is drawn from Arfken 6th edition, since the 7th edition has some sort of error we'll consider shortly. Consider a complex-valued function $f(z): \CC\to \CC$. Note that complex functions need not be one-to-one, and in fact they can even be multivalued if we're not careful (cf. our discussion of the function $\ln z, z\in \CC$).
+
+We can define a \term{Banach space} as a set such that for any two points $z_1,z_2\in \CC$, there exists a smooth function $f:[0,1] \to \CC$ such that $f(0) = z_1, f(1) =z_2$.%
+    \footnote{This seems to be a statement of the vector space being complete, in the sense we can define limits.}
+This allows us to talk abut derivatives of functions:
+\begin{equation}
+    f'(z) = \lim_{\Delta z \to )} \frac{f(z+\Delta z) - f(z)}{\Delta z},
+\end{equation}
+and the derivative $\frac{df}{dz}$ through a point must be unique and independent of the path.
+
+The existence and uniqueness of the derivative for complex functions is related to a set of constraints known as the Cauchy-Riemann conditions. That is,
+\begin{equation}
+    \exists f'(z) \iff \P{u}{x} = \P{v}{y}, \P{u}{y} = - \P{u}{x},
+\end{equation}
+where our complex function is
+\begin{equation}
+    f = u+ iv,\quad u, v: \CC \to \RR,
+\end{equation}
+and points in the domain are given by
+\begin{equation}
+    z= x+ iy, \quad x,y \in \RR.
+\end{equation}
+Let us consider two possible displacements,
+\begin{equation}
+    \Delta z = \Delta x, \quad \Delta z = i\Delta y.
+\end{equation}
+In the first case, the derivative takes the form
+\begin{equation}
+    \frac{df}{dz} = \frac{u(x+\Delta x, y) + i v(x+ \Delta x,y) - u(x,y) - i v(x,y)}{\Delta x} \to \P{u}{x} + i \P{v}{x}
+\end{equation}
+in the limit as $\Delta x \to 0$. In the second case, we instead have
+\begin{equation}
+    \frac{df}{dz} = \frac{u(x,y+\Delta y)+iv(x,y+\Delta y) - u(x,y) - i v(x,y)}{i\Delta y} = -i\P{u}{y} + \P{v}{y}.
+\end{equation}
+Now we equate real and imaginary parts and find that
+\begin{equation}
+    \P{u}{x} = \P{v}{y}, \quad \P{v}{x} = -\P{u}{y}.
+\end{equation}
+Hence the existence of the derivative implies Cauchy-Riemann.
+
+We shall now prove the converse, that Cauchy-Riemann implies the existence of the derivative. Suppose we have a path through a point $z$, and we are given the appropriate derivatives of $u$ and $v$ for some function $f$. Then
+\begin{equation}
+    \Delta f = \paren{\P{u}{x}\Delta x + \P{u}{y} \Delta y} + i \paren{\P{v}{x} \Delta x + \P{v}{y} \Delta y}.
+\end{equation}
+Hence
+\begin{equation}
+    \frac{\Delta f}{\Delta z} = \frac{\paren{\P{u}{x}\Delta x + \P{u}{y} \Delta y} + i \paren{\P{v}{x} \Delta x + \P{v}{y} \Delta y}}{\Delta x + i \Delta y}.
+\end{equation}
+Let us now apply Cauchy-Riemann and eliminate the $v$ derivatives. That is,
+\begin{equation}
+    \frac{\Delta f}{\Delta z} = \frac{\paren{\P{u}{x}\Delta x + \P{u}{y} \Delta y} + i \paren{-\P{u}{y} \Delta x + \P{u}{x} \Delta y}}{\Delta x + i \Delta y} = \P{u}{x}-i \P{u}{y}.
+\end{equation}
+It follows that all the path dependence in $\Delta x$ and $\Delta y$ drops out, so the derivative exists and moreover it is path-independent.
+We could also write
+\begin{equation}
+    \frac{df}{dz} = \P{u}{x} +i\P{v}{x},
+\end{equation}
+using Cauchy-Riemann.
+
+Now consider the function
+\begin{equation}
+    z^2 = (x+iy)^2 = \underbrace{x^2 -y^2}_u + i\underbrace{2xy}_v.
+\end{equation}
+We see that
+\begin{equation}
+    \P{u}{x} = 2x = \P{v}{y}, \quad \P{u}{y} = -2y = -\P{v}{x}.
+\end{equation}
+So this function is really analytic, as we might expect. In contrast,
+\begin{equation}
+    |z| = \sqrt{x^2+y^2}
+\end{equation}
+is not analytic, since $v=0$ for this function but $\P{u}{x} = \frac{x}{\sqrt{x^2+y^2}} \neq 0$ in general.
+
+Since we have
+\begin{equation}
+    f'(z) = \P{u}{x} + i \P{v}{X},
+\end{equation}
+we can now import all our results from regular calculus of real variables. The chain rule and the product rule all follow in the usual way.
+
+Suppose moreover that the second derivatives of $u$ and $v$ exist. Consider deriving the first with respect to $x$, and the second with respect to $y$. That is,
+\begin{equation}
+    \frac{\p^2 u}{\p x^2} = \frac{\p^2 v}{\p x \p y}, \quad \frac{\p^2 u}{\p^2 y} = -\frac{\p^2 v}{\p x \p y}.
+\end{equation}
+By the equality of mixed partials, we learn that
+\begin{equation}
+    \frac{\p^2 u}{\p x^2} = - \frac{\p^2 u}{\p y^2},
+\end{equation}
+or equivalently
+\begin{equation}
+    \Delta u = 0, \Delta v = 0,
+\end{equation}
+since we can perform the same argument for $v$ as well. This states exactly that $u$ and $v$ are \emph{harmonic functions}; they satisfy the 2D Laplace equation.
+
+Consider this in the form
+\begin{equation}
+    0 = \delta u = \P{u}{x} \delta x  + \P{u}{y} \delta y.
+\end{equation}
+This defines a trajectory along an equipotential. Then
+\begin{equation}
+    \left.\frac{\Delta y}{\Delta x}\right|_\text{u=\text{constant}} = -\frac{\p_x u}{\p_y u} = + \frac{\p_y v}{\p_x v}.
+\end{equation}
+This tells us that in fact $u$ and $v$ are related in a special way---in fact, the equipotentials of $u$ and $v$ are orthogonal.
+%When people want to pretend to be not shy but cool, they just look at the blank screen of their phone.
+
+To understand the idea of a ``point at infinity,'' let us place a two-sphere on the complex plane, with the south pole at the origin of the complex plane. Suppose we trace a line from the north pole to a point on the sphere, and then extend that line until it intersects the complex plane. Clearly, this is a one-to-one mapping between the plane and the sphere. But where is the point at the north pole mapped to? Effectively, it is mapped to all the points on a circle of infinite radius.%
+    \footnote{This construction is better known as the Riemann sphere.}
+%Suppose you have a transparent beach ball. And you take one of these laser pointers that fools like to shine at airplanes and such things, and you shine it through your beach ball.
+
+We can then define a Riemann sum on some path $f(z)$ starting at $z_0$ and ending at $z$. We can discretize the path as $\set{z_i}$ and sample along the way as
+\begin{equation}
+    \sum_i f(z_i) \Delta z.
+\end{equation}
+If the limit $\Delta z \to 0$ of this sum exists, then we say that
+\begin{equation}
+    \lim_{\Delta z  \to 0} \sum_i f(z_i) \Delta z \equiv \int_{z_0}^z f(z') dz'.
+\end{equation}
+In fact, we can write
+\begin{equation}
+    \int_C f(z) dz = \int (u+iv) (dx+idy) = \int(udx - vdy) + i \int(u dy + vdx).
+\end{equation}
