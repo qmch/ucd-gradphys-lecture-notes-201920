@@ -1,0 +1,93 @@
+\begin{quote}
+    \textit{``These days you see a lot of crap on the internet asking for the abandonment of all rules because we had certain expectations and hopes that did not come true. Just because certain of these confusions have failed to materialize doesn't mean you should adopt perpetuum mobile and hundred-headed dragons and so on.
+    \newline
+    ...unless you see one. Which I would love because it would keep me in business for another few decades.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+%These days you see a lot of crap on the internet asking for the abandonment of all rules because we had certain expectations and hopes that did not come true.
+%Just because certain of these confusion have failed to materialize doesn't mean you should adopt perpetuum mobile and hundred-headed dragons and so on. ...unless you see one. Which I would love because it would keep me in business for another few decades.
+
+We had two expansions of $1/z$, as
+\begin{equation}
+    \frac{1}{z} = \begin{cases}
+        \sum (-1)^n (z-1)^n\\
+        \sum i^{n-1} (z-i)^n.
+    \end{cases}
+\end{equation}
+The radius of convergence for each series is $1$. How could we prove that these series are one and the same? We need to look at the overlap and show that the series agree on an open set within the overlap region. Let us parametrize
+\begin{equation}
+    z= (\alpha + \frac{1}{2}) (1+i).
+\end{equation}
+For $\alpha$ real, we're just on the diagonal line between the axes. If we go a little bit off ($\alpha$ complex), then we can explore the overlap region more. That is, our first expansion becomes
+\begin{equation}
+    \sum (-1)^n \paren{(\alpha+ \frac{1}{2}) (1+i) -1}^n = (-1)^n \paren{\alpha + \frac{1}{2} - \frac{1}{1+i}}^n(1+i)^n.
+\end{equation}
+Now we use the binomial expansion to write
+\begin{equation}
+    \sum_{n=0}^\infty (1+i) \sum_{j=0}^n \binom{n}{j} \alpha^j \paren{\frac{1}{1+i} -\frac{1}{2}}^{n-j} (-1)^j.
+\end{equation}
+We can now change the order of summation as
+\begin{equation}
+    \sum_{j=0}^\infty \sum_{n=j}^\infty (1+i) \binom{n}{j} \alpha^j \paren{\frac{1}{1+i} -\frac{1}{2}}^{n-j} (-1)^j.
+\end{equation}
+If we now shift the dummy index $n$ to start at $0$ then we get
+\begin{equation}
+    \sum_{j=0}^\infty \sum_{n=0}^\infty (1+i) \binom{n+j}{j} \alpha^j \paren{\frac{1}{1+i} -\frac{1}{2}}^{n} (-1)^j.
+\end{equation}
+As it turns out, these binomial coefficients correspond to an expansion of some function. Recall that the ordinary binomial coefficients come from expanding $(1-x)^\alpha = 1 + \alpha + \frac{\alpha(\alpha-1)}{2!} +\dots$. In our case,
+\begin{equation}
+    \sum_{n=j}^\infty \binom{n}{j} x^{n-j}  = \frac{1}{(1-x)^{j+1}}.
+\end{equation}
+It follows that our series is really a single sum
+\begin{equation}
+    \sum_{j=0}^\infty \frac{(-1)^j 2^{j+1}}{1+i}\alpha^j.
+\end{equation}
+If we repeat the process (exercise, or in the textbook) for the second series, we find that these series have the same representation in terms of $\alpha$ over some range of $\alpha$ (in fact, $|\alpha|<1/2$).
+This is an example of analytic continuation---we've extended the region of validity of our expansion in order to show that two a priori different series in fact represent the same analytic function everywhere.
+
+Notice that in principle a function $f$ depends on both $x$ and $y$, but analyticity gave us stricter conditions on their real and imaginary parts. We said that for a general function $\phi$ with $\Delta \phi=0$,
+\begin{equation}
+    \p_z \p_{z^*} \phi = 0 \implies \phi = \phi_1(z) + \phi_2(z^*),
+\end{equation}
+a sum of a holomorphic and antiholomorphic part. One can show that for a function,
+\begin{equation}
+    \P{}{z^*} f = \P{f}{x}\P{x}{z^*} + \P{f}{y} \P{y}{z^*}.
+\end{equation}
+Since $z=x+iy, z^* = x-iy$, we can write
+\begin{equation}
+    x= \frac{z+z^*}{2}, \quad y = \frac{z-z^*}{2i}
+\end{equation}
+such that we can recover the Cauchy-Riemann conditions from the requirement that our function is purely holomorphic, $\P{f}{z^*}=0$.
+
+\subsection*{Residue theorem}
+Suppose we have a complex function with a Laurent series,
+\begin{equation}
+    f= \sum_{n=-\infty}^\infty a_n (z-z_0)^n.
+\end{equation}
+We can now integrate over closed contours $C$ to get
+\begin{equation}
+    \oint_C f dz = \sum_{n=-\infty}^\infty a_n \oint_C (z-z_0)^n.
+\end{equation}
+If $z_0$ is at worst an isolated singularity, then we can rewrite this contour integral in terms of the contour around a small circle enclosing only $z_0$, as
+\begin{equation}
+    \sum a_n \oint_{C_r} (z-z_0)^n = 2\pi i a_{-1}.
+\end{equation}
+Hence integrating over the contour around some point $z_0$ which is an isolated singularity only picks out the $a_{-1}$ coefficient.
+
+If there are multiple isolated singularities then
+\begin{equation}
+    \oint f(z) dz = \sum_i \oint_{C_r^i} f(z) dz = 2\pi i \sum_i a_{-1}^{(i)}.
+\end{equation}
+Hence we can compute integrals that look arbitrarily bad by taking the expansions of the function around the singular points and adding up the $a_{-1}$ coefficients of the expansions at each point.
+
+The coefficient of the $1/z$ term is called the residue. We say that
+\begin{equation}
+    \oint_C f(z) dz = 2\pi i \sum_{z_i \in \CC} \text{Res} f(z_i).
+\end{equation}
+What is the integral
+\begin{equation}
+    \oint_{|z|=4} \frac{1}{(z-1)(z-2)(z-3)}?
+\end{equation}
+We claim it is zero. Why? The reason is that this function goes to zero ``real fast'' as the radius of the circle goes to infinity. For the integral of the charges enclosed must be the negative of the integral of the charges outside, since we can flip the orientation of the curve and exchange inside and outside.%
+    \footnote{This is a good check on some of the homework problems. The sum of all the residues in the entire complex plane must be zero.}

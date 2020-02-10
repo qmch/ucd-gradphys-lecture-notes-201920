@@ -1,0 +1,76 @@
+%What's your favorite Fourier series? They're all the same.
+
+\begin{note}
+    As a logistical point, there will be no Green's functions on the midterm. The focus will be on Fourier series and complex analysis.
+\end{note}
+
+We have found a wonderful generalization of the Cauchy integral theorem; it is the Cauchy residue theorem, which says we can compute the contour integral bounding some region by summing up the \emph{residues} of the poles contained within. That is,
+\begin{equation}
+    \oint_C f dz = 2\pi i \sum_{z_i \in C} \text{Res}(z_i).
+\end{equation}
+We can study the point at infinity with an inversion map, $w=1/z$.%
+    \footnote{Further reading on conformal transformations can be found in W.K. Tung, and also Lie Groups and Algebras by Howard Georgi.}
+
+It follows that if we reverse the direction of the contour and traverse it clockwise, we capture all the singularities outside the contour. Thus if we sum over all the residues in the entire complex plane,
+\begin{equation}
+    \sum_{z_i} \text{Res}(z_i) =0.
+\end{equation}
+
+Let us also note that
+\begin{equation}
+    \oint dz f(z) = -\oint \frac{dw}{w^2} g(w).
+\end{equation}
+The residue is the $a_{-1}$ coefficient of $g(w)/w^2$, or equivalently the $a_1$ coefficient of $g(w)$.
+
+Notice that for a function with a simple pole,
+\begin{equation}
+    f= \frac{a_{-1}}{z-z_i} + f_A,
+\end{equation}
+we can very easily compute the residue by
+\begin{equation}
+    (z-z_i)f|_{z\to z_i} = a_{-1} + f_A*(z-z_i)|_{z\to z_i} = a_{-1}.
+\end{equation}
+The residue of a pole of order $n$ is a little more complicated, but not much. If we have
+\begin{equation}
+    f(z) = \frac{a_{-n}}{(z-z_i)^n} + \dots + \frac{a_{-1}}{z-z_I} + f_A.
+\end{equation}
+Then
+\begin{equation}
+    (z-z_i)^n f = a_{-n} + a_{-(n-1)}(z-z_i) + \dots a_{-1} (z-z_i)^{n-1} + f_A (z-z_i)^n.
+\end{equation}
+Now we wish to extract the $a_{-1}$ coefficient. But that's no problem. We take $n-1$ derivatives of this expression and then set $z\to z_i$. All the terms $a_{-n}$ to $a_{-2}$ will be killed off by the derivatives, while all the terms in $f_A$ vanish when we take $z\to z_i$. It follows that
+\begin{equation}
+    a_{-1} = \frac{1}{(n-1)!}\frac{d^{n-1}}{dz^{n-1}} \bkt{(z-z_i)^n f}
+\end{equation}
+
+Now the time has come to deal with singularities on the contour itself. We'll do this by using a technique from real analysis. Consider first the integral
+\begin{equation}
+    \int_{-b}^a \frac{dx}{x},
+\end{equation}
+with $a,b>0$. This is clearly ill-defined since $1/x$ diverges as $x\to 0$. But we can consider a limit. Suppose we take the integral from $-b$ to $-\epsilon^{(-)}$ and $\epsilon^{(+)}$ to $a$. That is,
+\begin{equation}
+    \int_{-b}^a \frac{dx}{x} = \int_{-b}^{-\epsilon^{(-)}} \frac{dx}{x} + \int_{\epsilon^{(+)}}^a \frac{dx}{x} = \ln \paren{-\frac{\epsilon^{(-)}a}{-b \epsilon^{(+)}}}.
+\end{equation}
+%You are freaked out by the log of a negative number. Why? You know complex numbers?
+%...you're right.
+
+We see that the value depends on the cutoffs $\epsilon^{\pm}$. If we set $\epsilon^{(-)} = \epsilon^{(+)},$ then this integral has a sensible sort of limit, which we call the Cauchy principal value:
+\begin{equation}
+    \mathcal{P} \int_{-b}^a \frac{dx}{x} = \ln \paren{-\frac{\epsilon a}{-b \epsilon}} = \ln(a/b). 
+\end{equation}
+
+Consider now the integral
+\begin{equation}
+    \int_0^\infty dx \frac{\sin x}{x}.
+\end{equation}
+Near $x=0$ this is regular since $\sin x\sim x$ for small $x$, and out at infinity, the oscillations of the sines make this function converge faster than $1/x$. It's like the alternating harmonic series.
+
+We can also write this as an integral over complex exponentials:
+\begin{align*}
+    \int_0^\infty dx \frac{e^{ix}-e^{-ix}}{2ix} &= \lim_{\epsilon \to 0}\frac{1}{2i} \int_\epsilon^\infty dx \frac{e^{ix}}{x} - \frac{1}{2i} \int_\epsilon^\infty dx \frac{e^{-ix}}{x}\\
+        &= \lim_{\epsilon\to 0} \frac{1}{2i} \int_\epsilon^\infty dx \frac{e^{ix}}{x} + \frac{1}{2i} \int_{-\infty}^{-\epsilon} dx \frac{e^{+ix}}{x}\\
+        &= \mathcal{P} \Int dx \frac{e^{ix}}{x}.
+\end{align*}
+If we extend this to an integral in the complex plane we can \emph{close the contour} and evaluate this by our usual Cauchy tricks. But the singularity lies on the contour. Should we include it or exclude it?
+
+Well, if we deform the contour as a small semicircle of radius $\epsilon$ about the singularity, either we enclose the contour and get an integral $\int_\pi^0 i \epsilon d\phi e^{i\phi} \frac{a_{-1}}{\epsilon e^{i\phi}}$ or we miss the singularity but we pick up extra distance. Either way the integral has value $\pi i a_{-1}.$

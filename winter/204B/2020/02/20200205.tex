@@ -1,0 +1,49 @@
+Last time, we introduced branch points and branch cuts. Branch cuts tell us where we cross from one copy of the complex plane (Riemann sheet) to another.
+
+A natural question to ask is where we should put our branch cut. In fact, it doesn't matter so long as our branch cut connects branch points. Notice for instance that $\sqrt{z}$ has a branch point at $0$, and it is also singular at the point at infinity. The placement of the branch cut is equivalent to us picking the fundamental domain of the Fourier series, as $0,2\pi$ or $-\pi,\pi$.
+
+\begin{exm}
+    Consider the function
+    \begin{equation}
+        f(z) = \sqrt{z^2-1} = \sqrt{z+1}\sqrt{z-1}.
+    \end{equation}
+    If we use $z=1/w$ and consider the behavior around $w=0$, we find that
+    \begin{equation}
+        \sqrt{\frac{1}{w^2}-1} = \frac{1}{w} \sqrt{1-w}\sqrt{1+w}.
+    \end{equation}
+    It now makes sense to study this around $w=0$. Indeed, $w=0$ is a pole with residue $1$. However, it is not a branch point.
+    
+    Let's go back to the original function. If we encircle the branch point at $z=1$ by a contour of radius $\rho$, we can parametrize this as $z=1+\rho e^{i\phi}$ and then
+    \begin{equation}
+        f(z) = \sqrt{2+\rho e^{i\phi}}\sqrt{\rho e^{i\phi}}.
+    \end{equation}
+    We see that the second factor will pick up a nontrivial phase factor as we run from $0$ to $2\pi$, whereas the second one is some number whose phase never exceeds $\pi/2$.%
+        \footnote{There's a book by E. Cartan on spin, which is related to these ideas. Spin $1/2$ objects must undergo a rotation by $4\pi$ to come back to the identity.}
+    
+    The same reasoning applies to the branch point at $z=-1$. However, if we encircle both branch points, we pick up a phase factor of $-1$ from each branch point, so the function is indeed single-valued so long as we don't cross the branch cut.
+\end{exm}
+%Now the little beam-me-up-scotty elevator is only this segment here to here. The only way to take the elevator is to close the loop around one only.
+%here you need to have an infinite network of... stargates, or whatever.
+
+\begin{exm}
+    Let us study $e^z= e^x e^{iy}$. For $y=0$, we have the real exponential $e^x$. The real line is mapped to the half-line under the exponential map, i.e. $(-\infty,\infty) \mapsto [0,\infty)$. If we look at the image of a line $x+y_0$ for a fixed $y_0\neq 0$ and $x\in \RR$, we see that $y_0$ becomes the phase of the ray. %see figure
+    
+    We can keep doing this until $y_0=2\pi$, at which point our line is mapped back to the original ray $[0,\infty)$. We see that in fact infinitely many points are mapped to the same ray, i.e. we get strips of width $2\pi$ in the domain all mapped to the complex plane in the image.
+\end{exm}
+
+We are also led to the idea of analytic continuation, i.e. riding the flux lines of a harmonic function.
+\begin{exm}
+    Consider the series
+    \begin{equation}
+        \sum_{n=0}^\infty (-1)^n (z-1)^n
+    \end{equation}
+    and
+    \begin{equation}
+        \sum_{n=0}^\infty i^{n-1}(z-i)^n.
+    \end{equation}
+    Notice the first one is simply
+    \begin{equation}
+        \sum(1-z)^n = \frac{1}{1-1(-z)} = \frac{1}{z}.
+    \end{equation}
+    In fact, the other is similar; it is just $1/z$ expanded around the point $z=i$.
+\end{exm}

@@ -1,0 +1,68 @@
+Polarization:
+\begin{equation}
+    \vec P = (\epsilon-\epsilon_0) \vec E = \epsilon_0(\kappa-1) \vec E = \epsilon_0 \chi \vec E.
+\end{equation}
+
+Displacement, linear media:
+\begin{equation}
+    \vec D =\epsilon \vec E =\kappa \epsilon_0 \vec E =\epsilon (1+\chi)\vec E
+\end{equation}
+
+Gauss laws (differential forms):
+\begin{equation}
+    \div \vec{E} = \frac{\rho}{\epsilon_0}, \quad \vec D = \epsilon_0 \vec E + \vec P = \epsilon \vec{E}
+\end{equation}
+
+Poisson's equation:
+\begin{equation}
+    \nabla^2 \varphi = -\frac{\rho}{\epsilon_0} = -\frac{\rho_f}{\epsilon}
+\end{equation}
+
+
+
+Energy in $E$-field:
+\begin{equation}
+    U_E = \frac{\epsilon_0}{2} \int d^3r \, |E|^2
+\end{equation}
+
+Pole expansion:
+\begin{equation}
+    Q_{i_1 i_2 \dots i_n} = \frac{1}{(n-1)!}\int d^3 r' \, \rho(\vec r') r_{i_1}' r_{i_2}' \dots r_{i_n}'.
+\end{equation}
+
+\subsection*{Chapter 4, multipoles}
+Dipole field:
+\begin{equation}
+    \vec E = \frac{1}{4\pi \epsilon_0} \bkt{\frac{3 (\vec p \cdot \uv r)\uv r-\vec p}{r^3}}= \frac{p}{4\pi \epsilon_0}\bkt{2\cos\theta \uv r +\sin\theta \hat{\gv \theta}}\tag{4.10}
+\end{equation}
+
+Force on a dipole and potential in a field:
+\begin{equation}
+    \vec F = (\vec p \cdot \grad) \vec E(\vec r), \quad V_E(\vec r) =-\vec p \cdot \vec E(\vec r) \tag{4.19, 4.26}
+\end{equation}
+
+Orthogonality, Legendre polynomials
+\begin{equation}
+    \int_{-1}^1 dx\, P_l(x) P_{l'}(x) = \frac{2}{2l+1} \delta_{ll'}\tag{4.75}
+\end{equation}
+
+Exterior expansion (azimuthal symmetry):
+\begin{equation}
+	\varphi(r,\theta) =\frac{1}{4\pi \epsilon_0} \sum_{l=0}^\infty \frac{A_l}{r^{l+1}} P_l(\cos\theta)
+\end{equation}
+\begin{equation}
+    \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \sum_{l=0}^\infty \sum_{m=l}^l A_{lm} \frac{Y_{lm}(\theta,\phi)}{r^{l+1}} \implies A_{lm} = \int d^3 r' \frac{4\pi}{2l+1} r'^l Y_{lm}^*(\theta',\phi') \rho(\vec r'). \tag{4.86,4.87}
+\end{equation}
+\begin{equation}
+    \varphi(\vec r) = \frac{1}{4\pi \epsilon_0} \sum_{l=0}^\infty \sum_{m=-l}^l
+\end{equation}
+
+Expanding Legendre polynomial in spherical harmonics:
+\begin{equation}
+    P_l (\uv r \cdot \uv r') = \frac{4\pi}{2l+1} \sum_{m=-l}^l Y_{lm}^* (\theta', \phi') Y_{lm}(\theta,\phi),
+\end{equation}
+
+Inverse distance, exterior expansion:
+\begin{equation}
+    \frac{1}{|\vec r - \vec r'|} = \frac{1}{r} \sum_{l=0}^\infty \paren{\frac{r'}{r}}^l P_l (\uv r \cdot \uv r') = \frac{1}{r} \sum_{l=0}^\infty \sum_{m=-l}^l \frac{4\pi}{2l+1} \paren{\frac{r'}{r}}^l Y_{lm}(\theta,\phi) Y_{lm}^* (\theta',\phi'),\quad r' < r.
+\end{equation}

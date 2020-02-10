@@ -1,0 +1,84 @@
+\begin{quote}
+    \textit{``You know this from Lewis Carroll's Jabberwocky.%
+        \footnote{Editor's note: The poem was actually The Walrus and the Carpenter, which appeared in \textit{Through the Looking-Glass.}}
+    `The time has come to talk of many things. Kings and cabbages and whether the sea is boiling hot and whether pigs have wings.' Singularities are the pigs with wings.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+
+\begin{note}
+    Homework submission deadline has been extended to 11 PM on Fridays. We'll get confirmation of this via email.
+\end{note}
+
+Last time, we began discussing analytic continuation. Analytic functions are highly constrained in their domain of analyticity. If we know the function and its derivatives at some point $z_0$ and the nearest singularity is at $z_1$, then we can Taylor expand the function in a circular domain centered on $z_0$ of radius $|z_0-z_1|$ given by
+\begin{equation}
+    f(z') = \sum_{n=0}^\infty \frac{ c_n}{n!} (z'-z_0)^n,
+\end{equation}
+with the coefficients given by the contour integral
+\begin{equation}
+    c_n = \frac{n!}{2\pi i } \oint_C \frac{f(z)}{(z-z_0)^{n+1}}.
+\end{equation}
+
+The intuition here is by analogy to charge. Potentials were expanded in multipole moments, and we shall see that complex functions have a similar expansion in terms of how singular they are. Suppose we have a complex function $f$ with some singularity at $z_1$ and $z_2$. %see figure
+
+We can construct an annular region between $z_1$ and $z_2$, and if we wish to find the value of some $z'$ in the region, it is given by
+\begin{equation}
+    f(z') = \frac{1}{2\pi i} \oint dz \frac{f(z)}{z-z'},
+\end{equation}
+where the contour is taken to be $C_1^{(-)} \cup C_2 \cup I^+ \cup I^-$. %see figure
+
+Now we can write this integral explicitly as
+\begin{equation}
+    f(z) = \frac{1}{2\pi i} \bkt{\oint_{C_2} \frac{f(z)}{z-z'} - \oint_{C_1} \frac{f(z)}{z-z'}.}
+\end{equation}
+Since
+\begin{equation}
+    z-z' = (z-z_0) \paren{1-\frac{z'-z_0}{z-z_0}},
+\end{equation}
+we can rewrite
+\begin{equation}
+    \frac{1}{z-z'} = \frac{1}{z-z_0} \sum_n \paren{\frac{z'-z_0}{z-z_0}}^n
+\end{equation}
+as before and therefore
+\begin{equation}
+    f(z') = \frac{1}{2\pi i} \paren{\sum_n (z'-z_0)^n \oint_{C_2} \frac{f(z)}{(z-z_0)^{n+1}}}-\frac{1}{2\pi i} \oint_{C_1} dz \frac{f(z)}{z-z'}.
+\end{equation}
+The second integral would just be zero by Cauchy's theorem if there were no central region of non-analyticity. However, we can handle this also.
+\begin{equation}
+    z-z' = z-z_0 -(z'-z_0).
+\end{equation}
+Now we can make a similar expansion as
+\begin{equation}
+    \bkt{-\frac{z-z_0}{z'-z_0} +1}(z'-z_0),
+\end{equation}
+and this first term can be expanded in the same way since now $|z-z_0| < |z'-z_0|$. Hence the second term becomes
+\begin{equation}
+    \frac{1}{2\pi i} \sum_{n=0} (z'-z_0)^{-(n+1)} \oint dz f(z) (z-z_0)^n.
+\end{equation}
+These are equivalent to the interior and exterior expansions of the electromagnetic potential in spherical coordinates.
+
+We can change the dummy variable and rewrite the exterior expansion as
+\begin{equation}
+    \frac{1}{2\pi i}\sum_{n=-1}^\infty (z'-z_0)^n \oint dz f(z) (z-z_0)^{-(n+1)}.
+\end{equation}
+It follows that we can write $f(z)')$ as a single sum
+\begin{equation}
+    f(z') = \sum_{n=-\infty}^\infty c_n \paren{z'-z_0}^n, \quad c_n \equiv \frac{1}{2\pi i } \oint_C dz \frac{f(z)}{(z-z_0)^{n+1}}.
+\end{equation}
+If $f$ is analytic at $z_0$, then for all $n=-1,-2,-3,\dots$ we get back the ordinary Taylor expansion because $1/(z-z_0)^{n+1}$ will just be a positive power of $z-z_0$. Conversely if $f$ has some sort of a singular point at $z_0$, we will pick up nontrivial $c_n$ for negative $n$. These integrals for negative $n$ are all zero iff the function is analytic at $z_0$.
+
+If there are only finitely many $c_n$ for negative $n$ which are nonzero, then we call the function \term{meromorphic}. These sorts of singularities are called poles. Functions which moreover have at worst first-order poles ($c_{-1}\neq 0$) are called holomorphic. If a function has infinitely many terms in its pole expansion we have instead an essential singularity.
+%You know this from Lewis Carroll's Jabberwocky. The time has come to talk of many things. Kings and cabbages and whether the sea is boiling hot and whether pigs have wings. Singularities are the pigs with wings.
+
+\subsection*{Branch points}
+We've seen that functions like $\ln z$ are multivalent; they have multiple consistent values for the same complex input.
+
+Consider first the function $z^2$. If we define a ray $z= \rho e^{i\phi}$, our function maps this ray at angle $\phi$ to a new ray at angle $2\phi$. It follows that the image is $2\phi=2\pi\sim 0$ for $\phi=\pi$, and as we sweep out our ray from $0$ to $2\pi$, the image of this ray will go around twice.
+
+But now we have a difficulty when we want to define the inverse. That is, if we write
+\begin{equation}
+    \sqrt{z} =\sqrt{\rho} e^{i\phi/2},
+\end{equation}
+then our function is only single-valued on some special region. There's a special line, the \term{branch cut}, which we are forbidden to cross. Branch cuts provide us with memory of which branch we are on, which gives us power to compute difficult integrals.%
+    \footnote{This is how many of the integrals in Gradshteyn and Ryzhik are done.}
+

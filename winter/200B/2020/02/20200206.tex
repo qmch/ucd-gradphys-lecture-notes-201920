@@ -1,0 +1,105 @@
+Today, we'll discuss Green's functions. The principle behind Green's functions is this. Consider an inhomogenous differential equation like the Poisson equation,
+\begin{equation}
+    \nabla^2 \varphi(\vec r) = -\frac{\rho(\vec r)}{\epsilon_0}.
+\end{equation}
+A Green's function is the inverse of the differential operator. It is the solution to the inhomogenous equation with a delta function source, i.e. for $\rho(\vec r) = \delta(\vec r - \vec r')$,
+\begin{equation}\label{eqn:poissongreenfn}
+    \nabla^2 G(\vec r, \vec r') = -\frac{1}{\epsilon_0} \delta(\vec r - \vec r').
+\end{equation}
+In fact, we know what potential corresponds to a point charge:
+\begin{equation}
+    G_0(\vec r, \vec r') = \frac{1}{4\pi \epsilon_0} \frac{1}{|\vec r - \vec r'|}.
+\end{equation}
+Strictly, Zangwill calls this the free-space Green's function because for any solution of Poisson's equation, we can simply add another solution of Laplace's equation (the homogeneous equation). In general the exact solution will have to be fixed by boundary conditions. Trivially, we can write that
+\begin{equation}
+    \int d^3 r' \, \rho(\vec r') \delta(\vec r-\vec r') = \rho(\vec r).
+\end{equation}
+If we multiply both sides of Eq.~\eqref{eqn:poissongreenfn} by $\rho(\vec r')$ and perform the $\vec r'$ integral, we get
+\begin{equation}
+    \nabla^2 \int d^3 r' \, G(\vec r,\vec r') \rho(\vec r') = -\frac{1}{\epsilon_0} \int d^3 r' \, \rho(\vec r') \delta(\vec r- \vec r') = -\frac{\rho(\vec r)}{\epsilon_0}.
+\end{equation}
+We conclude that in fact
+\begin{equation}
+    \varphi(\vec r) = \int d^3 r' \, G(\vec r, \vec r') \rho(\vec r').
+\end{equation}
+That is, the Green's function lets us build the solution to the inhomogeneous equation by integrating over (appropriately weighted) point charge potentials.
+
+When we come to boundary value problems, there's an added complication. The potential of a point charge in a grounded box (and therefore its field) looks quite different than a potential in empty space. Let's start our discussion as follows:
+\begin{equation}
+    \int d\vec S' \cdot f\grad' g = \int d^3 r' \grad'\cdot (f\grad' g) = \int d^3 r' \bkt{\grad' f \cdot \grad' g + f \nabla'{}^2 g}.
+\end{equation}
+This is just a vector calculus manipulation. If we swap $f$ and $g$ and subtract from our original equation, we get
+\begin{equation}
+    \int d\vec S ' \cdot \bkt{f\grad' g - g \grad' f} = \int d^3 r' \bkt{f\nabla'{}^2 g - g\nabla'{}^2 f}.
+\end{equation}
+Let us now take
+\begin{equation}
+    f(\vec r') = \varphi(\vec r'), \quad g(\vec r') = G(\vec r, \vec r').
+\end{equation}
+Then
+\begin{equation}
+    \int d\vec S' \cdot \bkt{\varphi \grad' G - G \grad' \varphi} = \int d^3 r' \bkt{\varphi \grad'{}^2 G - G \grad'{}^2 \varphi} = -\frac{1}{\epsilon_0} \varphi(\vec r) + \frac{1}{\epsilon_0} \int d^3 r' G(\vec r, \vec r') \rho (\vec r').
+\end{equation}
+Hence we get back our inhomogenous solution, the $d^3r'$ integral, plus a homogenous solution given by the $d\vec S'$ integral. This surface term is very nice---if $\varphi$ is prescribed on the boundary (Dirichlet boundary conditions) then we can evaluate the first term in
+\begin{equation}
+    \int d\vec S' \cdot \bkt{\varphi \grad' G - G \grad' \varphi},
+\end{equation}
+and moreover if $G=0$ on the boundary then we just have to compute the first integral. Conversely if we had Neumann boundary conditions, then we should set $\uv n \cdot \grad' G =0$ so that the normal derivative of $G$ vanishes and we need only compute the second term.
+
+\begin{exm}[``Splitting'']
+    Let's consider Zangwill's third example. We wish to construct $G_D(\vec r, \vec r')$, the Green's function for a particular set of Dirichlet boundary conditions, $G_D(\vec r, \vec r')=0$ for $\vec r$ on some surface. We now remark that the Dirichlet Green's function can be written as a sum
+    \begin{equation}
+        G_D(\vec r, \vec r') = G_0 (\vec r, \vec r') + \Lambda(\vec r, \vec r') = \frac{1}{4\pi \epsilon_0} \frac{1}{|\vec r - \vec r'|} +\Lambda (\vec r, \vec r'),
+    \end{equation}
+    where $\Lambda$ solves the homogeneous equation (the Laplace equation).
+    
+    For instance, consider a point charge in a cylinder of length $L$ and radius $R$. The process of constructing the Green's function is as follows. Consider the potential sourced by the point charge in empty space. We can solve for the potential on the cylinder, and then solve Laplace's equation for some $\Lambda$ with \emph{minus} that potential as the boundary conditions. If we add the two solutions, we get the field of a point charge in a grounded cylinder which appears in our ordinary $\int d^3 r' G(\vec r, \vec r')\rho(\vec r')$ integral, and the boundary conditions will be fit by the surface term.
+    
+    For $\Lambda$, we can build a solution in the cylinder as
+    \begin{equation}
+        \sum_{m=-\infty}^\infty \sum_{n=1}^\infty A_{mn} \bkt{e^{im\phi} I_m (\frac{n\pi}{L} \rho) \sin \frac{n\pi z}{L}},
+    \end{equation}
+    corresponding to the $m\neq 0$ case and $k^2 <0$ (so we have oscillations in the $z$-direction) and
+    \begin{equation}
+        \sum_{m=-\infty}^\infty \sum_k \bkt{e^{im\phi} J_m(k\rho) (A_{mk} e^{kz} + B_{mk} e^{-kz})},
+    \end{equation}
+    where the $k$s are now given by a different sort of discretizing condition such that $J_m(kR)=0$.%
+        \footnote{We don't need to treat the $m=0$ case separtely, since the $\rho$ dependence only changes when $k=0$. While the $m=0$ angular dependence would be $C_0\phi + D_0$, we can't have a linear piece in $\phi$ on the grounds of periodicity, so the constant $D_0$ can be absorbed into the overall constant.}
+\end{exm}
+
+What's the use of the Green's function? If we have a single distribution given the boundary conditions, it might be better to just solve the problem once using our regular tricks. But if we have a set of similar problems with the same boundary conditions, it might be better to solve the Green's function once and then reuse it to generate solutions.
+
+In 1D, Green's functions can be solved by direct integration:
+\begin{equation}
+    \frac{\p^2 G(x,x')}{\p x^2} = \delta(x-x') \to \P{G(x,x')}{x} = \Theta(x-x')+C \to G(x,x') = \frac{1}{2} |x-x'| +Cx + D.
+\end{equation}
+In 3D, we can instead write $\delta(\vec r- \vec r')$ as the product of 1D delta functions. For instance, we might write
+\begin{equation}
+    \delta(\vec r-\vec r') = \delta(\rho- \rho') \delta(z-z') \frac{\delta(\phi-\phi')}{\rho}.
+\end{equation}
+This is dimensionally correct; the $1/\rho$ comes from the fact the integration measure is $\rho d\rho d\phi dz$ in cylindrical coordinates.
+
+We might then get rid of two delta functions via Fourier (or other integral) transforms to write
+\begin{align}
+    \delta(z-z') &= \frac{1}{2\pi} \Int dk e^{ik(z-z')} = \frac{1}{\pi} \int_0^\infty dk \cos k(z-z'),\\
+    \delta(\phi-\phi') &=\frac{1}{2\pi} \sum_{m=-\infty}^\infty e^{im (\phi-\phi')}.
+\end{align}
+Putting it back together, it follows that
+\begin{equation}
+    \delta(\vec r- \vec r') = \frac{1}{2\pi^2} \frac{\delta(\phi-\phi')}{\rho} \sum_{m=-\infty}^\infty \int_0^\infty dk\, e^{im (\phi-\phi')} \cos k(z-z').
+\end{equation}
+We can expand the Green's function in the same basis, as
+\begin{equation}
+    G(\vec r,\vec r') = \frac{1}{2\pi^2} \sum_{m=-\infty}^\infty \int_0^\infty dk\, e^{im (\phi-\phi')} \cos k(z-z') G_m(\rho, \rho'; k),
+\end{equation}
+where we get some coefficients $G_m(\rho,\rho';k)$ which depend on the discrete values of $m$ as well as the continuous variable $k$.
+
+If you buy that we can expand the Green's function in this way, then we can explicitly compute the Laplacian of $G$ and find the coefficients $G_m$ by comparison to the expansion of the delta function in this basis (orthogonality, if you like). That is,
+\begin{equation}
+    \nabla^2 G(\vec r, \vec r') = -\frac{1}{\epsilon_0}(\vec r-\vec r') \implies \nabla^2 G_m(\rho, \rho'; k) = -\frac{\delta(\rho-\rho')}{\epsilon_0 \rho}.
+\end{equation}
+This is now an equation we can solve for $G_m$; it is a 1D Green's function problem. If we compute the Laplacian in cylindrical coordinates, we have
+\begin{equation}
+    \frac{1}{\rho} \frac{d}{d\rho} \paren{\rho \frac{dG_m}{d\rho}}-\paren{k^2 + \frac{m^2}{\rho^2}} G_m = -\frac{1}{\epsilon_0} \frac{\delta(\rho-\rho')}{\rho}.
+\end{equation}
+Notice what happens. For $\rho < \rho'$ we have Laplace's equation since the RHS vanished. For $\rho > \rho'$ we also have Laplace's equation. What we have to do is match the solutions at the boundaries, and that's where we'll pick up on Tuesday.
