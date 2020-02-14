@@ -1,0 +1,146 @@
+Last time, we started thinking about constructing the Green's function for a cylinder. We found that if we expanded the Green's function in a Fourier basis as
+\begin{equation}
+    G(\vec r,\vec r') = \frac{1}{2\pi^2} \sum_{m=-\infty}^\infty \int_0^\infty dk\, e^{im (\phi-\phi')} \cos k(z-z') G_m(\rho, \rho'; k),
+\end{equation}
+and via Laplace's (Poisson's) equation, the coefficients $G_m$ satisfy
+\begin{equation}
+    \frac{1}{\rho} \frac{d}{d\rho} \paren{\rho \frac{dG_m}{d\rho}}-\paren{k^2 + \frac{m^2}{\rho^2}} G_m = -\frac{1}{\epsilon_0} \frac{\delta(\rho-\rho')}{\rho},
+\end{equation}
+which is Bessel's equation away from $\rho = \rho'$ but with negative $k$.
+
+One can then use the solutions to Bessel's equation to construct the Green's function in the regions $\rho < \rho'$ and $\rho > \rho'$. That is,
+\begin{equation}
+    G_m (\rho,\rho'; k) = \begin{cases}
+        a_m I_m(k\rho), & \rho < \rho'\\
+        b_m K_m(k\rho), & \rho > \rho'.
+    \end{cases}
+\end{equation}
+That is, we consider $\rho'$ fixed and we want the solution for a delta-function charged cylinder. In fact, we write%
+    \footnote{Equivalently this comes from the fact that the Green's function for a self-adjoint operator is symmetric in its arguments, cf. Arfken 8.2.}
+\begin{equation}
+    G_m (\rho,\rho'; k) = \begin{cases}
+        a_m I_m(k\rho) K_m(k\rho'), & \rho < \rho'\\
+        a_m K_m(k\rho) I_m(k\rho'), & \rho > \rho'
+    \end{cases}
+\end{equation}
+by the matching condition of continuity at $\rho=\rho'$.
+
+There's another matching condition, the discontinuity in the derivative about $\rho=\rho'$.%
+    \footnote{This is very much like the delta-function potential in the Schr\"odinger equation.}
+That is,
+\begin{equation}
+    \int_{\rho'-\Delta}^{\rho'+\Delta}d\rho \bkt{\frac{1}{\rho} \P{}{\rho}\paren{ \rho \P{G_m}{\rho}} - (k^2 + \frac{m^2}{\rho^2})G_m} = \int -\frac{1}{\epsilon_0} \frac{\delta(\rho-\rho')}{\rho} d\rho.
+\end{equation}
+The term proportional to $G_m$ is regular over the interval so it goes away; the other gives a derivative
+\begin{equation}
+    \P{G_m}{\rho}|{\rho \to \rho'{}^+} - \P{G_m}{\rho}|_{\rho \to \rho'{}^-} = -\frac{1}{\epsilon_0 \rho}.
+\end{equation}
+Now we explicitly compute the derivative.
+\begin{equation}
+    \P{G_m}{\rho}|_{\rho \to \rho'{}^-} = a_m k K_m(k\rho') I_m'(k\rho'), \quad \P{G_m}{\rho}|_{\rho \to \rho'{}^+} = a_m k K_m'(k\rho') I_m(k\rho'),
+\end{equation}
+so we find that
+\begin{equation}
+    a_m k \bkt{K_m'(\rho') I_m(k\rho') - I_m' (k\rho') K_m(k\rho') }= -\frac{1}{\epsilon_0 \rho'}.
+\end{equation}
+In fact, the LHS is just the Wronskian of the solutions to the Bessel equation. It is equal to 
+\begin{equation}
+    a_m k \bkt{K_m'(\rho') I_m(k\rho') - I_m' (k\rho') K_m(k\rho') } = a_m k \paren{-\frac{1}{k\rho'}},
+\end{equation}
+so we find that in fact
+\begin{equation}
+    a_m = \frac{1}{\epsilon_0}.
+\end{equation}
+Zangwill and Jackson both try to condense the notation by using $\rho_<$ and $\rho_>$ using the symmetry as
+\begin{equation}
+    G_m (\rho,\rho'; k) = \begin{cases}
+        \frac{1}{\epsilon_0} I_m(k\rho) K_m(k\rho'), & \rho < \rho'\\
+        \frac{1}{\epsilon_0} K_m(k\rho) I_m(k\rho'), & \rho > \rho'
+    \end{cases} = \frac{1}{\epsilon_0} I_m(k\rho_<) K_m(k\rho_>).
+\end{equation}
+
+We've solved the Neumann boundary condition and found an expression which solves Laplace's equation away from the cylinder and has the right discontinuity on the wall ($\rho=\rho'$). What about the Dirichlet condition? We can add on a piece (another Bessel solution in $\rho$) to make this vanish at the wall $\rho =R$, i.e.
+\begin{equation}
+    G_m (\rho,\rho'; k) = \begin{cases}
+        \displaystyle\frac{1}{\epsilon_0} I_m(k\rho) \bkt{K_m(k\rho')-I_m(k\rho') \frac{K_m(kR)}{I_m(kR)}}, & \rho < \rho'\\
+        \displaystyle\frac{1}{\epsilon_0} K_m(k\rho) \bkt{I_m(k\rho')-I_m (k\rho)\frac{K_m(kR)}{I_m(kR)}}, & \rho > \rho'.
+    \end{cases}
+\end{equation}
+
+%Last time, we said there were three ways of finding Green's functions.
+\subsection*{Eigenfunction expansion}
+We can do an eigenfunction expansion of the following (Sturm-Liouville) problem:
+\begin{equation}
+    -\nabla^2 \psi_n = \lambda_n \psi_n.
+\end{equation}
+This is a Schr\"odinger equation, as we know. And we will set $\psi=0$ on a boundary, specifically a cylinder. That is, we have a particle in a box. Suppose that we have some set of eigenfunctions $\set{\psi_n}$, suitably normalized (e.g. by the usual $L^2$ norm), and moreover the set is complete,
+\begin{equation}
+    \sum_n \psi_n(\vec r) \psi_n^*(\vec r') = \delta(\vec r- \vec r').
+\end{equation}
+We see that we've got a delta function; can we turn the LHS into something that looks like a Laplacian? We write down
+\begin{equation}
+    G_D(\vec r, \vec r') = \frac{1}{\epsilon_0} \sum_n \frac{\psi_n(\vec r) \psi_n^*(\vec r')}{\lambda_n}.
+\end{equation}
+We check that this is right by taking the Laplacian explicitly:
+\begin{equation}
+    \nabla^2 G_D = \frac{1}{\epsilon_0} \sum_n (-\psi_n(\vec r)) \psi^*_n(\vec r') = -\frac{1}{\epsilon_0} \delta(\vec r-\vec r').
+\end{equation}
+So this works! But the hard part is loaded into actually finding the eigenfunctions $\psi_n$.
+
+Let's see what happens in cylindrical coordinates. We make the separable ansatz
+\begin{equation}
+    \psi(\rho,\phi,z) = R(\rho) \Phi(\phi) Z(z),
+\end{equation}
+and we write
+\begin{equation}
+    \nabla^2 \psi + \lambda \psi = 0.
+\end{equation}
+%I'm amazed that you have such strong feelings about variables. I do not understand.
+
+Separation of variables yields
+\begin{equation}
+    \frac{1}{R}\frac{1}{\rho} \frac{d}{d\rho} \paren{\rho \frac{dR}{d\rho}} + \frac{1}{\rho^2} \frac{1}{\Phi} \frac{d^2 \Phi}{d\phi^2} = \underbrace{-\lambda -\frac{1}{Z} \frac{d^2 Z}{dz^2}}_{\equiv -k^2}.
+\end{equation}
+We pick our first separation constant to be $-k^2$ and find that
+\begin{equation}
+    (\lambda - k^2)Z = -\frac{d^2Z}{dz^2} \implies Z(z) = e^{\pm i \sqrt{\lambda-k^2} z}.
+\end{equation}
+Now we have
+\begin{equation}
+    \frac{1}{R}\frac{1}{\rho} \frac{d}{d\rho} \paren{\rho \frac{dR}{d\rho}} + \frac{1}{\rho^2} \frac{1}{\Phi} \frac{d^2 \Phi}{d\phi^2} = -k^2,
+\end{equation}
+and then we can multiply through by $\rho^2$ and set
+\begin{equation}
+    \frac{1}{\Phi} \frac{d^2\Phi}{d\phi^2} = -m^2 \implies \Phi(\phi) e^{\pm im\phi}.
+\end{equation}
+Finally, the last equation from separation of variables turns out to be Bessel's equation, so they have solutions
+\begin{equation}
+    R(\rho) = J_m(k\rho), N_m(k\rho).
+\end{equation}
+This time we want the oscillatory solutions in $\rho$ since we are in a confined region that does not extend to infinity. In fact we should throw away the $N_m$, since these diverge as $\rho\to 0$. The allowed values of $k$ come from the boundary condition on the side of the cylinder. Moreover we can choose
+\begin{equation}
+    Z(z) = \sin (\sqrt{\lambda-k^2}z),
+\end{equation}
+which has the property that it will vanish on the circular faces of the cylinder (say, of height $L$) provided that $\sqrt{\lambda-k^2} = \frac{n\pi}{L}$. We find that
+\begin{equation}
+    \psi_{mkn} = A_{mkn} \sin \frac{n\pi z}{L} e^{im\phi} J_m(k\rho),
+\end{equation}
+and to summarize, the condition of $m$ being discrete comes from periodicity in $\phi$; $k$ being discrete comes from setting the $J_m$s to be zero on the side of the cylinder; and $n$ comes from setting $Z(z)$ to be zero at $z=0$ and $z=L$. The eigenvalue $\lambda$ is then a function of $k$ and $n$, as
+\begin{equation}
+    \lambda = \frac{n^2\pi^2}{L} + k^2.
+\end{equation}
+
+We'll mostly skip Chapter 9 of Zangwill, which deals with steady-state currents without discussing magnetic fields. Next time we'll consider the Aharanov-Bohm effect, which is a fun and cool thing not in the book.
+
+Let's just start thinking about steady-state charge and current distributions. In this limit, Maxwell's equations read
+\begin{gather}
+    \div \vec E = \frac{\rho}{\epsilon_0}, \quad \curl \vec E = 0,\\
+    \div \vec B = 0, \quad \curl \vec B = \mu_0 \vec j.
+\end{gather}
+Since there is no time dependence, we can still use our tricks from potential theory and so on. The two equations dealing with $\vec E$ are totally unchanged.
+
+We'll consider a version of Ohm's law which is as follows:
+\begin{equation}
+    \vec j = \sigma \vec E = \frac{1}{\rho} \vec E,
+\end{equation}
+where $\sigma$ is conductivity and $\rho$ is resistivity.

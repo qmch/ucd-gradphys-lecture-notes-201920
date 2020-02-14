@@ -1,0 +1,141 @@
+\begin{quote}
+    \textit{``If you're not making mistakes you're not working on the right problems.''}
+    
+    ---Frank Wilczek
+\end{quote}
+
+Correction to something from last time. Last time, we talked about the generalization of the Mittag-Leffler theorem. The correction is this---for higher-order poles, we need to consider the behavior of the function at infinity, i.e. ensure that $f(z)/z \to 0$ as $z\to \infty$. If there are higher-order poles at infinity we can write
+\begin{equation}
+    \oint_{C_R} dw \frac{f(w)}{(w-z)^{n+1}}.
+\end{equation}
+
+Suppose we have a function $f(z)$ which admits a Laurent expansion
+\begin{equation}
+    f(z) = \underbrace{\sum_{n=-N}^{-1} a_n (z-z_k)^n}_{S_(z)} + f_A(z)
+\end{equation}
+about a singular point $z_k$. All the poles can be denoted as a singular part $S(z)$. Now if we take the sum
+\begin{equation}
+    f(z) = \sum_{n=1}^\infty \bkt{S_n(z) - S_n(z_0)} + f(z_0).
+\end{equation}
+That is, we sum up all the singular parts and subtract off the $1/z_n$ pieces, and add on the analytic part. Mittag-Leffler says that
+\begin{equation}
+    f(z) = \sum_{n=1}^\infty \bkt{S_n(z)} +Q,
+\end{equation}
+where $Q$ is some constant offset. This is true for $z$ or $z_0$, so when we extract all the singular pieces, what remains is the same no matter where we expand. In fact, this is just a complex analysis statement that the electrostatic potential (which satisfies Laplace's equation) is determined by the boundary conditions, possibly up to a constant. We'll get the proof by an email announcement later.
+
+\subsection*{Trigonometric integrals by contour integration}
+Suppose we have some trigonometric integral
+\begin{equation}
+    \int_0^{2\pi} f(sin\phi, \cos\phi)d\phi.
+\end{equation}
+Well, we can easily rewrite
+\begin{equation}
+    \sin \phi = \frac{1}{2i}(z-z^*) = \frac{1}{2i} (z +z^{-1})
+\end{equation}
+when $z$ lies on the unit circle, $|z|=1$, and similarly
+\begin{equation}
+    \cos\phi = \frac{1}{2} (z+z^{-1})
+\end{equation}
+where we have taken
+\begin{equation}
+    z=e^{i\phi}, \quad d\phi= \frac{dz}{iz}.
+\end{equation}
+It follows that our integral is completely equivalent to the contour integral
+\begin{equation}
+    \oint_{|z|=1} dz \, f(\frac{1}{2i}(z-z^{-1}), \frac{1}{2}(z+z^{-1})) = 2\pi i \sum \text{Res}f
+\end{equation}
+for the residues inside the unit circle. If a pole lies on the unit circle, we use the principal value.
+
+\begin{exm}
+    Consider the integral
+    \begin{equation}
+        \int_0^{2\pi} d\phi \frac{1}{1+a\cos\phi}
+    \end{equation}
+    for $a$ a real number.
+    By our change of variables this is just
+    \begin{equation}
+        \oint \frac{dz}{iz} \frac{1}{1+a(z+z^{-1})/2} = \oint \frac{dz}{i} \frac{1}{z+\frac{a}{2}(z^2+1)}.
+    \end{equation}
+    Factoring, we find that this is
+    \begin{equation}
+        -\frac{2i}{a} \oint \frac{dz}{(z-z_+)(z-z_-)}
+    \end{equation}
+    with
+    \begin{equation}
+        z_\pm = -\frac{1 \pm \sqrt{1-a^2}}{a}.
+    \end{equation}
+    If $a<1$ then both these roots are real, and moreover one lies outside the unit circle while the other lies inside. If $a>1$ then the roots are complex and may both lie inside the unit circle.
+    
+    For the $a<1$ case only $z_-$ lies inside the circle, and we get
+    \begin{equation}
+        2\pi i \paren{-\frac{2i}{a}} \frac{1}{z_- -z_+} = \frac{2\pi}{\sqrt{1-a^2}}.
+    \end{equation}
+\end{exm}
+
+\begin{exm}
+    Consider the integral
+    \begin{equation}
+        \int_{-\infty}^\infty dx \,f(x).
+    \end{equation}
+    Suppose that $f(x)$ is a real-valued function on the real line, and moreover it can be extended into the complex plane with finitely many singularities in the upper half-plane.
+    
+    We also need $f$ to go to zero sufficiently quickly, i.e.
+    \begin{equation}
+        f(z) \to \frac{1}{|x|^{1+\epsilon}}
+    \end{equation}
+    as $x\to \infty$. Moreover let us say that
+    \begin{equation}
+        zf(z) \to 0
+    \end{equation}
+    as $|z|\to \infty$.
+    
+    We can compute this real integral by \emph{closing the contour}, i.e. by integrating along the real axis from $-R$ to $R$ and then along a semicircular path in the complex plane of radius $R$. That is, our integral becomes
+    \begin{equation}
+        \oint f(z)dz = \lim_{R\to \infty} \int_{-R}^R f(x) dx + i \int_0^\pi d\phi R e^{i\phi} f(Re^{i\phi})= \Int f(x)dx.
+    \end{equation}
+    where the second integral has vanished in the limit as $R\to \infty$.
+    
+    Note that we could have closed the contour in the lower half-plane, up to a minus sign.
+\end{exm}
+
+\begin{exm}
+    Consider
+    \begin{equation}
+        \int_0^\infty \frac{dx}{x^2+1}.
+    \end{equation}
+    This is an even function, so we can rewrite it as
+    \begin{equation}
+        \frac{1}{2} \Int \frac{dx}{(x-i)(x+i)}.
+    \end{equation}
+    This goes to zero faster than $1/x$, so we can close the contour either way. If we close it in the upper half-plane we get the pole at $+i$, and if we close it in the lower half-plane we get the pole at $-i$ (and we pay a minus sign for running counterclockwise). That is,
+    \begin{equation}
+        \frac{1}{2} \Int \frac{dx}{(x-i)(x+i)} =\frac{1}{2} (2\pi i) \frac{1}{2i}= \pi/2.
+    \end{equation}
+\end{exm}
+
+\begin{exm}
+    Consider
+    \begin{equation}
+        \Int dx \, f(x) e^{iax},
+    \end{equation}
+    with $a>0$. We shall require that $f(x) \to 0$ and in fact $f(z)\to 0$ as $z\to +\infty + i\epsilon.$
+    
+    If we close the contour in the upper half-plane, we have
+    \begin{equation}
+        \Int dx f(x) e^{iax} + i \int_0^\pi d\phi Re^{i\phi} f(Re^{i\phi} e^{ia(R\cos\phi + i R\sin\phi)}.
+    \end{equation}
+    Let us also bound it:
+    \begin{equation}
+        \abs*{ \int_0^\pi d\phi Re^{i\phi} f(Re^{i\phi}) e^{ia(R\cos\phi + i R\sin\phi)}} < \int_0^\pi d\phi R\abs*{f(Re^{i\phi})} e^{-a R\sin\phi}.
+    \end{equation}
+    The sine is even about $\pi/2$, so we can change the interval and notice that from $[0,\pi/2]$, $\sin\phi > \frac{2\phi}{\pi}$. Hence
+    \begin{align*}
+        \int_0^\pi d\phi R\abs*{f(Re^{i\phi})} e^{-a R\sin\phi} &= 2R\int_0^{\pi/2} d\phi  \abs*{f(Re^{i\phi})} e^{-a R\sin\phi}\\
+            &< 2R \epsilon \int_0^{\pi/2} d\phi e^{-aR 2\phi/\pi}\\
+            &= 2R\epsilon \frac{\pi}{2aR} e^{-aR \frac{2\phi}{\pi}}|_0^{\pi/2}\\
+            &= \frac{\pi}{a} \epsilon(1-e^{-aR}) \to 0.
+    \end{align*}
+    It follows that the integral along the semicircle is in fact zero, so we can safely close the contour in the upper half-plane.
+\end{exm}
+
+Fair game for the midterm is up to today's lecture, not including integrals that oscillate at infinity.

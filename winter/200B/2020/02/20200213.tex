@@ -1,0 +1,131 @@
+\subsection*{Magnetostatics}
+Magnetostatics is the area of electromagnetism dealing with steady-state currents (i.e. currents that do not change in time). The two magnetism Maxwell's equations then read
+\begin{equation}
+    \div \vec B = 0, \quad \curl \vec B = \mu_0 \vec j.
+\end{equation}
+Away from currents, we actually have
+\begin{equation}
+    \curl \vec B =0 
+\end{equation}
+and therefore we can define a magnetic scalar potential,
+\begin{equation}
+    \vec B = -\grad \chi \text{ with }\nabla^2 \chi=0.
+\end{equation}
+That is, for magnetostatics, one can define a scalar potential which also solves Laplace's equation away from current (density).
+
+However, in regions where there is current we cannot quite do this. Instead, we can apply the Helmholtz theorem and write
+\begin{equation}
+    \vec B(\vec r) = \curl \underbrace{\paren{\frac{\mu_0}{4\pi} \int d^3 r' \frac{\vec j(\vec r')}{|\vec r - \vec r'|}}}_{\vec A(\vec r)}.
+\end{equation}
+One can equivalently move the curl inside (acting on unprimed coordinates) and write
+\begin{equation}
+    \vec B(\vec r) = \frac{\mu_0}{4\pi} \int d^3 r' \frac{\vec j(\vec r') \times (\vec r - \vec r')}{|\vec r- \vec r'|^3},
+\end{equation}
+which is simply the Biot-Savart law. When our current is confined to wires of constant current $I$, we may write
+\begin{equation}
+    \vec B(\vec r) = \frac{\mu_0 I}{4\pi} \int d\vec l \times \frac{(\vec r - \vec l)}{|\vec r- \vec l|^3},
+\end{equation}
+
+We can turn Amp\`ere's law into its integral form by taking the surface integral on both sides, i.e.
+\begin{equation}
+    \int d\vec S \cdot(\curl \vec B ) = \mu_0 \int d\vec S \cdot \vec j \implies \oint_C d\vec l \cdot \vec B = \mu_0 I.
+\end{equation}
+Like Gauss's law, Amp\`ere's law admits only a few geometries we can solve exactly. One we can solve is an infinite solenoid, i.e. a cylinder made of wire coils which extends to infinity. If we take an Amp\`erian loop outside, we know that the enclosed current is zero. We can argue that the field is actually constant outside along the axis of the cylinder. Inside, Amp\`ere's law says that
+\begin{equation}
+    B_z L = \mu_0 I_\text{enc} = \mu_0 nIL,
+\end{equation}
+so we get a constant magnetic field strength inside,
+\begin{equation}
+    B_z = \mu_0 n I,
+\end{equation}
+where $n$ is the number of loops per unit length and $I$ is the current running in a single loop.
+
+The magnetic vector potential is only defined up to the addition of any curl-free function; this is the idea of gauge freedom. Just as we could add a constant to the electrostatic scalar potential, we can add functions satisfying $\curl \tilde {\vec A} = 0$ to the vector potential. For instance, $\grad \chi$ can be added for any scalar $\chi$.
+
+Here is an explicit construction of the vector potential:
+\begin{equation}
+    A_x = \int dz B_y, \quad A_y = -\int dz B_x, \quad A_z = A_z(z) \text{ (i.e. no dependence on $x$ or $y$)}.
+\end{equation}
+We can check that this will give the magnetic field:
+\begin{equation}
+    \curl \vec A = \paren{B_x,B_y, \P{A_y}{x} - \P{A_x}{y}}.
+\end{equation}
+These first two terms look good; the last one is
+\begin{equation}
+    \int dz \paren{-\P{B_x}{x} - \P{B_y}{y}} = \int dz \P{B_z}{z} = B_z,
+\end{equation}
+since the two derivatives in the first equation are part of the divergence of $\vec B$, and we know that $\div \vec B=0$.
+
+Suppose we now turn time-dependence on. Then
+\begin{equation}
+    \curl \vec E = -\P{\vec B}{t} = -\curl \P{\vec A}{t} \implies \curl \paren{\vec E + \P{\vec A}{t}}=0.
+\end{equation}
+It follows that we can write a modified scalar potential such that
+\begin{equation}
+    \vec E + \P{\vec A}{t} = -\grad \varphi.
+\end{equation}
+If we changed $\vec A$ by a gauge transformation $\vec A \to \vec A + \grad \chi$, then we would also need to modify the scalar potential as $\varphi \to \varphi - \P{\chi}{t}$.
+
+One of the nicest gauges%
+    \footnote{In non-relativistic electrodynamics, anyway. For a more covariant version we might choose Loren(t)z gauge, $\p_\mu A^\mu=0$.}
+is Coulomb gauge,
+\begin{equation}
+    \div \vec A = 0.
+\end{equation}
+We can always choose this gauge: suppose for some $\vec A$ we had $\div \vec A \neq 0$. Then we can just solve the Poisson equation
+\begin{equation}
+    \grad^2 \chi = \div \vec A
+\end{equation}
+and subtract off $\grad \chi$.
+
+\subsection*{Eherenberg-Siday effect (Aharanov-Bohm effect)}
+Historically, Aharanov and Bohm wrote a paper in 1959 on the idea of an electron outside a solenoid being sensitive to the vector potential, even when the magnetic field in a region is zero. In fact, Eherenber and Siday wrote about this same effect in 1949, but their paper was largely forgotten about until after Aharanov and Bohm's work.
+
+Consider an infinite solenoid. If we take the integral of the vector potential on a loop around a solenoid, then
+\begin{equation}
+    \oint \vec A \cdot d\vec l = \int_S (\curl \vec A) \cdot d\vec S = \int_S \vec B \cdot d\vec S.
+\end{equation}
+That is, if we were sensitive to the integral of the vector potential, we could detect whether the solenoid was on. Classically the field is all that matters, so there can be no effect. But quantum mechanically, the story changes. The Hamiltonian for an electron in electric and magnetic fields is
+\begin{equation}
+    \hat H \psi = \frac{1}{2m} (\vec p - e \vec A)^2 \psi + e\varphi \psi.
+\end{equation}
+We'll take the electric field to be zero and $\varphi=0$ identically. Then
+\begin{equation}
+    \hat H \psi = \frac{1}{2m} \paren{-i\hbar \grad{} - e\vec A}^2 \psi.
+\end{equation}
+Let us now make a change of variables
+\begin{equation}
+    \psi = e^{ig(\vec r)}\tilde \psi,\text{ with }g(\vec r) = \frac{e}{\hbar } \int_0^{\vec r} A(\vec r') \cdot d\vec r'.
+\end{equation}
+This integral is well-defined so long as $\curl \vec A=0$, i.e. in the region where the magnetic field is zero.
+
+Then
+\begin{equation}
+    \grad \psi = i \grad g \psi + e^{ig(\vec r)} \grad \tilde \psi= \frac{ie}{\hbar} \vec A \psi  + e^{ig} \grad \tilde \psi.
+\end{equation}
+But notice that
+\begin{equation}
+    \paren{-i\hbar \grad - e\vec A}\psi = \frac{\hbar}{i} e^{ig} \grad \tilde \psi,
+\end{equation}
+and acting on this with $\paren{-i\hbar \grad - e\vec A}$ again does much the same thing. That is,
+\begin{equation}
+    \hat H \psi = \frac{1}{2m} (-i\hbar \grad - e\vec A) (e^{ig} \grad \tilde \psi) = \frac{1}{2m} (-\hbar^2) e^{ig} \nabla^2 \tilde \psi.
+\end{equation}
+Now Schr\"odinger's equation tells us that $\hat H \psi = i\hbar \P{}{t}$, so
+\begin{equation}
+    \hat H = -\frac{\hbar^2}{2m} e^{ig} \nabla^2 \tilde \psi = i\hbar e^{ig} \P{\tilde \psi}{t}.
+\end{equation}
+We conclude that
+\begin{equation}
+    -\frac{\hbar^2}{2m} \nabla^2 \tilde \psi = i\hbar \P{\tilde \psi}{t},
+\end{equation}
+which is the free-particle Schr\"odinger equation.
+
+This says that $\tilde \psi$ obeys the free-particle equation, while the actual wavefunction picks up a phase shift. Practically speaking, we could imagine sending some electrons around the left side of a solenoid and some around the right side and looking for interference due to the different phases when they meet up. Around a loop, we pick up a phase
+\begin{equation}
+    \frac{e}{\hbar} \oint \vec A(\vec r') \cdot d\vec r',
+\end{equation}
+and moreover this phase is unaffected by gauge transformations since
+\begin{equation}
+    \oint (\vec A + \grad \chi) =\oint \vec A.
+\end{equation}

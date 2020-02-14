@@ -1,0 +1,98 @@
+Let us continue our discussion of the principal value of the contour integral running over a singularity on the contour. The principal value can be written in two ways. One way, it is equal to the integral with the contour deformed to miss the pole as
+\begin{equation}
+    \mathcal{P} = 2\pi i \sum \text{Res}f(z_i) - \int_\pi^0 dz f(z)
+\end{equation}
+and the other way it includes it as
+\begin{equation}
+    \mathcal{P} = 2\pi i \sum \text{Res}f(z_i) + 2\pi i \text{Res}(z_0) - \int_\pi^{2\pi} dz f(z).
+\end{equation}
+The first integral around the semicircle is half of the integral around it,
+\begin{equation}
+    \mathcal{P} = 2\pi i \sum \text{Res}f(z_i) +i\pi \text{Res}(z_0),
+\end{equation}
+while the second integral has the correct sign
+\begin{equation}
+    \mathcal{P} = 2\pi i \sum \text{Res}f(z_i) + 2\pi i \text{Res}(z_0) - i\pi \text{Res}(z_0) = 2\pi i \sum \text{Res}f(z_i) + i\pi \text{Res}(z_0).
+\end{equation}
+We find that in both cases, the principal value of the integral is $2\pi i$ times the sum of the residues inside plus half the residue of the pole on the contour.%
+    \footnote{This can be generalized to higher-order poles, with adjustments. Higher-order poles go around a bit too fast for a single semicircle to work, but the argument will work.}
+
+\subsection*{Mittag-Leffler theorem}
+Suppose we have a meromorphic function (isolated singularities) where all poles are at worst first-order. Let us also suppose there are no poles at infinity.
+
+We are given a set of singularities---their locations and their residues. WLOG we can take $f(0)\neq 0$, i.e. the function at the origin is nonzero. Then we claim that the function with these singularities and the given residues is
+\begin{equation}\label{eqn:mittagleffler}
+    f(z) = f(0) + \sum_{n=1}^\infty b_n \paren{\frac{1}{z-z_n} + \frac{1}{z_n}}.
+\end{equation}
+This is just a way of summing up the Laurent series about each pole.
+
+Consider the integral
+\begin{equation}
+    \oint_{C_R} dw \frac{f(w)}{w(w-z)} = 2\pi i\bkt{ \sum \frac{b_n}{z_n(z_n-z)} + \frac{f(0)}{-z} +\frac{f(z)}{z}}.
+\end{equation}
+That is, when $z\neq z_i$ for all $i$, we pick up the residues $b_n$ at $w=z_n$ and we pick up poles at $w=0$ and $w=z$. We can write the LHS as
+\begin{equation}
+    \oint id\phi Re^{i\phi} \frac{f(Re^{i\phi}}{Re^{i\phi}(Re^{i\phi}-z)}.
+\end{equation}
+Let us take the limit as the radius of the circular contour grows arbitrarily large. By assumption there are no poles at infinity, so the integral of the LHS is in fact zero and the sum runs over all poles, i.e.
+\begin{equation}
+    \lim_{R\to \infty} = \oint id\phi Re^{i\phi} \frac{f(Re^{i\phi})}{Re^{i\phi}(Re^{i\phi}-z)} \to 0.
+\end{equation}
+Solving for $f(z)$, we find that
+\begin{equation}
+    f(z) = f(0) + \sum \frac{b_n z}{z_n(z_n-z)},
+\end{equation}
+which is just our equation \eqref{eqn:mittagleffler}.%
+    \footnote{The theorem can be modified for higher-order poles. There, we just need $(z_n-z)^n$ in the denominator.}
+
+\begin{exm}
+    Consider the function $f(z) = \tan z$ for complex $z$. This function has simple poles whenever $\cos z=0$, i.e. for $z_k= \frac{\pi}{2}+ k\pi$. We can write down the residues at these poles by l'H\^opital:
+    \begin{equation}
+        \lim_{z\to z_k} \frac{(z-z_k) \sin z}{\cos z} = -1.
+    \end{equation}
+    Hence the residue is $-1$ for all poles and we have
+    \begin{equation}
+        \tan z = \sum_{k=1}^\infty (-1) \bkt{\frac{1}{z-(\pi/2 +k\pi)} + \frac{1}{\pi/2 + k\pi}} + \sum_{k=-1}^{-\infty} (-1) \bkt{\frac{1}{z-(\pi/2 +k\pi)} + \frac{1}{\pi/2 + k\pi}}.
+    \end{equation}
+    If we combine the sums, we can rewrite this as
+    \begin{equation}
+        \tan z = \sum_{k=1}^\infty (-1) \bkt{\frac{2z}{z^2 -(2k+1)(\pi/2)^2}}.
+    \end{equation}
+    This is effectively the potential we would get from a series of charges at odd multiples of $\pi/2$.
+\end{exm}
+
+Let
+\begin{equation}
+    f(z) = (z-z_0)^n g(z),
+\end{equation}
+where $g$ is analytic. Then we can compute the logarithmic derivative,
+\begin{equation}
+    \frac{f'}{f} = \frac{n}{z-z_0} + \frac{g'}{g}.
+\end{equation}
+If we now take the contour integral of both sides around a contour enclosing $z_0$, then we get
+\begin{equation}
+    \oint \frac{f'}{f} = \oint \frac{n}{z-z_0} + \frac{g'}{g} = 2\pi i n.
+\end{equation}
+If $n$ is positive then we have a zero of $f(z)$; if $n$ is negative we have a pole. More generally if we have $N$ zeroes and $P$ poles then
+\begin{equation}
+    \oint \frac{f'}{f} = 2\pi i (N-P).
+\end{equation}
+This is basically counting the sum of winding numbers around poles/zeroes.
+
+An immediate corollary is Rouche's theorem, which says that if $|g|<|f|$ on some domain, then $f+g$ has no more zeroes than the original function $f$.
+We can prove this
+\begin{equation}
+    \oint \frac{f'}{f} = 2\pi i N_f, \quad \oint \frac{f'+g'}{f+g} = 2\pi i N_{f+g}.
+\end{equation}
+We have
+\begin{equation}
+    N_f = \Delta \text{arg} f,
+\end{equation}
+while
+\begin{equation}
+    N_{f+g} = \Delta \text{arg}(f+g)= \Delta \text{arg}f(1+g/f) = \Delta \text{arg f} + \Delta \text{arg} (1+g/f).
+\end{equation}
+Here, $\text{arg}$ pulls out the phase (argument) of the complex number. The first term is the same as $N_f$, while the second is zero. It follows that
+\begin{equation}
+    1+\frac{g}{f} < 1 + \epsilon e^{i\phi}.
+\end{equation}
