@@ -1,1 +1,99 @@
-Today 
+Today we'll begin our dive into chapters 10-13, exploring magnetostatics. We'll skip most of the vector multipoles in spherical coordinates since they're a bit more specialized. There will be no class on Thursday, March 5, since Professor Zieve is away.
+
+Previously, we discussed the $E$-field matching conditions at surfaces,
+\begin{equation}
+    \Delta E_\perp = \frac{\sigma}{\epsilon_0}, \quad \Delta \vec E_\parallel =0.
+\end{equation}
+For the magnetic field, there are also matching conditions, but they are a little different. We have instead
+\begin{equation}
+    \uv n \times (\vec B_1 - \vec B_2) = \mu_0 \vec K, \quad \uv n \cdot (\vec B_1 - \vec B_2) =0.
+\end{equation}
+where $\vec K$ is the surface current density. That is, it is the component of the $\vec B$-field parallel to the surface (but perpendicular to the current) that jumps discontinuously, while the perpendicular component has no discontinuity ($\Delta B_\perp =0$).
+
+Recall that in electrostatics, Gauss's law in vacuum and Faraday's law (in steady state) gave us
+\begin{equation}
+    \div \vec E = \frac{\rho}{\epsilon_0}, \curl \vec E = 0, \vec E = -\grad \varphi \implies \nabla^2 \varphi=0.
+\end{equation}
+For magnetostatics, things are different. We have now
+\begin{equation}
+    \div \vec B =0 , \curl \vec B = \mu_0 \vec j \implies B = -\grad \chi, \nabla^2 \chi =0,
+\end{equation}
+i.e. we can still define a scalar potential satisfying Laplace's equation when there are no volume current densities but $\chi$ is \emph{not continuous} at surface currents; it is only defined piecewise.
+
+\begin{exm}
+    Let's consider the case of two concentric circular rings in the $xy$-plane. A current $I$ flows counterclockwise in the inner ring of radius $a$, while that same current $I$ flows clockwise in the outer ring of radius $b$. We can then import our results from Laplace solutions in electrostatics and write down the form of the potential $\chi$. This setup has azimuthal symmetry, so let us expand in Legendre polynomials. The magnetostatic scalar potential is then
+    \begin{equation}\label{eqn:magnetostatic_tworings}
+        \chi(r,\theta,\phi) = \begin{dcases}
+            \sum_{l=0}^\infty A_l \paren{\frac{r}{a}}^l P_l(\cos\theta) & r < a\\
+            \sum_{l=0}^\infty \bkt{B_l \paren{\frac{r}{b}}^l +C_l \paren{\frac{a}{r}}^{l+1}}P_l(\cos\theta) & a < r < b\\
+            \sum_{l=0}^\infty D_l \paren{\frac{b}{r}}^{l+1} P_l(\cos\theta) & r > b
+        \end{dcases}
+    \end{equation}
+    where we've just pulled out some factors in anticipation of the coefficients $A_l,B_l,C_l,D_l$.%
+        \footnote{Adding a length scale also has the benefit that all the sets of coefficients will have the same units. If we wrote $A_l r^l$, we would have to remember that the $A_l$s all have different units like $[\chi]/[r]^l$.}
+    We cannot say that that $\chi$ is continuous at $r=a$ and $r=b$, but we have continuity of the perpendicular component,
+    \begin{equation}
+        \Delta (\grad \chi)_\perp = 0 \text{ at }r=a,r=b.
+    \end{equation}
+    At $r=a$ this becomes
+    \begin{gather}
+        \sum_{l=0}^\infty lA_l \frac{1}{a}P_l(\cos\theta) = \sum_{l=0}^\infty 
+            \paren{B_l l\frac{a^{l-1}}{b^l}-(l+1)C_l \frac{a^{l+1}}{a^{l+2}}}P_l(\cos\theta) \\
+        \implies l A_l = lB_l \paren{\frac{a}{b} }^l - (l+1)C_l.
+    \end{gather}
+    by orthogonality of the Legendre polynomials. Similarly at $r=b$ we will find that
+    \begin{equation}
+        l B_l -(l+1) C_l\paren{\frac{a}{b}}^{l+1} =(-l+1) D_l \paren{\frac{a}{b}}^{l+1}.
+    \end{equation}
+    This gives us two constraints on the coefficients.
+    
+    From the perpendicular jump condition $\uv n\times (\vec B_1 - \vec B_2)=\mu_0 \vec K$ we get a jump in the perpendicular derivative of $\chi$, i.e. $\frac{1}{r}\P{\chi}{\theta}$. Taking the derivatives of the Legendre polynomials isn't too bad; we just get associated Legendre polynomials. Where things get bad is when we start to do the matching. In general we'll get things like
+    \begin{equation}
+        \sum_{l=0}^\infty A_l \frac{1}{a} P_l^1 (\cos\theta) - \sum_{l=0}^\infty \bkt{B_l \frac{1}{a} \paren{\frac{a}{b}}^l + C_l} P_l^1(\cos\theta)
+    \end{equation}
+    and we could in principle expand the current density
+    \begin{equation}
+        I \frac{\delta(r-a)}{r}\delta(\theta-\pi/2)
+    \end{equation}
+    in terms of Legendre polynomials using
+    \begin{equation}
+        \delta(\theta -\pi/2) = \sum_{l=0}^\infty \alpha_l P_l(\cos\theta)
+    \end{equation}
+    where
+    \begin{equation}
+        \alpha_m = \frac{2m+1}{2}\int_0^\pi d\theta \sin \theta \,\delta(\theta -\pi/2) P_m(\cos\theta) = \frac{2m+1}{2} P_m(0).
+    \end{equation}
+    Thus
+    \begin{equation}
+        \delta(\theta-\pi/2) = \sum_{l=0}^\infty \frac{2l+1}{2} P_l(0) P_l(\cos\theta).
+    \end{equation}
+    Now we could match up all the coefficients using this expansion of this current density in terms of Legendre polynomials. We won't actually solve through for the coefficients in this way. Instead, we'll use Zangwill's approach of ``solve it on the axis'' and extend our solution off the axis by uniqueness of the expansion coefficients.
+    
+    For the field on the axis of a ring, we can just do the Biot-Savart calculation. Normally we have to crunch through computing the integral, but by symmetry, any components of the field which lie in the plane of the ring cancel; the only nonzero component is the one along the axis of the ring, $\uv z$. That is,
+    \begin{align}
+        \vec B(z) &= \frac{\mu_0 I}{4\pi} \int \frac{d\vec l \times (\vec r- \vec l)}{|\vec r - \vec r|^3}\\
+            &= \frac{\mu_0 I}{4\pi}(2\pi a) \frac{1}{z^2+a^2}\frac{a}{\sqrt{z^2+a^2}} \uv z\\
+            &= \frac{\mu_0 I a^2}{2(z^2+a^2)^{3/2}} \uv z.
+    \end{align}
+    
+    This is the field. We wanted the potential, so let us integrate
+    \begin{equation}
+        \chi(z) = \int_z^\infty \vec B \cdot d\vec z = \frac{\mu_0 I}{2} \paren{\frac{-z}{\sqrt{a^2+z^2}}}
+    \end{equation}
+    which we can do by a trig substitution or equivalently Mathematica.
+    
+    In our case,
+    \begin{equation}
+        \chi(z) = \frac{\mu_0 I z}{2} \paren{\frac{1}{\sqrt{b^2+z^2}} - \frac{1}{\sqrt{a^2+z^2}}}.
+    \end{equation}
+    If we use our generating function tricks and expand in Legendre polynomials, we will have 
+    \begin{align}
+        \chi(z) &= \frac{\mu_0 I}{2} \sum_{l=0}^\infty \bkt{\paren{\frac{z}{b}}^{l+1} - \paren{\frac{a}{z}}^l}P_l(0)\\
+            &= \frac{\mu_0 I}{2} \bkt{\sum_{l=1}^\infty \paren{\frac{z}{b}}^l P_{l-1}(0) - 1 - \sum_{l=0}^\infty \paren{\frac{a}{z}}^{l+1} P_{l+1}(0)}.
+    \end{align}
+    Now we can equate the $z$-dependence with the coefficients in Eq.~\eqref{eqn:magnetostatic_tworings} and solve for e.g. the $B_l$ and $C_l$ coefficients, and then use our matching conditions to get the $A_l$s and $D_l$s.
+    
+    This might be kind of painful to actually solve, but the upshot is that we can solve this analytically.
+    %
+    Moreover, $C_0=0$, which we can see from the matching condition at $r=a$ setting $l=0$. A bit more matching shows that in fact $D_0=0$ as well, and therefore the leading-order behavior as $r\to \infty$ is $(1/r)^{l+1}|_{l=1} = 1/r^2$, which looks very much like the potential from an \emph{electric} dipole. Notice there is no monopole term here. We shall see that this is more than just an analogy, and that in fact a full multipole expansion will also apply for the magnetic \emph{vector} potential.
+\end{exm}
