@@ -45,26 +45,33 @@ Equivalently we could just take a derivative with respect to $z_0$ directly. In 
 \end{equation}
 This tells us that for analytic functions, it's not just the case that the first derivatives exist, but in fact all higher derivatives exist, for the integrand is perfectly well-behaved.
 
-We shall now prove the converse of Cauchy's theorem, that the contour integral over any closed loop vanishing implies analyticity. This is known as Morera's theorem, and we'll do it in a way that improves upon the text.
+We shall now prove the converse of Cauchy's theorem, that the contour integral over any closed loop vanishing implies analyticity. This is known as \term{Morera's theorem}, and we'll do it in a way that corrects an error in the textbook.
 
-Suppose that $\oint f(z)=0$ over any closed loop in a region. it follows that for such a loop, we can take two points $z_1,z_2$ on the loop and split it into two paths, such that the integral over each path is equal and opposite:
-\begin{equation}
-    F(z_2)-F(z_1) = \int_{z_1}^{z_2} dz f(z).
-\end{equation}
-Now we write it in the following way:
-\begin{align*}
-    \frac{F(z_2)-F(z_1)}{z_2-z_1} -f(z_1) &= \frac{\int_{z_1}^{z_2} dz f(z) }{z_2-z_1} -f(z_1)\\
-        &=\frac{\int_{z_1}^{z_2} dz (f(z)-f(z_1)) }{z_2-z_1}.
-\end{align*}
-At this point, the book claims that because $f$ is continuous we can replace it by its derivative. But that assumes that the derivative of $f$ exists, which is what we're trying to prove! The right way to say this is that $f(z) - f(z_1) <\epsilon$ as $z\to z_1$, so then
-\begin{equation}
-    \lim_{z_2\to z_1} \frac{\int_{z_1}^{z_2} dz (f(z)-f(z_1)) }{z_2-z_1} < \epsilon \frac{z_2-z_1}{z_2-z_1} = \epsilon.
-\end{equation}
-Hence
-\begin{equation}
-    \lim \frac{F(z_2)-F(z_1)}{z_2-z_1} -f(z_1) =0 \implies F'(z_1) = f(z_1).
-\end{equation}
-Now we know that $f'(z_1) = F''(z_1)$, and all higher derivatives exist.%revisit this
+\begin{thm}[Morera]
+    If a function $f(z)$ is continuous in a simply connected region $R$ and $\oint_C f(z) dz=0$ for every closed contour $C$ within $R$, then $f(z)$ is analytic throughout $R$.
+\end{thm}
+\begin{proof}
+    We are given that $\oint f(z)=0$ over any closed loop in $R$. it follows that for such a loop, we can take two points $z_1,z_2$ on the loop and split it into two paths, such that the integral over each path is equal and opposite. Equivalently, the integral over any path depends only on the endpoints, so we can write
+    \begin{equation}
+        F(z_2)-F(z_1) = \int_{z_1}^{z_2} dz f(z)
+    \end{equation}
+    in terms of an ``indefinite integral'' $F$ which is single-valued throughout the region $R$.
+    Now we write this expression in the following way:
+    \begin{align*}
+        \frac{F(z_2)-F(z_1)}{z_2-z_1} -f(z_1) &= \frac{\int_{z_1}^{z_2} dz f(z) }{z_2-z_1} -f(z_1)\\
+            &=\frac{\int_{z_1}^{z_2} dz (f(z)-f(z_1)) }{z_2-z_1}.
+    \end{align*}
+    At this point, the book claims that because $f$ is continuous we can replace it by its derivative. But that assumes that the derivative of $f$ exists, which is what we're trying to prove! The right way to say this is as follows. This expression is true for any $z_1$ and $z_2$, so now continuity implies that $f(z) - f(z_1) <\epsilon$ as $z\to z_1$, where $\epsilon$ can be made arbitrarily small. Then
+    \begin{equation}
+        \lim_{z_2\to z_1} \frac{\int_{z_1}^{z_2} dz (f(z)-f(z_1)) }{z_2-z_1} < \lim_{z_2\to z_1} \frac{\int_{z_1}^{z_2}\epsilon dz}{z_2-z_1}=\lim_{z_2\to z_1} \epsilon \frac{z_2-z_1}{z_2-z_1} = \lim_{z_2\to z_1} \epsilon = 0.
+    \end{equation}
+    Hence
+    \begin{equation}
+        \lim_{z_2 \to z_1} \frac{F(z_2)-F(z_1)}{z_2-z_1} -f(z_1) =0 \implies F'(z_1) = f(z_1).
+    \end{equation}
+    Since $f$ is well-defined (a fortiori, since it is continuous) in $R$, it follows that $F$ is analytic everywhere in $R$. Since $F$ is analytic, its derivative $f(z)$ is also analytic.
+    %Now we know that $f'(z_1) = F''(z_1)$, and all higher derivatives exist.%revisit this
+\end{proof}
 
 Consider the function
 \begin{equation}
@@ -80,7 +87,7 @@ For notice that
 \end{equation}
 Then
 \begin{equation}
-    |a_n| = \frac{1}{n!} |f^{(n)}(z)|_{z=0} = \frac{1}{2\pi} |\oint dz \frac{f(z)}{z^{n+1}}| < \frac{1}{2\pi} \int_0^{2\pi} d\phi \frac{M}{R^n} = \frac{M}{R^n}.
+    |a_n| = \frac{1}{n!} |f^{(n)}(z)|_{z=0} = \frac{1}{2\pi} \abs*{\oint dz \frac{f(z)}{z^{n+1}}} < \frac{1}{2\pi} \int_0^{2\pi} d\phi \frac{M}{R^n} = \frac{M}{R^n}.
 \end{equation}
 In fact, it follows that the only function which is analytic and bounded as $R\to \infty$ is in fact the constant function.
 
