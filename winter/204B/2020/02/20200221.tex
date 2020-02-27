@@ -1,0 +1,95 @@
+%Whisky is for barbarians. Eau de vite-- when you go through the Frankfurt airport go to the duty-free shop and pick up some eau de vite, made with Bartlett pear.
+%the only thing is never forget history. If you try to renege it or modify it, you're making a mistake.
+\begin{quote}
+    \textit{``I don't cross the branch cuts. Otherwise Scotty beams me up to the next branch. Which is like a parallel universe, and I'm not supposed to go there.''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+
+We did oscillatory integrals last time, integrals like
+\begin{equation}
+    \Int dx \,f(x) e^{i\alpha x}.
+\end{equation}
+\begin{exm}
+    Let's consider the integral
+    \begin{equation}
+        %\int_0^\infty dx \frac{\cos x}{1+x^2} = \frac{1}{2} 
+        \Int dx \frac{\cos x}{1+x^2}.
+    \end{equation}
+    This integral goes to as $1/x^2$ on the real axis, but the cosine will introduce trouble when we close the contour. Since $\cos z = \frac{1}{2}(e^{iz} + e^{-iz})$, we cannot directly close the contour in either the upper or lower half-plane. One of these exponential factors will diverge there.
+    
+    But we can write this as
+    \begin{equation}
+        \frac{1}{2} \Int dx \frac{\cos x}{1+x^2} = \frac{1}{4} \Int dx \bkt{\frac{e^{ix}}{1+x^2} + \frac{e^{-ix}}{1+x^2}} = \frac{1}{2} \Int dx \bkt{\frac{e^{ix}}{1+x^2}}.
+    \end{equation}
+    We've flipped the sign on the second term under $x\to -x$, which flips the limits of integration but also introduces a minus sign from the $dx$. Hence we can now safely close the contour in the upper half-plane. Our integral is%
+        \footnote{We could have done this by flipping the first factor instead to $e^{-ix}$ and picked up the pole at $-i$, but the price we pay is running the contour in the clockwise direction.}
+    \begin{equation}
+        \frac{1}{2}\oint dz \frac{e^{iz}}{(z-i)(z+i)} = \pi i \text{Res} \frac{e^{-1}}{2i} = \frac{\pi}{2e}.
+    \end{equation}
+\end{exm}
+
+\begin{exm}
+    Consider the integral
+    \begin{equation}
+        \frac{1}{2}\Int dx \frac{\sin x}{x}.
+    \end{equation}
+    By the same trick, we write
+    \begin{equation}
+        \frac{1}{4i} \Int dx \bkt{\frac{e^{ix}}{x} - \frac{e^{-ix}}{x}} = \frac{1}{4i} \Int dx \bkt{\frac{e^{ix}}{x} + \frac{e^{+ix}}{x}} = \frac{1}{2i} \mathcal{P}\Int dx \frac{e^{ix}}{x}.
+    \end{equation}
+    Now we compute the principal value of the pole on the contour. It is just half of the residue for a simple pole, and so we find that
+    \begin{equation}
+        \frac{1}{2i} \cP \Int \frac{e^{ix}}{x} = \frac{\pi i}{2i} = \frac{\pi}{2}.
+    \end{equation}
+\end{exm}
+
+\begin{exm}
+    Here's another integral.
+    \begin{equation}
+        \int_0^\infty dx \frac{1}{x^3+1},
+    \end{equation}
+    but this integral is now of indefinite parity. It does however drop very fast as $x\to \infty$. Is there another way we can close the contour to perform this integral?
+    
+    Note that there is a branch point at the origin. If we sweep out an arc from $0$ to $2\pi/3$, we see that
+    \begin{equation}
+        z^3 = x^3 e^{3i\phi}|_{\phi=2\pi/3} = x^3.
+    \end{equation}
+    So we can integrate
+    \begin{equation}
+        \oint dz \frac{1}{1+z3} = \int_0^\infty \frac{dx}{1+x^3} + \int_0^{2\pi/3} \frac{id\phi R e^{i\phi}}{1+R^3 e^{3i\phi}} - \int_0^R \frac{ie^{2\pi i/3}}{1+x^3}.
+    \end{equation}
+    Hence the integral around the closed contour is
+    \begin{equation}
+        \bkt{1-e^{2\pi i /3}}I,
+    \end{equation}
+    where $I$ is our original integral.
+    Conversely we can compute this contour integral using the residue theorem. If we do the residue calculation, we find that
+    \begin{equation}
+        \int_0^\infty dx \frac{1}{x^3+1} = \frac{2\pi}{3\sqrt{3}}.
+    \end{equation}
+\end{exm}
+%Simply follow the circle and see if the circle can teach you something.
+We can also use branch cuts to compute some integrals that a priori look pretty nasty. Consider the following.
+\begin{exm}
+    We wish to integrate
+    \begin{equation}
+        \int_0^\infty dx \frac{\ln x}{x^3+1}.
+    \end{equation}
+    Let us use almost the same contour, except we will excise the singularity at $z=0$. That is,
+    \begin{equation}
+        \oint dz \frac{\ln z}{1+z^3} = \int_0^\infty dx \frac{\ln x}{1+x^3} + \int R \frac{\ln (Re^{i\phi}}{1+R^3 e^{3i\phi}}+ e^{2\pi i /3} \int_R^{0^+} dx \frac{\ln x + \frac{2\pi}{3}i}{1+x^3} + i\int_{2\pi/3}^0 d\phi \rho e^{i\phi} \frac{\ln(\rho e^{i\phi}}{1+\rho^3 e^{i3\phi}}.
+    \end{equation}
+    The superscript $+$ indicates that we're taking a principal value. The second term is zero because it vanishes as $R\ln /R^2$ as $R\to \infty$, while the third one is a bit modified from the integral we want. The fourth term goes to zero as $\rho \ln \rho$, so it also goes to zero.
+    
+    Hence we have the contour integral being
+    \begin{equation}
+        (1-e^{2\pi i /3}) I - e^{2\pi i/3 } \frac{2\pi i}{3} \int_0^\infty \frac{dx}{1+x^3}.
+    \end{equation}
+    This last integral came from the fact that the log was sensitive to the phase, but we already computed it as $2\pi/3\sqrt{3}$. Finally, we compute the integral using the residue theorem with the pole again at $e^{i\pi/3}$ and find that
+    \begin{equation}
+        I= - \frac{2\pi^2}{27}.
+    \end{equation}
+    Next time, we'll compute this with a different branch cut.
+\end{exm}
+%I don't cross the branch cuts. Otherwise Scotty beams me up to the next branch. Which is like a parallel universe, and I'm not supposed to go there.

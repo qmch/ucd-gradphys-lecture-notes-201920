@@ -1,0 +1,143 @@
+Last time, we argued that changing magnetic fields (and fluxes) can do work on the charges in a wire, as
+\begin{equation}
+    \delta W = I\delta \Phi.
+\end{equation}
+If we consider the total work required for some final current, suppose that
+\begin{equation}
+    I(t)=\frac{t}{t_f} I_f, \quad \Phi(t) = \frac{t}{t_f} \Phi_f.
+\end{equation}
+Then 
+\begin{equation}
+    \delta \Phi = \delta t \frac{\Phi_f}{t_f},
+\end{equation}
+so the work is
+\begin{equation}
+    \int_0^{\Phi_f}Id\Phi = \int_0^{t_f} \frac{t}{t_f} I_f \frac{\Phi_f}{t_f} dt = \frac{1}{2} \frac{t_f^2}{t_f^2} I_f \Phi_f=\frac{1}{2}I_f \Phi_f.
+\end{equation}
+It follows that the stored energy in some current loop is
+\begin{equation}
+    U=\frac{1}{2}I\Phi,
+\end{equation}
+and if we define a geometrical constant
+\begin{equation}
+    L=\frac{\Phi}{I},
+\end{equation}
+we see that the energy is
+\begin{equation}
+    \frac{1}{2}LI^2 = \frac{1}{2}\frac{\Phi^2}{L}.
+\end{equation}
+This $L$ is the self-inductance; it says that the magnetic flux in a loop is directly proportional to the current running in that loop.
+
+Let's now write
+\begin{equation}
+    I\Phi = \int d^3r \, \vec j(\vec r) \cdot \vec A(\vec r)
+\end{equation}
+so that
+\begin{align*}
+    \delta W = I \delta \Phi &= I\delta(\int_S d\vec S \cdot \vec B)\\
+        &= I\delta \int_S d\vec S\cdot (\curl \vec A)\\
+        &=\int d^3r \, \vec j \cdot \delta \vec A.
+\end{align*}
+The total work is
+\begin{equation}
+    W= \frac{1}{2}\int d^3r \, \vec j \cdot \vec A,
+\end{equation}
+where the factor of $1/2$ comes from the fact that both $\vec j$ and $\vec A$ are changing with time, so this expression is secretly quadratic with time. Integrating over time to get rid of the $\delta$ provides us with the needed $1/2$.
+
+Now the total work is
+\begin{equation}
+    W\equiv U_B = \frac{1}{2}\int d^3 r \, \vec j \cdot \vec A = \frac{1}{2} \int d^3 r \frac{\curl \vec B}{\mu_0}\cdot \vec A = \frac{1}{2\mu_0} \int d^3r \bkt{\vec B\cdot \curl \vec A - \div(\vec A \times \vec B)}=\frac{1}{2\mu_0} \int d^3r B^2.
+\end{equation}
+Note that this work is the energy stored in the magnetic field. It is independent of any effects related to resistance; it is purely the work required to get the charges moving and produce a magnetic field.
+
+Another complication is that in the electric case, we thought about keeping either potential constant or the charge constant (by electrically isolating an object). In the magnetic case, we can certainly run a constant current through the loop by hooking up a power supply, but there is no analogy for isolating the current loop. In general other forces can change the current running in the loop even if it is totally isolated.
+
+Consider a square loop in the $xy$ plane of side length $L$ with a current $I$ running through it. The lower left corner sits at the origin. We apply a magnetic field
+\begin{equation}
+    \vec B_{\odot} = (B_0 + ax) \uv z.
+\end{equation}
+Then the force is
+\begin{equation}
+    \vec F =\int d^3r \, \vec j \times \vec B = (-\uv x)(B_0)IL + \uv x(B_0 + aL) IL = \uv x IaL^2
+\end{equation}
+As it turns out, the constant $B$-field part washes out of the calculation. We see that the work done on the loop at an instant is
+\begin{equation}
+    \delta W = I a L^2 (v \delta t).
+\end{equation}
+But magnetic forces aren't supposed to be doing work, yet our loop is clearly accelerating. What's going on? The catch is that the current in the wire must not be constant, i.e. $I$ is changing with time. As the loop moves, it sees a changing magnetic flux, so
+\begin{equation}
+    \delta \Phi = (av \delta t)L^2
+\end{equation}
+and therefore an EMF is produced,
+\begin{equation}
+    \epsilon = -\frac{\delta \Phi}{\delta t} =-avL^2.
+\end{equation}
+Hence the energy dissipated in an instant is
+\begin{equation}
+    I\epsilon = - av L^2 I.
+\end{equation}
+The kinetic energy we pick up from the acceleration is precisely equal to the energy lost by the charges moving in the loop, so no work has been done.%
+    \footnote{Griffiths has some very nice examples of places where magnetic fields appear to be doing work, and where there are always corrections like this that ensure that once all the energy is accounted for, no work is done by the magnetic force.}
+It's this sort of work term that's hiding in our calculation of parallel currents attracting. If those currents were part of isolated wire loops, then we cannot assume the currents are constant. If there is a battery powering the currents, then there's an extra energy to keep track of.
+
+\subsection*{Magnetic fields in matter}
+Just as we did in the electric case, we can talk about magnetic fields in matter. We can define \emph{free current densities} $\vec j_f$ which we apply, and magnetization (``bound'') currents $\vec j_m,$ which describe the material response to the applied field. We produce $\vec j_f$ with an applied field $\vec B_\text{ext}$ and the sample responds with a self-field $\vec B_\text{self}$.
+The total current is the sum
+\begin{equation}
+    \vec j = \vec j_f + \vec j_m,
+\end{equation}
+and the total field is similarly the sum
+\begin{equation}
+    \vec B= \vec B_\text{ext} +\vec B_\text{self}.
+\end{equation}
+Self-consistency is the name of the game here.
+
+There are two possibilities for where the magnetization current comes from: spin effects and orbital effects. For spins, we can write a total magnetic moment as
+\begin{equation}
+    \vec M_S = \sum_{i=1}^N \vec m_i \delta(\vec r- \vec r_i),
+\end{equation}
+where some tiny dipoles $\vec m_i$ live on sites $\vec r_i$ in the material. We can think of these dipoles like current loops, which each are associated to a little current
+\begin{equation}
+    \vec j_i = \curl \bkt{\vec m_i \delta(\vec r- \vec r_i)}
+\end{equation}
+and therefore collectively produce an overall current:
+\begin{equation}
+    \vec j_S = \sum \vec j_i = \sum \curl \bkt{\vec m_i \delta(\vec r- \vec r_i)} \curl \vec M_S.
+\end{equation}
+which is called the ``spin magnetization current density.''
+At a surface, there is generally a surface magnetization current
+\begin{equation}
+    \vec K_S = \vec M_S \times \uv n.
+\end{equation}
+If the magnetic moments $\vec m_i$ are not uniform, then we can have a net magnetization current density within the material.
+
+The other source of magnetization current is orbital effects. Let us define a magnetization
+\begin{equation}
+    \vec M_O = \begin{cases*}
+        0 & outside sample\\
+        \vec j_O = \curl \vec M_O & inside sample
+    \end{cases*}
+\end{equation}
+such that
+\begin{equation}
+    \vec K_O = \vec M_O \times \uv n \text{ at surface}.
+\end{equation}
+Now if we slice through our material, then it should be the case that the surface current density we've defined is equivalent to the loop integral of the internal current density at the surface before we sliced the material. That is,
+\begin{align}
+    \int_S d\vec S \cdot \vec j_O (\vec r) + \oint_C d\vec l \cdot (\vec K_O(\vec r) \times \uv n) &= \oint d\vec l \cdot \vec M_O - \oint d\vec l \cdot \vec M_O =0.
+\end{align}
+Now we avoid further complications by defining an overall magnetization
+\begin{equation}
+    \vec M = \vec M_S + \vec M_O
+\end{equation}
+and a total magnetic moment $\vec m$ which \emph{includes} the orbital part, so that
+\begin{equation}
+    \vec m = \frac{1}{2} \int d^3 r(\vec r \times \text{``$\vec j$''})
+\end{equation}
+where ``$\vec j$'' indicates a sum of $\vec j$ and $\vec K$, any internal and surface currents.%
+    \footnote{The units don't quite match, hence the quotation marks, but this can be made sensible.}
+Equivalently
+\begin{equation}
+    \vec m = \int_V d^3 \vec M,
+\end{equation}
+the integral of the overall magnetization.
