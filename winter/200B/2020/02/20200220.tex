@@ -1,0 +1,121 @@
+In the electrostatic case, we constructed a multipole expansion of the scalar potential $V$ by expanding $\frac{1}{|\vec r- \vec r'|}$. Here, we have a vector potential defined (in Coulomb gauge) by
+\begin{equation}
+    \vec A(\vec r) = \frac{\mu_0}{4\pi} \int d^3 r' \frac{\vec j(\vec r')}{|\vec r- \vec r'|}.
+\end{equation}
+Notice that for an individual component of the vector potential, the expansion looks the same as for the scalar potential (up to a prefactor). That is, since
+\begin{equation}
+    \frac{1}{|\vec r- \vec r'|} = \frac{1}{r} - \vec r' \cdot \grad \frac{1}{r} + \frac{1}{2!} (\vec r' \cdot \grad)^2\frac{1}{r} - \dots
+\end{equation}
+where we've expanded in powers of $\vec r'$. The minus signs are correct here---we'll pick up some more from taking derivatives of $1/r$. Thus for an individual component $A_k(\vec r)$, we have
+\begin{equation}
+    A_k(\vec r) = \frac{\mu_0}{4\pi} \bkt{\frac{1}{r} \int d^3r'\, j_k(\vec r') + \frac{\vec r}{r^3} \cdot \int d^3 r'\, j_k(\vec r')\vec r' +\dots}
+\end{equation}
+which has our monopole moment and dipole moment terms written out explicitly. Note that in the magnetic case, there's no equivalent to the discrete sums we had in electrostatics. There, we considered point charges, but there are no monopoles in our theory of magnetism. Indeed, the $1/r$ term should vanish since we're integrating the current flowing around closed loops, i.e. the integral of the vector pointing around these closed loops is zero.
+
+We can be slightly more formal. Let us write%
+    \footnote{One way to make this guess is to suppose that the thing we take the divergence of should have an extra factor of $r'$ in it.}
+\begin{equation}
+    \grad'\cdot (\vec j r_k') = r_k' \grad' \cdot \vec j(\vec r') + \vec j(\vec r') \cdot \underbrace{\grad' r_k'}_{\uv r_k'} = j_k(\vec r'),
+\end{equation}
+where the first term vanishes by the continuity equation and the second one is just the $k$th component of $\vec j(\vec r')$. Hence we can write
+\begin{equation}
+    \int d^3 r' j_k(\vec r') = \int d^3r' \, \grad' \cdot (\vec j r_k') = \oint d\vec A \cdot \vec j r_k',
+\end{equation}
+and this is zero when we demand that the currents are constrained to a finite volume (no currents go off to infinity).
+Note that the $1/r$ term is zero \emph{because we are in Coulomb gauge}.
+
+Now for the dipole we can write
+\begin{equation}
+    A^\text{dipole}_k(\vec r) = \frac{\mu_0}{4\pi} \frac{r_l}{r^3} T_{kl},
+\end{equation}
+and we can play the same trick to rewrite the dipole moment. Let's write the volume integral as the divergence of something. That is, we will try
+\begin{equation}
+    \div(\vec j r_k r_l) = r_k r_l \div \vec j + r_k \vec j \cdot \uv r_l + r_l \vec j \cdot \uv r_k = r_k j_l + r_l j_k.
+\end{equation}
+The first term goes away since $\div \vec j$ is zero. The other terms are proportional to components of $j$. This is nicely symmetric in $k$ and $l$, as it should be, but we just want the $j_k$ term (or equivalently the $r_l$ term). However, we may write
+\begin{equation}
+    \epsilon_{lki}(\vec r \times \vec j)_i = r_l j_k - r_k j_l,
+\end{equation}
+the form of a cross product,%
+    \footnote{I usually write this as $(\vec r \times \vec j)_i =\epsilon_{ikl}r_k j_l$, but one can multiply both sides by another epsilon and then use the identity $\epsilon_{ijk}\epsilon_{ilm} = \delta_{jl}\delta_{km}-\delta_{jm}\delta_{kl}$ to get it in this form.}
+and therefore
+\begin{equation}
+    2r_l j_k = \div (\vec j r_k r_l) + \epsilon_{lki}(\vec r \times \vec j)_i.
+\end{equation}
+This first term is the divergence term which goes away when we change to a surface integral. The second one therefore gives us our dipole tensor. It follows that
+\begin{equation}
+    T_{kl} = \frac{1}{2} \epsilon_{lki} \int d^3 r'( \vec r' \times \vec j(\vec r'))_i \equiv \epsilon_{lki} m_i,
+\end{equation}
+where $m_i$ is the magnetic dipole.
+
+We see now that $T_{kl}$ is a completely antisymmetric rank 2 tensor, i.e. while a priori it could have had 9 different components, it turns out to be proportional to the Levi-Civita symbol. Hence all the diagonal elements vanish and there are only three independent components which we can associate to a vector $\vec m$.
+
+It follows that the dipole vector potential is
+\begin{equation}
+    A_k(\vec r) = \frac{r_l}{r^3} \frac{\mu_0}{4\pi} \epsilon_{lki} m_i = \frac{\mu_0}{4\pi} \frac{(\vec m \times \vec r)_k}{r^3}.
+\end{equation}
+As a single vector equation,
+\begin{equation}
+    \boxed{\vec A(\vec r) = \frac{\mu_0}{4\pi} \frac{\vec m \times \vec r}{r^3}.}
+\end{equation}
+
+We can now calculate the vector potential at the center of a ring of uniform current, say of radius $a$. It is proportional to
+\begin{equation}
+    \frac{I \oint \vec r' \times d\vec r'}{2} = \frac{2\pi a^2 I}{2} = \pi a^2 I.
+\end{equation}
+That is, it is the current in the loop times the area of the loop.%
+    \footnote{A factor of $2\pi a$ comes from the circumference, while another factor of $a$ comes from the fact that $|\vec r'|=a$ on the circle.}
+
+\subsection*{Higher dipoles}
+At this point, Zangwill makes a weird change of notation. Instead of writing $\vec r,\vec r'$ variables, he changes $\vec r'$ to $\vec s$ and also changes his derivative notation.%
+    \footnote{One of these should \emph{really} be a covariant derivative. I feel uncomfortable writing $\nabla_i$ for a partial derivative.}%captain holt where anything can mean anything
+\begin{align*}
+    \vec r' &\to \vec s\\
+    \nabla_i &\to \nabla_i\\
+    \nabla_i' &\to \p_i
+\end{align*}
+The general multipole term in $\vec A(\vec r)$ is
+\begin{equation}
+    \frac{\mu_0}{4\pi} \frac{(-1)^n}{n!} \bkt{\int d^3 s\,j_k(\vec r) s_{l_1} s_{l_2} \dots s_{l_n}} \nabla_{l_1} \nabla_{l_2} \dots \nabla_{l_n} \frac{1}{r}.
+\end{equation}
+We know what to do now. We write our divergence term
+\begin{align*}
+    \p_p (j_p s_k s_k s_{l_1} \dots s_{l_n}) &= (\p_p j_p) s_k s_{l_1} \dots s_{l_n} + j_p \delta_{pk} s_{l_1} \dots s_{l_n} + j_p s_k \delta_{pl_1} s_{l_2} \dots s_{l_n} + \dots \\
+        &= (\p_p j_p) s_k s_{l_1} \dots s_{l_n} + j_k s_{l_1} \dots s_{l_n} + j_{l_1} s_k s_{l_2} \dots s_{l_n} +\dots
+\end{align*}
+But remember these are eventually multplied by $\nabla_{l_1} \nabla_{l_2} \dots \nabla_{l_n}$, which is completely symmetric in the $l_i$ indices. That means that all the $n$ terms proportional to $j_{l_i}$ contribute in the same way to the final expression. The first term proportional to $\p_p j_p$ is zero by conservation of charge. We can moreover turn the extra terms not proportional to $j_k$ into terms that are proportional to $j_k$ using cross products,
+\begin{equation}
+    \epsilon_{ikl_1}(\vec s \times \vec j)_i = s_k j_{l_1} - s_{l_1} j_k.
+\end{equation}
+Hence our divergence turns into
+\begin{equation}
+    \p_p (j_p s_k s_k s_{l_1} \dots s_{l_n}) = (n+1) j_k s_{l_1} \dots s_{l_n} + n \epsilon_{ikl_1}(\vec s \times \vec j)_i s_{l_2} \dots s_{l_n}.
+\end{equation}
+That is,
+\begin{equation}
+    \int d^3 s \, j_k(\vec s) (\vec s \cdot \grad)^n = \frac{n}{n+1} \epsilon_{kil_1} \int d^3s (\vec s \times \vec j)_i (\vec s \cdot \grad)^{n-1} \grad_{l_1}
+\end{equation}
+We find that the general multipole moment is%
+    \footnote{There also exists a spherical multipole expansion for vector fields in terms of Legendre polynomials. They exist and they're in Zangwill and we're not really going to do anything with them in this course.}
+\begin{equation}
+    A_k (\vec r) = \frac{\mu_0}{4\pi} \epsilon_{kil} \sum_{n=1}^\infty (-1)^n m_{ip_1 \dots p_{n-1}}^{(n)} \nabla_{p_1} \dots \nabla_{p_n} \nabla_l \frac{1}{r},
+\end{equation}
+where
+\begin{equation}
+    m_{ip_1 \dots p_{n-1}}^{(n)} = \frac{n}{(n+1)!} \int d^3s \, (\vec s \times \vec j)_i s_{p_1} \dots s_{p_{n-1}}.
+\end{equation}
+
+\subsection*{More on dipoles}
+After considering the higher multipoles, the dipole moment looks really simple. SInce
+\begin{equation*}
+    \vec A(\vec r) = \frac{\mu_0}{4\pi} \frac{\vec m \times \vec r}{r^3},
+\end{equation*}
+we can compute the magnetic field as
+\begin{equation}
+    \vec B = \curl \vec A = \frac{\mu_0}{4\pi} \bkt{m\paren{\div \frac{\vec r}{r^3}} - (\vec m \cdot \grad) \paren{\frac{\vec r}{r^3}}}.
+\end{equation}
+This first one is a delta function---it's $\nabla^2 1/r$, telling us that there is a divergent vector potential at the location of the dipole. The second one turns out to be
+\begin{equation}
+    \vec B = \frac{\mu_0}{4\pi} \paren{\frac{3 \uv r(\vec m \cdot \uv r) - \vec m}{r^3}},
+\end{equation}
+which looks exactly like the electric field from an electric dipole.

@@ -1,0 +1,111 @@
+Last time, we found the magnetic field of a dipole,
+\begin{equation}
+    \vec B = \frac{\mu_0}{4\pi} \bkt{\vec m (\div \frac{\vec r}{r^3}-(\vec m \cdot \grad) \frac{\vec r}{r^3}}.
+\end{equation}
+The first term is secretly a delta-function (it is just $\nabla^2 1/r$), while the second term gives us our familiar dipole field away from $r=0$,
+\begin{equation}
+    \vec B= \frac{\mu_0}{4\pi} \bkt{\frac{3\uv r (\vec m \cdot \uv r) - \vec m}{r^3}}.
+\end{equation}
+In fact, we need to make a correction to this, which we'll see shortly.
+
+Thinking of point dipoles can be useful; fundamental particles are often modeled as point charges which nevertheless have an intrinsic quantum mechanical spin and therefore a magnetic moment.
+
+A point dipole is the limit of a ring of charge shrinking to zero radius while increasing the current. That is, for a physical loop we have $\vec m = \pi r^2 I$, and by increasing $I$ while reducing $r$, we can keep $\vec m$ constant. Now let us take the volume integral over a sphere of radius $R$:
+\begin{align}
+    \int_V d^3 r \, \vec B(\vec r) &= \int_V d^3 r \frac{\mu_0}{4\pi} \int_V d^3r' \frac{\vec j(\vec r') \times (\vec r- \vec r')}{|\vec r- \vec r'|^3}\\
+        &= -\frac{\mu_0}{4\pi} \int d^3 r' \, \vec j(\vec r')\times \int_V d^3 r \underbrace{\frac{(\vec r' - \vec r)}{|\vec r- \vec r'|^3}}_{\frac{4\pi}{3}\frac{(r')^3}{r'^2}\uv r' = \frac{4\pi}{3} \vec r'}\\
+        &= -\frac{\mu_0}{3} \int_V d^3 r' \vec j(\vec r') \times \vec r',
+\end{align}
+where we have identified the $d^3r$ integral as the electric field from a constant charge density $4\pi \epsilon_0$ in a spherical volume $V$ at a point $r'$. Hence we get
+\begin{equation}
+    \int_V d^3 r \, \vec B(\vec r) = -\frac{\mu_0}{3} \int_V d^3 r' \, \vec j(\vec r') \times \vec r' = \frac{2\mu_0}{\vec m}
+\end{equation}
+Notice this is totally independent of $V$ so long as the current source $\vec j$ is totally contained, in particular it works as $V\to 0$. Hence our dipole field is in fact
+\begin{equation}
+    \vec B= \frac{\mu_0}{4\pi} \bkt{\frac{3\uv r (\vec m \cdot \uv r) - \vec m}{r^3}} + \frac{2\mu_0}{3} \vec m \delta(\vec r),
+\end{equation}
+where we have accounted for the delta function at the origin.
+
+The Lorentz force law for current densities is
+\begin{equation}
+    \vec F = \int d^3 r' \, \vec j(\vec r') \times \vec B(\vec r'),
+\end{equation}
+which is the generalization of our old $q\vec v \times \vec B$.
+For a current loop, the force on such a loop is
+\begin{equation}
+    \vec F = \int d^3 r' \, \vec j(\vec r') \times \bkt{\vec B(\vec r) + (\vec r'-\vec r)\cdot \grad)\vec B(\vec r) +\dots},
+\end{equation}
+where we have expanded $\vec B(\vec r')$ in a multipole expansion.
+We claim that the $\vec j(\vec r') \times \vec B(\vec r)$ term goes away, since the integral of $\vec j$ around closed loops is zero. The term proportional to $\vec r$ goes away for the same reason. What remains is
+\begin{align*}
+    F_p &= \int d^3 r (\vec j (\vec r')\times (r'_m \nabla_m) \vec B(\vec r))_p\\
+        &= \int d^3 r' \, j_k(\vec r') r_m' \nabla_m B_l(\vec r) \epsilon_{klp}.
+\end{align*}
+We recall that the magnetic dipole moment is
+\begin{equation}
+    \vec m = \frac{1}{2} \int d^3 r' \, \vec r'\times \vec j(\vec r'),
+\end{equation}
+so component-wise we have
+\begin{equation}
+    \int d^3 r' \, j_k r_m' = -\frac{1}{2}\epsilon_{kmi} \int d^3r' (\vec r' \times \vec j)_i = -\epsilon_{kmi} m_i.
+\end{equation}
+Hence
+\begin{equation}
+    F_p = \paren{-\epsilon_{kmi} m_i}\nabla_m B_l(\vec r) \epsilon_{klp},
+\end{equation}
+and we can contract the epsilons as
+\begin{equation}
+    -\epsilon_{klp} \epsilon_{kmi} = \delta_{li} \delta_{pm} - \delta_{lm}\delta_{pi}.
+\end{equation}
+The force therefore becomes
+\begin{equation}
+    F_p = \nabla_p B_l(\vec r) m_l - \underbrace{\nabla_l B_l}_{=0} m_p
+\end{equation}
+and we see that
+\begin{equation}
+    \vec F = \grad(\vec B(\vec r) \cdot \vec m).
+\end{equation}
+That is, dipoles feel no net force in a constant field, but they are sensitive to gradients in the field. This leads us naturally to the energy of a dipole in a field as $-\vec B \cdot \vec m$, i.e. dipoles tend to align with the field.
+
+We can also consider the force between two dipoles. Since the magnetic field from the dipole drops off as $1/r^3$, the interaction between dipoles goes as $\grad (1/r^3) \sim 1/r^4$. Note that van der Waals interactions are also dipole interactions, but we might have heard from an undergraduate class that those interactions vary as $1/r^6$. What's going on? It turns out that the dipoles in such an interaction are not fixed in their strength; they are \emph{induced} dipoles, so $\vec m$ depends on $r$. The induced dipole gets stronger as the applied dipole gets closer.
+
+We can also think about torques,
+\begin{equation}
+    \vec N = \int d^3 r' \, \vec r' \times \bkt{\vec j(\vec r') \times \vec B(\vec r')} \sim \vec m \times \vec B.
+\end{equation}
+Let's figure out the equations of motion for the magnetic moment. Let
+\begin{equation}
+    \vec m = \gamma \vec J,
+\end{equation}
+i.e. the magnetic moment comes from the angular momentum $\vec J$. The torque is the change of angular momentum with respect to time,
+\begin{equation}
+    \vec N = \frac{d\vec J}{dt}.
+\end{equation}
+Putting it together,
+\begin{equation}
+    \frac{d\vec m}{dt} = \gamma \vec N = \gamma \vec m \times \vec B.
+\end{equation}
+If we dot both sides with $\vec m$, we see that
+\begin{equation}
+    0 = \vec m \cdot \frac{d\vec m}{dt} = \frac{1}{2} \frac{d(m^2)}{dt}.
+\end{equation}
+If we dot with $\vec B$ instead, we get
+\begin{equation}
+    \vec B \cdot \frac{d\vec m}{dt} =0.
+\end{equation}
+These two equations tell us that the magnitude of $m$ doesn't change, but the angle $\vec B\cdot \vec m$ also doesn't change. We sometimes call $\gamma B$ the \term{Larmor frequency}. We know what's happening now. The magnetic moment rotates around the axis of $\vec B$ at a frequency $\gamma B$ like a gyroscope.
+
+Let us try to consider the energy in magnetic interactions. For a loop of wire, we have
+\begin{equation}
+    \delta W = -\sum_i q_i \vec E \cdot \vec v_i \delta_t,
+\end{equation}
+i.e. we have some charges which experience a force in a field, and we multiply that force by the little distance they travel in a time interval $\delta t$. Now
+\begin{align}
+    \delta W &= -\sum_i q_i \vec E \cdot \vec v_i \delta_t\\
+        &= -\int d^3r \vec j(\vec r) \cdot \vec E(\vec r)\delta t\\
+        &= -I \oint C d\vec l \cdot \vec E \delta t\\
+        &= -I \int_S d\vec S(\curl \vec E) \delta t\\
+        &= I \int_S d\vec S \paren{\P{\vec B}{t}}\delta t\\
+        &= I\P{\Phi}{t}\delta t = I \delta \Phi,
+\end{align}
+with $\Phi$ the magnetic flux. That is, there is no work done if the flux is not changing. Next time, we'll build this to energy in a field distribution.
