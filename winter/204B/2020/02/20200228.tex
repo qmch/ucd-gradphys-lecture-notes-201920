@@ -1,0 +1,141 @@
+\subsection*{Conformal mappings}
+
+Analytic functions naturally induce conformal (locally angle-preserving) mappings on the complex plane. To see this, consider a function $f(z)$ analytic in some domain. Consider two smooth curves through a point $z_0$. The mapping $f$ preserves angles between the curves. For suppose we had $z_1(\lambda),z_2(\lambda)$. The derivative of $f$ at $z_0$ is unique and independent of path, i.e.
+\begin{equation}
+    f'(z_0) = \frac{\Delta w}{\Delta z},
+\end{equation}
+where $\Delta w$ is the displacement in the image due to a small shift $\Delta z$ in the domain. Then
+\begin{equation}
+    \Delta w_i = f'(z_0) \Delta z_i,
+\end{equation}
+where $\Delta w_i,\Delta z_i, f'(z_0)$ are complex numbers. Hence we can expand them in polar form as
+\begin{equation}
+    R_i e^{i\phi_i} = \rho e^{i\psi} \hat \rho_i e^{i\bar\phi_i},
+\end{equation}
+so that
+\begin{equation}
+    \phi_2 = \psi + \bar \phi_2
+\end{equation}
+and similarly
+\begin{equation}
+    \phi_1 = \psi + \bar \phi_1.
+\end{equation}
+This tells us that the images of the original tangent vectors are shifted by the same angle $\psi$, so the angle between them has been preserved.%
+    \footnote{There's a lot of power in conformal mappings. We can take unusual shapes in 2D and map them into much simpler boundaries that we can explicitly integrate. This is part of the magic of doing conformal field theory in 2 dimensions, is that analyticity provides a powerful constraint in 2D.}
+%If you're trying to take your integral on this crazy curve, you might... feel that you're suffering.
+
+Let us study some properties of conformal mappings. We can consider the inversion map,
+\begin{equation}
+    w=\frac{1}{z}.
+\end{equation}
+This maps points $z=\rho e^{i\phi}$ to points $w=\frac{1}{\rho} e^{-i\phi}$. There are also special conformal transformations
+\begin{equation}
+    z\mapsto \frac{az+b}{cz+d},\quad ad-bc=1,
+\end{equation}
+which form a group (they are an inversion followed by a translation and another inversion).
+
+The inversion map takes rays to rays (e.g. $z=\rho e^{i\theta_0}$, but they bring points from far distances in close to the origin, and vice versa. Inversion maps also take circles of radius $R$ centered on the origin (say, run counterclockwise) to circles of $1/R$ run clockwise.
+
+What is the image of a circle that goes through the origin? Suppose we have the circle
+\begin{equation}
+    |z-\frac{i}{2}|=\frac{1}{2}.
+\end{equation}
+What is its inversion? We claim it is actually a straight line at $w=-i$. How can we see this? Well,
+\begin{equation}
+    \abs{\frac{1}{w}-\frac{i}{2}}^2 = \paren{\frac{1}{w}-\frac{i}{2}}\paren{\frac{1}{w^*}\frac{i}{2}} = \frac{1}{4}.
+\end{equation}
+We can show that in fact the imaginary part of $w$ does not change, so the image is in fact a straight line.%
+    \footnote{Here, }
+    %follow the yellow brick road. Be a good citizen and follow the traffic lights.
+    
+\subsection*{Fourier transforms}
+
+Recall that sufficiently nice functions (Dirichlet conditions, etc.) have exponential fourier series
+\begin{equation}
+    f(x) = \sum_{n=-\infty}^\infty c_n e^{\frac{in\pi x}{L}}
+\end{equation}
+where
+\begin{equation}
+    c_n =\frac{1}{2L} \int_{-L}^L dx' e^{-\frac{in\pi x}{L}}f(x').
+\end{equation}
+Let us take the Fourier coefficients to be bounded such that
+\begin{equation}
+    \sum|c_n|^2 < \infty
+\end{equation}
+and take the domain $[L,L]$ to infinity. Hence
+\begin{equation}
+    \Int dx |f|^2 < \infty
+\end{equation}
+at a minimum. For instance, functions like $x^2$ will not have Fourier transforms over the whole real line. Now
+\begin{equation}
+    f(x) = \sum_{n=-\infty}^\infty e^{in\pi x/L} \frac{1}{2L} \int_{-L}^L dx e^{-in \pi x'/L}f(x').
+\end{equation}
+Notice that the steps between Fourier indices $n$ is
+\begin{equation}
+    \Delta \frac{n\pi}{L}= \frac{\pi}{L}\Delta n.
+\end{equation}
+Suppose we define
+\begin{equation}
+    dp =\frac{\pi}{L},\quad p = \frac{n\pi}{L}.
+\end{equation}
+Then our Fourier transform becomes
+\begin{align*}
+    f(x) &= \sum_{n=-\infty}^\infty \Delta n e^{i p x} \frac{1}{2L} \int_{-L}^L dx e^{-i p x'}f(x')\\
+        &= \sum_{n=-\infty}^\infty \Delta p e^{ipx} \frac{1}{2\pi} \int_{-\infty}^\infty dx e^{-ip x'}f(x').
+\end{align*}
+This sum is precisely the definition of the Riemann-Stiltjes integral, and if we replace $\Delta p$ with a $dp$ (as $L\to \infty$, we see that
+\begin{equation}
+    f(x) = \Int \frac{dp}{\sqrt{2\pi}} e^{ipx} \Int \frac{dx'}{\sqrt{2\pi}}e^{-ipx'} f(x').
+\end{equation}
+Incidentally, we see that
+\begin{equation}
+    \Int dp e^{ip(x-x')} = 2\pi \delta(x-x').
+\end{equation}
+This is none other than the completeness relation on exponentials. We can define the Fourier transform
+\begin{equation}
+    g(p) = \Int \frac{dx'}{\sqrt{2\pi}} e^{-ipx'} f(x')
+\end{equation}
+and the inverse transform
+\begin{equation}
+    f(x) = \Int \frac{dp}{\sqrt{2\pi}} e^{ipx} g(p).
+\end{equation}
+The Fourier transform is a continuous unitary transform which applies to functions which are square-integrable, the generalization of the Dirichlet condition on the infinite interval. Moreover we see that these integrals are now of the form we previously considered, of an oscillating factor times some other term which we can evaluate as contour integrals by the Jordan lemma.
+
+\subsection*{Non-lectured: inverse map of circle}
+For the circle we discussed,
+\begin{equation}
+    z=(i+e^{i\theta})/2= (e^{i\pi/2}+e^{i\theta})/2
+\end{equation}
+so
+\begin{align*}
+    w=1/z = \frac{2}{e^{i\pi/2}+e^{i\theta}} &= 2 \frac{e^{-i\pi/2}+e^{-i\theta}}{2+e^{i\pi/2}e^{-i\theta} + e^{-i\pi/2}e^{i\theta}}\\
+    &=\frac{e^{i\pi/2}+e^{-i\theta}}{1+1\cos(\theta-\pi/2)}\\
+    &= \frac{-i(1+e^{-i(\theta-\pi/2)})}{1+\cos(\theta-\pi/2)}\\
+    &=-i\frac{1+\cos(\theta-\pi/2)-i\sin(\theta-\pi/2)}{1+\cos(\theta-\pi/2)}.
+\end{align*}
+We can see that the imaginary part is actually just $-i$, while the real part is
+\begin{equation}
+    -\frac{\sin(\theta-\pi/2)}{1+\cos(\theta-\pi/2)}
+\end{equation}
+and this sweeps out the whole real line since $\cos(\theta-\pi/2)$ goes through $-1$.
+
+\subsection*{Non-lectured: analytic function has zero antiholomorphic derivative}
+Suppose we have a function $f(z)$ which is analytic. Then its derivative with respect to $z^*$ is zero, i.e. $\frac{df}{dz^*}=0$.
+
+\begin{proof}
+    Recall that
+    \begin{equation}
+        z=x+iy, z^* = x-iy.
+    \end{equation}
+    Thus
+    \begin{equation}
+        x = \frac{z+z^*}{2},\quad y = \frac{z-z^*}{2i}.
+    \end{equation}
+    We can write $f=u+iv$, so then by the chain rule, the derivative $\frac{df}{dz^*}$ is the following:
+    \begin{align*}
+        \frac{df}{dz^*} &= \P{f}{x}\P{x}{z^*} +\P{f}{y}\P{y}{z^*}\\
+            &= \paren{\P{u}{x} + i\P{v}{x}}(1/2) + \paren{\P{u}{y} +i\P{v}{y}}(-1/2i)\\
+            &= \frac{1}{2}\paren{\P{u}{x}-\P{v}{y}}+ \frac{i}{2} \paren{\P{v}{x}+\P{u}{y}}\\
+            &= 0 \text{ by Cauchy-Riemann.}\numberthis
+    \end{align*}
+\end{proof}
