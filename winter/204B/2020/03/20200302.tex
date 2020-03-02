@@ -1,0 +1,116 @@
+\begin{quote}
+    \textit{``Any of you who take the bold and foolish step of getting lost in theory will become familiar with these things [Fourier-transformed Gaussians].''}
+    
+    ---Nemanja Kaloper
+\end{quote}
+Last time, we defined the Fourier transform
+\begin{equation}
+    g(k) = \Int \frac{dx}{\sqrt{2\pi}}f(x) e^{-ikx}
+\end{equation}
+and the inverse transform%
+    \footnote{It's a matter of convention whether we decide to put the $\sqrt{2\pi}$s in both the normal and inverse transform, or whether we put e.g. the $1/2\pi$ with the inverse transform. In QFT I usually write $d^dk/(2\pi)^d$ and put the $2\pi$s with the inverse transform when I take $dk$ integrals, where $d$ is the dimension we're working in (often in e.g. $d=4$) but there's not a lot of difference.}
+\begin{equation}
+    f(x) = \Int \frac{dk}{\sqrt{2\pi}} g(k) e^{ikx},
+\end{equation}
+such that the completeness relations
+\begin{align}
+    \Int dx \,e^{ik(x-x')}&=2\pi \delta(x-x'),\\
+    \Int dx \,e^{i(k-q)x} &= 2\pi \delta(k-q)
+\end{align}
+hold. This uses the convention that $e^{i\omega t}$ is the time dependence of a positive-frequency wave moving forward in time.
+
+Suppose $f(x)$ has definite parity, e.g. $f$ is even, $f(-x)=f(x)$. Then we can just do the integral over the half-line and write
+\begin{align*}
+    g(k) &= \int_0^\infty \frac{dx}{\sqrt{2\pi}}f(x) e^{-ikx} + \int_0^\infty \frac{dx}{\sqrt{2\pi}}f(x)e^{+ikx}\\
+        &= \sqrt{\frac{2}{\pi}} \int_0^\infty dx\, f(x) \cos(kx).
+\end{align*}
+This is the \emph{even Fourier transform.} By an equivalent argument, if our function is instead odd, then
+\begin{equation}
+    \tilde g(k) = \sqrt{\frac{2}{\pi}} \int_0^\infty dx\, f(x) \sin(kx),
+\end{equation}
+where the tilde indicates we have dropped a factor of $i$ in going from exponentials to a sine.
+
+\begin{exm}
+    Take the function $f(x) = e^{-\alpha|x|}$, with $\alpha >0$. Then
+    \begin{align*}
+        g(k) &= \frac{1}{\sqrt{2\pi}}\int_0^\infty dk \, e^{-\alpha x} e^{-ikx} + \frac{1}{\sqrt{2\pi}} \int_0^\infty dx \, e^{-\alpha x} e^{+ikx}\\
+            %&= \frac{1}{\sqrt{2\pi}} \bkt{\frac{e^{-(\alpha + ik)x}}{-(\alpha + ik)}}_0^\infty
+            &= \frac{1}{\sqrt{2\pi}} \bkt{\frac{1}{\alpha+ik} +\frac{1}{\alpha-ik}}\\
+            &= \sqrt{\frac{2}{\pi}} \frac{\alpha}{\alpha^2 + k^2}.
+    \end{align*}
+\end{exm}
+We can easily take the Fourier transform of a delta function as well, $\delta(x)$. Well,
+\begin{equation}
+    g^\delta(x) = \frac{1}{\sqrt{2\pi}}.
+\end{equation}
+The fact that the Fourier transform is constant in momentum space tells us that if we want to build a completely localized wavepacket in position space, we need to use components of all frequencies in momentum space.
+%a Weinberg, S HEP InSpire
+
+\begin{exm}
+    Now let us show that the inverse transform gives back the original function using $f(x)=e^{-\alpha|x|}$. We write the transformed function as
+    \begin{equation}
+        \sqrt{\frac{2}{\pi}} \frac{k}{x^2+k^2},
+    \end{equation}
+    and now
+    \begin{equation}
+        \frac{k}{\pi} \Int dx \frac{e^{ik'x}}{x^2+k^2}
+    \end{equation}
+    is our original function. But which way we close the contour clearly depends on the sign of $k$. For $k>0$ we should close it in the lower half-plane, so
+    \begin{equation}
+        \frac{k}{\pi} \Int dx \frac{e^{-ikx}}{(x-ik)(x+ik)} = \frac{k}{\pi} \paren{2\pi i \frac{e^{-ik(-ik)}}{(-2ik)}} = e^{-k' k}.
+    \end{equation}
+\end{exm}
+
+%Any of you who take the bold and foolish step of getting lost in theory will become familiar with these things [Fourier-transformed Gaussians].
+
+\begin{exm}
+    Let's take the Fourier transform of a Gaussian. That is,
+    \begin{equation}
+        f(x) = e^{-\alpha x^2}
+    \end{equation}
+    so that the transform is
+    \begin{align*}
+        g(k) &= \frac{1}{\sqrt{2\pi}} \Int dx\, e^{-\alpha (x^2 +ik/\alpha)}\\
+            &= \frac{1}{\sqrt{2\pi}} \Int dx \, e^{-\alpha\paren{[x+ik/2\alpha]^2 + k^2/4\alpha^2}}.
+    \end{align*}
+    THe $k^2/4\alpha^2$ term is constant-- it does not depend on $x$. The rest is a Gaussian, but with a complex shift:
+    \begin{equation}
+        g(k) = \frac{e^{-k^2/4\alpha}}{\sqrt{2\pi}}\Int dx\, e^{-\alpha [x+ik/2\alpha]^2}.
+    \end{equation}
+    Now we can make a change of variables to write
+    \begin{equation}
+        g(x) = \frac{e^{-k^2/4\alpha}}{\sqrt{2\pi}}\int_{-\infty +ik/2\alpha}^{+\infty + ik/2\alpha} d\hat x e^{-\alpha \hat x^2}.
+    \end{equation}
+    This isn't quite our original Gaussian integral because it is not over the real line yet, and we'd very much like to use the result $\Int e^{-\alpha x^2}=\sqrt{\pi/\alpha}.$
+    
+    We can relate this to the integral over the real line, however, by taking a rectangular contour of length $2L$ and height $ik/2\alpha$. The sides are exponentially suppressed as we take $L\to \infty$, and there are no poles in the rectangular contour, so the integral over the line $x+ik/2\alpha$ is equal to the integral over the real line, $x\in \RR$.
+    
+    It follows that this integral really is our Gaussian integral, so the result is
+    \begin{equation}
+        g(k) = \frac{e^{-k^2/4\alpha}}{\sqrt{2\alpha}}.
+    \end{equation}
+    As it turns out, the Fourier transform is another Gaussian, but with a different width of $\sqrt{2\alpha}$ rather than $1/\sqrt{\alpha}$.
+\end{exm}
+
+\begin{exm}
+    Suppose we have a sine wave which is only on for some finite pulse,
+    \begin{equation}
+        f(x) = \begin{dcases}
+            \sin (\omega_0 t) & |t| < \frac{N\pi}{\omega_0},\\
+            0 & |t| > \frac{N\pi}{\omega_0}.
+        \end{dcases}
+    \end{equation}
+    This is an odd function, so we can compute
+    \begin{equation}
+        \sqrt{\frac{2}{\pi}}\int_0^{N\pi/\omega_0}dt \sin(\omega_0 t) \sin(\omega t).
+    \end{equation}
+    Now we can use trig addition formulae to turn the product of sines into regular cosines:
+    \begin{equation}
+        \sin\alpha \sin \beta = \frac{1}{2}[\cos(\alpha-\beta) -\cos(\alpha+\beta)].
+    \end{equation}
+    If we put the pieces together and do the integral, we get
+    \begin{equation}
+        \frac{1}{\sqrt{2\pi}}\paren{\frac{\sin\bkt{(\omega_0 - \omega)(N\pi/\omega_0)}}{\omega_0-\omega} - \frac{\sin\bkt{(\omega_0+\omega) (N\pi/\omega_0)}}{\omega_0+\omega}}
+    \end{equation}
+    This function has a resonance at $\omega = \omega_0$. The next peak is when $(\omega_0-\omega)(N\pi/\omega_0) = \pi/2$, so the distance to the next peak is $\delta \omega = \omega_0/N$. It follows that $\Delta \omega \Delta t=\pi$, i.e. the spacing between peaks in frequency space and the spacing between peaks in time is constant.
+\end{exm}
