@@ -1,0 +1,111 @@
+\begin{note}
+    There's no lecture on Thursday, and the next homework will be released tomorrow and due a week from Thursday.
+\end{note}
+
+Last time, we talked about magnetization induced in matter. We discussed the microscopic origins of magnetization from spin and orbital effect, but we didn't do a detailed calculation of the matter response to the field.
+
+The logic is as follows:
+\begin{itemize}
+    \item Microscopic effects produce magnetization.
+    \item Magnetization produces a field.
+    \item The magnetization and the field find a self-consistent equilibrium.
+\end{itemize}
+There are two approaches we can take here.
+\begin{enumerate}
+    \item Define magnetization current densities $\vec j_m = \curl \vec M; \vec K_m = \vec M \times \uv n$. Then we can perform Biot-Savart to compute the magnetic field from magnetization current,
+    \begin{equation}
+        \vec B_M (\vec r) = \frac{\mu_0}{4\pi} \int_V d^3r' \frac{\bkt{\grad'\times \vec M(\vec r')}\times(\vec r -\vec r')}{|\vec r - \vec r'|^3} + \frac{\mu_0}{4\pi} \int_S dS' \frac{\bkt{\vec M (\vec r') \times \uv n'}\times(\vec r- \vec r')}{|\vec r- \vec r'|^3}.
+    \end{equation}
+    For instance, one could calculate the magnetic field due to a uniformly magnetized sphere.
+    \item Treat the magnetization as coming from point dipoles. That is,
+    \begin{equation}\label{B_M_pointdipoles}
+        \vec B_M(\vec r) = \mu_0 \int_V d^3r'\, \vec M(\vec r') \delta^{(3)}(\vec r- \vec r') - \frac{\mu_0}{4\pi} \grad \int_V d^3r' \frac{\vec M(\vec r') \cdot (\vec r- \vec r')}{|\vec r -\vec r'|^3}.
+    \end{equation}
+    The first term is only non-zero for $\vec r$ inside the sample, where it takes the value $\mu_0\vec M(\vec r)$. The second term could in general be non-zero outside the sample (and probably is!).
+    
+    \item[(b')] Assume there exist (imaginary) magnetic charges. The second term in Eq.~\eqref{B_M_pointdipoles} has the form of a gradient of a scalar function,
+    \begin{equation}
+        - \frac{\mu_0}{4\pi} \grad \int_V d^3r' \frac{\vec M(\vec r') \cdot (\vec r- \vec r')}{|\vec r -\vec r'|^3} \equiv -\mu_0 \grad \psi_M(\vec r) \equiv \mu_0 \vec H_M(\vec r).
+    \end{equation}
+    This is not the \emph{whole} magnetic field, or even the whole field induced by the magnetization---it is the not-delta-function part, or equivalently the curl-free part of the magnetic field produced by the magnetization. By analogy,
+    \begin{equation}
+        E=-\grad \varphi \text{ and } \vec H_m = -\grad \psi_M.
+    \end{equation}
+    We can define an equivalent ``charge density,''
+    \begin{equation}
+        \rho^*(\vec r) = -\div \vec M(\vec r), \quad \sigma^*(\vec r)=\vec M(\vec r_S) \cdot \uv n(\vec r_S).
+    \end{equation}
+\end{enumerate}
+
+\begin{exm}
+    Consider a slab with some cross-section in the $xz$-plane and a uniform magnetization $\vec M$ in the interior at an angle $\theta$ to the $z$-axis. From perspective (a), we have
+    \begin{gather}
+        \vec j_M = 0\\
+        \vec K_M = \begin{dcases*}
+            -M\sin \theta \uv y & (top)\\
+            M\sin \theta \uv y & (bottom).
+        \end{dcases*}
+    \end{gather}
+    Now these are two constant currents on the surfaces, and we previously derived the field from constant surface currents in a homework as $\mu_0 K/2$. We find that
+    \begin{equation}
+        \vec B_M = \begin{dcases*}
+            0 & (outside plates)\\
+            \mu_0 M \sin\theta \uv x & (between plates).
+        \end{dcases*}
+    \end{equation}
+    
+    From perspective (b'), we have a ``charge density'' in the interior and on the surfaces:
+    \begin{equation}
+        \rho^*(\vec r) = -\div \vec M(\vec r) = 0, \quad \sigma^*(\vec r) = \begin{dcases*}
+        M \cos\theta & (top)\\
+        -M\cos\theta & (bottom).
+        \end{dcases*}
+    \end{equation}
+    From these ``charge densities'' we can find $\vec H_M$. Here, it is
+    \begin{equation}
+        \vec H_M = \begin{dcases*}
+            0 & (outside)\\
+            -M \cos\theta \uv z & (inside).
+        \end{dcases*}
+    \end{equation}
+    This doesn't yet match $\vec B_M$, because it is just part of the total field. We need to add the delta function part and add on $\mu_0 \vec M(\vec r)$ wherever it is non-zero. The total field is
+    \begin{equation}
+        \vec B_M(\vec r) = \mu_0(M\cos\theta \uv z + M \sin \theta \uv x - M\cos\theta \uv z)= \mu_0 M\sin\theta \uv x
+    \end{equation}
+    in the interior, and it is zero outside. Now this matches the magnetic field we found before.
+\end{exm}
+
+Finally, we can think about linear media. In principle materials can respond in strange ways to applied fields, i.e.
+\begin{equation}
+    M_i = \chi_{ij} H_j + \chi_{ijk} H_j H_k+\dots
+\end{equation}
+The spins in a material may align in some weird way due to crystal structure and other material properties. For our purposes, we will consider only ``simple'' magnetic matter, i.e. linear and isotropic media. In this case,
+\begin{equation}
+    \vec M = \chi_m \vec H,
+\end{equation}
+where $\chi_m$ is the \term{magnetic susceptibility.}
+
+We can decompose the $\vec B$-field into a (modified) ``applied'' piece and a magnetization piece, as
+\begin{equation}
+    \vec B = \mu_0(\vec H + \vec M) = \mu_0 (1+\chi_m)\vec H = \mu_0 \kappa_m \vec H = \mu \vec H.
+\end{equation}
+We call $\kappa_m$ the \term{relative permeability} and $\mu$ the \term{magnetic permeability.}
+
+For superconductors, $\mu\to 0$, so $\vec B \to 0$ and $\vec H \to - \vec M$; $\chi_m=-1$. The opposite case is a ferromagnet, which has (sort of) $\mu\to \infty$, so $\vec B$ can be finite even for $\vec H \to 0$; $\chi_m \to \infty$. 
+
+Ferromagnets have other interesting properties; they don't immediately change their polarization in applied fields due to the interactions between neighboring spins. In fact, they experience hysteresis---applying a field exactly antiparallel to a bunch of aligned spins won't instantly flip them all because there's a strong interaction energy between the spins, and it would take a lot of energy to flip them. This effect is more powerful for large clumps of spins, in the same way that massive particles have low tunneling probability. This is also an issue with smaller systems, which (as scale is reduced) become more sensitive to thermal noise and other demagnetizing fields.
+
+We can also see how Maxwell's equations for magnetism are modified in the presence of magnetizable materials.
+\begin{equation}
+    \curl \vec B = \mu_0 \vec j = \mu_0(\vec j_f + \curl \vec M)=\mu_0(\curl H + \curl \vec M),
+\end{equation}
+where
+\begin{equation}
+    \vec H = \vec H_m + \vec H_\text{applied},
+\end{equation}
+where the first term has divergence but no curl, while the second has curl but no divergence. Thus
+\begin{gather}
+    \div \vec B = 0, \qquad \div \vec H = - \div \vec M = \rho^*,\\
+    \curl \vec B =\mu_0 \vec j, \qquad \curl \vec H = \vec j_f.
+\end{gather}
+Notice that the perpendicular component of $\vec B$ is constant at surfaces, but the perpendicular component of $\vec H$ can be discontinuous. The second equation in $\vec H$ is sometimes nice because $\vec j_f$ is zero away from sources. This is really similar to electrostatics, except that we have more vectors to keep track of.
