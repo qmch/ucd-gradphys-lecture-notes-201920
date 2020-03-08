@@ -1,0 +1,172 @@
+\begin{quote}
+    \textit{``The number of beans in the universe is conserved. So if you count the number of beans in one basis and the number of beans in another basis, you better get the same number of beans.''}%
+        \footnote{Editor's note---when you're talking about particles, the concept of particle is actually not well-defined if your spacetime is not stationary. The notion of how to distinguish positive and negative frequency modes is only well-defined when the part of the spacetime you're looking at is stationary, i.e. it has a well-defined time translation symmetry. In spacetimes which are stationary at early times and late times but dynamical in between, one can define a change of basis such that the vacuum at early times is seen to be full of thermal radiation at late times. In fact, the non-conservation of ``beans'' in non-stationary spacetimes is exactly the phenomenon of Hawking radiation.}
+    
+    --Nemanja Kaloper
+\end{quote}
+
+Today we'll consider some applications of Fourier transforms.
+\begin{exm}
+    Consider the wave equation with unit velocity,
+    \begin{equation}
+        \p_x^2 y = \p_t^2 y.
+    \end{equation}
+    Let us consider a solution with initial conditions
+    \begin{gather}
+        y(x,0) = f(x),\\
+        \p_t y(x,0) = 0.
+    \end{gather}
+    This is the propagation of the vibration of a plucked string. It must be infinite, or else we would be using a Fourier series. Note that if the string were half-infinite we might instead use a Laplace transform.
+    
+    We write $y$ in terms of its Fourier transform $Y$, as
+    \begin{equation}
+        y= \Int \frac{d\alpha}{\sqrt{2\pi}} Y(\alpha, t) e^{-i\alpha x}
+    \end{equation}
+    and the inverse transform
+    \begin{equation}
+        Y= \Int \frac{dx}{\sqrt{2\pi}} y e^{+i\alpha x}.
+    \end{equation}
+    Then the relevant derivatives are 
+    \begin{equation}
+        \p_t^2 y =\int \frac{d\alpha}{\sqrt{2\pi}} (\p_t^2 Y) e^{-i\alpha x}, \quad \p_x^2 y = \Int \frac{d\alpha}{\sqrt{2\pi}} Y (-\alpha^2) e^{-i\alpha x}.
+    \end{equation}
+    Our PDE says that these are equal, so this reduces to a second-order ODE,
+    \begin{equation}
+        \p_t^2 Y = -\alpha^2 Y \implies Y= Ae^{i\alpha t} + B e^{-i\alpha t}.
+    \end{equation}
+    The initial velocity condition tells us that
+    \begin{equation}
+        \p_t y(x,0) = 0 \implies \p_t Y(\alpha,0) = 0.
+    \end{equation}
+    The initial ``wavefunction'' condition says that
+    \begin{equation}
+        Y(\alpha,0) = \Int \frac{dx}{\sqrt{2\pi}} y(x,0) e^{i\alpha x} = F(\alpha),
+    \end{equation}
+    where $F$ is the Fourier transform of the initial condition. Applying initial conditions, we have
+    \begin{equation}
+        A+B=F(\alpha)
+    \end{equation}
+    for the position condition and
+    \begin{equation}
+        A-B=0
+    \end{equation}
+    for the velocity condition. Thus
+    \begin{equation}
+        A=B = \frac{1}{2} F(\alpha),
+    \end{equation}
+    so
+    \begin{equation}
+        Y(\alpha, t) = \frac{F(\alpha)}{2} \bkt{e^{i\alpha t} + e^{-i\alpha t}}.
+    \end{equation}
+    Then the solution to our differential equation in real space is
+    \begin{align*}
+        y&=\frac{1}{2} \Int \frac{d\alpha}{\sqrt{2\pi}} \paren{F(\alpha) e^{i\alpha(t-x)} + F(\alpha) e^{-i\alpha(t+x)}}\\
+            &= \frac{1}{2} \bkt{f(t-x) + f(t+x)},
+    \end{align*}
+    which is the d'Alembert solution to the wave equation we derived before.
+\end{exm}
+
+\begin{exm}
+    Let us find the Coulombic potential, i.e. the Green's function for the Laplacian operator such that
+    \begin{equation}
+        \nabla^2 G =\delta(\vec r- \vec r').
+    \end{equation}
+    Well, $G$ can be written in terms of its Fourier transform as
+    \begin{equation}
+        G= \int \frac{d^3k}{(2\pi)^{3/2}} g(\vec k) e^{-i\vec k\cdot \vec r}
+    \end{equation}
+    and similarly
+    \begin{equation}
+        \delta(\vec r - \vec r') = \frac{1}{(2\pi)^3} \int d^3 k e^{-i\vec k(\vec r - \vec r')} = \int \frac{d^3k}{(2\pi)^{3/2}} \paren{\frac{e^{i\vec k \cdot \vec r'}}{(2\pi)^{3/2}}} e^{-i\vec k \cdot \vec r}
+    \end{equation}
+    Comparing left and right sides,
+    \begin{equation}
+        -k^2 g(\vec k, \vec r') = \frac{1}{(2\pi)^{3/2}} e^{i \vec k \cdot \vec r'}.
+    \end{equation}
+    Thus
+    \begin{equation}
+        G= -\frac{1}{(2\pi)^{3/2}} \int \frac{d^3 k}{(2\pi)^{3/2}} \frac{e^{-i\vec k (\vec r- \vec r')}}{k^2} = -\frac{1}{4\pi} \frac{1}{\abs{\vec r - \vec r'}}.
+    \end{equation}
+\end{exm}
+
+\begin{exm}
+    Let us consider the forced harmonic oscillator,
+    \begin{equation}
+        \ddot y + \omega_0 y = f(t).
+    \end{equation}
+    We can solve for the Green's function:
+    \begin{equation}
+        \ddot G + \omega_0^2 G = -\delta(t-t').
+    \end{equation}
+    We're interested in the retarded Green's function, i.e. the Green's function which vanishes for $t<t'$ (so that influences propagate to the future). We write the Green's functoon in terms of its Fourier transform,
+    \begin{equation}
+        G= \Int \frac{d\omega}{\sqrt{2\pi}} g(\omega) e^{-i\omega t}
+    \end{equation}
+    and the delta function is
+    \begin{equation}
+        \delta(t-t') = \frac{1}{2\pi} \Int d\omega e^{-i\omega(t-t')}.
+    \end{equation}
+    Plugging in, we have
+    \begin{equation}
+        (-\omega^2 +\omega_0^2)g + \omega_0^2 g = -\frac{1}{\sqrt{2\pi}} e^{i\omega t},
+    \end{equation}
+    so
+    \begin{equation}
+        g = -\frac{1}{\sqrt{2\pi}} \frac{e^{i\omega t'}}{(\omega^2-\omega_0^2)}.
+    \end{equation}
+    Now we take the inverse transform to write
+    \begin{equation}
+        G= -\frac{1}{2\pi} \Int d\omega \frac{e^{-i\omega(t-t')}}{(\omega-\omega_0)(\omega+\omega_0)}
+    \end{equation}
+    By now, it should be natural that we write this as a contour integral and decide how to close the contour by the Jordan lemma. Which way we close the contour depends on the relative signs of $t$ and $t'$: for $t<t'$, we must close the contour in the upper half-plane, while for $t>t'$ we close in the lower half-plane.
+    
+    But there's an important condition. We can't just blithely compute the principal value of the poles at $\pm \omega_0$, since we require that this is the \emph{retarded Green's function}. In fact, we must push the poles down off the contour to $\pm\omega_0 - i\epsilon$ so that 
+    \begin{equation}
+        G=-\frac{1}{2\pi} \Int d\omega \frac{e^{-i\omega(t-t')}}{(\omega -(\omega_0 - i\epsilon))(\omega-(-\omega_0 -i\epsilon))}.
+    \end{equation}
+    Thus we have used an $i\epsilon$-prescription (i.e. pushed the poles off the contour) and then let $\epsilon\to 0$.%
+        \footnote{There are other choices for how to push the poles. There's also the advanced propagator, which results in retrocausal effects (effects propagate to the past). And there's a time-ordered propagator, where one pole is pushed up and one is pushed down. Hence positive frequency moves forward in time and negative frequency moves backwards in time. The negative frequency modes are to be interpreted as antiparticles.}
+    The value of this contour integral gives us
+    \begin{equation}
+        G(t,t') = \begin{cases}
+            0, & t < t'\\
+            \frac{1}{i} \bkt{\frac{e^{-i\omega_0(t-t')}}{2\omega_0} - \frac{e^{+i\omega_0(t-t')}}{2\omega_0} }, & t > t'.
+        \end{cases}
+    \end{equation}
+    We can moreover combine factors and write
+    \begin{equation}
+        G(t,t') = \begin{cases}
+            0, & t < t'\\
+            -\frac{1}{\omega_0} \sin (\omega_0(t-t')), & t > t'.
+        \end{cases}
+    \end{equation}
+    This is exactly the answer we derived previously by solving the differential equation and fitting the boundary conditions, except we previously set $\omega_0$ to $1$.
+\end{exm}
+
+\subsection*{Convolution}
+
+For two functions $f$ and $g$, we can define their convolution (or ``folding,'' or \emph{Faltung}) as
+\begin{equation}
+    f*g = \Int \frac{dy}{\sqrt{2\pi}} g(y) f(x-y).
+\end{equation}
+This operation is commutative, as we can see by a change of variables. One nice property of the convolution is that the Fourier transform of the convolution is the product of the Fourier transforms:
+\begin{equation}
+    (f*g)^T = F(k) G(k).
+\end{equation}
+We can prove this:
+\begin{align}
+    f*g &= \Int \frac{dy}{\sqrt{2\pi}} g(y) f(x-y)\\
+        &= \Int \frac{dy}{\sqrt{2\pi}} \Int \frac{dk}{\sqrt{2\pi}} G(k) e^{-ikx} \Int \frac{dq}{\sqrt{2\pi}} F(q) e^{-iq(x-y)}.
+\end{align}
+So long as these transforms exist and converge, we can exchange the order of integration. This becomes
+\begin{equation}
+    f*g = \frac{1}{(2\pi)^{3/2}}\Int dk dq G(k) F(q) e^{-iqx} \Int dy e^{i(q-k)y},
+\end{equation}
+where the $dy$ integral is the delta function. Its value is $2\pi \delta(k-q)$, so now we have
+\begin{equation}
+    f*g = \Int \frac{dk}{\sqrt{2\pi}} G(k) F(k) e^{-ikx},
+\end{equation}
+which shows that $f*g$ is the inverse Fourier transform of $G(k)F(k)$. Hence $(f*g)^T = F(k) G(k)$. \qed
+
+There's one slight complication we'll deal with later, which is that sometimes the Fourier transform of the convolution exists when the individual Fourier transforms do not.
+%The number of beans in the universe is conserved. So if you count the number of beans in one basis and the number of beans in another basis, you better get the same number of beans.
