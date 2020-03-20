@@ -46,7 +46,7 @@ That's the solution for a single wire plane. If we add two such planes separated
 and the exponential terms both decay inside exponentially fast.
 
 We can discuss separable solutions to Laplace's equation in some generality. For Cartesian coordinates, there are three separation constants $\alpha,\beta,\gamma$ with $\alpha^2 + \beta^2 + \gamma^2 =0$, It follows that most of our solutions will have oscillation in at least one direction and decay (or growth) in another. For spherical solutions, there are technically two independent solutions for the $\theta$ dependence, the associated Legendre polynomials $P_l^m$ and the other kind $Q_l^m$. The second kind are divergent at $\theta=\pi$ and sometimes at $\theta=0$. Cylindrical solutions have many different options; the radial dependence can be growing exponentially, decaying exponentially, growing as a log, or oscillating/decaying as cylindrical Bessel functions. We won't really discuss this in any large degree of detail, but it's good to be aware that such solutions exist.%
-    \footnote{Arfken has a very detailed discussion of Bessel functions and Legendre polynomials}
+    \footnote{Arfken has a very detailed discussion of Bessel functions and Legendre polynomials, for more reading.}
 
 \begin{exm}
     Consider a ring of charge $Q$ and radius $R$. If we consider this in a spherical expansion, we can write
@@ -93,9 +93,9 @@ We can discuss separable solutions to Laplace's equation in some generality. For
 \end{exm}
 
 \begin{exm}
-    Finally, let us consider two cylindrical rods aligned along the $z$-axis, separated by a little gap. We hold the rod at positive $z$ at a potential $V_R$ and the rod at negativ $z$ at a potential $V_L$. What is the potential inside the gap? There is no $\phi$ dependence, so $\alpha=0$ (we don't get the power-law decay/growth in $\rho$). Our boundary conditions are given in $\phi,z$, so we will take the separation constant $k^2<0$ to expand in $z$, and define $k=i\kappa$ as is conventional.
+    Finally, let us consider two cylindrical rods aligned along the $z$-axis, separated by a little gap. We hold the rod at positive $z$ at a potential $V_R$ and the rod at negative $z$ at a potential $V_L$. What is the potential inside the gap? There is no $\phi$ dependence, so $\alpha=0$ (we don't get the power-law decay/growth in $\rho$). Our boundary conditions are given in $\phi,z$, so we will take the separation constant $k^2<0$ to expand in $z$, and define $k=i\kappa$ as is conventional.
     
-    This means we're expanding in Bessel functions $I$ and $K$, and since $K$ diverges as $\rho \to 0$, we will be using the functions $I$. THus
+    This means we're expanding in Bessel functions $I$ and $K$, and since $K$ diverges as $\rho \to 0$, we will be using the functions $I$. Thus
     \begin{align}
         \varphi(\rho,\phi,z) &= \frac{1}{2\pi} \int_0^\infty I_0(\kappa \rho) (E(\kappa) e^{i\kappa z} + F(\kappa) e^{-i\kappa z}) d\kappa + \text{constant}\
             &= \frac{1}{2\pi} \Int A(\kappa) I_0(|\kappa|\rho) e^{i\kappa z} d\kappa + \text{constant.}

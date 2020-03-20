@@ -8,13 +8,13 @@ or in integral form
 \begin{equation}
     \oint_S \vec E \cdot d\vec A = \int_V \div \vec E d^3 r = \int_V \frac{\rho}{\epsilon_0} d^3 r = \frac{Q_\text{enc}}{\epsilon_0}.
 \end{equation}
-The simplest example is for the point charge. For a single positive charge $q>0$, we can reason that the field must point radially outwards and it is constant at surfaces of constant $R$, so that
+The simplest example is for the point charge. For a single positive charge $q>0$, we can reason that the field must point in the radial direction and it is constant at surfaces of constant $R$, so that $\vec E(r,\theta,\phi) = E(r) \uv r$. Then
 \begin{equation}
-    \oint_S \vec E \cdot d\vec Q = |E| 4\pi R^2 = \frac{q}{\epsilon_0},
+    \oint_S \vec E \cdot d\vec A = |E| 4\pi R^2 = \frac{q}{\epsilon_0},
 \end{equation}
 which yields
 \begin{equation}
-    \vec{E} = \frac{1}{4\pi R^2 \epsilon_0} \uv r.
+    \vec{E} = \frac{q}{4\pi R^2 \epsilon_0} \uv r.
 \end{equation}
 Gauss's law also gives us a nice result (sometimes known as Newton's shell theorem), which says that the electric field due to a spherically symmetric shell of charge \emph{inside} that shell ($r<R$) is zero.
 
@@ -59,7 +59,7 @@ In addition, when forces are due only to electric fields, then
 \end{equation}
 Hence the electrostatic potential is the energy per charge.
 
-Let's now prove Green's reciprocity relation for the potential energy. That is, suppose there are two charge distributions $\rho_1,\rho_2$. The energy of $\rho_2$ in the potential $\varphi_1$ created by $\rho_1$ is
+Let's now prove \term{Green's reciprocity relation} for the potential energy. That is, suppose there are two charge distributions $\rho_1,\rho_2$. The energy of $\rho_2$ in the potential $\varphi_1$ created by $\rho_1$ is
 \begin{equation}
     V = \int d^3 r \, \rho_2(\vec r) \varphi_1(\vec r),
 \end{equation}

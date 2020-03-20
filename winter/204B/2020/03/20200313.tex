@@ -1,0 +1,101 @@
+%Democracy is of course a terrible system. The problem is that all others are worse.
+
+Derivatives with respect to $t$ gave us the recursion relation
+\begin{equation}
+    (2n+1) x P_n(x) =(n+1) P_n(x) + n P_{n-1}(x),
+\end{equation}
+while derivatives with respect to $x$ give
+\begin{equation}
+    P_{n+1}'(x) + P_{n-1}'(x) = 2x P_n'(x) + P_n(x).
+\end{equation}
+If one takes a derivative with respect to $x$ of the first one and multiplies by two, then the first becomes
+\begin{equation}
+    2(2n+1) x P_n' + 2(2n+1) P_n = 2(n+1) P_{n+1}' + 2n P_{n-1}'.
+\end{equation}
+Multiplying the latter by $2n+1$ gives
+\begin{equation}
+    (2n+1)P_{n+1}'(x) + (2n+1)P_{n-1}'(x) = 2(2n+1)x P_n'(x) + (2n+1)P_n(x).
+\end{equation}
+Taking their difference now gives
+\begin{equation}
+    P_{n+1}' -P_{n-1}' =(2n+1)P_n
+\end{equation}
+Now we have
+\begin{equation}
+    P_{n+1}' = x P_n' +( n+1) P_n
+\end{equation}
+and
+\begin{equation}
+    P_{n-1}' = xP_n' - nP_n.
+\end{equation}
+By shifting the index on the second equation we have
+\begin{equation}
+    P_n' = x P_{n+1}' - (n+1) P_{n+1}.
+\end{equation}
+Taking derivatives of each now tells us that
+\begin{align*}
+    P_n'' &= x P_{n+1}'' - nP_{n+1}'\\
+        &= x \bkt{xP_n'' +(n+2)P_n'} - n \bkt{xP_n' + (n+1) P_n},
+\end{align*}
+which is now a single equation in $P_n$ at the same order $n$. Now
+\begin{equation}
+    (1-x^2) P_n'' - 2x P_n' + n(n+1) P_n=0,
+\end{equation}
+which we recognize as the Legendre equation. Moreover, note that the relation
+\begin{equation*}
+    (2n+1) x P_n(x) =(n+1) P_n(x) + n P_{n-1}(x),
+\end{equation*}
+allows us to figure out the Gram-Schmidt procedure. If we pick $P_0=1$ to be normalized then $P_1=x$ and now we can read off $P_2= 3x^2/2$.%
+    \footnote{It may be possible to recover the inner product on this set of functions from the recursion relations, but it's easier to do once we have the differential equation and put it into self-adjoint form.}
+
+To wrap up, let us derive the Rodriguez formula for the Legendre polynomials. Let's state it first:
+\begin{equation}
+    P_n = \frac{1}{2^n n!} D^n(x^2 -1)^n.
+\end{equation}
+How do we show this works? Well, we can first use a binomial expansion:
+\begin{align*}
+    P_n &= \frac{1}{2^n n!} D^n(x^2 -1)^n\\
+        &= \frac{1}{2^n n!}  \sum_{k=0}^n (-1)^k \frac{n!}{(n-k)! k!} D^n x^{2n-2k}\\
+        &=\frac{1}{2^n n!}  \sum_{k=0}^{\lfloor n/2\rfloor} (-1)^k \frac{n!}{(n-k)! k!} D^n x^{2n-2k}\\
+        &=  \sum_{k=0}^{\lfloor n/2\rfloor} (-1)^k \frac{(2n-2k)!}{2^n(n-k)! k! (n-2k)!} x^{n-2k}
+\end{align*}
+We notice that $k$ when $k>n/2$, the derivatives are more than the power of $x$, so we can restrict the sum to $\lfloor n/2 \rfloor$.
+
+If we expand the generating function for the Legendre polynomials and collect terms by orders in $t$, we find that the Legendre polynomials precisely agree with this closed-form expression for $P_n$. Moreover, by taking the Legendre equation and putting it in self-adjoint form,
+\begin{equation}
+    \bkt{(1-x^2) P_n'}' - n(n+1)P_n = 0,
+\end{equation}
+we can then show that
+\begin{equation}
+    \int_{-1}^1 \bkt{(1-x^2)(P_m P_n'-P_nP_m')}' = \bkt{n(n+1)-m(m+1)}\int_{-1}^1 P_n P_m =0
+\end{equation}
+unless $n=m$.
+
+A more elegant relation using the generating function is to square the generating function and take its integral,
+\begin{equation}
+    \int_{-1}^1 \paren{\frac{1}{\sqrt{1-2xt + t^2}}}^2 = \sum_{n,k} \int_{-1}^1 dx P_k(x) P_n(x) t^{n+k} = \sum_{n=0}^\infty \int_{-1}^1 P_n^2 t^{2n}.
+\end{equation}
+The integral of the squared generating function is just a log; it is
+\begin{equation}
+    \frac{1}{t} \ln \frac{1+t}{1-t} = 2\sum_n \frac{t^{2n}}{2n+1},
+\end{equation}
+which tells us that
+\begin{equation}
+    \int_{-1}^1 P_n(x)^2 dx = \frac{2}{2n+1}.
+\end{equation}
+We conclude that
+\begin{equation}
+    \int_{-1}^1 P_n P_m = \delta_{nm} \frac{2}{2n+1}.
+\end{equation}
+We can easily normalize each of these now that we know the norm by writing
+\begin{equation}
+    \phi(x) = \sqrt{\frac{2n+1}{2}}P_n(x),
+\end{equation}
+and we can use these like Fourier modes to expand functions as
+\begin{equation}
+    f=\sum_n f_n \phi_n
+\end{equation}
+with the coefficients given by
+\begin{equation}
+    f_n = \braket{\phi_n}{f} = \int_{-1}^1 dx \, \phi_n(x) f(x).
+\end{equation}

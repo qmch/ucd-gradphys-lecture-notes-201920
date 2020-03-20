@@ -16,7 +16,7 @@ Recall that in electrostatics, Gauss's law in vacuum and Faraday's law (in stead
 \end{equation}
 For magnetostatics, things are different. We have now
 \begin{equation}
-    \div \vec B =0 , \curl \vec B = \mu_0 \vec j \implies B = -\grad \chi, \nabla^2 \chi =0,
+    \div \vec B =0 , \curl \vec B = \mu_0 \vec j \implies \vec B = -\grad \chi, \nabla^2 \chi =0,
 \end{equation}
 i.e. we can still define a scalar potential satisfying Laplace's equation when there are no volume current densities but $\chi$ is \emph{not continuous} at surface currents; it is only defined piecewise.
 
@@ -29,8 +29,8 @@ i.e. we can still define a scalar potential satisfying Laplace's equation when t
             \sum_{l=0}^\infty D_l \paren{\frac{b}{r}}^{l+1} P_l(\cos\theta) & r > b
         \end{dcases}
     \end{equation}
-    where we've just pulled out some factors in anticipation of the coefficients $A_l,B_l,C_l,D_l$.%
-        \footnote{Adding a length scale also has the benefit that all the sets of coefficients will have the same units. If we wrote $A_l r^l$, we would have to remember that the $A_l$s all have different units like $[\chi]/[r]^l$.}
+    where we've just pulled out some factors in anticipation of the forms of the coefficients $A_l,B_l,C_l,D_l$.%
+        \footnote{Adding a length scale also has the benefit that all the sets of coefficients will have the same units. If we simply wrote $A_l r^l$, we would have to remember that the $A_l$s all have different units like $[\chi]/[r]^l$.}
     We cannot say that that $\chi$ is continuous at $r=a$ and $r=b$, but we have continuity of the perpendicular component,
     \begin{equation}
         \Delta (\grad \chi)_\perp = 0 \text{ at }r=a,r=b.
@@ -71,16 +71,19 @@ i.e. we can still define a scalar potential satisfying Laplace's equation when t
     
     For the field on the axis of a ring, we can just do the Biot-Savart calculation. Normally we have to crunch through computing the integral, but by symmetry, any components of the field which lie in the plane of the ring cancel; the only nonzero component is the one along the axis of the ring, $\uv z$. That is,
     \begin{align}
-        \vec B(z) &= \frac{\mu_0 I}{4\pi} \int \frac{d\vec l \times (\vec r- \vec l)}{|\vec r - \vec r|^3}\\
+        \vec B(z) &= \frac{\mu_0 I}{4\pi} \int \frac{d\vec l \times (\vec r- \vec l)}{|\vec r - \vec l|^3}\\
             &= \frac{\mu_0 I}{4\pi}(2\pi a) \frac{1}{z^2+a^2}\frac{a}{\sqrt{z^2+a^2}} \uv z\\
-            &= \frac{\mu_0 I a^2}{2(z^2+a^2)^{3/2}} \uv z.
+            &= \frac{\mu_0 I a^2}{2(z^2+a^2)^{3/2}} \uv z,
     \end{align}
+    where $\vec r = (0,0,z)$.
     
     This is the field. We wanted the potential, so let us integrate
     \begin{equation}
         \chi(z) = \int_z^\infty \vec B \cdot d\vec z = \frac{\mu_0 I}{2} \paren{\frac{-z}{\sqrt{a^2+z^2}}}
     \end{equation}
-    which we can do by a trig substitution or equivalently Mathematica.
+    which we can do by a trig substitution%
+        \footnote{If we draw the right triangle with height $z$, base $a$, and base angle $\theta$, we find that $z/a= \tan \theta$, so $dz/a =\sec^2\theta d\theta$ and the integrand turns out to be $a^2/(z^2+a^2)^{3/2}=\cos^3\theta/a$ so our integral is (schematically) $a^2dz /(z^2+a^2)^{3/2}= \cos\theta d\theta$. Taking the indefinite integral gives $\sin\theta = z/\sqrt{z^2+a^2}$.}
+    or equivalently Mathematica.
     
     In our case,
     \begin{equation}

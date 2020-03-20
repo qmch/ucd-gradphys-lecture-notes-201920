@@ -1,0 +1,101 @@
+We have options for the final.
+-no final
+-regular 2 hour exam plus 30 mins for formatting and submission
+-``long homework'' (48 hours)
+
+%In the end it's never me who grades you, it's you yourself.
+
+\subsection*{Legendre polynomials, revisited}
+
+Let us recall that Legendre polynomials are a complete set of functions which solve the differential equation
+\begin{equation}
+    (1-x^2)P''(x)+2xP'(x) + \lambda P(x)=0.
+\end{equation}
+For generic $\lambda$, power series (Frobenius) expansions do not terminate, except for special values of $\lambda$ such that
+\begin{equation}
+    \lambda = l(l+1), \quad l = 0,1,2,\dots
+\end{equation}
+and we label the solutions as $P_l(x)$. We also saw the Legendre polynomials when we were solving differential equations with spherical symmetry. The Legendre polynomials emerge when we write the Laplacian in spherical coordinates and attempt to solve the Poisson/Laplace equations.
+
+Consider the equation
+\begin{equation}
+    \Delta \psi = q\delta(\vec r- \vec r').
+\end{equation}
+This has the Coulomb form of the potential,
+\begin{equation}
+    \psi(\vec r) = \frac{1}{|\vec r - \vec r'|} = \frac{1}{\sqrt{r^2-r r' \cos\theta + r'^2}}.
+\end{equation}
+If the point of interest $\vec r$ is much farther away from the origin than the point charge, $|\vec r|>|\vec r'|$, then we can write
+\begin{equation}
+    \psi(\vec r) =\frac{1}{r} \frac{1}{1-2tx +t^2} = \frac{1}{r} \sum_{n=0}^\infty P_n(x) t^n,
+\end{equation}
+where we have defined
+\begin{equation}
+    t= \frac{r'}{r} <1, \quad  x = \cos\theta.
+\end{equation}
+This is an exterior spherical expansion. Notice that the identity
+\begin{equation}
+    \frac{1}{1-2tx +t^2} = \sum_{n=0}^\infty P_n(x) t^n
+\end{equation}
+therefore tells us all the Legendre polynomials---we need only to expand in powers of $t$ and collect their coefficients in $x$. We call this a \term{generating function} for the Legendre polynomials. There exist also associated Legendre polynomials, which are related to the usual ones by derivatives.%
+    \footnote{There's a paper in Reviews of Modern Physics by Bander and Itzyckson on properties of the Legendre polynomials and spherical harmonics.}
+One can also analytically continue the argument of the Legendre polynomials, depending on what one is interested in. There's a generating function for Bessel functions, too:
+\begin{equation}
+    e^{-\frac{x}{2}(z- \frac{1}{z})} = \sum_{n=-\infty}^\infty J_n(x) z^n.
+\end{equation}
+Generating functions are useful because they reveal certain commonalities between all the special functions in a family, e.g. special values. For instance, what is $P_n(x=\pm 1)$? Well,
+\begin{equation}
+    \sum_{n=0}^\infty P_n(x=\pm 1) t^n =\frac{1}{\sqrt{1-2(\pm 1)t +t^2}} = \frac{1}{1\mp t}.
+\end{equation}
+We can Taylor expand now.
+\begin{equation}
+    \frac{1}{1-t} = \sum t^n, \quad \frac{1}{1+t} = \sum (-1)^n t^n,
+\end{equation}
+and that immediately gives us
+\begin{equation}
+    P_n(x=\pm 1) = (\pm 1)^n.
+\end{equation}
+We can calculate the value at $x=0$ too:
+\begin{equation}
+    \sum_{n=0}^\infty P_n(x=0)t^n = \frac{1}{\sqrt{1+t^2}}.
+\end{equation}
+One finds that
+\begin{equation}
+    P_n(0) = \begin{dcases}
+        0 & n = 2l+1\\
+        \frac{1}{(2n)!} D^{2n}(1+t^2)^{-1} & \text{otherwise}
+    \end{dcases}
+\end{equation}
+since there are no odd powers of $t$ in the Taylor expansion. This derivative turns out to be $\binom{-1/2}{n} = (-1)^n \frac{(2n-1)!!}{(2n)!!}$.
+Equivalently one may write
+\begin{equation}
+    \frac{1}{\sqrt{1-2xt+t^2}}= (1-z)^{-1/2} = \sum_{n=0}^\infty \binom{-1/2}{n}(-2xt + t^2)^n
+\end{equation}
+in a binomial expansion. %For notice that at order $x^k$ we have terms like $(xt)^k t^{2(n-k)}$
+
+Now, we claimed that the generating function somehow knows about all the properties of the Legendre polynomials. That suggests it should have a link to the differential equation. Well, suppose we derive the sum expression by $t$. We get
+\begin{equation}
+    \sum_{n=0}^\infty n P_n(x) t^{n-1} = \sum_{n=0}^\infty (n+1) P_{n+1}(x) t^n,
+\end{equation}
+and the derivative of the square root expression is
+\begin{equation}
+    \frac{d}{dt}\frac{1}{\sqrt{1-2xt+t^2}} = \frac{x-t}{(1-2xt+t^2)^{3/2}} = \frac{x-t}{\sqrt{1-2xt+t^2}(1-2x+t^2)}.
+\end{equation}
+It follows that
+\begin{equation}
+    (1-2xt +t^2) \sum_{n=0}^\infty (n+1) P_{n+1}(x) t^n = (x-t) \sum_{n=0}^\infty P_n(x) t^n,
+\end{equation}
+where we have recognized and expanded the square root using the generating function. If we count order by order in $t$, we recover a recursion relation on the $P_n$:
+\begin{equation}
+    (2n+1) x P_n(x) =(n+1) P_n(x) + n P_{n-1}(x).
+\end{equation}
+
+This is not the only recursion relation we can find. We can also find one with derivatives with respect to $x$, i.e.
+\begin{equation}
+    \sum P_n'(x) t^n = \frac{d}{dx} \bkt{\frac{1}{\sqrt{1-2xt + t^2}}}.
+\end{equation}
+Taking the derivative and comparing by orders of $t$ again yields
+\begin{equation}
+    P_{n+1}'(x) + P_{n-1}'(x) = 2x P_n' + P_n,
+\end{equation}
+a recursion relation between derivatives of Legendre polynomials. This may not look pretty, but in fact it's a direct consequence of symmetry. The relations come from representations of Lie algebras.

@@ -1,0 +1,80 @@
+A quick review of magnetic phenomena. We can apply a field $\vec H_f$ to some material. In the problem set, this might be the dipole embedded in the magnetizable material. That field induces a magnetization $\vec M$ inside the material only. That magnetization produces a $B$-field from magnetization, which is
+\begin{equation}
+    \vec B_M = \mu_0 (\vec M +\vec H_M),
+\end{equation}
+where $\vec H_M$ is calculated from the fictitious magnetic charges $\rho^*,\sigma^*$. (Alternately $\vec B_M$ comes from the magnetization currents, as we like.) The total field is the sum of the applied field and the field from magnetization,
+\begin{equation}
+    \vec H = \vec H_f + \vec H_M
+\end{equation}
+so that
+\begin{equation}
+    \vec B = \mu_0(\vec M +\vec H) = \vec B_M + \mu_0 \vec H_f.
+\end{equation}
+
+\subsection*{Numerics and computational methods (non-examinable)}
+
+Suppose we want to solve a boundary value problem on the finite interval $[0,T]$. We can write the solution in terms of its Fourier coefficients,
+\begin{equation}
+    f(t) = \sum_{n=-\infty}^\infty c_n e^{i\paren{\frac{2\pi n}{T}}t},
+\end{equation}
+where the coefficients are given by applying orthogonality relations,
+\begin{equation}
+    c_n = \frac{1}{T}\int_0^T dt\, f(t) e^{-i\paren{\frac{2\pi n}{T}}t}.
+\end{equation}
+Practically speaking, we don't have a continuous functional form for our data. We have discrete data points. In particular, suppose we have $2N$ data points at discrete times
+\begin{equation}
+    t_k = \frac{T}{2N}k, \quad 0 \leq k \leq 2N-1,
+\end{equation}
+and define $f_k \equiv f(t_k)$. Then we can turn our integration into a discrete sum:
+\begin{equation}
+    c_n = \frac{1}{T} \sum_{k=0}^{2N-1} \underbrace{\paren{\frac{T}{2N}}}_{\Delta t} f_k e^{-i \frac{\pi}{N}nk} =\frac{1}{2N} \sum_{k=0}^{2N-1} f_k e^{-i \frac{\pi}{N}nk}.
+\end{equation}
+The $f_k$s are also related to the Fourier coefficients $c_n$ by
+\begin{equation}
+    f_k = \sum_{n=0}^{2N-1} c_n e^{i\frac{\pi}{N} nk}
+\end{equation}
+Notice that we've limited the sum in $n$ because the function is not continuously sampled. That is, we wish to build the function out of Fourier modes, but for modes above some frequency, the period of the modes is smaller than the sampling time, so we must impose a cutoff of $2N-1$.
+
+There are two places where discreteness comes in. The interval is of finite length $T$, so we have a Fourier series with a characteristic length scale $1/T$, and we have finite sampling in that interval, so the Fourier modes also have a cutoff in frequency. Practically speaking, high-frequency oscillations look like lower-frequency oscillations when we do discrete sampling. There's a kind of aliasing that goes on in the sampling process.
+
+Consider the vector
+\begin{equation}
+    (1,e^{\frac{i\pi n}{N}},e^{\frac{2i\pi n}{N}},\dots,e^{\frac{i(2N-1)\pi n}{N}})
+\end{equation}
+which is $e^{i\pi nk/N}$ for different $k$ from $0$ to $2N-1$. If we construct
+\begin{gather*}
+    n=0: \quad (1,1,1,\dots,1)\\
+    n=1: \quad (1, e^{i\pi/N}, e^{i2\pi/N},\dots)
+\end{gather*}
+we can see that these are actually orthogonal. In general for $n$ and $m$ we have the dot product being
+\begin{equation}
+    \sum_{k=0}^{2N-1} e^{i\frac{\pi}{N}k(n-m)}= \frac{e^{i\frac{\pi}{N}(2N)}-1}{e^{i\frac{\pi}{N}(n-m)}-1} =\begin{cases}
+        0 & n \neq m\\
+        2N & n = m.
+    \end{cases}
+\end{equation}
+Here we've just applied the finite geometric series to perform the sum over $k$. We see that these vectors are mutually orthogonal and have the same normalization of $2N$, so they form a basis. In other words, we are writing $f$ as a vector in this $2N$-dimensional space.
+
+We can write our Fourier series as
+\begin{equation}
+    \sum_{n=0}^{2N-1} c_n e^{i\frac{\pi}{N}nk} = \sum_{n=0}^{2N-1} \frac{1}{2N} e^{i\frac{\pi}{N}nk} \sum_{k'=0}^{2N-1} f_{k'} e^{-i\frac{\pi}{N}nk'} = \frac{1}{2N} \sum_{k'=0}^{2N-1} f_{k'} (2N \delta_{kk'}) = f_k,
+\end{equation}
+where we've applied the orthogonality relation to show that these formulae indeed give the sampled function values $f_k$.
+
+What if the $f_k$s are all real? Look at $c_{2N-n}$. This coefficient is
+\begin{equation}
+    c_{2N-n} =\frac{1}{2N} \sum_{k=0}^{2N-1} f_k e^{-i\frac{\pi}{N}(2N-1)} = \frac{1}{2N} \sum_{k=0}^{2N-1} f_k e^{i\frac{\pi}{N}nk} = c_n^*
+\end{equation}
+when $f_k=f_k^*$. Hence the reality of the original function tells us that half of our complex coefficients are determined by the other half via complex conjugation.
+
+There's another way to do this which is more computationally efficient. We split the sum%
+    \footnote{Usually we want the $c_n$s in terms of $f_k$.}
+as
+\begin{equation}
+    f_k = \sum_{n=0}^{2N-1} c_n e^{i \frac{\pi}{N}nk} = \sum_{n=0}^{N-1} c_{2n} e^{i\frac{\pi}{N} (2n) k} + \sum_{n=0}^{N-1} c_{2n+1} e^{i\frac{\pi}{N} (2n+1) k}.
+\end{equation}
+For the first term we can move the factor of $2$ into the denominator; for the second, we can pull a factor $e^{i\frac{\pi}{N}k}$ out and write
+\begin{equation}
+    f_k = \sum_{n=0}^{N-1} c_{2n} e^{i\frac{\pi}{(N/2)}nk} + \paren{\sum_{n=0}^{N-1} c_{2n+1} e^{i\frac{\pi}{(N/2)}nk}} e^{i\frac{\pi}{N}k}.
+\end{equation}
+These look much like Fourier sums themselves, so we might be inclined to apply this procedure recursively. Some programs still want $2N$ to be a power of $2$ so that the recursion works perfectly, i.e. we have smaller sums to do which take advantage of the manifest symmetry. Instead of $N^2$ operations we have $N\log N$.

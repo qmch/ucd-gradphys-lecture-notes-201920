@@ -1,0 +1,104 @@
+%The reason we joined Costco was because of diapers. Kids can be quite productive, shall we say.
+Today we'll continue our discussion of convolutions (Faltung). The convolution was defined as
+\begin{equation}
+    f*g = \Int \frac{dy}{\sqrt{2\pi}} g(y) f(x-y) = \int \frac{dk}{\sqrt{2\pi}} G(k) F(k) e^{-ikx},
+\end{equation}
+where $F$ and $G$ are the Fourier transforms of $f$ and $g$ respectively. In particular, if we take $x=0$ then we get the result known as the Parseval relation,
+\begin{equation}
+    \int dy\, g(y) f(-y) = \int dk G(k) F(k).
+\end{equation}
+This almost looks like an overlap integral, but we can rewrite a bit. Let us define a function $\hat f(y)$ such that
+\begin{equation}
+    \hat f^*(-y) = f(y).
+\end{equation}
+Then its Fourier transform $\hat F$ is just the complex conjugate of $F$, i.e.
+\begin{equation}
+    F(k) = \bkt{f(y)}^T = \bkt{\hat f^*(-y)}^T = \hat F^*(k).
+\end{equation}
+Thus
+\begin{equation}
+    \braket{\hat f}{g} = \int dy\, \hat f^*(y) g(y)  = \int dk \hat F^*(k) G(k) = \braket{\hat F}{G}.
+\end{equation}
+We find that the Fourier transform is unitary; it preserves the inner product on the space of square integrable functions. That is,
+\begin{equation}
+    \braket{f}{g} = \braket{F}{G} = \braket{Uf}{Ug}
+\end{equation}
+for $F=Uf$, where we've written the Fourier transform as a (linear) operator $U$ on functions (vectors in a Hilbert space). In other words, going from coordinate (position) space to momentum space is just a unitary transformation.
+
+Now suppose we have an equation we wish to solve,
+\begin{equation}
+    \cL y=J
+\end{equation}
+for $\cL$ some differential operator. Then
+\begin{equation}
+    y(x) = \Int J(y) G(x-y) dy = \int dk \,G^T(k) J^T(k) e^{-ikx}.
+\end{equation}
+That is, we can determine the Green's function for an operator (given appropriate boundary conditions) and then Fourier transform the convolution integral required to solve the inhomogeneous equation.
+
+For instance, we can write an electrostatic potential as
+\begin{equation}
+    \psi(\vec r) = \frac{1}{4\pi} \int d^3 r' \frac{\rho(\vec r')}{|\vec r- \vec r'|} = \frac{1}{(2\pi)^{3/2}}\int d^3 k \frac{\rho^T(k)}{k^2} e^{-i\vec k \cdot \vec r}.
+\end{equation}
+This gives us the electrostatic potential in terms of the Fourier transform of the charge distribution.
+
+We can define multiple convolutions as well.
+\begin{align*}
+    (f*(g*h))(x) &= \int \frac{dy}{\sqrt{2\pi}}(g*h)(y) f(x-y)\\
+        &= \int \frac{dy}{\sqrt{2\pi}} f(x-y) \int \frac{dz}{\sqrt{2\pi}} h(z) g(y-z)\\
+        &= \int \frac{d\tilde y}{\sqrt{2\pi}} \frac{dz}{\sqrt{2\pi}} f(\tilde y) g(\tilde y-z-x) h(z)
+\end{align*}
+with $\tilde y = x-y$. Equivalently we could use $\tilde z = y-z$ and write this as
+\begin{equation}
+    \int \frac{d\tilde y}{\sqrt{2\pi}} \frac{d\tilde z}{\sqrt{2\pi}} f(\tilde y) g(\tilde z) h(x-\tilde y - \tilde z).
+\end{equation}
+It follows that convolution is associative, and moreover one can show that $f*g=g*f$, so convolution gives a commutative algebra.
+
+For the electrostatic potential
+\begin{equation}
+    \psi(\vec r) = \frac{1}{4\pi} \int d^3 r' \frac{\rho(\vec r')}{|\vec r- \vec r'|},
+\end{equation}
+the interaction energy of two charge distributions is
+\begin{align*}
+    W &= \int d^3 r \, \rho(\vec r) \psi(\vec r) \\
+        &= \frac{1}{4\pi} \int d^3r \, d^3 r' \, \rho(\vec r) \frac{1}{|\vec r- \vec r'|} \rho(\vec r').
+\end{align*}
+Now we recognize this as a convolution integral and write this in terms of the Fourier transforms to find that
+\begin{equation}
+    W= 4\pi \int d^3 k\, d^3 k'\, \rho^T(\vec k) \frac{1}{k^2} \rho^T(-\vec k').
+\end{equation}
+In a sense, the relation
+\begin{equation}
+    [g*f]^T = F(k) G(k)
+\end{equation}
+defines the Fourier transform. Conversely
+\begin{equation}
+    [F*G]^T = fg.
+\end{equation}
+That is, a convolution in one space becomes a product in the Fourier-transformed space. Notice that the converse is not exactly true:
+\begin{equation}
+    [fg]^T = F*G \text{ \emph{if $F$ and $G$ exist.}}
+\end{equation}
+Sometimes $F$ does not exist, but $f$ may have a Taylor expansion and we can write the Fourier transform of a product order-by-order for some $\sum a_n [x^n g]^T$. Moreover we know that multiplying by $x$ corresponds to taking $i\P{}{k}$ derivatives of the Fourier transform. That is, if $f$ has a Taylor series, then
+\begin{equation}
+    [f(x)g]^T = \sum a_k \paren{i\P{}{k}}^n g^T(k) = f\paren{i\P{}{k}} g^T(k).
+\end{equation}
+We can thereby make sense of expressions like
+\begin{equation}
+    \frac{1}{z-D} = \frac{1}{z} \frac{1}{1-\frac{1}{z}D} = \frac{1}{z} \sum \paren{\frac{1}{z}D}^n,
+\end{equation}
+and we recognize that the inverse of a derivative is of course an integral, so an integral can in a sense be written as an infinite sum of derivatives.
+
+Our aim in much of this is often to solve the Schr\"odinger equation,
+\begin{equation}
+    \bkt{\frac{\hat p^2}{2m} + V(x)}\ket{\psi} = E \ket{\psi}.
+\end{equation}
+Notice we can rewrite as
+\begin{equation}
+    \bkt{\frac{p^2}{2m} + V(i\grad_{\vec p})} \psi^T(\vec p) = E \psi^T(p).
+\end{equation}
+In general this might be harder to solve than the original equation, depending on how nasty $V(x)$ is. But for the harmonic oscillator (rescaled so $m=1$ and $\omega=1$) takes a very simple form:
+\begin{equation}
+    \bkt{\frac{p^2}{2} + \frac{x^2}{2}}\psi = E \psi,
+\end{equation}
+which is now manifestly symmetric in $x$ and $p$ so that the equation in Fourier space looks exactly the same as it did in position space. We work in coordinate space because things appear to be localized in position space, but from a theoretical/calculational perspective either is perfectly good.which is now manifestly symmetric in $x$ and $p$ so that the equation in Fourier space looks exactly the same as it did in position space. We work in coordinate space because things appear to be localized in position space, but from a theoretical/calculational perspective either is perfectly good.
+
