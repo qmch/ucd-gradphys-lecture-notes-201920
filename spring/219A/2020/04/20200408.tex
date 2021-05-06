@@ -1,0 +1,209 @@
+Today we'll finish our discussion of probability.
+
+The cumulative probability distribution for some statistics (Gaussian, Poisson, etc.) is defined as
+\begin{equation}
+    \mathbb P(x) = P(E\subset (-\infty,x]).
+\end{equation}
+That is, it is the probability of getting an outcome less than or equal to $x$. It defines a cumulative density function (CDF) which begins at zero and asymptotes to $1$ for large $x$.
+
+The way we find a probability density function (the probability that an outcome occurs between $x$ and $x+dx$) is by taking a derivative,
+\begin{equation}
+    p(x) = \frac{d\mathbb P}{dx}.
+\end{equation}
+
+The CDF is bounded, $\mathbb P(x) \leq 1$, but $p(x)\leq \infty$, i.e. the PDF can be unbounded provided that it remains integrable,
+\begin{equation}
+    \int dx\, p(x) =1.
+\end{equation}
+The expectation value of some quantity is then
+\begin{equation}
+    \avg{F(x)}=\int dx \, F(x) p(x).
+\end{equation}
+For instance, we might have outcomes with Boltzmann weights,
+\begin{equation}
+    \avg{x} = \int dx \frac{e^{-\beta U(x)}}{Z}x.
+\end{equation}
+
+If we want to know the probability that $F(x)$ takes on a particular value $f$, $F(x_f)=f$, then
+\begin{equation}
+    p_F(f) = p(x_f) \frac{dx}{dF}|_{x=x_f},
+\end{equation}
+For instance, if $F(x)=x^3$ and 
+\begin{equation}
+    p(x) = Ae^{-|x|},
+\end{equation}
+then we can first determine the normalization as
+\begin{equation}
+    1 = \Int dx \, p(x) = 2 \int_0^\infty dx \,Ae^{-x} =2A \implies A=1/2.
+\end{equation}
+Then
+\begin{equation}
+    \frac{dF}{dx} = 3x^2, \quad x_f = f^{1/3},
+\end{equation}
+and so
+\begin{equation}
+    p_F(f) = \frac{Ae^{-|f|^{1/3}}}{3|f|^{2/3}}.
+\end{equation}
+One can check that $\int df \,p_F(f)=1.$
+
+The moments of the distribution are
+\begin{equation}
+    m_n= \avg{x^n} = \int dx\, x^n p(x).
+\end{equation}
+We can also define characteristics by the Fourier transform of the distribution,
+\begin{equation}
+    \tilde p(k) = \int dx \, e^{-ikx} p(x) = \avg{e^{-ikx}},
+\end{equation}
+such that if we use the Taylor expansion,
+\begin{equation}
+    \tilde p(k) = \sum_{n=0}^\infty \frac{(-ik)^n}{n!} \avg{x^n},
+\end{equation}
+a weighted sum of the moments.
+
+Now we can invert the Fourier transform,
+\begin{equation}
+    p(x) = \int \frac{dx}{2\pi} e^{-ikx} \tilde p(k),
+\end{equation}
+so that
+\begin{equation}
+    e^{-ikx_0} \tilde p(k) = \avg{e^{-ik(x-x_0)}} = \sum_{n=0}^\infty \frac{(-ik)^n}{n!} \avg{(x-x_0)^n}.
+\end{equation}
+One can define cumulants or connected moments by
+\begin{equation}
+    \ln \tilde p(k) = \sum_{n=1}^\infty \frac{(-ik)^n}{n!}\avg{x^n}_C,
+\end{equation}
+which appears in field theory as a sum over connected diagrams. In terms of the ordinary moments,
+\begin{equation}
+    \tilde p(k) = 1+ \sum_n \frac{(-ik)^n}{n!}\avg{x^n},
+\end{equation}
+and so by expanding the log we have terms like
+\begin{align}
+    \ln \tilde p(k) &= \ln(1+s)\\
+        &= (-ik)\avg{x}+ \frac{(-ik)^2}{2!} \bkt{\avg{x^2}-\avg{x}{^2}} + \frac{(-ik)^3}{3!}\bkt{\avg{x^3}-3\avg{x^2}\avg{x} + 2\avg{x}^3}+\dots
+\end{align}
+and so we get an expansion in cumulants:
+\begin{gather}
+    \avg{x}_C = \avg{x},\\
+    \avg{x^2}_C = \avg{x^2}-\avg{x}^2,\\
+    \avg{x^3}_C = \avg{x^3}-3\avg{x^2}\avg{x} + 2\avg{x}^3,
+\end{gather}
+where we recognize the $x^2$ term as the variance, and the next moment is called the skew. It's the first measure of how asymmetric the distribution is. The next one is $\avg{x^4}_C$, which is called the kurtosis. There's not an easy geometrical description of this one, but it vanishes for the Gaussian.
+
+One can calculate the cumulants of a Gaussian,
+\begin{equation}
+    p(x) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp \paren{-\frac{x^2}{2\sigma^2}}.
+\end{equation}
+Since the Gaussian is symmetric, all the odd moments vanish. The second one turns out to be the standard deviation (the variance squared):
+\begin{align}
+    \avg{x}_C &=0\\
+    \avg{x^2}_C&= \avg{x^2}-\avg{x}^2 = \sigma^2,\\
+    \avg{x^4}_C&= 3\sigma^4 -3\sigma^4=0,
+\end{align}
+and in fact all higher cumulants vanish for a Gaussian of mean zero,
+\begin{equation}
+    \avg{x^n}_C = 0, \quad n>2.
+\end{equation}
+
+For a uniform distribution,
+\begin{equation}
+    p(x) = \frac{1}{2x_0}\Theta(x_0-|x|),
+\end{equation}
+the moments are
+\begin{equation}
+    \avg{x^n} = \begin{cases}
+        \frac{1}{n+1} x_0 & n\text{ even},\\
+        0 & n\text{ odd}.
+    \end{cases}
+\end{equation}
+Hence the first cumulants are $\avg{x}_C=0, \avg{x^2}_C = \frac{1}{3}x_0^2.$
+
+The characteristic of a Gaussian is
+\begin{equation}
+    \tilde p(k) = \frac{1}{\sqrt{2\pi \sigma^2}}\int dx \, e^{-ikx} e^{-x^2/2\sigma^2}.
+\end{equation}
+If we complete the square and perform the integral, we recover a Gaussian. Strictly, we end up with an integral
+\begin{equation}
+    \tilde p(k) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{\sigma^2 k^2}{2}} \int dx e^{-\frac{\bkt{x+ik\sigma^2}^2}{2\sigma^2}}.
+\end{equation}
+
+Question: if a distribution $p(x)$ has finite moments, does its characteristic $\tilde p(k)$? It turns out that the characteristic need not have finite moments. Consider the Cauchy/Lorentzian distribution,
+\begin{equation}
+    \tilde p(k) =\frac{\gamma}{\pi(k^2+\gamma^2)}
+\end{equation}
+for a parameter $\gamma$. Well, the first moment is zero,
+\begin{equation}
+    \int dk \, k\tilde p(k) =0,
+\end{equation}
+but the second moment is infinite,
+\begin{equation}
+    \int dk \, k^2 \tilde p(k) = \infty.
+\end{equation}
+What does this tell us about the original distribution? It tells us about the expectation value of derivatives. To recover the original PDF in real space, we have
+\begin{equation}
+    p(x) = \int \frac{dk}{2\pi} \tilde p(k) e^{ikx} = \frac{1}{2\pi i} \int \frac{1}{2\pi} \bkt{\frac{1}{k-i\gamma} - \frac{1}{k+i\gamma}}e^{ikx} dk.
+\end{equation}
+For positive $x$, this converges in the upper half-plane, enclosing just a simple pole at $k=i\gamma$. By the Cauchy residue theorem we have
+\begin{equation}
+    \frac{1}{2}e^{-\gamma x}.
+\end{equation}
+For negative $x$ we close the contour in the lower half-plane and get $e^{\gamma x}$. It follows that
+\begin{equation}
+    p(x) = \frac{1}{2} e^{-\gamma|x|},
+\end{equation}
+which now has finite moments.
+
+A uniform distribution has a Fourier transform which looks much like a diffraction pattern:
+\begin{gather}
+    p(x) = \frac{1}{2x_0} \Theta(x_0-|x|),\\
+    \tilde p(k) = \frac{\sin kx_0}{kx_0}.
+\end{gather}
+A binomial distribution has a probability distribution which is that of coin flips (or spin flips) for uncorrelated events. If we have two outcomes $A,B$ with probabilities $p_A$ and and $p_B=1-p_A$, then for $N$ trials we have
+\begin{equation}
+    p_N(N_A) = \binom{N}{N_A} p_A^{N_A} p_B^{N-N_A},
+\end{equation}
+and the characteristic is
+\begin{align}
+    \tilde p_N(k) &= \sum_{N_A=0}^N p_N(N_A) e^{-ikN_A}\\
+        &= \sum_{N_A=0}^N \binom{N}{N_A} (p_A e^{-ik})^{N_A} p_B^{N-NA},
+\end{align}
+which is just the expansion of $(p_Ae^{-ik}+p_B)^N$. Moreover,
+\begin{equation}
+    \ln \tilde p_N(k) = N \ln \tilde p_1(k),
+\end{equation}
+so the cumulants are
+\begin{equation}
+    \avg{N_A}_C = Np_A, \avg{N_A^2}_C = N(p_A-p_A^2) = Np_A P_B,
+\end{equation}
+and as $N$ grows large, we can see a hint of the central limit theorem,
+\begin{equation}
+    \frac{\text{mean}}{\sigma} \sim \frac{1}{\sqrt{N}}.
+\end{equation}
+
+We can also define a Poisson distribution for events which have some probability of occurring over some time. The characteristic is
+\begin{equation}
+    \tilde p(k) \to \exp \bkt{\alpha \tau(e^{-ik}-1)},
+\end{equation}
+and the corresponding PDF is
+\begin{align}
+    ip(x) &= e^{-\alpha \tau} \int \frac{dk}{2\pi} e^{ikx} \sum_{m=0}^\infty \frac{(\alpha T)^m}{m!} e^{-ikm}\\
+    &= e^{-\alpha T} \sum_{m=0}^\infty \frac{(\alpha T)^m}{m!}\delta(x-m).
+\end{align}
+The Poisson distribution says that for events with discrete counts, we can write a probability distribution for various numbers of counts. For instance, the number of times a block in south London was bombed in WWII can be modeled by a Poisson distribution (there's no notion of half a hit). We have a total number of blocks (``trials'') and we can calculate how many blocks are hit zero times, one time, two times, etc.
+
+We can also talk about conditional probabilities,
+\begin{equation}
+    p(\sigma|x),
+\end{equation}
+the probability of $\sigma $ given $x$. The conditional probability is given by
+\begin{equation}
+    p(\sigma|x) = \frac{p(\sigma,x)}{p(x)},
+\end{equation}
+i.e. the joint probability of getting both $\sigma$ and $x$ divided by the probability of getting $x$. Now
+\begin{equation}
+    p(A|B)p(B)=p(A,B) =p(B|A)p(A),
+\end{equation}
+so it follows that
+\begin{equation}
+    p(A|B)=\frac{p(B|A)p(A)}{p(B)},
+\end{equation}
+which is Bayes' theorem. 

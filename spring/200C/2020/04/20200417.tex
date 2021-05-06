@@ -1,0 +1,128 @@
+Today we'll finish Chapter 18, sections 18.6-18.8. We considered the Lorentz-Drude model to understand how polarization electrons are bound to nuclei and how they respond to polarizing electric fields.
+
+Last time we had a susceptibility
+\begin{equation}
+    \chi_e (\omega) = \frac{\omega_p^2}{\omega_r^2 -\omega^2 -i\gamma \omega},
+\end{equation}
+and when the resonant frequency goes to zero, $\omega_r\to 0$, we have unbound electrons (basically conductors):
+\begin{equation}
+    \chi_e \to \frac{-\omega_p^2}{\omega(\omega+i\gamma)}.
+\end{equation}
+Now since the bound current is $\vec J_b = \P{\vec P}{t}$.
+
+For non-magnetic material we can take the Fourier transform, using the fact that the polarization is proportional to the $E$-field:
+\begin{equation}
+    \tilde {\vec J}_b = -i\omega \tilde{\vec P} = -i\omega \epsilon_0 \chi_e \tilde{\vec E}.
+\end{equation}
+We can also consider electrons to be free (Ohm's law), so
+\begin{equation}
+    \tilde{\vec J} = \sigma(\omega)\tilde{\vec E}
+\end{equation}
+where we have a complex frequency-dependent conductivity
+\begin{equation}
+    \sigma (\omega) =-i\omega \epsilon_0 \chi_e(\omega) = \frac{i\epsilon_0 \omega_p^2}{\omega+i\gamma}.
+\end{equation}
+In the low-frequency limit this reduces to
+\begin{equation}
+    \sigma\to \frac{\epsilon_0 \omega_p^2}{\gamma} =\sigma_0.
+\end{equation}
+In the free electron theory of metals,
+\begin{equation}
+    \sigma_0 = \frac{n_e q_e^2 \tau}{m_e}
+\end{equation}
+where $\tau\simeq 1/\tau$. Now we get a complex index of refraction
+\begin{equation}
+    n = \bkt{1-\frac{\omega_p^2(\omega^2-i\omega\gamma)}{\omega^4 + \omega^2 \gamma^2}}^{1/2}
+\end{equation}
+with $\omega \ll \gamma, \text{Re}(n^2 \approx 1-(\omega_p/\gamma)^2$.
+
+We have a complex index of refraction
+\begin{equation}
+    n=\sqrt{1+\chi_e} = \sqrt{1-\frac{\omega_p^2}{\omega^2+i\omega\gamma}}
+\end{equation}
+in this limit. For a typical metal, $\omega_p \tau \gg 1$. At high frequencies $\omega > \omega_p$, the index of refraction is real; for $\omega < \omega_p$, the index of refraction is imaginary, and the crossover is $\omega=\omega_p$. Note that as $\omega/\omega_p \to \infty,$ we have $\chi_e \to 0$ and $n\to 1.0$ (real). In the other limit, $\omega\to 0$, we get instead
+\begin{equation}
+    n(\omega) =\sqrt{\frac{\omega_p^2}{2\omega \gamma}}(1+i).
+\end{equation}
+
+Notice that at long wavelengths (low frequencies), the real and imaginary parts of $n$ have the same magnitude, and the absorption (proportional to the imaginary part) is the largest. At short wavelengths, the real part goes to $1$ and the imaginary part goes to zero.
+
+\subsection*{Wave packets in dispersive media}
+We've considered plane waves. What if we now think about wave packets? We can use some of our mathematical tools from plane waves to understand wave packets. We write
+\begin{equation}
+    \vec E(\vec r,t) = \Re \frac{1}{(2\pi)^3} \int d^3k \, \vec{\mathcal{E}}_\perp(\vec k) e^{-i(\omega t-\vec k \cdot \vec r)}.
+\end{equation}
+We've seen that in vacuum or nondispersive media, a wave packet spreads in the transverse directions. We get free-space diffraction. In dispersive media, packets will also spread longitudinally in the direction of propagation because the speed of light is now frequency-dependent:
+\begin{equation}
+    \vec k(\omega) = k(\omega) \uv z = n(\omega) \frac{\omega}{c}\uv z
+\end{equation}
+and the field is
+\begin{equation}
+    E(z,t) = \int_0^\infty A(\omega) e^{i(k(\omega)z -\omega t)}.
+\end{equation}
+We still get the diffraction in transverse directions, but we want to understand what happens for the longitudinal one.
+
+Our packet is centered in frequency space around $\omega_0$, so if we define $\delta\omega = \omega-\omega_0$, then we can expand $k(\omega)$ in a Taylor series about $\omega_0$ as
+\begin{equation}
+    k(\omega) = k(\omega_0) + \delta\omega \frac{dk}{d\omega}\rvert_{\omega_0}+\frac{1}{2}(\delta\omega)^2 \frac{d^2k}{d\omega^2}\rvert_{\omega=0}+\dots
+\end{equation}
+where the wavepacket becomes
+\begin{equation}
+    E(z,t) = A(z,t) e^{i(k_0 z- \omega_0 t)}
+\end{equation}
+with the envelope function being
+\begin{equation}
+    A(z,t) = \Int d\delta \omega A(\omega_0 + \delta \omega) \exp\paren{i(\delta \omega k_0'  +\frac{1}{2}(\delta\omega)^2k_0''+\dots)z-i\delta\omega t}.
+\end{equation}
+The task is to solve for the envelope function.
+
+Well, we can make a group velocity approximation: recall that
+\begin{equation}
+    v_g = \P{\omega}{\vec k}|_{\vec k = \vec k_0} = \P{\omega}{k}|_{k=k_0}\uv k.
+\end{equation}
+That is, the overall packet moves with some group velocity, as compared to the phase velocity $v_p=\omega/k$. Without dispersion,
+\begin{equation}
+    k=n\omega/c \implies \omega = kc/n, \P{\omega}{k} = c/n,
+\end{equation}
+so in nondispersive media, $v_p=v_g$.
+
+On the other hand, for media with normal dispersion, $\frac{d\chi}{d\omega}>0$ and so the index of refraction increases as $\omega$ increase (higher frequencies are slower), while for anomalous dispersion, $\frac{d\chi}{d\omega}<0$, so higher (bluer) frequencies move faster. 
+
+To make any more progress we must constrain $A(z,t)$ somehow. Jackson limits his discussion to Gaussian wavepacket, Brau limits to the first two terms of the Taylor expansion, and Zangwill limits to cases where $k_0''$ is small. The Gaussian approximation is a little more constraining---it's a special case of the second derivative being small.
+
+In this limit,
+\begin{equation}
+    \paren{\P{}{z} + \frac{1}{v_g}\P{}{t}}A(z,t)=0.
+\end{equation}
+Thus
+\begin{equation}
+    E(z,t)=A(z-v_g t)e^{ik_0 z-\omega_0 t)}.
+\end{equation}
+In Drude matter, above the plasma frequency we have
+\begin{equation}
+    ck=\sqrt{\omega^2-\omega_p^2}
+\end{equation}
+and so the group velocity is
+\begin{equation}
+    v_g = c^2/v_p = c\sqrt{1-\omega_p^2/\omega^2}<c.
+\end{equation}
+We can also write this in terms of the index of refraction,
+\begin{equation}
+    v_g = \P{\omega}{k} = \P{}{k} \paren{\frac{k}{n}}=\frac{c}{n} - \frac{ck}{n^2}\P{n}{\omega}v_g.
+\end{equation}
+
+In Lorentz matter, we have
+\begin{equation}
+    v_g = \frac{c}{n+\omega \frac{dn}{d\omega}}.
+\end{equation}
+This allows us to have either normal dispersion or anomalous dispersion:
+\begin{itemize}
+    \item normal dispersion ($dn/d\omega >0$) $\implies v_g < v_p$,
+    \item anomalous dispersion ($dn/d\omega <0$) $\implies v_g>v_p$. Anomalous dispersion can produce group velocities which exceed $c$; this isn't a problem since the information only travels with the phase velocity.
+\end{itemize}
+
+There are some consequences of causality, known as the Kramers--Kr\"onig relations. The response functions $G$ must be real and causal:
+\begin{equation}
+    \Re(\chi(\omega_0)) =\frac{1}{\pi} \mathcal{P}\Int \frac{\text{Im}(\chi(\omega_0))}{\omega-\omega_0}d\omega
+\end{equation}
+and a similar expression for the imaginary part holds.

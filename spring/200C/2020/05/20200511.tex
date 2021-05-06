@@ -1,0 +1,71 @@
+In special relativity, there are two basic postulates.
+\begin{itemize}
+    \item The laws of physics are the same for all observers in an inertial reference frame (i.e. one where Newton's first law holds-- no fictitious forces)
+    \item The speed of light in vacuum has the same value $c$ for all observers.
+\end{itemize}
+
+Historically, these were motivated by an evolving understanding of light as having particle properties (Newton's corpuscle theory) and wave-like properties (as advocated by Fresnel and others). The discovery of wave properties of light like interference and diffraction led physicists of the day to try to figure out whether there was a medium of propagation (the ``luminiferous aether''), since all other known waves required a medium.
+
+In 1864 Maxwell's equations presented a unified theory of electricity and magnetism, and the wave solutions suggested that light was an electromagnetic wave. Michelson and Morley's experiments testing the dependence of the velocity of light on the direction of motion contradicted the presence of an aether. Fitzgerald and Lorentz posited a transformation which mixed time and space in moving reference frames, but its implications were not fully understood.
+
+Einstein concluded that Galilean relativity was incorrect, and that the (Fitzgerald-)Lorentz transformation was the correct way to describe physics in moving reference frames.
+
+In the Galilean model, the only thing that changes is a spatial coordinate. That is,
+\begin{align*}
+    t&=t'\\
+    x&=x'\\
+    y&=y'\\
+    z&=z'+ut',
+\end{align*}
+where the primed frame moves with velocity $u$ in the $+z$-direction. Velocities add quite simply.
+
+On the other hand, the Lorentz transformation says that the time and space coordinates are not independent when we change frames.
+\begin{align}
+    ct &= \gamma\paren{ct' + \frac{u}{c} z'} = \gamma(ct'+\beta z')\\
+    x&=x'\\
+    y&=y'\\
+    z&= \gamma(z'+ut')=\gamma(z'+\beta ct').
+\end{align}
+The forward transformation is
+\begin{align*}
+    ct'&= \gamma(ct-\beta z)\\
+    x'&= x\\
+    y' &= y\\
+    z'&= \gamma(z-\beta ct),
+\end{align*}
+where
+\begin{equation}
+    \beta \equiv u/c, \quad \gamma = \frac{1}{\sqrt{1-\beta^2}}.
+\end{equation}
+
+Sometimes it's convenient to define a boost parameter
+\begin{equation}
+    \xi = \tanh^{-1}\beta
+\end{equation}
+so that
+\begin{align*}
+    \beta &\equiv \tanh \xi\\
+    \gamma &\equiv \cosh \xi\\
+    \gamma \beta &= \sin \xi.
+\end{align*}
+
+That is, if we let $\gv \beta = \beta \uv z$, then
+\begin{align}
+    ct' &= ct \cosh \xi - z \sinh \xi,\\
+    z' &= -ct \sin \xi + z\cosh \xi.
+\end{align}
+In matrix notation,
+\begin{equation}
+    \begin{pmatrix}
+        ct' \\ z'
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \cosh \xi & -\sinh \xi\\
+        -\sinh \xi & \cosh \xi,
+    \end{pmatrix}
+    \begin{pmatrix}
+        ct \\ z
+    \end{pmatrix}
+\end{equation}
+which looks a lot like a rotation but with a hyperbolic signature (note the signs).

@@ -1,0 +1,55 @@
+Today we'll move onto Rayleigh scattering. In Thomson scattering, we had an EM wave incident on a charged particle. The $\vec E$ and $\vec B$ fields exert force on the particle, which sets the particle into motion. There's energy flux in the direction of the wave (given by the Poynting vector). A periodic wave creates periodic motion; when the particle accelerates, this produces radiation.
+
+Consider a linearly polarized monochromatic plane wave with $E$-field
+\begin{equation}
+    \vec E(\vec r,t) = E_0 e^{i(\vec k\cdot \vec r - \omega t)}\hat{\gv \epsilon}.
+\end{equation}
+By our usual Fourier arguments, we can just understand a plane wave and then the general case follows from assembling a wave packet.
+\begin{equation}
+    \vec F = q\vec E = m\ddot x,
+\end{equation}
+so
+\begin{equation}
+    \ddot x = -\omega^2 \chi_0 e^{i(\vec k \cdot \vec r-\omega t)}.
+\end{equation}
+In the non-relativistic limit, we can approximate the magnetic force as being zero-- since it is proportional to the velocity, if the particle never moves too fast then it's basically just the electric force. Plugging in the acceleration into the Larmor formula, we find
+\begin{equation}
+    \frac{dP}{d\Omega} = \frac{q^2 \ddot x^2}{16\pi^2 \epsilon_0 c^3} \sin^2\theta
+\end{equation}
+or
+\begin{equation}
+    \frac{d\avg{P}}{d\Omega} = \frac{q^2 \omega^4 x_0^2}{32\pi^2 \epsilon_0 c^3} \sin^2\theta,
+\end{equation}
+where $\theta$ is the angle relative to the axis of the particle motion. We can also write
+\begin{equation}
+    \ddot x^2 = \frac{q^2}{m^2} E^2 \implies \avg{\ddot x^2} = \frac{1}{2} \frac{q^2}{m^2}E_0^2,
+\end{equation}
+so in terms of the charge and the field strength,
+\begin{align*}
+    \frac{d\avg{P}}{d\Omega} &=\paren{\frac{q^4}{16\pi^2 \epsilon_0^2 m^2c^4}}\frac{\epsilon_0 c E_0^2}{2}\sin^2\theta\\
+        &=\paren{\frac{q^2}{4\pi \epsilon_0 m c^2}}^2\frac{\epsilon_0 c E_0^2}{2}\sin^2\theta,
+\end{align*}
+where $\frac{q^2}{4\pi \epsilon_0 m c^2}$ is the classical radius of the electron. Incidentally, this classical radius of the electron comes from a calculation where we can imagine a spherical shell of charge and calculate the energy stored in the electric field. If we set that energy equal to the mass energy of the electron, we can calculate what the radius would be.
+
+We can write a time-averaged Poynting vector for the process,
+\begin{equation}
+    \avg{S}=\frac{1}{\mu_0} \vec E\times \vec B = \frac{1}{2}c\epsilon_0 E_0^2 \uv z.
+\end{equation}
+As a remark, charged particles generically emit radiation when they accelerate; this usually happens either because of ionizing or otherwise interacting with materials. In the case we're describing now we have an electron interacting with a background plane wave.
+
+We can also compute a scattering cross-section, which represents an equivalent area of the incident wave front:
+\begin{equation}
+    \sigma = \frac{\text{total re-radiated power}}{\avg{S}},
+\end{equation}
+how much power goes out normalized to the incident power flux. In this case, note that
+\begin{equation}
+    \frac{d\sigma}{d\Omega} = \frac{dP/d\Omega}{\avg{S}} = \paren{\frac{q^2}{4\pi \epsilon_0 mc^2}}^2 \sin^2\theta.
+\end{equation}
+Performing the $d\Omega$ integral we have $\int \sin^2 \theta d\Omega= 8\pi/3$, and so the total scattering cross-section is
+\begin{equation}
+    \sigma =\int_0^\pi \frac{d\sigma}{d\Omega}2\pi \sin\theta d\theta = \frac{8\pi}{3} \paren{\frac{q^2}{4\pi \epsilon_0 mc^2}}^2.
+\end{equation}
+
+We've accounted for polarized light. What if the light is randomly polarized? In that case, we can average over possible polarizations. Note that that when $\hbar \omega \sim mc^2$, we need quantum corrections to model a photon scattering off an electron. The cross-section is given by the Klein-Nishima formula, and the scattering is primarily forward, as opposed to the classical formula, which is more symmetric in $\cos\theta$.
+
+We can (re)conisder dielectric spheres. Using the equation of motion for the induced dipole moment, $\ddot {\vec p}=q \ddot x \uv x$, and applying the Larmor formula, we can find a cross-section for the dielectric sphere as well (slide 8).

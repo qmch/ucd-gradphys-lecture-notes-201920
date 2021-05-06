@@ -1,0 +1,75 @@
+The focus of this class is to understand the statistical foundations that underlie thermodynamics. 
+\subsection*{Historical review}
+Historically, in the 1700s, people thought of heat as some kind of fluid; in 1845, Joule showed this wasn't the case since one could raise the temperature either by supplying heat $C\Delta T$ with $C$ the heat capacity of the water, or by performing mechanical work and letting a mass $M$ fall a height $h$ such that the temperature change is $\Delta T=Mgh/C$.
+
+The second law of thermodynamics regards the statistical nature of entropy. Carnot proposed a kind of cycle in 1824, and Clausius figured out that there was a maximum efficiency for heat engines operating between two fixed temperatures.
+
+The three main figures in statistical mechanics were Maxwell, Boltzmann, and Gibbs. Maxwell showed that the ideal gas law could be understood as emerging from collections of many particles; Boltzmann came up with the entropy formulation, and Gibbs contributed other aspects.
+
+Planck, Einstein, and Debye advanced the field of quantum stat mech, establishing properties of the blackbody spectrum and the heat capacity from quantum properties. Bose and Einstein also discovered the phenomenon now known as Bose-Einstein condensation. Superconductivity and superfluidity are dramatic examples of condensation.
+
+Fermi and Dirac showed that half-integer spin particles (fermions) could not undergo condensation due to the Pauli exclusion principle. Chandrasekhar showed that the ``degeneracy pressure'' from the exclusion principle could stabilize certain kinds of neutron stars.
+
+\subsection*{Statistical systems}
+It's useful to begin our discussion with closed systems where $\Delta Q=0$ and $\Delta N=0$, i.e. where no heat flow into or out of the system is allowed, and particle number is fixed. In statistical physics, we're interested in macroscopic states of the system, which we can characterize by thermodynamic coordinates and functions of state (in equilibrium).
+
+In classical mechanics, for $N$ particles the state is characterized by $3N$ positions and $3N$ momenta or velocity. This is generally difficult to keep track of when $N$ is large ($O(10^{23})$), but there are other variables which emerge statistically which are convenient to describe the macroscopic state of the system-- $T, P$, etc. We can determine differential relations between these variables.
+
+The \term{zeroth law of thermodynamics} is the basis for measuring and agreeing upon temperature. If two systems $A$ and $B$ are isolated from each other and $A$ and $B$ are each in equilibrium with a third system $C$, then it follows that $A$ is in equilibrium with $B$. That is, we can define some variable $T$ for each system such that if $T_A=T_C$ and $T_B=T_C$, then $T_A=T_B$.
+
+Let's recall the ideal gas law, which says that
+\begin{equation}
+    PV= nRT,
+\end{equation}
+where $n$ is the number of moles of the gas and $T$ is measured in absolute temperature. We notice that for different volumes of gases (holding $n$ equal), the pressure decreases linearly with temperature, and in particular the pressure goes to zero for all volumes at a fixed temperature, $-273.16^\circ$C, which we call absolute zero.
+
+Now the \term{first law of thermodynamics} is a statement of conservation of energy,
+\begin{equation}
+    dQ = dE - dW - PdV.
+\end{equation}
+That is, the energy change is the sum of heat flow into the system and work done on the system (e.g. by changing the volume). The energy change only depends on the initial and final states, while the heat and work done depends on the path in the phase diagram.
+
+Energy changes can be due to our sort of standard forces and pressures, but it can also be related to other sorts of intensive and extensive variables, e.g. magnetic dipoles realigning in an external field (where the energy is given by $U=-\vec m \cdot \vec B$)%
+    \footnote{The dipoles don't experience a net force, but they certainly experience a torque in the background field, so work is done to align the dipoles due to the secret microscopic details of whatever is holding the dipole together.}
+or similar for an electric field. We can associate an energy to 1D objects based on tension and length, or a surface tension to an area, a pressure to a volume, a magnetic field to a net magnetic moment, an electric field to a net electric dipole moment, or a chemical potential to particle number.
+
+We can make a quasistatic approximation, i.e. we do work slowly on a system to remain in equilibrium. Then consider an insulated system with two chambers separated by a partition, where an ideal gas fills one chamber. The partition is removed and allowed to expand freely. We see that in the first law,
+\begin{equation}
+    0=dQ = dE-dW,
+\end{equation}
+and $dW=0$, so in fact $dE=0$. Hence the energy (which we might have thought was a funciton of volume and temperature) is just a function of temperature,
+\begin{equation}
+    E(V,T) = E(T) = \frac{f}{2} n RT,
+\end{equation}
+where $f$ is the number of (quadratic) degrees of freedom.
+
+We can talk about the heat capacity of an ideal gas. We said the energy was
+\begin{equation}
+    E=\frac{f}{2}nRT,
+\end{equation}
+where $f=3$ for a monoatomic gas and $f=5$ for a diatomic gas.%
+    \footnote{Considering the molecule as a rigid dumbbell, there are two nontrivial rotational degrees of freedom about the two axes perpendicular to the symmetry axis}
+Now from $pV=nRT$, we have
+\begin{equation}
+    -\P{V}{T}|_P = V\alpha_P,
+\end{equation}
+where $\alpha$ is the thermal coefficient of expansion. For the ideal gas,
+\begin{equation}
+    \P{V}{T}|P = \frac{nR}{P},
+\end{equation}
+and so
+\begin{equation}
+    P\P{V}{t}|_P = nR.
+\end{equation}
+That is,
+\begin{equation}
+    c_V = \frac{f}{2} nR, \quad c_P = \paren{\frac{f}{2}+1} nR,
+\end{equation}
+such that
+\begin{equation}
+    c_P - c_V = nR.
+\end{equation}
+
+The second law has two statements due to Clausius (185) and Kelvin (1851). Kelvin's formulation says that \emph{no process is possible whose sole result is the conversion of heat to work.} Clausius's version says that \emph{no process is possible whose sole result is the transfer of heat from a cold reservoir to a hot reservoir with nothing else happening.} The former regards heat engines, while the second is about refrigerators, which are effectively heat engines run in reverse.
+
+Kelvin tells us there are no perfectly efficient heat engines, while Clausius says there are no perfectly efficient refrigerators. For the heat engine, we must always have some heat lost to the cold reservoir. Conversely, a refrigerator always takes some work to run. If there existed an ideal refrigerator, we could hook it up to an ordinary heat engine and run this heat engine to get work for free without our cold reservoir ever gaining or losing heat. If there existed an ideal heat engine, we could use that work to run an ordinary refrigerator and construct an ideal refrigerator, and then we run into the same problems as before.

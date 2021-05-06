@@ -1,0 +1,75 @@
+Today we'll talk about antenna theory. In Lorenz gauge, we've seen that
+\begin{equation}
+    (\nabla^2 + k^2) \vec A = \mu_0 \vec J,
+\end{equation}
+with a wave number $k=\omega/c$. In 4-vector notation, $\Box A = -\mu_0 j$. If we suppose that $A$ oscillates in time like a sinusoid with frequency $\omega$ then our wave equation becomes
+\begin{equation}
+    (\nabla^2-\frac{1}{c^2} \frac{\p^2}{\p t^2})\vec A = (\nabla^2 + \omega^2/c^2)\vec A = -\mu_0 \vec J.
+\end{equation}
+
+At this point, Zangwill resorts to a Green's function approach to solve the Helmholtz equation with source:
+\begin{equation}
+    \vec A(\vec r) = \frac{\mu_0}{4\pi} \int \frac{\vec J(\vec r') e^{ik|\vec r -\vec r'|}}{|\vec r- \vec r'|}d^3 r',
+\end{equation}
+with the fields
+\begin{gather}
+    \vec B = \curl \vec A,\\
+    \vec E = \frac{i}{k} \curl c\vec B,
+\end{gather}
+where the latter comes from $\curl \vec E = -\P{B}{t}$.
+This is subject to the Sommerfeld radiation condition, which is that sources only radiate waves; they do not absorb them. Zangwill is actually more formal about this than Jackson.
+
+Now in general we can expand the separation $|\vec r- \vec r'|$ in orders of $\uv n = \vec r/r$:
+\begin{equation}
+    |\vec r - \vec r'| = r \bkt{1-\frac{\uv n \cdot \vec r'}{r} + \frac{r'{}^2}{2r^2}-\frac{1}{8} \paren{\frac{2\uv n \cdot \vec r'}{r}}^2+\dots}
+\end{equation}
+where this expansion occurs in the complex exponential.
+
+Now we have a constraint $r\gg d^2/8\lambda$, known as the Fraunhofer limit. This tells us that we can neglect quadratic corrections in $\vec r'$:
+\begin{equation}
+    |\vec r - \vec r'| \to r - \uv n \cdot \vec r'.
+\end{equation}
+The denominator of our solution for $\vec A$ can be approximated as $r$ if $r\gg d$, the characteristic size of the source.
+
+Jackson identifies three zones:
+\begin{align}
+    d \ll r \ll \lambda &\equiv \text{near (static) zone}\\
+    d \ll r \sim \lambda &\equiv \text{intermediate (induction) zone}\\
+    d \ll \lambda \ll r &\equiv \text{far (radiation) zone}
+\end{align}
+Zangwill uses time scales instead, $r\ll c\tau, r \sim c\tau, r \gg c \tau$. We can consider the radiation zone, where $r\gg d$, in which case our solution for $\vec A$ simplifies to 
+\begin{equation}
+    \vec A(\vec r) \simeq \frac{\mu_0}{4\pi} \frac{e^{ikr}}{r}\int \vec J(\vec r) e^{-ik \uv n \cdot \vec r'}d^3 r',
+\end{equation}
+which is an outgoing spherical wave. If we compute the curls, we have
+\begin{equation}
+    \vec B(\vec r) = \curl \vec A \simeq ik \uv n \times \vec A = ik \frac{\mu_0}{4\pi} \frac{e^{ikr}}{r} \int \uv n \times \vec J(\vec r) e^{ik \uv n \cdot \vec r'} d^3r'
+\end{equation}
+and
+\begin{equation}
+    \vec E(\vec r) = c\vec B \times \uv n = ick (\uv n \times \vec A) \times \uv n
+\end{equation}
+
+The radiation fields are mutually orthogonal and transverse to $\vec r$ ($\uv n$). They also satisfy $E=cB\propto r^{-1}$, which is slower than the usual $1/r^2$ falloff.
+
+We can expand
+\begin{equation}
+    \vec A(\vec r)=\frac{\mu_0}{4\pi} \frac{e^{ikr}}{r} \sum_n \frac{(ik)^n}{n!} \int \vec J(\vec r') (\uv n \cdot \vec r')^n d^3 r'
+\end{equation}
+and come up with some multipole expansion.
+
+To get electric dipole radiation, we take the zeroth order term,
+\begin{equation}
+    \vec A(\vec r) = \frac{\mu_0}{4\pi} \frac{e^{ikr}}{r}\int \vec J(\vec r') d^3 r',
+\end{equation}
+which we can readily compute. If we integrate by parts then
+\begin{equation}
+    \int \vec J(\vec r') d^3 r' = -\int \vec r'(\grad'\cdot \vec J) d^3 r' = -i\omega \int \vec r' \rho(\vec r') d^3 r'= \dot{\vec p},
+\end{equation}
+where we've assumed the charge density is oscillating,
+\begin{equation}
+    \div \vec J = -\P{\rho}{t} = i\omega \rho.
+\end{equation}
+We notice that this defines a time derivative of an electric dipole moment, so this is dipole radiation.
+
+%we got to slide 10 :(

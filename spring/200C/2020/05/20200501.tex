@@ -1,0 +1,61 @@
+Today we'll continue with antennas. We can compute the time-average power from oscillating radiative sources. The power per unit surface area for an electric dipole is
+\begin{equation}
+    \frac{dP}{d\Omega} = \frac{p_0^2 \omega^4}{32\pi^2 \epsilon_0 c^3}\sin^2\theta,
+\end{equation}
+where $p(\vec t) = \vec p_0 e^{i\omega t}$ is the dipole moment as a function of time. If we perform the angular integral over $\int \sin^2\theta d\Omega$, we find that
+\begin{equation}
+    P_\mathrm{tot}^{\mathrm{ED}} = \frac{p^2 \omega^4}{12\pi \epsilon_0 c^3} = \frac{|\ddot p_0|^2}{6\pi \epsilon_0 c^3}.
+\end{equation}
+The reason we might want to write this as a time derivative is to make contact with expressions like the Larmor formula, which relate the acceleration to the power radiated.
+
+One can write similar formulae for the magnetic dipole and the electric quadrupole.
+\begin{equation}
+    \frac{dP^\mathrm{(MD)}}{d\Omega} = \frac{\mu_0 m_0^2 \omega^4}{32\pi2 c^3}
+\end{equation}
+and
+\begin{equation}
+    P_\text{tot} = \frac{\mu_0 m_0^2 \omega^4}{12\pi c^3}.
+\end{equation}
+For the quadrupole,
+\begin{equation}
+    \frac{dP^\mathrm{(MD)}}{d\Omega} = \frac{\mu_0 \dddot Q_{zz}^2}{512 \pi^2 c^3} \cos^2\theta \sin^2\theta
+\end{equation}
+with the total power
+\begin{equation}
+    P = \frac{\mu_0 (3/2) \dddot Q_{zz}^2}{1420 \pi c^3}.
+\end{equation}
+
+For thin wire antennas, we can write the current as
+\begin{equation}
+    I(z,t) = I_0 \sin k(d-|z|) e^{i\omega t},
+\end{equation}
+a linear sinusoidal center-fed antenna. Then
+\begin{equation}
+   \vec j(\vec r,t) = I_0 \sin k(d-|z|)e^{i\omega t}\delta(x) \delta(y) \uv z. 
+\end{equation}
+We can then calculate a time-averaged power radiated by taking again the lowest-order nonvanishing term in our radiation approximation. We get
+\begin{equation}
+    \frac{dP}{d\Omega} = \frac{\mu_0 c I_0^2}{8\pi^2} \bkt{\frac{\cos(kd \cos \theta)-\cos(kd)}{\sin\theta}}^2.
+\end{equation}
+With $kd \gg 1$ (at wavelengths much smaller than the size of the antenna) this simplifies to
+\begin{equation}
+    \frac{dP}{d\Omega} =\frac{\mu_0 cI_0^2}{32\pi^2}(?)
+\end{equation}
+
+Fun facts about light and radiation.
+\begin{itemize}
+    \item The visible spectrum is defined by the frequencies of light we can see.
+    \item X-ray is separated from ultraviolet by its capacity to ionize materials.
+    \item Radio is separated from infrared by Joule heating (infrared warms things up)
+    \item Gamma rays overlap with X-rays in their frequency band because they're distinguished by their sources (gamma from nuclear, X-rays from overall atomic/electronic emissions)
+\end{itemize}
+
+If we have a single charged particle moving as
+\begin{equation}
+    \vec j(\vec r,t) = q\vec v(t) \delta[\vec r- \vec r_0(t)]
+\end{equation}
+where $\vec v = \dot {\vec r}_0$, then we can calculate the radiation from the charge. The power per area is
+\begin{equation}
+    \frac{dP}{d\Omega} =\frac{\mu_0 q^2}{(?)\pi^2 c^3}\sin^2\theta.
+\end{equation}
+

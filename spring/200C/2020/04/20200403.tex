@@ -1,0 +1,179 @@
+Today we'll go through chapter 15, which focuses on general fields and conservation laws. In dynamics, we still have
+\begin{equation}
+    \div \vec B =0,
+\end{equation}
+which means we can define a time-dependent vector potential,
+\begin{equation}
+    \vec B(\vec r,t) = \curl \vec A(\vec r,t).
+\end{equation}
+We can plug this into Faraday's law and see that
+\begin{equation}
+    \curl \vec E = -\curl \paren{\P{\vec A}{t}},
+\end{equation}
+so that
+\begin{equation}
+    \curl \paren{\vec E + \P{\vec A}{t}}=0.
+\end{equation}
+This suggests that we can define a time-dependent scalar potential $\Phi$ such that
+\begin{equation}
+    \vec E + \P{\vec A}{t} = -\grad \Phi
+\end{equation}
+or equivalently
+\begin{equation}
+    \vec E = -\grad \Phi -\P{\vec A}{t}.
+\end{equation}
+
+We'd now like to find the equations of motion for the new potentials. Plugging our expression for $\vec E$ into Gauss's law, we have
+\begin{equation}
+    \nabla^2 \Phi = -\frac{\rho}{\epsilon_0}-\P{}{t}(\div \vec A),
+\end{equation}
+and if we plug the equations for $\vec B$ and $\vec E$ into Amp\`ere's law, we can use the double-curl identity to find
+\begin{equation}
+    \underbrace{\nabla^2 \vec  A - \mu_0 \epsilon_0 \frac{\p^2 \vec A}{\p t^2}}_{\curl(\curl \vec A)} = -\mu_0 \vec J + \underbrace{\mu_0 \epsilon_0 \P{}{t} \grad \Phi + \grad(\div \vec A)}_\text{displacement current}.
+\end{equation}
+We therefore have a pair of coupled inhomogenous equations for the potentials int erms fo the sources.
+\begin{gather}
+    \nabla^2 \Phi +\P{}{t}(\div \vec A)= -\frac{\rho}{\epsilon_0},\\
+    \nabla^2 \vec  A - \frac{1}{c^2} \paren{\frac{\p^2 \vec A}{\p t^2} + \P{}{t} \grad \Phi} - \grad(\div \vec A) = -\mu_0 \vec J.
+\end{gather}
+Now the potentials are only defined up to a gauge function $\Lambda(s^\alpha)=\Lambda(t,\vec r)$, i.e.
+\begin{align}
+    \vec A &\to \vec A' = \vec A + \grad \Lambda\\
+    \Phi &\to \Phi' = \Phi - \P{\Lambda}{t}.
+\end{align}
+That is, the physics is all the same no matter what gauge we work in.
+
+There are basically two gauge choices we often make in classical electrodynamics.%
+    \footnote{In QED we sometimes use Feynman/Landau gauge.}
+The first is Lorenz gauge,%
+    \footnote{In covariant notation it's $\p_\mu A^\mu=0$.}
+\begin{equation}
+    \div A + \frac{1}{c^2}\P{\Phi}{t} =0.
+\end{equation}
+This uncouples the differential equations 
+nicely to
+\begin{align}
+    \nabla^2 \Phi -\frac{1}{c^2} \frac{\p^2\Phi}{\p t^2} &= -\rho/\epsilon_0\\
+    \nabla^2 \vec A -\frac{1}{c^2} \frac{\p^2\vec A}{\p t^2} &= -\mu_0 \vec J.
+\end{align}
+
+Another gauge sometimes useful is the Coulomb gauge (also radiation gauge or transverse gauge),
+\begin{equation}
+    \div \vec A=0.
+\end{equation}
+Then the $\Phi$ equation simplifies to Poisson's equation,
+\begin{equation}
+    \nabla^2 \Phi = - \rho/\epsilon_0,
+\end{equation}
+but we lose covariance. The vector potential is still coupled,
+\begin{equation}
+    \nabla^2 \vec A - \frac{1}{c^2} \frac{\p^2 \vec A}{\p t^2} = -\mu_0 \vec J + \frac{1}{c^2} \grad \P{\Phi}{t}.
+\end{equation}
+The $\P{\Phi}{t}$ term cancels the longitudinal current, so what's left on the RHS in the ``transverse'' current.
+This is not manifestly covariant, since Poisson's equation has no time dependence in it. It says that there is no propagation time for the scalar potential; all the complicated time dependence is in the vector potential.
+
+\subsection*{Conservation laws}
+As we know, the continuity equation is a statement of conservation of charge. We define a total charge in a region
+\begin{equation}
+    Q(t) =\int_V \rho(\vec r',t) d^3x',
+\end{equation}
+and define the current through the bounding surface to be
+\begin{equation}
+    \frac{dQ}{dt} = -\oint_S \vec J \cdot d\vec a,
+\end{equation}
+so by the divergence theorem, we have
+\begin{equation}
+    \P{\rho}{t} = -\div \vec J,
+\end{equation}
+a local statement of conservation of charge. The divergence of $\vec J$ at a point tells us whether charge is building up or flowing away from a point.
+
+Conservation of energy in electromagnetism also looks similar. The result is called Poynting's theorem. We begin by the following construction: dot the $\vec E$-field with Amp\`ere's law and the $\vec B$-field with Faraday's law. Thus
+\begin{equation}
+    \vec E \cdot (\curl \vec B = \mu_0 \vec J + \mu_0 \epsilon_0 \P{\vec E}{t}) - \vec B \cdot (\curl \vec E = -\P{\vec B}{t}).
+\end{equation}
+We can simplify and rewrite as
+\begin{equation}
+    \vec E \cdot (\curl \vec B) - \vec B \cdot (\curl \vec E) = \mu_0 \vec J \cdot \vec E + \P{}{t} \paren{\frac{B^2}{2} + \frac{E^2}{2c^2}}.
+\end{equation}
+and with a bit of rearrangement and a vector identity we can rewrite as
+\begin{equation}
+    \div \paren{\frac{1}{\mu_0}\vec E \times \vec B} +\P{}{t} \paren{\frac{\epsilon_0}{2} E^2 + \frac{1}{2\mu_0} B^2} +\vec E \cdot \vec J=0
+\end{equation}
+where we define the Poynting vector as
+\begin{equation}
+    \vec S = \frac{1}{\mu_0}\vec E \times \vec B = \vec E \times \vec H
+\end{equation}
+and the local energy density
+\begin{equation}
+    u_\text{em}=\frac{\epsilon_0}{2} E^2 + \frac{1}{2\mu_0} B^2 = \frac{1}{2} \vec E \cdot \vec D + \frac{1}{2} \vec B \cdot \vec H.
+\end{equation}
+This has the form of a conservation law,
+\begin{equation}
+    \P{u}{t} + \div \vec J + \vec E \cdot \vec J =0,
+\end{equation}
+where $\vec E \cdot \vec J$ is the change in mechanical energy density, i.e. the work done by the electric field. Written compactly we have
+\begin{equation}
+    \P{}{t} (u_\text{mech} + u_\text{EM}) = -\div \vec S,
+\end{equation}
+which is now in the form of a conservation law, with the Poynting vector representing the local energy flow.
+
+Similarly we can find a conservation law for linear momentum by taking cross products rather than dot products in order to get a vectorial equation. Since momentum is a vector we will need something which has two indices in order to be left with a vector quantity when we take the divergence. That is,
+\begin{equation}
+    \P{}{t}\vec P = +\div \vec T,
+\end{equation}
+where $\vec T$ is the Maxwell stress tensor and $\vec P$ is the momentum density in the fields.
+
+If we take cross products with Amp\`ere's law and Faraday's law, we now have
+\begin{equation}
+    \vec B \times \paren{\curl \vec H = \vec J+ \P{\vec D}{t}} + \vec D \times \paren{\curl \vec E = -\P{\vec B}{t}}.
+\end{equation}
+Rearranging, we have
+\begin{equation}
+    \vec B \times (\curl \vec H ) + \vec D\times (\curl \vec E) + \P{}{t} (\vec D \times \vec B) + \vec J \times \vec B =0.
+\end{equation}
+If we subtract $\vec B(\div \vec B)=0$ and also $\vec E\bkt{\div (\epsilon \vec E) - \rho=0}$ then we have
+\begin{equation}
+    \P{}{t}(\epsilon \vec E \times \vec B) + (\rho \vec E + \vec J \times \vec B) + \set*{\frac{1}{\mu} [\vec B \times (\curl \vec B) - \vec B(\div \vec B)] + \epsilon [\vec E \times (\curl \vec E)-\vec E (\div \vec E)]}=0.
+\end{equation}
+We recognize $\vec f_\text{mech} = \rho \vec E + \vec J \times \vec B$ as a force density from the Lorentz force. Moreover, if we define
+\begin{equation}
+    \vec g \equiv \vec D \times \vec B = \epsilon \vec E \times \vec B = \epsilon \mu \vec E \times \vec H,
+\end{equation}
+then some of these terms will clean up. By some vector identities, we may find that
+\begin{equation}
+    \paren{\vec B \times (\curl \vec B) -\vec B[\div \vec B]}_i = -\p_j \paren{B_iB_j - \frac{1}{2} B^2 \delta_{ij}},
+\end{equation}
+so then we have the appropriate conservation law,
+\begin{equation}
+    \P{}{t}(\vec g_\text{em}+\vec p_\text{mech})_i +\p_j T_{ij}=0,
+\end{equation}
+where we've defined the Maxwell stress tensor
+\begin{equation}
+    T_{ij} \equiv + \epsilon E_i E_j + \frac{1}{\mu} B_i B_j - u_\text{em} \delta_{ij}.
+\end{equation}
+
+Finally, from conservation of momentum we can find a corresponding angular momentum. Since
+\begin{equation}
+    \P{\vec g}{t} - \div \vec T = -\vec f_\text{mech},
+\end{equation}
+by taking the cross-product with $\vec r$ we have
+\begin{equation}
+    \P{}{t}(\vec r \times \vec g) - \vec r \times \div \vec T) = -\vec r \times \vec f_\text{mech}
+\end{equation}
+or equivalently
+\begin{equation}
+    \P{}{t}(\vec r \times \vec g) + \div (\vec T\times \vec r) = -\vec r \times \vec f_\text{mech},
+\end{equation}
+which again looks like a conservation law with
+\begin{equation}
+    \vec M \equiv \vec T \times \vec r
+\end{equation}
+the angular momentum current density. Like the Maxwell stress tensor, it is also a rank two tensor. We therefore define a torque
+\begin{equation}
+    \vec N_\text{mech} = \frac{d\vec L_\text{mech}}{dt} = -\int_V \set*{\P{}{t}(\vec r \times \vec g) + \div \vec M} dv,
+\end{equation}
+where
+\begin{equation}
+    \vec L_\text{em} \equiv \vec r \times \vec g
+\end{equation}
+defines an angular momentum carried by the fields.

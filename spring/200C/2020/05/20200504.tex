@@ -1,0 +1,60 @@
+
+
+Visible light has a wavelength of 700-400 nm (7000-4000 Angstroms), whereas the gas molecules in the atmosphere have a size on the order of a few angstroms (0-5). Hence the light has a wavelength much larger than the size of the particles in the atmosphere.
+
+In the long wavelength limit, $\lambda \gg d$, we need only consider the lowest-order multipole in the expansion. Scattering is a process of sending in an incident wave, letting it interact with some object, and having that object re-emit the wave.
+
+We'll consider the surrounding medium to be vacuum, $\epsilon_0,\mu_0$.
+
+Consider an incident wave
+\begin{equation}
+\vec E_\mathrm{inc} = \gv \epsilon-0 E_0 e^{ik \uv n_0 \cdot \vec r} e^{-i\omega t},
+\end{equation}
+and
+\begin{equation}
+    \vec H_\mathrm{inc} = \uv n_0 \times \vec E_\mathrm{inc}/Z_0,
+\end{equation}
+where $Z_0\equiv \sqrt{\mu_0/\epsilon_0}$ is the impedance of free space. Note Jackson drops the time dependence (like taking a time average). The scattered fields are a spherical wave with a multipole expansion:
+\begin{equation}
+    \vec E_\mathrm{sc} = \frac{1}{4\pi \epsilon_0} k^2 \frac{e^{ikr}}{r} \bkt{(\uv n \times \vec p) \times \uv n - \uv n \times \vec m /c},
+\end{equation}
+where these are the electric and magnetic dipole terms.
+
+Note that molecules and atoms naturally have a polarizability from charge distribution when exposed to electric fields, and a magnetizability due to spin effects in magnetic fields.
+
+The differential scattering cross-section can be computed here by computing the Poynting vector, noting that
+\begin{equation}
+    \frac{d\sigma}{d\Omega} = \frac{r^2 \uv r \cdot \avg{\vec S_\mathrm{sc}}}{|\avg{\vec S_\mathrm{inc}}|}
+\end{equation}
+and for pure dipole radiation we get
+\begin{equation}
+    \frac{d\sigma}{d\Omega} = \frac{k^4}{(4\pi \epsilon_0E_0)^2} = \abs{\hat {\gv\epsilon}^* \cdot \vec p + (\uv n \times \hat {\gv\epsilon}^*)\cdot \vec m/c}^2.
+\end{equation}
+
+For instance, we can compute scattering off a dielectric sphere. This only produces an electric dipole term. We know the dipole moment of the sphere:
+\begin{equation}
+\vec p = 4\pi \epsilon_0 \paren{\frac{\epsilon_r -a}{\epsilon_r + 2}} a^3 \vec E_\mathrm{inc}
+\end{equation}
+and if we compute the cross section in directions parallel and perpendicular to the scattering plane, we get
+\begin{align*}
+\frac{d\sigma_\parallel}{d\Omega} = \frac{1}{4} k^4 a^6 \abs*{\frac{\epsilon_r-1}{\epsilon_r +2}}^2 \cos^2\theta\\
+\frac{d\sigma_\perp}{d\Omega} = \frac{1}{4} k^4 a^6 \abs*{\frac{\epsilon_r-1}{\epsilon_r +2}}^2
+\end{align*}
+The scattering is proportional both to the size of the object (measured by $a$) and the frequency (measured by $k$).
+
+Note that scattering generically polarizes light. When the light source is directly overhead, then 90 degrees from that source gives the maximally polarized light (i.e. near the horizon).
+
+Scattering is proportional to $k$, and higher frequencies like blue are scattered more. But there's also an effect of the sun's spectrum (the sun emits less violet light in general). This tells us why the sky is blue on Earth. On the other hand, at sunset the blue light is scattered the most, and so as the light passes through more of the atmosphere, the red light (being scattered the least) is what makes it to our eyes.
+
+Why does the sky on Mars look pink sometimes? It turns out this isn't due to scattering from gas in the atmosphere but rather from dust storms, which kick up iron compounds into the air. Are all skies blue? Basically, yes. This is impacted somewhat by the spectrum of the star, but higher frequencies are always scattered more.
+
+In a different regime $\lambda \sim d$ we can consider Mie scattering, where the outgoing waves take the form of Bessel functions.
+
+For a conducting sphere, we can also study the relevant scattering. Conducting spheres can have induced electric and magnetic fields:
+\begin{align*}
+\vec p &= 4\pi epsilon_0 a^3 \vec E_\mathrm{inc}\\
+\vec m &= -2\pi a^3 \vec H_\mathrm{inc}.
+\end{align*}
+We can do the same calculation for the electric and magnetic dipole terms in the differential cross-section.
+
+Incidentally radar has a maximal differential cross-section peaked at -180 degrees, i.e. scattering is maximal directly back at the source.

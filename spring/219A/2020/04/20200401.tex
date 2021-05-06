@@ -1,0 +1,202 @@
+Today we'll finish our discussion of Carnot cycles and begin talking about entropy, thermodynamic potentials, and Legendre transforms.
+
+The second law of thermodynamics told us that there are no perfectly efficient heat engines (i.e. which convert all input heat to work) and no perfectly efficient refrigerators (which convert all input work to heat transfer). In fact, there's a more powerful theorem which establishes an upper bound of the efficiency of a heat engine or equivalently of the coefficient of performance for a refrigerator.
+
+During adiabatic changes
+\begin{equation}
+    \paren{\frac{f}{2}+1}\frac{dV}{V}+\frac{f}{2} \frac{dP}{P}=0.
+\end{equation}
+If we rewrite and separate we find that
+\begin{equation}
+    \ln(V^\gamma P) = \text{constant},
+\end{equation}
+where $\gamma = 1+\frac{2}{f}.$ Since $f=3$ for a monoatomic gas and $f=5$ for diatomic, we have
+\begin{equation}
+    \gamma = 5/3\text{ for monoatomic}, 7/5 \text{ for diatomic.}
+\end{equation}
+
+The Carnot cycle has an efficiency
+\begin{equation}
+    \eta = 1- \frac{T_C}{T_H},
+\end{equation}
+and this is the maximum efficiency of any heat engine. It also tells us as a corollary that there can be no negative absolute temperatures, since this would violate the Kelvin formulation of the second law.
+
+\subsection*{Clausius theorem}
+Recall that the reversible Carnot cycle has four parts. Two are adiabats and two are isotherms. Now, we have
+\begin{equation}
+    \oint \frac{dQ}{T} = \frac{Q_H}{T_H} - \frac{Q_C}{T_C}.
+\end{equation}
+We have the heat flow over the isotherms as
+\begin{equation}
+    Q_H = nRT_H \ln(V_b/V_a), \quad Q_C = nRT_C \ln(V_c/V_d)
+\end{equation}
+We find that in fact
+\begin{equation}
+    \frac{V_b}{V_a} = \frac{V_c}{V_d}
+\end{equation}
+If you move reversibly around a Carnot cycle, then
+\begin{equation}
+    \oint \frac{dQ}{T} \leq 0,
+\end{equation}
+with equality when the cycle is reversible. This also leads us to think of $dQ/T$ as a new state function, $S(T)$, such that $dQ = TdS$. That is, on the reversible path, we may say there is no net change in entropy on the closed circuit. THis is different from the irreversible cycle. Suppose we have a cycle where part of it is reversible and part is irreversible. Then
+\begin{equation}
+    \int_1^2 \frac{dQ}{T}|_\text{Rev} =\int_1^2 dS = S_2 - S_2,
+\end{equation}
+such that
+\begin{equation}
+    \oint \frac{dQ}{T} \int_1^2 \frac{dQ}{T}|_\text{irr} - \int_1^2 \frac{dQ}{T}|_\text{rev} \leq 0,
+\end{equation}
+and so
+\begin{equation}
+    \int_1^2 \frac{dQ}{T}|_\text{irr} \leq S_2 -S_1.
+\end{equation}
+Since the LHS is manifestly non-negative and precisely zero for an adiabatic process, we find that
+\begin{equation}
+    0\leq S_2-S_1.
+\end{equation}
+That is, the entropy in any process is non-decreasing. Now we can write the first law as
+\begin{equation}
+    dE = dQ+ dW = TdS + \sum_i \mathcal{F}_i dx_i.
+\end{equation}
+Now we might define
+\begin{equation}
+    \P{S}{E}|_{\vec{x}} = 1/T,
+\end{equation}
+where the change in entropy with respect to energy defines a temperature. That is, the temperature tells us how the entropy changes as we change the energy, holding the generalized displacements fixed. This is the \term{microcanonical ensemble}.
+
+In equilibrium, the entropy $S$ tends to maximize itself by minimizing potentials. One may speak of the enthalpy, where there is no heat exchange and a constant external ``force.'' We define
+\begin{align}
+    H &= E - \vec{\mathcal{F}}\cdot \vec x\\
+    &= E-(-PV) = E+PV
+\end{align}
+for a generalized force of pressure and a generalized displacement of volume.
+
+We can define a differential work
+\begin{equation}
+    \delta W \leq \vec{\mathcal{F}} \cdot \delta \vec x,
+\end{equation}
+such that
+\begin{equation}
+    dH = dE  -d(\vec{\mathcal F} \cdot \vec x) = TdS - \vec x \cdot d \vec{\mathcal F}.
+\end{equation}
+This is an example of a Legendre transform, where we've traded dependence on the displacements $d\vec x$ for dependence on the generalized forces $d\vec{\mathcal F}$.
+
+At equilibrium we have $dH=0$. In general $dH \leq 0$, so the individual displacements are given by
+\begin{equation}
+    x_i = -\P{H}{\mathcal{F}_i}|_{S,\mathcal F_j, j\neq i}.
+\end{equation}
+One example of this is the volume in terms of the enthalpy, as
+\begin{equation}
+    V=-\P{H}{(-P)}|_S = \P{H}{P}|_S.
+\end{equation}
+Similarly the heat capacity in terms of the enthalpy is
+\begin{equation}
+    C_P= \P{Q}{T}|P =\P{}{T} (E+PV)|_P = \P{H}{T}|_P
+\end{equation}
+
+A useful quantity to define is the Helmholtz free energy,
+\begin{equation}
+    F= E-TS,
+\end{equation}
+and this is the thing to minimize. That is, at high temperatures the entropy dominates, while at low temperatures, the energy term is dominant. Small changes in the Helmholtz free energy give us
+\begin{equation}
+    \delta F = \delta (E-TS) = \delta E - T\delta S - S \delta T = -S dT + \vec{\mathcal{F}}\cdot d\vec x.
+\end{equation}
+Hence the Helmholtz free energy is a function of temperature and the generalized displacements, e.g. $F(T,V)$ or $F(T,M)$. From the free energy, other useful derivative relations can be constructed, e.g.
+\begin{equation}
+    -P = \P{F}{V}|_T
+\end{equation}
+or more generally
+\begin{equation}
+    \vec{\mathcal{F}}_i = \P{F}{x_i}|_{T,x_j, j\neq i}.
+\end{equation}
+
+Now we have
+\begin{align}
+    E &= F+TS\\
+        &= F - T \P{F}{T}|_{\vec x}\\
+        &= -T^2 \P{}{T}\paren{\frac{F}{T}}|_{\vec x},
+\end{align}
+and with a bit of work one can show that the heat capacity at constant volume can be rewritten in terms of a second derivative
+\begin{equation}
+    C_V = \P{E}{T}|_V = -T \frac{\p^2F}{\p T^2}|_V.
+\end{equation}
+It's also useful to perform another Legendre transform and write
+\begin{equation}
+    G= F - \vec{\mathcal F} \cdot \vec x,
+\end{equation}
+the Gibbs free energy, and summarize the ``grand potential''
+\begin{equation}
+    g = E-TS -\gv \mu \cdot \vec N,
+\end{equation}
+where $\gv \mu$ specifies various chemical potentials for some particle species $\vec N$.
+
+One example of this is the coexistence of phases of matter. Suppose we have an insulating box filled with some volume of vapor and some of liquid. THere are $N$ molecules of the liquid taking up a volume $V_L$, and $N_V=N-N_L$ molecules of vapor. Now
+\begin{equation}
+    \delta F = \P{F_L}{N_L}|_{T,V}\delta N_L + \P{F_V}{N_V} |_{T,V} \delta N_V.
+\end{equation}
+We moreover know that $\delta N_L = -\delta N_V$ and
+\begin{equation}
+    \P{F_V}{N_V}|_{T,V}= \mu_V,
+\end{equation}
+so we find that
+\begin{equation}
+    (\mu_L - \mu_V)\delta N_L=0.
+\end{equation}
+Since this is true for arbitrary variations $\delta N_L$, we conclude that
+\begin{equation}
+    \mu_L = \mu_V,
+\end{equation}
+the chemical potentials must be equal.
+
+What happens if we consider rescalings? That is, we scale the system by a factor of $\lambda$. Then
+\begin{equation}
+    S\to \lambda S, V \to \lambda V, N \to \lambda N.
+\end{equation}
+But the energy itself depends as
+\begin{equation}
+    dE = TdS - PdV + \mu dN,
+\end{equation}
+so
+\begin{equation}
+    E(\lambda S, \lambda V,\lambda N) = \lambda E(S,V,N).
+\end{equation}
+It follows that
+\begin{equation}
+    \frac{d}{d\lambda} E(\lambda S, \lambda V, \lambda N)|_{\lambda =1} = S \P{E}{S}|_{V,N} + V\P{E}{V}|_{N,S} +N \P{E}{N}|_{V,S}.
+\end{equation}
+But the LHS is the energy $E$, and we recognize the derivatives on the RHS:
+\begin{equation}
+    E = TS - PV + \mu N.
+\end{equation}
+We also know that
+\begin{equation}
+    dE = d(TS-PV+\mu N) = TdS - PdV +\mu dN,
+\end{equation}
+and so the other differential terms which come from this are
+\begin{equation}
+    \boxed{S dT - V dP + N d\mu =0.}
+\end{equation}
+This is the Gibbs-Duhem relation.
+On an isotherm, $dT=0$, we have
+\begin{equation}
+    -VdP + Nd\mu =0 \implies d\mu = \frac{V}{N} dP = k_B T \frac{dP}{P}
+\end{equation}
+for an ideal gas. One can then write the general chemical potential (by integrating) as
+\begin{equation}
+    \mu = \mu_0 + k_B T \ln (p/p_0) = \mu_0 - k_B T \ln V/V_0.
+\end{equation}
+
+We also find \term{Maxwell relations}
+\begin{equation}
+    \frac{\p^2 f}{\p x_i \p S} = \frac{\p^2 f}{\p S \p x_i}
+\end{equation}
+by the equality of mixed partials.
+For instance, we know that
+\begin{equation}
+    \P{E}{S}|_{\vec x,N} = T, \quad \P{E}{x_i}|_{S,x_j \neq x_i} = \mathcal{F}_i,
+\end{equation}
+so it follows that
+\begin{equation}
+    \P{\mathcal{F}_i}{S}|_{x_i} = \P{T}{x_i}|_S.
+\end{equation}

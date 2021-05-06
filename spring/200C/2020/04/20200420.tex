@@ -1,0 +1,115 @@
+We're moving on to waveguides today, roughly sections 19.1-4 in Zangwill. The purpose of a waveguide is to guide EM waves (clearly), ideally with low losses. This has applications to power transmission, communications, and signal propagation. There are conducting waveguides (transmission lines) as well as dielectric guides (fiber optics).
+
+Transmission lines have multiple conductors (typically two, as in coaxial cables) to carry electrical power or signal with minimal distortion, while wave guides are a single conducting tube. We'll focus on transmission lines today.
+
+Let's recall that fields at a conductive boundary satisfy
+\begin{align}
+    \div \vec D = \rho_f &\implies \uv n \cdot (\vec D_2 - \vec D_1) = \sigma_f\\
+    \curl\vec E = -\P{\vec B}{t} &\implies \uv n \times (\vec E_2 -\vec E_1) =0\\
+    \div \vec B = 0 &\implies \uv n \cdot (\vec B_2 - \vec B_1) = 0\\
+    \curl \vec H = \vec J_f + \P{\vec D}{t} &\implies \uv n \times (\vec H_2 -\vec H_1) = \vec K_f.
+\end{align}
+
+For a perfect conductor, the conductance becomes infinity, $\sigma \to \infty, R= 1/\sigma \to 0$ and the skin depth goes to zero, $\delta = \sqrt{2/\mu\sigma \omega} \to 0$. It follows that the fields inside the perfect conductor are exactly zero,
+\begin{equation}
+    \vec E_C = \vec H_C= 0.
+\end{equation}
+Outside, let $\mu,\epsilon$ be constant and real. That is, we wish for our medium to be non-absorbing, so any power losses come from interaction with the conductor.
+
+By the boundary conditions,
+\begin{align}
+    \Delta E_\text{tan}=0 &\implies E_{2,\mathrm{tan}}=0
+    \Delta B_\text{norm}=0 &\implies B_{2,\mathrm{norm}}=0
+    \Delta D_\mathrm{norm}=\sigma \implies D_{2,\mathrm{norm}}=\sigma\\
+    \Delta H_\mathrm{tan} = \vec K &\implies \uv n \times \vec H_2 = \vec K.
+\end{align}
+We notice that $\vec E\times \vec H$ is therefore tangent to the boundary, and so $\vec S \cdot \uv n=0$. That is, there are no power losses to the boundaries.
+
+In reality we don't have perfect conductors Instead,
+\begin{equation}
+    \avg{\P{P}{V}} = \frac{1}{2}\vec J \cdot \vec E^*.
+\end{equation}
+If the conductor is ohmic, then $\vec J = \sigma \vec E_c$ and so
+\begin{equation}
+    -\avg{\P{P}{V}}=\frac{1}{2\sigma} [\vec J \cdot \vec J^*].
+\end{equation}
+(?) (slide 4)
+For fields in the non-conducting medium, we can make the ansatz that the fields are harmonic, $\vec E,\vec H \sim e^{-i\omega t}$.
+Suppose the medium otherwise has no charge or current, $\rho=\vec J=0$. Then Maxwell's equations give us
+\begin{align}
+    \div \vec E &=0\\
+    \curl \vec E &= i\omega \mu \vec H\\
+    \div \vec H &= 0\\
+    \curl \vec H &= -i\epsilon \omega \vec E
+\end{align}
+Using our usual double-curl tricks and the Gauss law, we find a Helmholtz equation
+\begin{equation}
+    \paren{\nabla^2+\mu \epsilon \omega^2}\set*{\begin{matrix}\vec E \\ \vec B\end{matrix}} =0.
+\end{equation}
+We might also define $k_0^2=\mu \epsilon \omega^2/c^2$.
+
+Consider an infinite pipe made of a perfect conductor extending in the $uv z$ direction. Inside,
+\begin{equation}
+    \vec E,\vec H \sim e^{\pm ikz - i\omega t}
+\end{equation}
+which allows the wave to travel in the $\pm \uv z$ direction. It cannot travel in the transverse directions because there's a piece of metal in the way.
+
+Now if the waves have this sort of dependence, then
+\begin{equation}
+    \frac{\p^2}{\p z^2} = -k^2 \implies \nabla^2 = \nabla_\perp^2 + \p_z^2 = \nabla_\perp^2 - k^2.
+\end{equation}
+Then the Helmholtz equation in terms of $k_0$ becomes
+\begin{equation}
+    (\nabla_\perp^2 - k^2 + k_0^2) \vec E=0,
+\end{equation}
+and we can define
+\begin{equation}
+    \gamma^2 \equiv k_0^2 -k^2.
+\end{equation}
+Thus our Helmholtz equation becomes
+\begin{equation}
+    \paren{\nabla_\perp^2+\gamma^2}\set*{\begin{matrix}\vec E \\ \vec B\end{matrix}} =0.
+\end{equation}
+We see that the field separates into axial and transverse components,
+\begin{equation}
+    \vec E = \vec E_\perp + \uv z E_z.
+\end{equation}
+But each of the components must satisfy the Helmholtz equation, i.e.
+\begin{equation}
+    (\nabla_\perp^2+\gamma^2)E_z=0,(\nabla_\perp^2+\gamma^2)E_\perp=0.
+\end{equation}
+
+If we consider Faraday's law we have
+\begin{equation}
+    \curl_\perp \times \vec E_\perp = \paren{\uv x \P{}{x} + \uv y \P{}{y}}\times \paren{\uv x E_x + \uv y E_y}=C\uv z = i\mu \omega H_z \uv z.
+\end{equation}
+Taking a double curl gives us some nice results. We find that
+\begin{equation}
+    \gamma^2 \vec E_\perp =\nabla_\perp\paren{\P{E_z}{z}}-i\mu \omega \uv z \times \nabla_\perp H_z,
+\end{equation}
+and a similar equation for $\vec H_\perp$.
+This tells us that the fields are entirely determined by the axial components.
+
+Now we can make some different choices.
+\begin{itemize}
+    \item Transverse Magnetic (TM). $H_z=0, \gamma \neq 0$. In that case,
+    \begin{equation}
+        (\nabla_\perp^2 + \gamma^2) E_z =0.
+    \end{equation}
+    We have Dirichlet boundary conditions where $\uv n \times \vec E|_S=0\implies E_z|_S=0$, which tells us that the field at the surface is zero.
+    \item Transverse Electric (TE). $E_z=0$. This leads to $\uv n \cdot \vec H|_S=0 \implies \uv n \cdot \vec H_\perp|S=0$. These are Neumann boundary conditions:
+    \begin{equation}
+        (\nabla_\perp^2 + \gamma^2)H_z=0, \quad \uv n \cdot \nabla_\perp H_z|S = \P{H_z}{n}|_S=0.
+    \end{equation}
+    \item Transverse Electric/Magnetic (TEM). $H_z=E_z=0$. These are only allowed in coaxial setups (transmission lines) because otherwise we could not fit the boundary conditions at the origin.
+\end{itemize}
+
+In waveguides, our TM waves have
+\begin{itemize}
+    \item $H_z=0$ everywhere by definition
+    \item $E_z= \psi(x,y) e^{i(kz-\omega t)} \implies (\nabla_\perp^2 + \gamma^2 )\psi=0$. Rectangular pipes will give us sines and cosines; cylindrical pipes will give Bessel functions. This is precisely analogous to the free particle in QM (the Helmholtz equation is like the Schr\"odinger equation)
+    \item $\vec E_\perp = \pm\frac{ik}{\gamma^2}(\nabla_\perp E_z)$
+    \item (another condition for H?)
+\end{itemize}
+
+There are some conditions for TE waves. There are usually no TEM waves in a waveguide.

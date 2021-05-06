@@ -1,0 +1,149 @@
+\begin{note}
+    Reading: Zangwill 10.5-10.10. The slides for the lecture should be posted on the previous night. Homeworks will be due at midnight/11:59 pm on Mondays rather than 10:30 am.
+\end{note}
+
+\subsection*{Quasistatic fields}
+Quasistatics describes situations where fields and sources are changing slowly with respect to the relevant length scales. We'll see how to turn this into something formal shortly
+
+Griffiths mentions the skin depth briefly in his discussion of dispersion relations, while Jackson talks about it at the end of magnetostatics. Many useful (and sometimes annoying) effects can be derived in the quasistatic approximation, and Zangwill spends the most time on this of the various graduate texts.
+
+Well, we have our time-dependent Maxwell equations:
+\begin{subequations}
+    \begin{gather}
+        \div \vec D = \rho_f\\
+        \div \vec B = 0\\
+        \curl \vec E = -\P{\vec B}{t}\\
+        \curl \vec H = \vec J_f + \P{\vec D}{t}.
+    \end{gather}
+\end{subequations}
+We're always looking for simplifications to solve these equations explicitly. A useful one is where we can drop the time derivatives, either the Faraday part of the electric field $\P{\vec B}{t}$ or the displacement current $\P{\vec D}{t}$ are negligible.
+
+For \term{quasi-electrostatic fields}, we have
+\begin{equation}
+    \P{\vec B}{t} =0,
+\end{equation}
+and for \term{quasi-magnetostatic fields}, we have
+\begin{equation}
+    \P{\vec D}{t} =0.
+\end{equation}
+
+\subsection*{Quasi-electrostatic case}
+Let's begin by considering a slowly varying charge distribution $\rho(\vec r, t)$. It has a characteristic length scale $l$ and oscillation period $T$ where $1/T \sim \omega$, a characteristic frequency of oscillation. We can decompose arbitrary oscillations in Fourier series, so we don't lose too much by working with sinusoids. That is, spatial derivatives give
+\begin{equation}
+    \div e^{ix/l} \to \frac{1}{l} e^{ix/l},
+\end{equation}
+and time derivatives give
+\begin{equation}
+    \P{}{t} (e^{i\omega t}) \to \omega e^{i\omega t}.
+\end{equation}
+These are the relevant length and time scales involved. Thus we can rewrite the continuity equation in terms of these length scales:
+\begin{equation}
+    \div \vec J + \P{\rho}{t} = 0 \implies \frac{\vec J}{l} + \omega \rho =0.
+\end{equation}
+Rewriting, we find that
+\begin{equation}
+    J \sim \omega l \rho.
+\end{equation}
+
+In particular, we can decompose the electric field in the following way, thinking of the Helmholtz theorem:
+\begin{equation}
+    \vec E = \vec E_c + \vec E_f,
+\end{equation}
+into a Coulomb part such that
+\begin{equation}
+    \div \vec E_c = \frac{\rho}{\epsilon} \implies \frac{E_c}{l} \sim \rho/\epsilon \implies E_C \sim \frac{l}{\epsilon}\rho,
+\end{equation}
+while the Faraday part goes as
+\begin{equation}
+    \curl \vec E_f \sim \P{\vec B}{t} \implies \frac{E_f}{l} \sim \omega B \implies E_f \sim \omega Bl.
+\end{equation}
+Similarly we can estimate the magnetic field as
+\begin{equation}
+    \curl \vec B = \mu(\vec J + \epsilon \P{\vec E}{t}) \implies B \sim \mu \omega \rho l^2.
+\end{equation}
+If we compare the Faraday and Coulomb fields, we have
+\begin{equation}
+    \frac{E_F}{E_C} \sim \mu \epsilon \omega^2 l^2 \sim \frac{\omega^2 l^2}{v_n^2},
+\end{equation}
+where $v_n$ indicates the speed of light in the medium. We see that $E_F/E_C \ll 1$ when
+\begin{equation}
+    \omega^2 \ll \frac{v_n^2}{l^2},
+\end{equation}
+i.e. the transit time for light $l/v_n$ in the medium is much less than $1/\omega$.
+
+\subsection*{Quasi-magnetosatics}
+The quasi-magnetostatic case is similar, except here we instead need to consider a slowly varying current $\vec J(\vec r, t)$. We have the ampere part of the magnetic field,
+\begin{equation}
+    \curl \vec B_A = \mu \vec J \implies B_A \sim \mu Jl
+\end{equation}
+and the Faraday law gives
+\begin{equation}
+    \curl \vec E_F = \P{\vec B_A}{t} \implies E_F \sim l \omega B_a \sim \mu \omega l^2 J.
+\end{equation}
+The displacement current is then
+\begin{equation}
+    \vec J_D  =\epsilon \P{\vec E_F}{t} \implies 
+\end{equation}
+
+What does slowly varying mean in materials? For materials that obey Ohm's law,
+\begin{equation}
+    \vec J_f = \sigma \vec E,
+\end{equation}
+where $\sigma$ is the conductance (in units of $1/\Omega m$). we can plug into the continuity equation,
+\begin{equation}
+    \div \vec J_F + \P{\rho_f}{t} =0 \implies \div (\sigma \vec E) + \P{\rho_f}{t}=0,
+\end{equation}
+so
+\begin{equation}
+    \P{\rho_f}{t} + \frac{\sigma}{\epsilon} \rho_f =0 \implies \rho_f(\vec r,t) = \rho_0(\vec r) e^{-t/\tau},
+\end{equation}
+which says that free charge decays with a characteristic \term{electric time constant}
+\begin{equation}
+    \tau_E \equiv \epsilon/\sigma.
+\end{equation}
+Highly conductive materials redistribute charge quickly.
+
+There's also a corresponding magnetic time constant,
+\begin{equation}
+    B_F \sim \mu l J_F \sim \mu \sigma \omega l^2 B_\text{ext}
+\end{equation}
+where we consider an external magnetic field. Then
+\begin{equation}
+    \frac{B_F}{B_\text{ext}} \sim \mu \sigma \omega l^2 = \omega \tau_M \implies \tau_M \equiv \mu \sigma l^2.
+\end{equation}
+We see that $\tau_M$ scales directly with the conductance, while $\tau_E$ scales inversely with $\sigma$.
+
+Poor conductors (lossy dielectrics) have $\sigma \sim 10$ S/m,%
+    \footnote{The unit of conductance is Siemens per meter, or sometimes mhOs per meter}
+while good conductors have $\sigma\sim 10^8$ S/m.
+
+\subsection*{Skin depth}
+For quasistatic magnetic fields, Faraday's law rerwritten in terms of the vector potential is
+\begin{equation}
+    \curl(\vec E + \P{\vec A}{t})=0.
+\end{equation}
+if we write $\vec E$ in terms of the vector potential as
+\begin{equation}
+    \vec E = -\P{\vec A}{t}
+\end{equation}
+then Ampere's law becomes
+\begin{equation}
+    \curl \vec B =\mu \vec J = \mu \sigma \vec E
+\end{equation}
+and so
+\begin{equation}
+    \curl (\curl \vec A) = \mu \sigma \paren{-\P{\vec A}{t}}.
+\end{equation}
+Now we use the double curl identity as find that
+\begin{equation}
+    -\nabla^2 \vec A = -\mu \sigma \P{\vec A}{t}.
+\end{equation}
+We recover a diffusion equation for $\vec A$. If we consider a semi-infinite slab of material and a field
+\begin{equation}
+    H_x(z,t) = h(z) e^{i\omega t},
+\end{equation}
+then
+\begin{equation}
+    (\frac{d^2}{dz^2} + i\mu \sigma \omega)h(z) =0 \ implies h(z) = H_0 e^{ikz}
+\end{equation}
+which gives us a characteristic penetration depth $\kappa = ik$.

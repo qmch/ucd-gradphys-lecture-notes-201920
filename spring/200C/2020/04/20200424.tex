@@ -1,0 +1,40 @@
+Today we'll begin our discussion of radiation and retardation. In general, Maxwell's equations are time-dependent.
+
+Radiation is interesting to us because it allows us to have a nonzero power density at infinity. Accelerating charges allow us to have fields that do not fall off fast enough and extend to infinity.
+
+Retardation is simply the phenomenon that signals take time to propagate in space, so there are no instantaneous responses to changing charges or currents. That is, the fields reflect the behavior of the sources at an earlier retarded time.
+
+If we take the curl of Faraday's law, we get wave equations
+\begin{equation}
+    \nabla^2 \vec E - \frac{1}{c^2} \frac{\p^2 \vec E}{\p t^2} = \frac{1}{\epsilon_0} \grad \rho + \mu_0 \P{\vec J}{t}
+\end{equation}
+and
+\begin{equation}
+    \nabla^2 \vec B -\frac{1}{c^2} \frac{\p^2 \vec B}{\p t^2} = -\mu_0 \curl \vec J.
+\end{equation}
+These are inhomogeneous wave equations, so they are harder to solve. We can consider fields produced by dynamically polarized/magnetized matter, $\rho = -\div \vec P, \vec J = \P{\vec P}{t} + \curl \vec M$. Now for these wave equations we can similarly define
+\begin{equation}
+    \varphi_L = -\div \gv \pi_\mathrm{e}, \quad \vec A = \frac{1}{c^2} \P{\gv \pi_e}{t} + \curl \gv \pi_\mathrm{m}
+\end{equation}%slide 7
+
+Consider the fields from a point charge moving at constant velocity. That is,
+\begin{align}
+    \vec v&= v\uv z\\
+    \rho(\vec r,t) &= q \delta(x) \delta(y) \delta(z-vt)\\
+    \vec J (\vec r,t) &= \vec v \rho(\vec r,t).
+\end{align}
+
+At a time $t$, the particle is at a point $vt \uv z$, and we can study the field at some point $\vec r=(x,y,z)$. We can also define $\vec R$, which is the vector from the charge at a time $t$ to the observation point (i.e. $vt \uv z+\vec R = \vec r$). The potentials are now
+\begin{equation}
+    \varphi(x,y,z-vt), \quad A(x,y,z-vt) \uv z,
+\end{equation}
+where we notice that since the current is in the $\uv z$ direction, so is the vector potential.
+
+If we let $\xi=z-vt$ and $\beta =v/c$, then Poisson's equation tells us
+\begin{equation}
+    \div (\grad \varphi)-\frac{1}{c^2}\frac{\p^2 \varphi}{\p t^2} = -\rho/\epsilon_0 \implies \frac{\p^2 \varphi}{\p x^2} + \frac{\p^2 \varphi}{\p y^2} +(1-\beta^2) \frac{\p^2 \varphi}{\p \xi^2} = -\frac{q}{\epsilon_0}\delta(x)\delta(y)\delta(\xi).
+\end{equation}
+Now if we define $\gamma = (1-\beta^2)^{-1/2}$ and $z'= \gamma \xi = \gamma(z-vt)$, then Poisson's equation becomes
+\begin{equation}
+    \frac{\p^2 \varphi}{\p x^2} + \frac{\p^2 \varphi}{\p y^2} +\frac{\p^2 \varphi}{\p z'^2} = -\frac{q}{\epsilon_0}\delta(x)\delta(y)\delta(\xi).
+\end{equation}

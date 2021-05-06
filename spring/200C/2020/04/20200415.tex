@@ -1,0 +1,109 @@
+Today we'll get started with Chapter 18, \emph{Waves in Dispersive Media}. We'll spend most of our time on 18.4, transverse and longitudinal waves, studying the Lorentz-Drude model.
+
+Non-dispersive media obeys the Maxwell equations, as usual, and simple constitutive relations. For dispersive media, the medium response is not instantaneous, and the response does not vanish when the field is removed. The polarization and magnetization depend on the history of the fields:
+\begin{align}
+    \vec P(t) = \epsilon_0 \Int \vec E(t') G_e(t-t') dt'\\
+    \vec M(t) = \Int \vec H(t') G_M(t-t')dt'
+\end{align}
+
+Polarization and magnetization arise from microscopic phenomena-- in the case of polarization, outer-shell electrons shift their positions in response to an applied field, while in the case of magnetization, microscopic magnetic dipole moments (due to spin or orbital effects) reorient to align with the field.
+
+Here, the response functions $G_e$ and $G_M$ are Green's functions, specifically advanced or retarded propagators based on physical concerns about causality.
+
+Let us now take Fourier transforms and go from the time domain tothe frequency domain:
+\begin{align}
+    \vec P(\omega) &= \epsilon_0 \chi_e(\omega) \vec E(\omega),\\
+    \vec M(\omega) &= \chi_M(\omega) \vec H(\omega).
+\end{align}
+We write the susceptibilities as Fourier transforms:
+\begin{equation}
+    \chi(\omega) =\Int G(\tau) e^{i\omega \tau} d\tau
+\end{equation}
+and
+\begin{equation}
+    G(\tau) = \frac{1}{2\pi}\Int \chi(\omega)e^{-i\omega \tau} d\omega.
+\end{equation}
+For now, we can just say that our $\epsilon,\chi_e,\mu,\chi_m$ all become complex and frequency-dependent. The real part gives refraction, while the imaginary part is responsible for absorption.
+
+For plane waves in dispersive media, we have
+\begin{gather}
+    \div \vec D = \rho_f, \quad \div \vec B=0\\
+    \curl \vec E -i\omega \vec B =0, \quad \curl \vec H +i\omega \vec D = \vec J_f.
+\end{gather}
+As before we can write everything in terms of just two fields using the constitutive relations:
+\begin{gather}
+    \div \vec E = \rho_f/\tilde \epsilon, \quad \div \vec H = 0,\\
+    \curl \vec E -i\omega \tilde \mu \vec H =0, \quad \curl \vec H + i\omega \tilde \epsilon \vec E= \vec J.
+\end{gather}
+Here, $\tilde \epsilon(\omega) = \epsilon_0 \bkt{1+\chi_e(\omega)}.$
+
+Taking curls of the curl equation and applying the double-curl identity gives us Helmholtz equations:
+\begin{equation}
+    \nabla^2 \vec H + \tilde n^2 \frac{\omega^2}{c^2} \vec H = -\curl \vec J,
+\end{equation}
+where the complex index of refraction is given in the most natural way as $\tilde n = \tilde \mu \tilde \epsilon/\mu_0 \epsilon_0.$
+
+We saw that metals have a complex index of refraction. Metals are dispersive, but not all dispersive materials are metals.%
+    \footnote{For instance, acrylic certainly isn't a metal, but most cheap prisms are made of it.}
+Given an index of refraction, we can determine a complex wave vector $\tilde{\vec k}$ where $\tilde{\vec k} \cdot \tilde{\vec k}=\tilde n^2 \omega^2/c^2$. We can split up
+\begin{equation}
+    \tilde{\vec k} = (q+i\kappa)\uv k.
+\end{equation}
+We can still define a unit vector $\uv k$ which points in the direction of propagation. It's just that the overall wave vector is now complex.
+
+In the absence of sources, the Helmholtz equation admits plane wave solutions,
+\begin{equation}
+    \vec H(\vec r, \omega) =\vec H_0(\omega) e^{i\vec k \cdot \vec r} = \vec H_0(\omega) e^{(ik-\kappa)\uv k\cdot \vec r}.
+\end{equation}
+Now computing the intensity from the Poynting vector, $\vec E\times \vec H^*$, we get
+\begin{equation}
+    S \propto e^{-2\kappa \uv k \cdot \vec r},
+\end{equation}
+so we see that
+\begin{equation}
+    2\kappa = 2 \frac{\text{Im}(\tilde n)}{c}\omega.
+\end{equation}
+This tells us what it means for a material to be transparent-- absorption is small, i.e. for a given frequency, $\kappa/q = \text{Im}(\tilde n)/\text{Re}(\tilde n)\ll 1$.
+
+\subsection*{Lorentz-Drude model}
+In this model, the electrons in the medium are harmonically bound to the ions, which are forced to occupy lattice sites. An electric field displaces these electrons. They have equations of motion
+\begin{equation}
+    \frac{d^2\vec r}{dt^2} + \gamma \frac{d\vec r}{dt} + \omega_r^2 \vec r = \frac{q_e}{m}\vec E.
+\end{equation}
+That is, the acceleration is equal to an electric force per mass minus a linear restoring force proportional to $\vec r$ and a damping (frictional) force proportional to $\frac{d\vec r}{dt}$. Here, $\omega_r$ is a resonant frequency, $q_e$ is the electron charge, $m$ is the electron mass, and $\gamma$ is a damping coefficient.
+
+The polarization is the dipole moment $q_e\vec r$ times the electron density $n_e$:
+\begin{equation}
+    \vec P = n_e q_e \vec r.
+\end{equation}
+Let us define a plasma frequency
+\begin{equation}
+    \omega_p \equiv \sqrt{\frac{n_e q_e^2}{\epsilon_0 m}}.
+\end{equation}
+The plasma frequency is the highest frequency which the electrons can respond to.
+Then
+\begin{equation}
+    \frac{d^2\vec r}{dt^2} + \gamma \frac{d\vec r}{dt} + \omega_r^2 \vec r = \epsilon_0 \omega_p^2 \vec E.
+\end{equation}
+If we take the Fourier transform we get
+\begin{equation}
+    (\omega_r^2 -\omega^2 -i\gamma \omega)\vec P = \epsilon \omega_p^2 \vec E,
+\end{equation}
+so we have a susceptibility
+\begin{equation}
+    \chi_e (\omega) = \frac{\omega_p^2}{\omega_r^2 -\omega^2 -i\gamma \omega}
+\end{equation}
+with poles at
+\begin{equation}
+    \omega = -i\gamma/2\pm (?)
+\end{equation}
+The imaginary part of the susceptibility comes from damping, while the real part is related to the index of refraction and reflects electron oscillations.
+
+Let us ignore magnetic effects and set $\mu(\omega)=\mu_0$. If we consider underdamped oscillators $\gamma/\omega_r \ll 1$, then
+\begin{equation}
+    \text{Re}(\mu \epsilon) = \frac{1}{\omega^2}(q^2-\kappa^2)
+\end{equation}
+and
+\begin{equation}
+    \text{Im}(\mu\epsilon) = 2 \frac{q\kappa}{\omega^2}.
+\end{equation}%see 

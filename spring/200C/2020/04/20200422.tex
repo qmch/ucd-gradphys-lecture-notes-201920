@@ -1,0 +1,83 @@
+Today we'll continue our discussion of waveguides. As we said last time, one can propagate TM and TE waves down a conducting wave guide, but for TEM waves we need transmission lines-- the latter is only allowed in co-axial setups. In TE waves, the magnetic field points a little bit along the axis of propagation ($H_z \neq 0$); in TM waves, it is instead the electric field that points a bit along the $z$-axis.
+
+In the Tm case, $E_z|_S=0$ on the boundary will give us sines, and in the TE case the derivative of $H_z$ being zero will give us cosines.
+
+In general, $\vec E_\perp, \vec H_\perp,$ and $\uv z$ form a RH orthoganl set, with
+\begin{equation}
+    |\vec E_\perp| = Z |\vec H_\perp|.
+\end{equation}
+$E_\perp$ and $H_\perp$ have no phase difference, but either $E_\perp$ and $E_z$ or $H_\perp$ and $H_z$ are 90${}^\circ$ out of phase.
+
+If we define $\gamma^2 = k_0^2 -k^2 =\mu \epsilon \omega^2$, solving for $k^2$ gives
+\begin{equation}
+    k_\lambda^2 \equiv \mu \epsilon \omega^2 - \gamma_\lambda^2,
+\end{equation}
+where we take $\omega$ to be given and $\gamma$ determined. Now this leads us to write a cutoff frequency
+\begin{equation}
+    \omega_\lambda = \frac{\gamma_\lambda}{\sqrt{\mu\epsilon}}
+\end{equation}
+such that above $\omega_\lambda$, the wavenumber
+\begin{equation}
+    k_\lambda = \sqrt{\mu \epsilon}\sqrt{\omega^2 -\omega_\lambda^2}
+\end{equation}
+becomes imaginary. That is, $\omega>\omega_\lambda$ gives $k_\lambda$ real and propagating waves, whereas for $\omega <\omega_\lambda$ we have cut-off modes and decaying exponential solutions.
+
+In general we want to design our waveguide so that only one mode propagates. Consider a specific geometry, a rectangular waveguide. It has width $a$ in the $x$-direction and height $b$ in the $y$ direction. It's standard to take $a=2b$. Well, by separation of variables we can write down the solutions to the Helmholtz equation.
+\begin{align}
+    \psi_{nm} = E_0 \sin\paren{\frac{n\pi x}{a}}\sin\paren{\frac{m\pi y}{b}},n,m=1,2,3,\dots\quad \text{TM waves}\\
+    \psi_{nm} = H_0 \cos\paren{\frac{n\pi x}{a}}\cos\paren{\frac{m\pi y}{b}},n,m=0,1,2,\dots\quad \text{TE waves}
+\end{align}
+Note that our convention for the lower indices is switched from Zangwill. The $\psi$s here are proportional to $E_z^{nm}$ and $H_z^{nm}$ respectively.
+
+In either case, we can calculate the corresponding $\gamma$s:
+\begin{equation}
+    \gamma_{nm}^2 = \paren{\frac{n\pi}{a}}^2+\paren{\frac{m\pi}{b}}^2.
+\end{equation}
+THese are the eigenvalues, with
+\begin{equation}
+    \omega_{nm}=\frac{1}{\sqrt{\mu\epsilon}}\gamma_{nm}.
+\end{equation}
+We can see that the cutoff wavelength is $\lambda=2\pi/\gamma_{nm}$.
+
+In the standard geometry, $a=2b$, we have
+\begin{equation}
+    \gamma_{nm} = \frac{\pi}{a} \sqrt{n^2+4m^2},
+\end{equation}
+which gives us the lowest modes as 
+\begin{equation}
+    \gamma_{10} = \pi/a, \gamma_{01}=\gamma-{20} = 2\pi/a.
+\end{equation}
+These must be TE modes, since one of their indices is zero. THe next ones up are
+\begin{equation}
+    \gamma_{11} = \sqrt{5}\pi/a, \gamma_{21} \sqrt{8} \pi/a,
+\end{equation}
+which can be TE or TM.
+
+The corresponding cutoff frequencies are
+\begin{equation}
+    \omega_{nm} =\frac{c}{n} \gamma_{nm}, \quad k_{nm} = \frac{c}{n}\sqrt{\omega^2-\omega-{nm}^2}.
+\end{equation}
+We notice that the usual situation gives us
+\begin{equation}
+    \omega_{10} < \omega < \omega_{01}\text{ or } \omega_{20},
+\end{equation}
+then we can maximize the bandwidth for a desired frequency range.
+
+The math is easiest for rectangular waveguides, but we can understand circular pipes as well; these give us Bessel functions in the radial direction instead.
+
+Transmission lines with a coaxial geometry allow us to set up a potential difference between the two conductors, so TEM waves can propagate. Consider a coaxial cable with inner radius $a$ and outer raduis $b$. We can set up a solution for the potential
+\begin{equation}
+    \Phi = -\frac{\lambda}{2\pi \epsilon} \ln s,
+\end{equation}
+then
+\begin{equation}
+    E_s = -\P{\Phi}{s}
+\end{equation}
+and
+\begin{equation}
+    \vec E=(A/s) \uv s, \vec B=\frac{A}{cs}\hat{\gv \phi}.
+\end{equation}
+
+Note that dielectric waveguides use total internal reflection instead of metallic reflectivity to guide the wave. If the core has a higher index of refraction, $n_1 > n_2$, then total internal reflection is possible. The index of refraction can either change by step (two separate materials) or in a continuous, graded way. It depends on what frequency response we want from our fiber optic.
+
+In closed resonant cavities rather than waveguides, we again solve Laplace's equation and fit boundary conditions. We can do this for parallelepiped cavities, closed tubes, and also spherical cavities.

@@ -1,0 +1,80 @@
+Today we'll discuss diffraction in various limits. We probably recall that $m\lambda=D\sin\theta$ gives the maxima in single slit diffraction, where $D$ is the distance from the single slit to the screen. In the double slit case, we get a similar pattern. Here, maxima occur at $m\lambda =d\sin\theta$, with $d$ the slit separation.
+
+For circular apertures, we get a similar pattern but the first minimum occurs at $1.22\lambda = D\sin\theta$, where this value has to do with the first minimum of the Bessel function.
+
+Long wavelengths correspond to a scattering limit; short wavelengths correspond to a diffraction limit ($\lambda/d \ll 1$). In scattering, we need to consider how the medium/target responds to the wave and re-radiates power; in diffraction, we just need to know how waves bend around obstacles.
+
+In scalar diffraction theory, we get a wave equation
+\begin{equation}
+    \nabla^2 \vec A - \frac{1}{c^2}\frac{\p^2 \vec A}{\p t^2} =0.
+\end{equation}
+By taking the Fourier transform we get a Helmholtz equation
+\begin{equation}
+    \nabla^2 \tilde A +k^2 \tilde A=0
+\end{equation}
+and we can try to solve this with Green's function methods.
+
+The Green's function for the 3D Helmholtz equation is (cf. Zangwill Eq.~10.79)
+\begin{equation}
+    G(\vec r', \vec r) = \frac{e^{\pm k|\vec r'-\vec r|}}{4\pi |\vec r'-\vec r|}
+\end{equation}
+which solves
+\begin{equation}
+    \nabla^2 G(\vec r',\vec r) + k^2 G(\vec r', \vec r) = -\delta(\vec r'-\vec r).
+\end{equation}
+
+Green's theorem(/identity) tells us we can write
+\begin{equation}
+    -a(\vec r)=\int_V\bkt{a(\vec r') \nabla'^2G(\vec r',\vec r)-G(\vec r', \vec r) \nabla'^2 a(\vec r')}dV' =\oint_S \bkt{a(\vec r') \nabla' G(\vec r',\vec r) - G(\vec r',\vec r) \nabla' a(\vec r')}dS'
+\end{equation}
+so we can rewrite
+\begin{equation}
+    a_k(\vec r) = -\int_{S_0} \bkt{a(\vec r') \nabla' G(\vec r',\vec r) - G(\vec r',\vec r) \nabla' a(\vec r')}dS'
+\end{equation}
+and now by specifying boundary conditions on the surface $S_0$ we can determine the solution $a$.
+
+There are different limits we might take here, the near-field and far-field limits. Near-field is Fresnel diffraction, while far-field is Fraunhofer diffraction. Close to the aperture, edge effects are more prominent as the wave bends around the edges of the aperture; farther away, we recover the single-slit pattern.
+
+Let's consider far-field diffraction, $\lambda \ll \vec r' \ll r$, where $\vec r'$ ranges over the aperture and $r$ is the location of the screen, which must be much larger than the size of the aperture. In this limit, we can write $\vec r'-\vec r \approx -\vec r$. Since we are working in a $\lambda \ll \vec r'$ limit, we also know that $k|\vec r'| \gg 1$ since $k=2\pi/\lambda$.
+
+Now
+\begin{equation}
+    a_D(\vec r) = \frac{-i}{2\pi}\int_{S_0} \frac{k(\vec r'-\vec r) \cdot \uv n'}{|\vec r'-\vec r|}a(\vec r') e(?)
+\end{equation}
+For a circular aperture we have
+\begin{equation}
+    a_D(\vec r) = ia_0 \vec k \cdot \uv n' \frac{e^{ikr}}{2\pi r} \int_0^R \int_0^{2\pi} e^{-i\Delta \vec k \cdot \vec r'}d\phi' r'dr'
+\end{equation}
+where $e^{-i\Delta \vec k \cdot \vec r'}=e^{i\Delta k r' \cos\phi'}$, with $\Delta k$ indicating the difference between the incident wavevector and the diffracted wavevector,
+\begin{equation}
+    \Delta k = \vec k-\vec k_0.
+\end{equation}
+Performing the integral gives us a Bessel function,
+\begin{equation}
+    \int_0^{2\pi} e^{-i\Delta k \cos\phi'}d\phi' = 2\pi J_0(\Delta k r')
+\end{equation}
+and integrating the $r'$ integral gives
+\begin{equation}
+    \int_0^R J_0(\Delta k r') r' dr' = \frac{R}{\Delta k}J_1(\Delta k R).
+\end{equation}
+We find that
+\begin{equation}
+    a(\vec r) = ia_0 (\vec k \cdot \uv n') \frac{J_1(\Delta k R)}{\Delta kR} \frac{R^2 e^{ikr}}{r}.
+\end{equation}
+This is our amplitude function, and by squaring it to get the intensity we see that minima correspond to zeroes of the Bessel function.
+
+Fresnel diffraction is the other limit, where $\lambda \ll \vec r \ll \vec r'$. Then we can expand
+\begin{equation}
+    |\vec r- \vec r'|^2 = r^2 + r'^2 -2\vec r \cdot \vec r'
+\end{equation}
+and
+$k|\vec r'-\vec r|$ has an expansion in $r/r'$.
+\begin{equation}
+    kr = k\vec r' \cdot \uv r + \frac{k r'^2}{2r} - \frac{k(\vec r \cdot \uv r')^2}{2r}+\dots
+\end{equation}
+
+Assuming Dirichlet boundary conditions we can perform a Kirchhoff integral,
+\begin{equation}
+    a(x,y0 = -ia_0 \frac{kL}{2\pi} \int dx' dy' \frac{e^{ik|\vec r'-\vec r|}}{|\vec r'-\vec r|^2}
+\end{equation}
+and find the expression for Fresnel diffraction.

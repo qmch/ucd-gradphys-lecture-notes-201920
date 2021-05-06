@@ -1,0 +1,131 @@
+Today we'll cover sections 16.1-16.4, on the wave equation.
+%
+Zangwill's discussion is of waves in vacuum, but in general we can do this with non-conducting, linear, homogeneous, isotropic media. We can break this down:
+\begin{itemize}
+    \item non-conducting: $\epsilon$ and $\mu$ are real (for conducting media, $\epsilon$ and $\mu$ have real and imaginary parts)
+    \item linear: $\vec D = \epsilon \vec E, \vec B = \mu \vec H$ (there is a whole field of non-linear optics)
+    \item homogenous: no spatial dependence (graded optics have many applications)
+    \item isotropic: no preferred direction (anisotropic media also have interesting applications)
+\end{itemize}
+The fact that conducting media respond to cancel applied fields means that there is not just transmission but absorption; waves passing through are damped as the charge carriers in the medium reshuffle to counter the applied field.
+
+Ferromagnets are an example of nonlinear media, as is the Kerr effect which changes the polarization of a wave. Nonlinearity usually kicks in when we hit physical limits on our ability to magnetize or polarize a substance, e.g. when the dipole moments in a ferromagnet are maximally aligned.
+
+We sum this up as simple media, which vacuum certainly is, but in general there are many others that will satisfy these conditions. Consider a simple medium in the absence of sources, $\rho=0,\vec J=0$. The source-free Maxwell equations have a nice symmetry:
+\begin{subequations}
+    \begin{gather}
+        \div \vec D = 0\\
+        \div \vec B = 0\\
+        \curl \vec E = -\P{\vec B}{t}\\
+        \curl \vec H = \P{\vec D}{t}.
+    \end{gather}
+\end{subequations}
+
+If we take the curl of Faraday's law, then
+\begin{equation}
+    \curl (\curl \vec E) = - \curl \paren{\P{\vec B}{t}}=-\P{}{t} (\curl \vec B).
+\end{equation}
+Now we use the double curl identity to rewrite the LHS as
+\begin{equation}
+    \curl (\curl \vec E) = \grad(\div \vec E) - \nabla^2 \vec E = -\nabla^2 \vec E
+\end{equation}
+by Gauss's law, and the RHS by Amp\`ere's law becomes
+\begin{equation}
+    -\P{}{t}\paren{\mu \epsilon \P{\vec E}{t}} = -\frac{1}{v^2}\frac{\p^2 \vec E}{\p t^2},
+\end{equation}
+which is a wave equation for each of the components of $\vec E$,
+\begin{equation}
+    \nabla^2 \vec E + \frac{1}{v^2}\frac{\p^2 \vec E}{\p t^2}=0
+\end{equation}
+
+Jackson takes a different approach; he writes the Maxwell equations and goes to the potential right away, with
+\begin{equation}
+    \vec E = -\grad \Phi - \P{\vec A}{t}, \vec B = \curl vec A.
+\end{equation}
+Inserting the potentials into Amp\`ere's law, we have
+\begin{equation}
+    \frac{1}{\mu} \curl(\curl \vec A) = \epsilon \P{}{t}\paren{-\grad \Phi - \frac{\p^2 \vec A}{\p t^2}}.
+\end{equation}
+Expanding out as before gives us
+\begin{equation}
+    \nabla^2 - \mu \epsilon \frac{\p^2 \vec A}{\p t^2} - \grad\paren{\div \vec A + \mu \epsilon \P{\Phi}{t}}=0.
+\end{equation}
+We can choose Coulomb gauge to write $\div \vec A =0$ and choose $\Phi=0$. we get Poisson's equation for $\Phi$ and the wave equation for $\vec A$, i.e.
+\begin{equation}
+    \nabla^2 \vec A - \mu \epsilon \frac{\p^2 \vec A}{\p t^2} =0
+\end{equation}
+and
+\begin{equation}
+    \epsilon\div(-\grad \Phi - \P{\vec A}{t})=0,
+\end{equation}
+so
+\begin{equation}
+    \nabla^2 \Phi=0.
+\end{equation}
+
+The wave equation was well-known by the time it was discovered Maxwell's equations had wave solutions. What was different was that EM waves could propagate through vacuum, without any medium necessary.
+
+Solutions t the wave equations can be written in terms of null coordinates. If we define
+\begin{equation}
+    \xi = vt - \uv n \cdot \vec r = \hat n^\mu s_\mu,
+\end{equation}
+where $\uv n$ indicates the direction of propagation, then we can consider harmonic solutions:
+\begin{equation}
+    \vec  A( \xi) = \text{Re}\paren{\vec A_0 e^{-ik(vt - \uv n \cdot \vec r)}},
+\end{equation}
+such that
+\begin{equation}
+    kv = \omega, \vec k = \sqrt{\mu \epsilon \omega^2} \uv n,
+\end{equation}
+or equivalently
+\begin{equation}
+    \vec A(\vec r,t) = \text{Re}\paren{\vec A_0 e^{-i(\omega t - \vec k \cdot \vec r)}}
+\end{equation}
+The electric field is
+\begin{equation}
+    \vec E = -\P{\vec A}{t} = i\omega \vec A = i\omega \vec A_0 e^{-i(\omega t-\vec k \cdot \vec r)}.
+\end{equation}
+The magnetic field is
+\begin{equation}
+    \vec B = \curl \vec A = i\vec k \times \vec A = i\vec k \times \vec A_0 e^{-i(\omega t -\vec k \cdot \vec r)}.
+\end{equation}
+Note we could also pick the complementary null coordinate $\eta = vt +\uv n \cdot \vec r$, which simply propagates in the $-\uv n$ direction.
+
+We could equivalently write the waves in terms of $e^{i\phi}$, where $\phi = \vec k \cdot \vec r - \omega t$, and this defines a phase velocity $v = \frac{d\vec r}{dt} = \frac{\omega}{k}$. The general solution need not be harmonic or periodic, but by a Fourier transform we can treat wave packets as a sum of Fourier modes.
+
+From the Coulomb gauge condition $\div \vec A=0$, we can see that%
+    \footnote{I think one can do this from a chain rule manipulation.}
+\begin{equation}
+    \uv n \cdot \frac{d\vec A}{d\xi}=0,
+\end{equation}
+so $\vec A \perp \uv n$ (up to a constant). It follows that if we choose $\Phi=0$, then
+\begin{equation}
+    \vec E = -\P{\vec A}{t} = -v \P{vec A}{\xi},
+\end{equation}
+while
+\begin{equation}
+    \vec B = \curl \vec A = -\uv n \times \P{\vec A}{\xi} = \frac{1}{v} \uv n \times \vec E \implies |\vec B| = \frac{1}{v} |\vec E|.
+\end{equation}
+We see that $\uv n, \vec E,$ and $\vec B$ form a right-handed orthogonal set, whre $\vec E$ and $\vec B$ are perpendicular and in phase.
+
+The energy density is
+\begin{equation}
+    u=\frac{1}{2} \vec E \cdot \vec D + \frac{1}{2} \vec B \cdot \vec H = \frac{\epsilon}{2} E^2 + \frac{1}{2\mu} B^2.
+\end{equation}
+One can similarly analyze the Poynting vector and the angular momentum in the fields.
+
+A final approach to this is to simply assume the form of a harmonic solution to the Maxwell equations (in particular, a plane wave) and write down a wave equation.
+
+If we study plane waves, we have solutions with $1/v=\sqrt{\mu\epsilon}$ and a wavevector $k=\sqrt{\mu \epsilon}\omega$, with a phase velocity $\omega/k = 1/\sqrt{\mu \epsilon} =c/n$, where $n$ is the index of refraction. The index of refraction may be complex, which indicates absorption, and moreover it may be frequency-dependent.
+
+We can superpose waves (e.g. plane waves) and in geneal construct
+\begin{equation}
+    \vec E = (\tilde E_1 \uv e_1 + \tilde E_2 \uv e_2) e^{i(\omega t + \vec k \cdot \vec r)},
+\end{equation}
+where $\uv n,\uv e_1$ and $\uv e_2$  form a right-handed set and $\tilde E_1,\tilde E_2$ are potnetially complex. That is, $\tilde E_{1/2} = E_{1/2} e^{i\phi_{1/2}}$.
+
+If $E_1$ and $E_2$ have the same phase, we get linearly polarized light which oscillates in the plane. If $\phi_1 \neq \phi_2$, we get elliptic polarized light, where the $E$-field rotates around the axis of propagation. In particular when $|E_1|=|E_2|$ and $\phi_1 =\phi_2 +\pi/2$, we get \term{circularly polarized light}. We can consider special basis vectors
+\begin{equation}
+    \uv e_\pm = \frac{1}{\sqrt{2}}(\uv e_1 \pm i \uv e_2)
+\end{equation}
+where the signs indicate the helicity (whether the field spirals in a right-handed or left-handed way. $+$ is counterclockwise, $-$ is clockwise.

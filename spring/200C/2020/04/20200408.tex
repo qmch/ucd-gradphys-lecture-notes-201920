@@ -1,0 +1,119 @@
+Today we'll cover more realistic wave setups. We can write wave packets as integrals over Fourier modes,
+\begin{equation}
+    \vec E = \text{Re} \frac{1}{(2\pi)^3}\int d^3k \, \vec {\mathcal E}_\perp(\vec k) e^{-i(\omega t- \vec k \cdot \vec r)}
+\end{equation}
+and then the corresponding $B$-field is
+\begin{equation}
+    c\vec B = \text{Re} \frac{1}{(2\pi)^3}\int d^3k \, (\uv k \times \vec {\mathcal E}_\perp(\vec k)) e^{-i(\omega t- \vec k \cdot \vec r)},
+\end{equation}
+where $\vec k$ defines a wave vector (a direction of propagation).
+
+Superposition and destructive interference allows us to constrain the transverse and longitudinal extent of the wavepacket. The $1/(2\pi)^3$ factor comes from taking the Fourier transform, working in radians; it is conventional. We're basically integrating over frequency components.
+
+We can also write scalar wave packets in terms of the potentials rather than the fields. That is, we can write
+\begin{equation}
+    U(\vec r,t) = \frac{1}{(2\pi)^3}\int d^3k \, \hat U (\vec k) e^{-i(\omega(\vec k) t- \vec k \cdot \vec r)}
+\end{equation}
+in terms of an amplitude $u$.
+%see notes
+
+Suppose we take one dimension at a time,
+\begin{equation}
+    u(x,t=0;y,z) = \Int dk_x \uv u(k_x) e^{ik_x x}.
+\end{equation}
+We have to integrate over ``negative frequencies'' in order to treat waves as propagating forwards or backwards. We need to pick a distribution for $\uv u(k_x)$. Let's posit a Gaussian in $x$:
+\begin{equation}
+    \uv u(k_x) = \frac{1}{\sqrt{\pi}\Delta k_x} \exp \bkt{-(k_x-k_{0x})^2/\Delta k_x^2}.
+\end{equation}
+The characteristic spread in $x$ is $\sigma=\Delta k_x$, and the beam is centered on $k_{0x}$.
+Why do we choose a Gaussian? Well, they are ubiquitous in nature and we have the mathematical apparatus to deal with them. If we insert this into our integral equation, we find that
+\begin{equation}
+    u(x,t=0) = \exp (ik_{0x} x) \exp (-x^2/(\Delta x)^2),
+\end{equation}
+so we get a beam which travels with wave number $k_{0x}$ and spatial width $\Delta x$ such that%
+    \footnote{I think this is saturated for the Gaussian beam.}
+\begin{equation}
+    \Delta x \Delta k_x \geq 1/2.
+\end{equation}
+
+The time evolution describes how the packet moves in space. We can talk of a ``grup velocity,'' how fast the packet moves.
+\begin{equation}
+    v_g = \grad_k \omega(\vec k)|_{\vec k=\vec k_0} = \frac{d\omega(\vec k)}{d\vec k)}|_{\vec k=\vec k_0}.
+\end{equation}
+The frequency dependence defines a dispersion relations, so that e.g.
+\begin{equation}
+    \omega = vk = \frac{c}{n}k
+\end{equation}
+gives the group velocity as $c/n$, which depends on the index of refraction.
+Then
+\begin{equation}
+    u(\vec r,t) = \frac{1}{(2\pi)^3} \int d^3 k \uv u(\vec k) e^{i(\vec k-\vec k_0) (\vec r - v_g t)} e^{-i(\omega_0t- \vec k_0 \cdot \vec r)}.
+\end{equation}
+
+Fourier transforms allow us to go between time and frequency domains (the amplitude $u(\vec r,t)$ and its Fourier transform $\hat u(\vec r, \omega)$).
+
+If we substitute
+\begin{equation}
+    \hat u(\vec r, \omega) e^{-i\omega t}
+\end{equation}
+into the wave equation, we find that the wave equation becomes a condition on the Fourier transform,
+\begin{equation}
+    \nabla^2 u -\frac{1}{c^2} \frac{\p^2 u}{\p t^2} =0 \implies \paren{\nabla^2 + \frac{\omega^2}{c^2} }\hat u(\vec r,\omega)=0.
+\end{equation}
+We have transformed the wave equation into the \emph{Helmholtz equation}, which is also well-studied.
+
+Now let us further make the paraxial approximation, i.e. we suppose the rays are close enough to the axis that $\sin\theta \approx \tan \theta \approx \theta.$ We start with the (source-free) Helmholtz equation,
+\begin{equation}
+    \nabla^2 \psi + k^2 \psi =0,
+\end{equation}
+where $\psi$ can be any component of $E$ or $B$, where $k=2\pi/\lambda$. We take
+\begin{equation}
+    \psi(\vec r,t) = \psi_0(\vec r,t) e^{i(kz-\omega t)},
+\end{equation}
+where $\psi_0$ is the beam profile. Taking the Laplacian gives us
+\begin{equation}
+    \nabla^2 \psi = \frac{\p^2 \psi_0}{\p x^2} +\frac{\p^2 \psi_0}{\p y^2} +\bkt{ik\P{\psi_0}{z} - k^2 \psi_0 + \frac{\p^2 \psi_0}{\p z^2}+ik\P{\psi_0}{z}}.
+\end{equation}
+Plugging back into the Helmholtz equation, the $k^2$ terms cancel. OUr paraxial apprixmation also says that the second derivative in $z$ is small, so we have
+\begin{equation}
+    \frac{\p^2 \psi_0}{\p x^2} +\frac{\p^2 \psi_0}{\p y^2} + 2ik \P{\psi_0}{z}=0,
+\end{equation}
+which we call the \term{paraxial wave equation}. In cylindrical coordinates we would instead have
+\begin{equation}
+    \frac{\p^2 \psi_0}{\p \rho^2} +\frac{1}{\rho} \P{\psi_)}{\rho} +2ik \P{\psi_0}{z}=0,
+\end{equation}
+where we can assume azimuthal symmetry.
+
+The solution to this equation has the form
+\begin{equation}
+    \psi_0(\rho,z) = \frac{w_0}{w} \exp \bkt{-\frac{\rho^2}{w^2} - \frac{i\pi \rho^2}{\lambda R} + i \rho_0}
+\end{equation}
+where this beam has a gaussian width profle in $\rho$ and also oscillates in the radial direction, with
+\begin{equation}
+    w(z) = w_0\bkt{1+\paren{\frac{\lambda z}{\pi w_0^2}}^2}^{1/2}
+\end{equation}
+and
+\begin{equation}
+    R(z) = z\bkt{1+\paren{\frac{\pi w_0^2}{\lambda z}}^2},
+\end{equation}
+which defines a radius of curvature of the wavefront as a function of $z$. That is, at $z=0$ we have an ``infinite'' radius of curvature of the wavefront, and $w(z)$ defines a characteristic radius of the beam in the radial directions.
+
+There's also an extent in $z$ where the beam remains reasonably confined:
+\begin{equation}
+    z_R = \frac{\pi \omega_0^2}{\lambda},
+\end{equation}
+which is the value of $z$ for which the beam area doubles ($w(z_R) = \sqrt{2} w_0$).
+
+This is actually just the lowest order mode solution. For other symmetries we can expand in Hermite or Laguerre polynomials, as needed.%
+    \footnote{We shouldn't be surprised at finding the Hermite or Laguerre polynomials, since the Helmholtz equation is closely related to the Schr\"odinger equation.}
+    
+In rectangular symmetry we get Hermite polynomials
+\begin{equation}
+    \psi_{0,mn}(z) = \frac{1}{w(z)} H_m\bkt{\frac{\sqrt{2}x}{w(z)}}H_n\bkt{\frac{\sqrt{2}y}{w(z)}} \dots
+\end{equation}
+(I didn't finish writing it down)
+and for circular symmetry we would get Laguerre polynomials.
+
+We can also discuss Fabry-Perot resonators, which are not covered in Zangwill. These are cavities which have two spherical mirrors set some distance from a center point. If we send light into the cavity (supposing the mirrors have some transmission), we can consider a symmetric resonator with equal focal lengths and find a nice expression for the waist of the beam. Moreover, we can work out what frequencies will constructively interfere in the cavity and find a characteristic frequency of the resonator.
+
+There are a whole range of cavity setups we can construct based on the values of the focal lengths or equivalently the radii of curvature of the mirrors.

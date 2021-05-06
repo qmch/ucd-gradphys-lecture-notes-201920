@@ -1,0 +1,71 @@
+Today we'll discuss reflection and transmission of waves in simple matter (Zangwill 17.1-17.3).
+\subsection*{Introduction}
+As we've said, simple matter is matter that is linear, homogeneous, and isotropic. The polarization or magnetization responds linearly to applied fields, and the object is the same everywhere and in every direction.
+We also require that our media is nonconductive, so there is no attenuation (compare a Faraday cage). In conductive media, the $E$ and $B$ fields can get out of phase. We should also restrict to nondispersive media, which responds to all frequencies in the same way (as opposed to e.g. a prism of acrylic, where the index of refraction depends on the frequency of light passing through).
+
+\subsection*{Reflection and transmission}
+Strictly, we should work with wave packets and Gaussian optics. However, for our discussion we'll make the simplifying assumption of dealing with plane waves. Suppose we have two media separated at $z=0$, defined by indices of reaction $n$ and $n'$. We'll send in a wave with unit wavevector $\uv k$ and two perpendicular directions $\uv p,\uv s$. Let's treat reflection in the $xz$-plane. We'll have $\uv p$ parallel to the plane of incidence, and $\uv s$ perpendicular.%
+    \footnote{From \emph{senkrect}, perepndicular in German}
+
+For $z<0, n = \sqrt{\mu \epsilon}$, while $z>0$ has an index of refraciton $n'= \sqrt{\mu' \epsilon'}$.
+
+The incident electric field is
+\begin{equation}
+    \vec E_\text{inc} = \vec E_0 e^{i(\vec k \cdot \vec r - \omega t)},
+\end{equation}
+while the reflected field is
+\begin{equation}
+    \vec E_\text{ref} = \vec E_0'' e^{i(\vec k'' \cdot \vec r - \omega'' t)},
+\end{equation}
+and
+\begin{equation}
+    \vec E_\text{trans} = \vec E_0' e^{i(\vec k' \cdot \vec r - \omega't)}.
+\end{equation}
+Note that $z>0$ has just $\vec E_\text{trans}$, while $z<0$ has the sum $\vec E_\text{inc}+\vec E_\text{ref}$. At the interface $z=0$, we apply matching conditions and find that the fields must have the same space and time dependence,
+\begin{equation}
+    (\vec k \cdot \vec r - \omega t)=(\vec k' \cdot \vec r - \omega' t)=(\vec k'' \cdot \vec r - \omega'' t).
+\end{equation}
+This gives us some important constraints.
+\begin{itemize}
+    \item $\omega = \omega'=\omega''$ because the only time dependence is in $\omega t$
+    \item $k_x=k_x'=k_x''$ because the variables in $\vec r$ are independent
+    \item $k_y =k_y'=k_y''=0$
+    \item $|k_z|=|k_z''|$ because $k=\omega/v = n\omega/c$
+\end{itemize}
+These give us the basic laws of optics:
+\begin{itemize}
+    \item Plane of incidence (if the wave starts in the $xz$ plane it stays in the plane)
+    \item $\theta_\text{inc} = \theta_\text{ref}$
+    \item Snell's law, $n\sin\theta_1 = n_2 \sin\theta_2$.
+\end{itemize}
+
+To get the transmission and reflection coefficients, we apply the boundary conditions.
+\begin{itemize}
+    \item $\Delta E_\text{tan}=0\implies (E_0+E_0'')_{x,y}=(E_0')_{x,y}$
+    \item $\Delta D_\text{norm}=\sigma_f=0 \implies \epsilon(E_0 + E_0'')_z =\epsilon'(E_0')_z$
+    \item $\Delta B_\text{norm}=0\implies (B_0+B_0'')_z = (B_0')_z$
+    \item $\Delta H_\text{tan} = \vec K_f =0 \implies \frac{1}{\mu}(B_0+B_0'')_{x,y}= \frac{1}{\mu'}(B_0')_{x.y}$,
+\end{itemize}
+where tan is the tangential component and norm is the normal one.
+
+Now we may choose a polarization. Let us define $\uv s=\uv y$ and $\uv p\equiv \cos \theta \uv x - \sin \theta \uv z$. For the $p$-polarization, we choose $\vec E$ to lie along $\uv p$ and $\vec B$ to lie along $\uv s$. We could have also chosen the $E$-field to lie along $\uv s$ instead, which is (quite reasonably) the $s$-polarization. We get four equations, though one is trivial. From the boundary conditions,
+\begin{itemize}
+    \item $(E_0+E_0'')\cos\theta=E_0'\cos\theta'$ ($\uv x$ component, the $\uv y$ equation is trivial)
+    \item $\epsilon(E_0 + E_0'')\sin\theta =\epsilon'E_0'\sin\theta'$ (from the $\uv z$ matching condition on $D$)
+    \item $0=0$ (from the $B_\text{norm}$ condition in this polarization)
+    \item $\frac{1}{\mu}(\sqrt{\mu \epsilon}E_0+\sqrt{\mu\epsilon}E_0'')= \frac{1}{\mu'}\sqrt{\mu'\epsilon'} E_0'$ (from the $\uv y$ component of the $H_\text{tan}$ equation).
+\end{itemize}
+
+We're left with three independent equations and three unknowns: $\theta',E_0',E_0''$. %slide 4
+Snell's law relates $\theta'$ to $\theta$ in terms of the indices of refraction, so we can rewrite the second equation above in terms of $\sin\theta$. 
+Solving the system of equations gives us an expression for the transmitted wave,
+\begin{equation}
+    \frac{E_0'}{E_0} = \frac{2}{\frac{\mu n'}{\mu'n} + \frac{\cos\theta'}{\cos\theta}}\equiv t_{12,P}
+\end{equation}
+when the wave has the $p$-polarization. One can similarly compute the transmission and reflection coefficients for the other polarization. These are called the Fresnel coefficients, after Augustine-Jean Fresnel, who originally worked out these coefficients. Fresnel is also known for the design known as the Fresnel lens, which allows focusing of light without having a (spherical) lens that gets very thick in the middle.
+
+Note that we can also define
+\begin{equation}
+    R=r_{12}^2,\quad T = \frac{\epsilon_2 v_2}{\epsilon_1v_1}t_{12}^2 \frac{\cos\theta_2}{\cos\theta_1}.
+\end{equation}
+There are critical angles we might consider, where a ray going from a slow to fast medium can experience total internal reflection.

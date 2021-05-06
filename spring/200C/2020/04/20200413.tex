@@ -1,0 +1,108 @@
+Today we'll move into sections 17.4-17.7, which is various topics in reflection and refraction for layered and conductive materials. Layered media are interesting because multiple reflections allow us to have interference effects. Suppose we have a single layer of material (say, glass) with index of refraction $n$ and thickness $d$, surrounded by air (index of refracition $n_0\approx 1$).
+
+As we send in a beam at an angle $\theta_0$, it is refracted to an angle $\theta$ in the interior and back to $\theta_0$ as it leaves the second interface. We can calculate Fresnel coefficients for the air-glass interface and the glass-air interface, i.e. there is some $r,t$ corresponding to entering the medium, and $r',t'$ for leaving it.
+
+In fact, it's not just that the ray is completely transmitted when it hits the glass-air side of the layer---part of it will be reflected back into the medium with an amplitude $r'$. These patterns of reflection give us interference patterns, an infinite series of reflections and transmissions:
+\begin{equation}
+    E_T = E_I \bkt{tt' + tr'r' t' e^{i\Delta\varphi}+t(r'r')^2 t' e^{i2\Delta \varphi} +\dots} = \frac{tt'}{1-r'r' e^{i\Delta\varphi}}E_I,
+\end{equation}
+since this is a geometric series with ratio $r'^2 e^{i\Delta \varphi}$. The phase difference $\Delta \varphi$ comes from the path length difference in the medium from multiple reflections. We might have seen this in thin lenses/optics, or in the interference patterns of soap bubbles and oil slicks.
+
+Now, by analyzing a single interaction at the glass-air interface, we can relate some of the Fresnel coefficients and find the \term{Stokes relations}.%See diagram.
+
+If we time-reverse the process, we find that
+\begin{equation}
+    r^2 +tt' = 1 \text{ and } tr'+rt=0,
+\end{equation}
+so we learn that
+\begin{equation}
+    r=r', \quad tt' = 1-r^2 = 1-R.
+\end{equation}
+This allows us to write \term{Airy's formula} for the fraction of transmitted energy,
+\begin{equation}
+    \abs*{\frac{E_T}{E_I}}^2  = \bkt{1+\frac{4R}{(1-R)^2} \sin^2 (\Delta \varphi/2)}^{-1}
+\end{equation}
+where the phase shift is given explicitly by
+\begin{equation}
+    \frac{\Delta \varphi}{2}=n\frac{\omega}{c} d\cos\theta
+\end{equation}
+using Snell's law and a bit of geometry ($\Delta \varphi = 2kl-k_0 a$ with $k=n\omega/c, k_0 = n_0 \omega/c$). We see that when $\Delta \varphi/2$ is an integer multiple of $\pi$, we have maximum transmission ($\abs{\cT}^2=1$) and moreover we can make the transmission sharply peaked around these values by making $R$ very close to $1$.
+
+\subsection*{Simple conducting media}
+We previously required our media to be non-conducting. If we relax that constraint, we can still understand some aspects of the problem. We can take our media to still be linear and Ohmic:
+\begin{equation}
+    \vec D = \epsilon \vec E, \vec B =\mu \vec H, \vec J_f = \sigma \vec E.
+\end{equation}
+Let's also assume that $\rho_f=0$, there is no free charge density. Maxwell's equations take the form
+\begin{gather}
+    \div \vec E = 0, \quad \div \vec H =0,\\
+    \curl \vec E = -\mu \P{\vec H}{t}, \quad \curl \vec H = \sigma \vec E + \epsilon \P{\vec E}{t},
+\end{gather}
+where we've chosen to write everything in terms of just the $E$ and $H$ fields. This allows us to set up a wave equation:
+\begin{equation}
+    \paren{\nabla^2 - \mu \sigma \P{}{t} - \mu \epsilon \frac{\p^2}{\p t^2}}\set*{\begin{matrix}
+        \vec{E} \\ \vec{H}
+    \end{matrix}}=0.
+\end{equation}
+The first derivative term is new; it introduces dissipation into our wave equation. THe conducting medium drains energy as Joule heating:
+\begin{equation}
+    \frac{dW}{dt} =\int_V d^3r \, \vec J_f \cdot \vec E = \sigma \int_V d^3r \, |\vec E|^2.
+\end{equation}
+If we consider a plane wave of the form
+\begin{align}
+    \vec E (\vec r,t) &= \vec E \exp \bkt{i(\vec k \cdot \vec r -\omega t)}\\
+    \vec H (\vec r,t) &= \vec H \exp \bkt{i(\vec k \cdot \vec r -\omega t)},
+\end{align}
+then the divergence equations (the Gauss laws/monopole law) tell us that
+\begin{equation}
+    \vec k \cdot \vec E = 0, \quad \vec k \cdot \vec B =0,
+\end{equation}
+so the fields are still transverse. However, the curl equations give
+\begin{equation}
+    \curl \vec E = \omega \mu \vec H , \quad \vec k \times \vec H = -\omega(\epsilon + i \frac{\sigma}{\omega})\vec E.
+\end{equation}
+That is, we can treat our permittivity as complex, $\tilde \epsilon(\omega) = \epsilon + i \frac{\sigma}{\omega} = \epsilon'+i\epsilon''$.%
+    \footnote{It was kind of arbitrary to make the permittivity rather than the permeability complex. However, most of our materials in the lab are non-magnetic, so $\mu=\mu_0$ and we need not worry about magnetization effects.}
+Since we have a complex dielectric constant, we will have a complex and frequency-dependent index of refraction. That is, we expect absorption (dissipation) and also dispersion. We have
+\begin{equation}
+    \vec k\cdot \vec k = \tilde k^2 = \tilde \epsilon(\omega) \mu \omega^2 = \mu \epsilon \omega^2 + i \mu \sigma \omega = \tilde n^2(\omega) \frac{\omega^2}{c^2},
+\end{equation}
+where the index of refraction is complex as promised. Then
+\begin{equation}
+    \vec k = \tilde k \uv k = \tilde n \frac{\omega}{c} \uv k = (n' + in'') \frac{\omega}{c} \uv k
+\end{equation}
+in Zangwill's notation, splitting the index of refraction into real and imaginary parts.
+
+Note that we still have transverse plane waves,
+\begin{equation}
+    \vec k = \tilde n \frac{\omega}{c}\uv k, \quad \uv k \cdot \vec E = 0,
+\end{equation}
+and moreover we arrive at a complex impedance $\tilde Z(\omega)$ such that
+\begin{equation}
+    \tilde Z(\omega)\vec H = \vec k \times \vec E
+\end{equation}
+with $\tilde Z(\omega) = \sqrt{\mu/\tilde \epsilon(\omega)}$. The complex impedance means that waves in conductors (the $\vec E$ and $\vec H$ fields) are no longer in phase. The induced Faraday currents from the changing electric fields causes the fields to go out of phase.
+
+Our wave takes the form
+\begin{equation}
+    \vec E = \vec E_0 e^{-\frac{\omega}{c} n'' \uv k \cdot \vec r}\exp \bkt{i(\vec k \cdot \vec r - (?)}
+\end{equation}
+which has manifestly an oscillating and decaying part.
+There's a skin depth to a material, $\delta(\omega) = \sqrt{2/\mu \sigma \omega}$, and 
+If we consider the wave impedance, we can write it as
+\begin{equation}
+    \tilde Z = \sqrt{\mu}{\epsilon+ i\sigma \omega} \approx \sqrt{\frac{\mu \omega}{i\sigma}} = \sqrt{\frac{\mu \omega}{\sigma}}e^{i\pi/4} = \frac{1-i}{\sigma \delta}
+\end{equation}
+under the assumption for a good conductor that $\sigma \omega/\mu \gg 1$. The physical electric field in a good conductor looks like a damped oscillator with an envelope $\exp(-z/\delta)$, where the skin depth $\delta$ defines a characteristic penetration length.
+
+This leads us also to complex Fresnel coefficients in terms of the complex impedances. If we then compute the reflectivity, we find that
+\begin{equation}
+    R(\omega) =|\tilde r(\omega)|^2 = \abs*{\frac{\tilde n_2 - n_1}{\tilde n_2+n_1}}^2 \approx \frac{1-n_1/n_2'}{1+n_1/n_2'}=(?)
+\end{equation}
+in terms of the conductivity.
+
+Anisotropic media is also interesting and useful. The permittivity $\epsilon$ becomes a permittivity tensor $\epsilon_{ij}$ such that
+\begin{equation}
+    \tilde P_i = \epsilon_0 \chi_{ij} \tilde E_j,
+\end{equation}
+since a crystal might have a different response to fields in different directions. A cubic crystal would be isotropic, the same in all directions, while crystals with preferred axes might produce more complicated polarizations and $D$-fields. We get two different phase speeds, leading to the phenomenon of birefringence.

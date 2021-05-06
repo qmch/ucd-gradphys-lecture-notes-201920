@@ -1,0 +1,109 @@
+We've completed our study of electrostatics, and now it's time to begin electrodynamics. We'll write the versions in materials to recap:
+\begin{subequations}
+    \begin{gather}
+        \div \vec D = \rho_f\\
+        \div \vec B = 0\\
+        \curl \vec E = -\P{\vec B}{t}\\
+        \curl \vec H = \vec J_f + \P{\vec D}{t}.
+    \end{gather}
+\end{subequations}
+
+In statics, the total charge is
+\begin{equation}
+    \rho = \rho_f - \div \vec P,
+\end{equation}
+where $-\div \vec P$ is the polarization charge, and the total current is
+\begin{equation}
+    \vec J = \vec J_f + \curl \vec M,
+\end{equation}
+where $\curl \vec M$ is the magnetization current.%
+    \footnote{Last quarter we also considered fictitious magnetic charges.}
+    
+In dynamics, there is an additional term in the total current. We need not only free current and magnetization current but also \emph{polarization current}:
+\begin{equation}
+    \vec J = \vec J_f + \curl \vec M + \P{\vec P}{t}.
+\end{equation}
+We'll also define the auxiliary fields
+\begin{align}
+    \vec D &= \epsilon_0 \vec E + \vec P = \epsilon \vec E,\\
+    \vec H &= \frac{1}{\mu_0}\vec B - \vec M = \frac{1}{\mu} \vec B
+\end{align}
+Good dielectrics have $\epsilon/\epsilon_0 \sim 4$-$10$, while good magnets have permittivities of over $1000$.
+
+Maxwell introduced an important correction to Amp\`ere's law. In statics,
+\begin{equation}
+    \curl \vec H = \vec J.
+\end{equation}
+It follows that since the divergence of a curl vanishes,
+\begin{equation}
+    \div \vec J = 0
+\end{equation}
+in statics. This makes sense, since it says that charge is not accumulating or depleting from anywhere. More generally, the continuity equation tells us that
+\begin{equation}
+    \div \vec J +\P{\rho_f}{t} =0,
+\end{equation}
+so since $\rho_f = \div \vec D$, we can write
+\begin{equation}
+    \div \paren{\vec J_f + \P{\vec D}{t}}=0
+\end{equation}
+and now we have a proper divergence-free quantity to put on the RHS of Ampere's law:
+\begin{equation}
+    \curl \vec H = \vec J_f + \P{\vec D}{t}
+\end{equation}
+
+\begin{exm}
+    We have an infinite straight wire with cross-sectional area $\pi a^2$, and the wire has a break. We wish to find the displacement current in the gap. A current $I(t)=I_0 \cos \omega t$ flows in the wire.
+    
+    Since the charge can't jump the gap, we get a charge density $\sigma$ building up on each of the faces of the wire. Namely,
+    \begin{equation}
+        \vec E_\text{gap} = \frac{\sigma}{\epsilon_0}
+    \end{equation}
+    with
+    \begin{equation}
+        \sigma = \int \vec J dt = \int \frac{I(t)}{\pi a^2} dt,
+    \end{equation}
+    and then the displacement current is
+    \begin{equation}
+        \vec J_D = \P{\vec D}{t} = \P{\epsilon_0 \vec E}{t} = \epsilon_0 \P{\vec E_\text{gap}}{t} = \P{\sigma}{t} =\frac{I(t)}{\pi a^2}.
+    \end{equation}
+    We conclude that
+    \begin{equation}
+        I_D = \pi a^2 \vec J_D = I(t),
+    \end{equation}
+    so in fact the displacement current is equal to the current in the wire. Note we had to have a time dependence, or else our capacitor would charge up. At 20,000 V/cm, air breaks down and we get a spark.
+\end{exm}
+
+Faraday's law is the other important time-dependent Maxwell equation,
+\begin{equation}
+    \curl vec E = -\P{\vec B}{t}.
+\end{equation}
+Changing magnetic fields can induce an electromotive force (EMF), such that
+\begin{equation}
+    \epsilon = \oint_C \vec E \cdot d \vec l,
+\end{equation}
+such that $\vec E $ is the electric field at a line element $d\vec l$ of the circuit. This minus sign is important enough to have its own name, Lenz's law. Faraday's observations said that
+\begin{equation}
+    \epsilon = -K \frac{d\Phi}{dt},
+\end{equation}
+where $k=1$ in SI units. For a moving circuit (say, a wire loop), we see that the flux can change either if $\vec B$ changes or if the motion changes the flux through the circuit,
+\begin{equation}
+    \frac{d}{dt}\int_S \vec B \cdot \uv n dA = \int_S \P{\vec B}{t} \cdot \uv n d A + \oint (\vec B \times \vec v) \cdot d \vec l,
+\end{equation}
+Now the electromotive force is
+\begin{equation}
+    \oint_C \vec E \cdot d\vec l = -k \int_S \P{\vec B}{t}\cdot \uv n dA,
+\end{equation}
+where
+\begin{equation}
+    \vec E' = \vec E + k(v\times \vec B),
+\end{equation}
+with $\vec E'$ in the (co-)moving frame moving at velocity $\vec v$, and $\vec E$ measured in the lab frame. A conduction electron is basically at rest in the frame of the circuit, so it experiences a purely electric force, $\vec F = q\vec E'$ and so in the lab frame, $\vec F = q(\vec E + \vec v \times \vec B)$.
+
+If the circuit is fixed in the lab frame, then
+\begin{equation}
+    \oint_C \vec E \cdot d\vec l = \int_S (\curl \vec E) \cdot \uv n dA = -\int_S \P{\vec B}{t} \cdot \uv n dA,
+\end{equation}
+so
+\begin{equation}
+    \curl \vec E = -\P{\vec B}{t}.
+\end{equation}

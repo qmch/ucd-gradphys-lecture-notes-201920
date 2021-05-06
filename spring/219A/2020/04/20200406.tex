@@ -1,0 +1,93 @@
+Where we left off last time was with thermodynamics in terms of stability and second-order theromodynamic derivatives. We'll also start our discussion of probability today.
+
+There's a rule from Gibbs which tells us under what circumstances phases can coexist. The dimensionality of the lines/points/etc. at which phases can coexist depends on the number $n$ of ways of doing work on the system, the $c$ number of species, and the $l$ ways of expelling heat from the system. It also depends on the number of phases. The equation is
+\begin{equation}
+    d = n+ c +l -p.
+\end{equation}
+
+For three phases, coexistence can basically only happen at a point; for two, at a line. We have $n=1,c=1,l=1$ and so when $p=3$ we have $d=0$, for $p=2$ we have $d=1$. This is a handy rule to help us understand phases.%
+    \footnote{Zach asked a question-- could a strong enough electric field expand the triple point of water into a triple-line? The answer seems to be yes-- we've added a way of doing work, so in the expanded phase diagram we have a bigger range where the three phases can coexist.}
+    
+Equilibrium thermodynamics says that the first-order variations of the relevant thermodynamic potentials are zero, i.e. for a potential $U$,
+\begin{equation}
+    \delta U=0.
+\end{equation}
+The variations are second-order in their displacements,
+\begin{equation}
+    \delta U = \sum_{i,j} \frac{\p^2 U}{\p x_i \p x_j}\delta x_i \delta x_j >0,
+\end{equation}
+and quadratic.%
+    \footnote{I think these are quadratic forms?}
+
+In particular this defines variations in generalized forces,
+\begin{equation}
+    \frac{\p^2 U}{\p x_i \p x_j}\delta x_i = \delta J_j,
+\end{equation}
+so
+\begin{equation}
+    \delta T \delta s + \sum_i \delta \mathcal{J}_i \cdot \delta \vec x_i >0,
+\end{equation}
+where
+\begin{equation}
+    \delta S = \P{S}{T}|_{\vec x} \delta T +\P{S}{\vec x_i}|_T \cdot \delta \vec x_i
+\end{equation}
+and
+\begin{equation}
+    \delta \mathcal{J}_i = \P{\mathcal{J}_i}{T}|_{\vec x} \delta \vec T + \P{\mathcal{J}_i}{\vec x}|_T \cdot \delta \vec x.
+\end{equation}
+Putting these total variations into our expression for the overall variation of the energy, we have
+\begin{equation}
+    \P{S}{T}|_{\vec x}(\delta T)^2 + \P{S}{\vec x}|_T \delta \vec x \delta T + \P{\mathcal{J}}{T}|_{\vec x} \delta T \delta x + \P{\mathcal{J}}{\vec x}|_T \delta \vec x \delta \vec x>0
+\end{equation}
+The cross-terms cancel by the Maxwell relations, so we notice that
+\begin{equation}
+    \P{S}{T}|_{\vec x} = C_{\vec x} >0,
+\end{equation}
+which tells us the heat capacity must be positive for stability. For We also fidn that
+\begin{equation}
+    \delta V \paren{-\P{P}{V}|T}\delta V >0,
+\end{equation}
+so we can say that
+\begin{equation}
+    -\P{P}{V}|_T = V^{-1} K_T >0,
+\end{equation}
+i.e. the coefficient of expansion is positive, $K_T >0$.
+
+The third law also tells us something interesting. It says that substances which go to zero temperature go to zero entropy. Degenerate ground states notwithstanding, substances cooled down to absolute zero settle into a unique ground state.
+%Poll question-- if $C\sim T^{1-a}$ as $T\to 0$,
+In general we must have $S(T)-S(0) = \int_0^T \frac{C(T')}{T'}dT' =0$.
+
+\subsection*{Probability}
+In talking about probability, we must consider a set $S$ of outcomes and a single outcome is called an event $E$. For instance, a coin toss has $S=\set{\text{heads},\text{tails}}$ and an event might be $E=\text{heads}$. The same is true for a particle spin, which could be $\uparrow$ or $\downarrow$.
+
+If we toss the coin many times, we have to take a direct sum of the space of outcomes, as
+\begin{equation}
+    S=S_1 \oplus S_2 \oplus \dots \oplus S_N,
+\end{equation}
+where there are (in the case of the coin toss) $2^N$ outcomes, and an event looks like
+\begin{equation}
+    E=\set{\text{heads,tails,}\dots,\text{tails}}.
+\end{equation}
+A spin is similar (provided that the spins are distinguishable).
+
+In the case of a spin, there might be an applied field which weights the spins unevenly as $E=-\mu HS_z$, such that
+\begin{equation}
+    P(\uparrow) = \frac{e^{\beta \mu H/2}}{e^{\beta \mu H/2} + e^{-\beta \mu H/2}},
+\end{equation}
+where $S_z=\pm 1/2$ and we've used Boltzmann weights for these outcomes.
+
+Probabilities obey the following:
+\begin{itemize}
+    \item $P(E)\geq 0$.
+    \item If $E_1$ and $E_2$ are exclusive, $P(E_1)\text{ or }E_2)=p(E_1)+p(E_2)$.
+    \item $\sum_E p(E)=1$.
+\end{itemize}
+
+There are two classical approaches to probability, the frequentist and Bayesian approaches. In the experimental/frequentist/a posteriori approach, we take many trials and say that if we observe the outcome $N_E$ times in $N$ trials, then the probability is
+\begin{equation}
+    P(E) = \lim_{N\to \infty} (N_E/N).
+\end{equation}
+On the other hand, we can also apply make an a priori prediction of probability based on a pre-existing theory.
+\begin{exm}
+    Suppose we inscribe a quarter circle in a square of side length $1$. What is the probability of a dart falling inside the circle? It is the ratio of the areas. The quarter circle has area $\pi/4$ and the square has area $1$, so the probability is just $\pi/4 \sim 0.785$.
+\end{exm}
